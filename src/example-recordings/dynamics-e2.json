@@ -1,0 +1,44 @@
+{
+  "isBinning": false,
+  "barLimit": 100,
+  "notes": [
+    {
+      "velocity": 31,
+      "number": 47,
+      "note": "B",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "velocity": 70,
+      "number": 47,
+      "note": "B",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "velocity": 88,
+      "number": 47,
+      "note": "B",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "velocity": 110,
+      "number": 47,
+      "note": "B",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "velocity": 123,
+      "number": 47,
+      "note": "B",
+      "isSharp": false,
+      "channel": 1
+    }
+  ],
+  "_appId": "dynamics",
+  "_softwareVersion": "0.14.0",
+  "_date": "2024-09-24T13:45:03.134Z"
+}

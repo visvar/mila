@@ -1,0 +1,169 @@
+{
+  "isBinning": false,
+  "barLimit": 50,
+  "notes": [
+    {
+      "time": 0,
+      "velocity": 90,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.384,
+      "velocity": 66,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.8109000000953674,
+      "velocity": 64,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 1.2799000000953675,
+      "velocity": 62,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 1.7509000000953674,
+      "velocity": 100,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.201,
+      "velocity": 65,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.679,
+      "velocity": 65,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.1679000000953677,
+      "velocity": 67,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.6569000000953675,
+      "velocity": 96,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.164,
+      "velocity": 68,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.702,
+      "velocity": 71,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 5.2259000000953675,
+      "velocity": 68,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 5.767,
+      "velocity": 100,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.298900000095367,
+      "velocity": 72,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.853,
+      "velocity": 72,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 7.42,
+      "velocity": 69,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 7.978900000095368,
+      "velocity": 100,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 8.477900000095367,
+      "velocity": 63,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.05,
+      "velocity": 67,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.594,
+      "velocity": 69,
+      "number": 48,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    }
+  ],
+  "_appId": "dynamics",
+  "_softwareVersion": "0.14.0",
+  "_date": "2024-09-24T14:22:40.445Z"
+}

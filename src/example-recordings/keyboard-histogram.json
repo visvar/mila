@@ -1,0 +1,219 @@
+{
+  "pastNoteCount": 500,
+  "scaleRoot": "F",
+  "scaleType": "minor",
+  "notes": [
+    {
+      "number": 77,
+      "velocity": 86,
+      "time": 9803,
+      "channel": 1
+    },
+    {
+      "number": 80,
+      "velocity": 44,
+      "time": 11767,
+      "channel": 1
+    },
+    {
+      "number": 83,
+      "velocity": 63,
+      "time": 14268,
+      "channel": 1
+    },
+    {
+      "number": 84,
+      "velocity": 92,
+      "time": 15230,
+      "channel": 1
+    },
+    {
+      "number": 86,
+      "velocity": 71,
+      "time": 18069,
+      "channel": 1
+    },
+    {
+      "number": 85,
+      "velocity": 72,
+      "time": 18632,
+      "channel": 1
+    },
+    {
+      "number": 84,
+      "velocity": 51,
+      "time": 21593,
+      "channel": 1
+    },
+    {
+      "number": 80,
+      "velocity": 80,
+      "time": 21913,
+      "channel": 1
+    },
+    {
+      "number": 79,
+      "velocity": 59,
+      "time": 22830,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 62,
+      "time": 23816,
+      "channel": 1
+    },
+    {
+      "number": 89,
+      "velocity": 75,
+      "time": 26825,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 49,
+      "time": 30379.900000095367,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 77,
+      "time": 31780,
+      "channel": 1
+    },
+    {
+      "number": 68,
+      "velocity": 43,
+      "time": 34496,
+      "channel": 1
+    },
+    {
+      "number": 70,
+      "velocity": 90,
+      "time": 35247,
+      "channel": 1
+    },
+    {
+      "number": 73,
+      "velocity": 87,
+      "time": 36979,
+      "channel": 1
+    },
+    {
+      "number": 75,
+      "velocity": 83,
+      "time": 37352,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 44,
+      "time": 38725,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 97,
+      "time": 39913,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 81,
+      "time": 41339,
+      "channel": 1
+    },
+    {
+      "number": 74,
+      "velocity": 117,
+      "time": 41472,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 90,
+      "time": 41705,
+      "channel": 1
+    },
+    {
+      "number": 68,
+      "velocity": 85,
+      "time": 44442.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 62,
+      "time": 44767,
+      "channel": 1
+    },
+    {
+      "number": 69,
+      "velocity": 48,
+      "time": 46217,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 48,
+      "time": 46489,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 67,
+      "time": 51727,
+      "channel": 1
+    },
+    {
+      "number": 70,
+      "velocity": 3,
+      "time": 54500,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 63,
+      "time": 54813,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 52,
+      "time": 57002,
+      "channel": 1
+    },
+    {
+      "number": 68,
+      "velocity": 46,
+      "time": 58545,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 40,
+      "time": 59063,
+      "channel": 1
+    },
+    {
+      "number": 68,
+      "velocity": 107,
+      "time": 62161,
+      "channel": 1
+    },
+    {
+      "number": 69,
+      "velocity": 71,
+      "time": 62330,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 56,
+      "time": 62640,
+      "channel": 1
+    }
+  ],
+  "_appId": "keyboard-histogram",
+  "_date": "2024-09-04T12:03:55.343Z"
+}

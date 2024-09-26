@@ -1,0 +1,250 @@
+{
+  "root": "C",
+  "scale": "major pentatonic",
+  "useColors": true,
+  "showOutsideScale": true,
+  "notes": [
+    {
+      "number": 60,
+      "velocity": 28,
+      "time": 368361.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 22,
+      "time": 369318.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 69,
+      "velocity": 23,
+      "time": 370665.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 64,
+      "velocity": 32,
+      "time": 372451.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 62,
+      "velocity": 40,
+      "time": 372714.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 60,
+      "velocity": 53,
+      "time": 374098,
+      "channel": 1
+    },
+    {
+      "number": 57,
+      "velocity": 36,
+      "time": 375437.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 32,
+      "time": 375751.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 33,
+      "time": 376917.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 60,
+      "velocity": 30,
+      "time": 377811.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 45,
+      "time": 380359,
+      "channel": 1
+    },
+    {
+      "number": 64,
+      "velocity": 85,
+      "time": 380491.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 55,
+      "time": 380696,
+      "channel": 1
+    },
+    {
+      "number": 64,
+      "velocity": 62,
+      "time": 380868.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 75,
+      "time": 381073.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 66,
+      "velocity": 22,
+      "time": 382357.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 62,
+      "velocity": 35,
+      "time": 385011.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 60,
+      "velocity": 43,
+      "time": 385457.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 36,
+      "time": 387174.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 68,
+      "time": 388009.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 37,
+      "time": 389847.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 38,
+      "time": 392573.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 55,
+      "time": 393137.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 49,
+      "velocity": 62,
+      "time": 395960.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 50,
+      "velocity": 88,
+      "time": 396157.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 59,
+      "velocity": 61,
+      "time": 399249.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 60,
+      "velocity": 100,
+      "time": 399445.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 29,
+      "time": 404650,
+      "channel": 1
+    },
+    {
+      "number": 74,
+      "velocity": 67,
+      "time": 407511.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 81,
+      "velocity": 48,
+      "time": 408827.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 79,
+      "velocity": 70,
+      "time": 410352.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 89,
+      "time": 411115,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 65,
+      "time": 411454.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 62,
+      "time": 412677.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 71,
+      "velocity": 65,
+      "time": 416872.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 50,
+      "time": 418128,
+      "channel": 1
+    },
+    {
+      "number": 78,
+      "velocity": 44,
+      "time": 419986,
+      "channel": 1
+    },
+    {
+      "number": 75,
+      "velocity": 66,
+      "time": 421073.90000009537,
+      "channel": 1
+    },
+    {
+      "number": 73,
+      "velocity": 94,
+      "time": 421417,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 55,
+      "time": 421892.90000009537,
+      "channel": 1
+    }
+  ],
+  "_appId": "improvisation-scale-degrees",
+  "_date": "2024-09-04T12:13:35.595Z"
+}

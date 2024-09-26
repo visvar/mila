@@ -1,0 +1,254 @@
+{
+  "filterUnison": false,
+  "useColors": true,
+  "notes": [
+    {
+      "number": 72,
+      "velocity": 34,
+      "time": 290372.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 79,
+      "velocity": 66,
+      "time": 290628.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 48,
+      "time": 292438.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 98,
+      "time": 292732.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 81,
+      "velocity": 42,
+      "time": 294628.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 81,
+      "velocity": 127,
+      "time": 295494.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 81,
+      "velocity": 127,
+      "time": 295679.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 83,
+      "velocity": 20,
+      "time": 297681.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 71,
+      "velocity": 45,
+      "time": 299932.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 64,
+      "velocity": 55,
+      "time": 300356.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 54,
+      "time": 302248.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 80,
+      "time": 302624.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 69,
+      "time": 304313.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 69,
+      "velocity": 37,
+      "time": 307079.2000000477,
+      "channel": 1
+    },
+    {
+      "number": 71,
+      "velocity": 58,
+      "time": 307343.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 55,
+      "time": 307629.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 66,
+      "velocity": 51,
+      "time": 309766.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 68,
+      "velocity": 48,
+      "time": 309968.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 70,
+      "velocity": 76,
+      "time": 310370.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 49,
+      "time": 312700.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 70,
+      "time": 313177.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 60,
+      "time": 314654.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 79,
+      "velocity": 79,
+      "time": 315093.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 71,
+      "velocity": 73,
+      "time": 317319.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 69,
+      "velocity": 99,
+      "time": 318431.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 67,
+      "velocity": 60,
+      "time": 318848.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 65,
+      "velocity": 110,
+      "time": 319800.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 60,
+      "velocity": 62,
+      "time": 320876.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 105,
+      "time": 324679.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 63,
+      "time": 327670.2000000477,
+      "channel": 1
+    },
+    {
+      "number": 79,
+      "velocity": 72,
+      "time": 329615.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 84,
+      "velocity": 64,
+      "time": 330978.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 86,
+      "velocity": 73,
+      "time": 335036.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 88,
+      "velocity": 99,
+      "time": 335408.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 82,
+      "velocity": 46,
+      "time": 337702.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 80,
+      "velocity": 26,
+      "time": 337932.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 77,
+      "velocity": 57,
+      "time": 339103.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 83,
+      "velocity": 69,
+      "time": 343022.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 81,
+      "velocity": 115,
+      "time": 343185.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 76,
+      "velocity": 79,
+      "time": 345086.10000014305,
+      "channel": 1
+    },
+    {
+      "number": 72,
+      "velocity": 65,
+      "time": 345298.10000014305,
+      "channel": 1
+    }
+  ],
+  "_appId": "improvisation-intervals",
+  "_date": "2024-09-04T12:05:22.821Z"
+}

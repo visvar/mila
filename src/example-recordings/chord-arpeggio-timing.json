@@ -1,0 +1,334 @@
+{
+  "pastSeconds": 10,
+  "maxNoteDistance": 0.4,
+  "pastBeats": 20,
+  "tempo": 100,
+  "notes": [
+    {
+      "number": 48,
+      "velocity": 19,
+      "time": 0,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 34,
+      "time": 0.09,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 22,
+      "time": 0.257,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 48,
+      "time": 0.587,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 43,
+      "time": 0.629,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 50,
+      "time": 0.793,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 32,
+      "time": 1.116,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 60,
+      "time": 1.246,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 43,
+      "time": 1.3958999998569488,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 50,
+      "time": 1.78,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 50,
+      "time": 1.839,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 59,
+      "time": 1.978,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 42,
+      "time": 2.342899999856949,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 57,
+      "time": 2.46,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 60,
+      "time": 2.576,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 42,
+      "time": 2.957899999856949,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 58,
+      "time": 3.041,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 54,
+      "time": 3.222,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 29,
+      "time": 3.595,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 66,
+      "time": 3.7068999998569487,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 64,
+      "time": 3.808899999856949,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 35,
+      "time": 4.183,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 58,
+      "time": 4.25,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 43,
+      "time": 4.360899999856949,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 44,
+      "time": 4.795899999856949,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 52,
+      "time": 4.89,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 66,
+      "time": 5.0028999998569486,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 54,
+      "time": 5.408,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 56,
+      "time": 5.499,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 62,
+      "time": 5.618,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 44,
+      "time": 6.008,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 50,
+      "time": 6.099899999856949,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 61,
+      "time": 6.216,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 50,
+      "time": 6.593,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 57,
+      "time": 6.705899999856949,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 68,
+      "time": 6.814,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 44,
+      "time": 7.22,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 62,
+      "time": 7.33,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 62,
+      "time": 7.45,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 45,
+      "time": 7.839899999856949,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 48,
+      "time": 7.939899999856949,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 64,
+      "time": 8.068,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 52,
+      "time": 8.480899999856948,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 52,
+      "time": 8.576899999856948,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 60,
+      "time": 8.687,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 42,
+      "time": 9.108,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 56,
+      "time": 9.205,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 60,
+      "time": 9.304,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 58,
+      "time": 9.707899999856949,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 62,
+      "time": 9.816,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 64,
+      "time": 9.928,
+      "channel": 1
+    },
+    {
+      "number": 48,
+      "velocity": 56,
+      "time": 10.298,
+      "channel": 1
+    },
+    {
+      "number": 52,
+      "velocity": 52,
+      "time": 10.387,
+      "channel": 1
+    },
+    {
+      "number": 55,
+      "velocity": 68,
+      "time": 10.477,
+      "channel": 1
+    }
+  ],
+  "_appId": "chord-arpeggio-timing",
+  "_date": "2024-07-02T14:45:31.374Z"
+}

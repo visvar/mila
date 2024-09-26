@@ -1,0 +1,1203 @@
+{
+  "tempo": 60,
+  "grid": "4:3",
+  "binNote": 64,
+  "adjustTime": -0.04,
+  "pastBars": 2,
+  "showKde": true,
+  "notes": [
+    {
+      "time": 0,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 0.006099999994039536,
+      "number": 46,
+      "drum": "HH"
+    },
+    {
+      "time": 0.12009999999403953,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 0.33109999999403955,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 0.6620999999940396,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 0.994,
+      "number": 26,
+      "drum": "HH"
+    },
+    {
+      "time": 0.9970999999940395,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 1.3280999999940395,
+      "number": 46,
+      "drum": "HH"
+    },
+    {
+      "time": 1.6600999999940396,
+      "number": 46,
+      "drum": "HH"
+    },
+    {
+      "time": 1.9890999999940395,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 1.994,
+      "number": 46,
+      "drum": "HH"
+    },
+    {
+      "time": 2.0660999999940395,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 2.3200999999940395,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 2.6470999999940394,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 2.9800999999940396,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 2.9800999999940396,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 3.3210999999940394,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 3.656,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 3.9820999999940394,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 3.9900999999940394,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.09709999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 4.32,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.642,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.966,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.96709999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 5.2960999999940395,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 5.303099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 5.639099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 5.94909999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 5.966099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 6.052,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 6.301099999994039,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 6.6340999999940395,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 6.95609999999404,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 6.96409999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 7.267,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 7.299,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 7.357,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 7.62109999999404,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 7.939099999994039,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 7.950099999994039,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 8.031,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 8.297099999994039,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 8.60709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 8.900099999994039,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 8.92109999999404,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 9.24809999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.563,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 9.57009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.71909999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 9.86309999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 9.876,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.921,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 10.204,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 10.55509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 10.858099999994039,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 10.86009999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 10.87909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.206,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.52909999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 11.544099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.68909999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 11.83009999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 11.853,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.90109999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 12.175099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 12.513,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 12.853,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 12.855099999994039,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 12.86,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.192,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.528099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.541099999994039,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 13.67109999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 13.85109999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 13.85609999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.191099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.534099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.86209999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 14.86809999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.20909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.547099999994039,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.550099999994039,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 15.691099999994039,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 15.85109999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 15.871,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.92309999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 16.205,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 16.54309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 16.87109999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 16.872,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.223,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.55609999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 17.56709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.73309999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 17.87509999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 17.90409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.93209999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 18.239,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 18.58909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 18.91209999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 18.91509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.279,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.56109999999404,
+      "number": 49,
+      "drum": "CC"
+    },
+    {
+      "time": 19.61109999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.61509999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 19.76609999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 19.941,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 19.95509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.020099999994038,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 20.302099999994038,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.62909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.97,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 20.97709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.31809999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.64909999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 21.667,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.98909999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 22.004,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.33,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.66309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.994,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 23,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 23.35309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 23.69909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.00109999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 24.02409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.34909999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.67609999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.99509999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 25.01,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.334,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.67309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.80409999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 25.869099999994038,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 25.99509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.18409999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 26.31809999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.645099999994038,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.98509999999404,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 26.987,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 26.99009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.33509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.65709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.983,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 28.00309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.05909999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 28.323,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.638,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.98309999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 28.995,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.32709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.663,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.82809999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 29.99209999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 30.308099999994038,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 30.33009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 30.66109999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.00409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.00409999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 31.32809999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.66409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.997099999994038,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 32.00009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 32.067,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 32.34409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 32.673,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.001,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 33.00409999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 33.013,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.350099999994036,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.667099999994036,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 33.696,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.83109999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 33.98009999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 34.01609999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 34.349,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 34.683,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.006,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 35.009,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 35.018,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.36209999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.67909999999404,
+      "number": 45,
+      "drum": "TO"
+    },
+    {
+      "time": 35.704,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.83509999999404,
+      "number": 45,
+      "drum": "TO"
+    },
+    {
+      "time": 36.033,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 36.03509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 36.347099999994036,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 36.681,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.01809999999404,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 37.02009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.37309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.68609999999404,
+      "number": 43,
+      "drum": "TO"
+    },
+    {
+      "time": 37.712,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.859,
+      "number": 43,
+      "drum": "TO"
+    },
+    {
+      "time": 38.028,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 38.03,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 38.364,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 38.699,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 39.03809999999404,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 39.04,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 39.04509999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 39.40009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 39.73,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 39.73409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 39.898,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 40.06709999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 40.07209999999404,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 40.40009999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 40.72309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 41.06009999999404,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 41.06209999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 41.064,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 41.39609999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 41.71309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 41.75809999999404,
+      "number": 45,
+      "drum": "TO"
+    },
+    {
+      "time": 41.886,
+      "number": 45,
+      "drum": "TO"
+    },
+    {
+      "time": 42.063,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 42.07409999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 42.39609999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 42.71109999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 43.03009999999404,
+      "number": 40,
+      "drum": "SN"
+    },
+    {
+      "time": 43.03209999999404,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 43.049,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 43.37109999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 43.70109999999404,
+      "number": 58,
+      "drum": "TO"
+    },
+    {
+      "time": 43.72309999999404,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 43.85109999999404,
+      "number": 43,
+      "drum": "TO"
+    },
+    {
+      "time": 45.81209999999404,
+      "number": 46,
+      "drum": "HH"
+    },
+    {
+      "time": 46.55709999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 46.641,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 46.67209999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 46.69009999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 46.77309999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 185.34209999999405,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 185.389,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 189.95309999999404,
+      "number": 48,
+      "drum": "TO"
+    },
+    {
+      "time": 189.99509999999404,
+      "number": 48,
+      "drum": "TO"
+    }
+  ],
+  "_appId": "sub-division-drums",
+  "_softwareVersion": "0.13.3",
+  "_date": "2024-09-12T14:36:06.891Z"
+}

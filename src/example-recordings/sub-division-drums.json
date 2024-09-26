@@ -1,0 +1,728 @@
+{
+  "tempo": 60,
+  "grid": "4:2",
+  "binNote": 128,
+  "adjustTime": -0.08,
+  "pastBars": 4,
+  "showKde": true,
+  "notes": [
+    {
+      "time": 0,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 2.121100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 2.503,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 2.684,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 3.197,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 3.525100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 3.705,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.178,
+      "number": 22,
+      "drum": "HH"
+    },
+    {
+      "time": 4.507100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 4.702100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 5.12,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 5.470100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 5.633,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 6.127,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 6.135100000023842,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 6.457100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 6.624100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 7.113,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 7.121,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 7.502,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 7.67,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 8.134,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 8.137100000023842,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 8.472,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 8.637,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.118,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.119100000023842,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 9.48,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 9.661,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 10.112100000023842,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 10.122100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 10.456,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 10.636,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.107,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.11,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 11.459,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 11.633,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 12.121,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 12.123,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 12.470100000023843,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 12.62,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.105,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.107,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 13.453,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 13.614100000023841,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.069,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 14.081100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.432,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 14.596,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.08,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.082,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 15.444100000023841,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 15.614,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 16.11,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 16.11,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 16.463,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 16.625,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.075,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.077,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 17.414,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 17.574,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 18.05510000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 18.067,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 18.394,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 18.585,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.065,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 19.066,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.433,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 19.603100000023844,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.061,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 20.068,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.427,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 20.593100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.090100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.091,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 21.445100000023842,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 21.616,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.105,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 22.11,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.45,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 22.617,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 23.089,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 23.094100000023843,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 23.462,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 23.61310000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.1,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 24.10910000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.441,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 24.609,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.061,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.071,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 25.429,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 25.586,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.085,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.087,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 26.428,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 26.594,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.083,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.088,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 27.440100000023843,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 27.611,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.103,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 28.111,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.475100000023843,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 28.623,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.108,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.112,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 29.449,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 29.60710000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 30.073100000023842,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 30.088,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 30.474,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 30.629,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.117,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.124,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 31.45910000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 31.62,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 32.09810000002384,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 32.109,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 32.41910000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 32.592,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.087,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.09010000002384,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 33.38810000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 33.53710000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 34.05,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 34.072,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 34.43110000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 34.59410000002384,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.112100000023844,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.112100000023844,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 35.454,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 35.608,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 36.113,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 36.121100000023844,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 36.46,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 36.629,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.112,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.115,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 37.473,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 37.65,
+      "number": 42,
+      "drum": "HH"
+    },
+    {
+      "time": 38.088,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 38.10510000002384,
+      "number": 42,
+      "drum": "HH"
+    }
+  ],
+  "_appId": "sub-division-drums",
+  "_softwareVersion": "0.13.3",
+  "_date": "2024-09-12T14:35:35.243Z"
+}

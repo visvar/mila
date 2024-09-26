@@ -1,0 +1,235 @@
+{
+  "pastChords": 4,
+  "maxFretSpan": 5,
+  "maxNoteDistance": 0.1,
+  "notes": [
+    {
+      "time": 1.398,
+      "number": 62,
+      "note": "D",
+      "velocity": 88,
+      "string": 1,
+      "fret": 3,
+      "channel": 2,
+      "chordId": 0
+    },
+    {
+      "time": 1.413,
+      "number": 66,
+      "note": "F",
+      "velocity": 38,
+      "string": 0,
+      "fret": 2,
+      "channel": 1,
+      "chordId": 0
+    },
+    {
+      "time": 7.616,
+      "number": 59,
+      "note": "B",
+      "velocity": 10,
+      "string": 5,
+      "fret": 19,
+      "channel": 6,
+      "chordId": 2
+    },
+    {
+      "time": 7.648,
+      "number": 40,
+      "note": "E",
+      "velocity": 98,
+      "string": 5,
+      "fret": 0,
+      "channel": 6,
+      "chordId": 1
+    },
+    {
+      "time": 7.67,
+      "number": 70,
+      "note": "A",
+      "velocity": 82,
+      "string": 3,
+      "fret": 20,
+      "channel": 4,
+      "chordId": 2
+    },
+    {
+      "time": 7.67510000000149,
+      "number": 47,
+      "note": "B",
+      "velocity": 112,
+      "string": 4,
+      "fret": 2,
+      "channel": 5,
+      "chordId": 1
+    },
+    {
+      "time": 7.688,
+      "number": 74,
+      "note": "D",
+      "velocity": 51,
+      "string": 2,
+      "fret": 19,
+      "channel": 3
+    },
+    {
+      "time": 7.692,
+      "number": 52,
+      "note": "E",
+      "velocity": 127,
+      "string": 3,
+      "fret": 2,
+      "channel": 4,
+      "chordId": 1
+    },
+    {
+      "time": 7.701,
+      "number": 55,
+      "note": "G",
+      "velocity": 115,
+      "string": 2,
+      "fret": 0,
+      "channel": 3,
+      "chordId": 1
+    },
+    {
+      "time": 7.716,
+      "number": 59,
+      "note": "B",
+      "velocity": 97,
+      "string": 1,
+      "fret": 0,
+      "channel": 2,
+      "chordId": 1
+    },
+    {
+      "time": 7.72810000000149,
+      "number": 64,
+      "note": "E",
+      "velocity": 71,
+      "string": 0,
+      "fret": 0,
+      "channel": 1,
+      "chordId": 1
+    },
+    {
+      "time": 11.857,
+      "number": 45,
+      "note": "A",
+      "velocity": 100,
+      "string": 4,
+      "fret": 0,
+      "channel": 5,
+      "chordId": 2
+    },
+    {
+      "time": 11.85910000000149,
+      "number": 70,
+      "note": "A",
+      "velocity": 80,
+      "string": 3,
+      "fret": 20,
+      "channel": 4,
+      "chordId": 3
+    },
+    {
+      "time": 11.87910000000149,
+      "number": 74,
+      "note": "D",
+      "velocity": 48,
+      "string": 2,
+      "fret": 19,
+      "channel": 3,
+      "chordId": 3
+    },
+    {
+      "time": 11.881,
+      "number": 52,
+      "note": "E",
+      "velocity": 127,
+      "string": 3,
+      "fret": 2,
+      "channel": 4,
+      "chordId": 2
+    },
+    {
+      "time": 11.892,
+      "number": 57,
+      "note": "A",
+      "velocity": 114,
+      "string": 2,
+      "fret": 2,
+      "channel": 3,
+      "chordId": 2
+    },
+    {
+      "time": 11.89510000000149,
+      "number": 72,
+      "note": "C",
+      "velocity": 32,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 11.907,
+      "number": 60,
+      "note": "C",
+      "velocity": 113,
+      "string": 1,
+      "fret": 1,
+      "channel": 2,
+      "chordId": 2
+    },
+    {
+      "time": 11.92210000000149,
+      "number": 64,
+      "note": "E",
+      "velocity": 90,
+      "string": 0,
+      "fret": 0,
+      "channel": 1,
+      "chordId": 2
+    },
+    {
+      "time": 17.361,
+      "number": 60,
+      "note": "C",
+      "velocity": 46,
+      "string": 4,
+      "fret": 15,
+      "channel": 5
+    },
+    {
+      "time": 17.364,
+      "number": 43,
+      "note": "G",
+      "velocity": 75,
+      "string": 5,
+      "fret": 3,
+      "channel": 6,
+      "chordId": 3
+    },
+    {
+      "time": 17.38010000000149,
+      "number": 69,
+      "note": "A",
+      "velocity": 73,
+      "string": 3,
+      "fret": 19,
+      "channel": 4
+    },
+    {
+      "time": 17.388,
+      "number": 47,
+      "note": "B",
+      "velocity": 68,
+      "string": 4,
+      "fret": 2,
+      "channel": 5,
+      "chordId": 3
+    }
+  ],
+  "_appId": "chord-diagrams",
+  "_date": "2024-07-03T18:34:37.899Z"
+}

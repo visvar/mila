@@ -1,0 +1,40 @@
+{
+  "tempo": 60,
+  "pastNoteCount": 5,
+  "showClosestDuration": false,
+  "notes": [
+    {
+      "number": 59,
+      "time": 0,
+      "duration": 1.213523544,
+      "end": 1.213523544
+    },
+    {
+      "number": 59,
+      "time": 5.473900000095368,
+      "duration": 2.108099999904632,
+      "end": 7.582
+    },
+    {
+      "number": 59,
+      "time": 19.631,
+      "duration": 3.041999999999998,
+      "end": 22.673
+    },
+    {
+      "number": 59,
+      "time": 25.201,
+      "duration": 4.341000000000001,
+      "end": 29.542
+    },
+    {
+      "number": 59,
+      "time": 31.323,
+      "duration": 3.8810000000000002,
+      "end": 35.204
+    }
+  ],
+  "_appId": "duration-bars",
+  "_softwareVersion": "0.13.3",
+  "_date": "2024-09-06T16:40:29.988Z"
+}

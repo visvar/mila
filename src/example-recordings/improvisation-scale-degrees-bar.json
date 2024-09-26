@@ -1,0 +1,436 @@
+{
+  "root": "A",
+  "scale": "minor pentatonic",
+  "useColors": true,
+  "showOutsideScale": true,
+  "tempo": 120,
+  "notes": [
+    {
+      "number": 57,
+      "velocity": 120,
+      "time": 0
+    },
+    {
+      "number": 60,
+      "velocity": 79,
+      "time": 9.863799999952317
+    },
+    {
+      "number": 62,
+      "velocity": 102,
+      "time": 10.05589999985695
+    },
+    {
+      "number": 64,
+      "velocity": 74,
+      "time": 11.08189999985695
+    },
+    {
+      "number": 60,
+      "velocity": 124,
+      "time": 12.088899999856949
+    },
+    {
+      "number": 59,
+      "velocity": 79,
+      "time": 13.06189999985695
+    },
+    {
+      "number": 57,
+      "velocity": 105,
+      "time": 13.52089999985695
+    },
+    {
+      "number": 55,
+      "velocity": 101,
+      "time": 13.765899999856948
+    },
+    {
+      "number": 53,
+      "velocity": 75,
+      "time": 14.003899999856948
+    },
+    {
+      "number": 62,
+      "velocity": 97,
+      "time": 16.09589999985695
+    },
+    {
+      "number": 53,
+      "velocity": 107,
+      "time": 16.206899999856947
+    },
+    {
+      "number": 62,
+      "velocity": 106,
+      "time": 16.345799999952316
+    },
+    {
+      "number": 53,
+      "velocity": 110,
+      "time": 16.427899999856947
+    },
+    {
+      "number": 62,
+      "velocity": 105,
+      "time": 16.62489999985695
+    },
+    {
+      "number": 64,
+      "velocity": 74,
+      "time": 17.84189999985695
+    },
+    {
+      "number": 65,
+      "velocity": 43,
+      "time": 17.86289999985695
+    },
+    {
+      "number": 65,
+      "velocity": 108,
+      "time": 18.102899999856948
+    },
+    {
+      "number": 62,
+      "velocity": 96,
+      "time": 19.53789999985695
+    },
+    {
+      "number": 60,
+      "velocity": 90,
+      "time": 19.53989999985695
+    },
+    {
+      "number": 59,
+      "velocity": 83,
+      "time": 20.06089999985695
+    },
+    {
+      "number": 62,
+      "velocity": 100,
+      "time": 20.22589999985695
+    },
+    {
+      "number": 59,
+      "velocity": 68,
+      "time": 20.354799999952316
+    },
+    {
+      "number": 62,
+      "velocity": 98,
+      "time": 20.471899999856948
+    },
+    {
+      "number": 61,
+      "velocity": 123,
+      "time": 21.82789999985695
+    },
+    {
+      "number": 69,
+      "velocity": 70,
+      "time": 21.99089999985695
+    },
+    {
+      "number": 67,
+      "velocity": 55,
+      "time": 22.000899999856948
+    },
+    {
+      "number": 61,
+      "velocity": 127,
+      "time": 23.01089999985695
+    },
+    {
+      "number": 61,
+      "velocity": 126,
+      "time": 23.564899999856948
+    },
+    {
+      "number": 65,
+      "velocity": 72,
+      "time": 24.07289999985695
+    },
+    {
+      "number": 67,
+      "velocity": 59,
+      "time": 24.08289999985695
+    },
+    {
+      "number": 65,
+      "velocity": 101,
+      "time": 24.968899999856948
+    },
+    {
+      "number": 65,
+      "velocity": 93,
+      "time": 25.517899999856947
+    },
+    {
+      "number": 64,
+      "velocity": 72,
+      "time": 25.69789999985695
+    },
+    {
+      "number": 62,
+      "velocity": 82,
+      "time": 26.08589999985695
+    },
+    {
+      "number": 60,
+      "velocity": 109,
+      "time": 27.881799999952317
+    },
+    {
+      "number": 57,
+      "velocity": 109,
+      "time": 28.122899999856948
+    },
+    {
+      "number": 50,
+      "velocity": 70,
+      "time": 30.046899999856947
+    },
+    {
+      "number": 52,
+      "velocity": 67,
+      "time": 31.81989999985695
+    },
+    {
+      "number": 53,
+      "velocity": 87,
+      "time": 32.02489999985695
+    },
+    {
+      "number": 55,
+      "velocity": 98,
+      "time": 34.376899999856946
+    },
+    {
+      "number": 55,
+      "velocity": 103,
+      "time": 35.25089999985695
+    },
+    {
+      "number": 55,
+      "velocity": 111,
+      "time": 35.81389999985695
+    },
+    {
+      "number": 60,
+      "velocity": 112,
+      "time": 36.02679999995232
+    },
+    {
+      "number": 59,
+      "velocity": 107,
+      "time": 36.02889999985695
+    },
+    {
+      "number": 62,
+      "velocity": 75,
+      "time": 37.59589999985695
+    },
+    {
+      "number": 60,
+      "velocity": 93,
+      "time": 37.84589999985695
+    },
+    {
+      "number": 62,
+      "velocity": 96,
+      "time": 38.00889999985695
+    },
+    {
+      "number": 60,
+      "velocity": 109,
+      "time": 38.120899999856945
+    },
+    {
+      "number": 62,
+      "velocity": 94,
+      "time": 38.283799999952315
+    },
+    {
+      "number": 60,
+      "velocity": 108,
+      "time": 38.43589999985695
+    },
+    {
+      "number": 64,
+      "velocity": 70,
+      "time": 39.56089999985695
+    },
+    {
+      "number": 57,
+      "velocity": 102,
+      "time": 39.80889999985695
+    },
+    {
+      "number": 65,
+      "velocity": 101,
+      "time": 40.09789999985695
+    },
+    {
+      "number": 64,
+      "velocity": 90,
+      "time": 41.55389999985695
+    },
+    {
+      "number": 62,
+      "velocity": 109,
+      "time": 42.04089999985695
+    },
+    {
+      "number": 57,
+      "velocity": 71,
+      "time": 43.81389999985695
+    },
+    {
+      "number": 55,
+      "velocity": 52,
+      "time": 43.96689999985695
+    },
+    {
+      "number": 55,
+      "velocity": 93,
+      "time": 44.565899999856946
+    },
+    {
+      "number": 57,
+      "velocity": 88,
+      "time": 45.38189999985695
+    },
+    {
+      "number": 69,
+      "velocity": 82,
+      "time": 45.86179999995232
+    },
+    {
+      "number": 57,
+      "velocity": 89,
+      "time": 46.02079999995232
+    },
+    {
+      "number": 69,
+      "velocity": 102,
+      "time": 46.12189999985695
+    },
+    {
+      "number": 57,
+      "velocity": 97,
+      "time": 46.22489999985695
+    },
+    {
+      "number": 65,
+      "velocity": 117,
+      "time": 46.72389999985695
+    },
+    {
+      "number": 59,
+      "velocity": 108,
+      "time": 47.501899999856946
+    },
+    {
+      "number": 64,
+      "velocity": 70,
+      "time": 47.884799999952314
+    },
+    {
+      "number": 57,
+      "velocity": 98,
+      "time": 48.072799999952316
+    },
+    {
+      "number": 69,
+      "velocity": 107,
+      "time": 48.55189999985695
+    },
+    {
+      "number": 57,
+      "velocity": 88,
+      "time": 48.83189999985695
+    },
+    {
+      "number": 69,
+      "velocity": 88,
+      "time": 49.03289999985695
+    },
+    {
+      "number": 64,
+      "velocity": 60,
+      "time": 49.54689999985695
+    },
+    {
+      "number": 62,
+      "velocity": 92,
+      "time": 50.04689999985695
+    },
+    {
+      "number": 59,
+      "velocity": 55,
+      "time": 50.52089999985695
+    },
+    {
+      "number": 62,
+      "velocity": 68,
+      "time": 50.78789999985695
+    },
+    {
+      "number": 59,
+      "velocity": 62,
+      "time": 50.975799999952315
+    },
+    {
+      "number": 62,
+      "velocity": 97,
+      "time": 51.30189999985695
+    },
+    {
+      "number": 57,
+      "velocity": 85,
+      "time": 51.57589999985695
+    },
+    {
+      "number": 64,
+      "velocity": 80,
+      "time": 51.84589999985695
+    },
+    {
+      "number": 55,
+      "velocity": 87,
+      "time": 52.01189999985695
+    },
+    {
+      "number": 64,
+      "velocity": 98,
+      "time": 52.64089999985695
+    },
+    {
+      "number": 57,
+      "velocity": 96,
+      "time": 53.06489999985695
+    },
+    {
+      "number": 65,
+      "velocity": 109,
+      "time": 53.32779999995232
+    },
+    {
+      "number": 59,
+      "velocity": 74,
+      "time": 53.54089999985695
+    },
+    {
+      "number": 62,
+      "velocity": 65,
+      "time": 53.78889999985695
+    },
+    {
+      "number": 53,
+      "velocity": 98,
+      "time": 54.06489999985695
+    }
+  ],
+  "_appId": "improvisation-scale-degrees-bar",
+  "_date": "2024-09-04T12:28:19.393Z"
+}

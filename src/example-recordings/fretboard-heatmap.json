@@ -1,0 +1,2091 @@
+{
+  "pastNoteCount": 200,
+  "showScale": true,
+  "scaleRoot": "A",
+  "scaleType": "minor",
+  "notes": [
+    {
+      "time": 7.219,
+      "number": 66,
+      "velocity": 18,
+      "string": 5,
+      "fret": 26,
+      "channel": 6
+    },
+    {
+      "time": 7.232,
+      "number": 48,
+      "velocity": 86,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 7.561,
+      "number": 50,
+      "velocity": 54,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 7.834,
+      "number": 51,
+      "velocity": 15,
+      "string": 5,
+      "fret": 11,
+      "channel": 6
+    },
+    {
+      "time": 7.87,
+      "number": 52,
+      "velocity": 20,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 7.986,
+      "number": 51,
+      "velocity": 10,
+      "string": 5,
+      "fret": 11,
+      "channel": 6
+    },
+    {
+      "time": 8.029,
+      "number": 53,
+      "velocity": 10,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 8.045,
+      "number": 53,
+      "velocity": 23,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 8.262,
+      "number": 55,
+      "velocity": 39,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 8.48,
+      "number": 56,
+      "velocity": 26,
+      "string": 4,
+      "fret": 11,
+      "channel": 5
+    },
+    {
+      "time": 11.407,
+      "number": 48,
+      "velocity": 20,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 11.661,
+      "number": 50,
+      "velocity": 42,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 11.887,
+      "number": 52,
+      "velocity": 35,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 12.074,
+      "number": 53,
+      "velocity": 28,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 12.275,
+      "number": 55,
+      "velocity": 11,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 12.461,
+      "number": 57,
+      "velocity": 41,
+      "string": 4,
+      "fret": 12,
+      "channel": 5
+    },
+    {
+      "time": 12.725,
+      "number": 59,
+      "velocity": 88,
+      "string": 3,
+      "fret": 9,
+      "channel": 4
+    },
+    {
+      "time": 12.965,
+      "number": 60,
+      "velocity": 70,
+      "string": 3,
+      "fret": 10,
+      "channel": 4
+    },
+    {
+      "time": 13.167,
+      "number": 62,
+      "velocity": 61,
+      "string": 3,
+      "fret": 12,
+      "channel": 4
+    },
+    {
+      "time": 13.195,
+      "number": 62,
+      "velocity": 34,
+      "string": 3,
+      "fret": 12,
+      "channel": 4
+    },
+    {
+      "time": 13.384,
+      "number": 63,
+      "velocity": 10,
+      "string": 2,
+      "fret": 8,
+      "channel": 3
+    },
+    {
+      "time": 13.4,
+      "number": 64,
+      "velocity": 10,
+      "string": 2,
+      "fret": 9,
+      "channel": 3
+    },
+    {
+      "time": 13.544,
+      "number": 65,
+      "velocity": 10,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 13.581,
+      "number": 65,
+      "velocity": 16,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 13.782,
+      "number": 67,
+      "velocity": 42,
+      "string": 2,
+      "fret": 12,
+      "channel": 3
+    },
+    {
+      "time": 13.993,
+      "number": 69,
+      "velocity": 10,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 14.004,
+      "number": 69,
+      "velocity": 64,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 14.197,
+      "number": 71,
+      "velocity": 42,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 14.216,
+      "number": 71,
+      "velocity": 45,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 14.386,
+      "number": 72,
+      "velocity": 23,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 14.424,
+      "number": 72,
+      "velocity": 60,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 14.605,
+      "number": 74,
+      "velocity": 41,
+      "string": 0,
+      "fret": 10,
+      "channel": 1
+    },
+    {
+      "time": 14.826,
+      "number": 76,
+      "velocity": 16,
+      "string": 0,
+      "fret": 12,
+      "channel": 1
+    },
+    {
+      "time": 15.049,
+      "number": 77,
+      "velocity": 76,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 15.369,
+      "number": 40,
+      "velocity": 10,
+      "string": 5,
+      "fret": 0,
+      "channel": 6
+    },
+    {
+      "time": 28.428,
+      "number": 35,
+      "velocity": 63,
+      "string": 5,
+      "fret": -5,
+      "channel": 6
+    },
+    {
+      "time": 28.462,
+      "number": 43,
+      "velocity": 53,
+      "string": 5,
+      "fret": 3,
+      "channel": 6
+    },
+    {
+      "time": 28.657,
+      "number": 44,
+      "velocity": 53,
+      "string": 5,
+      "fret": 4,
+      "channel": 6
+    },
+    {
+      "time": 28.693,
+      "number": 45,
+      "velocity": 49,
+      "string": 5,
+      "fret": 5,
+      "channel": 6
+    },
+    {
+      "time": 28.907,
+      "number": 47,
+      "velocity": 69,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 29.121,
+      "number": 48,
+      "velocity": 74,
+      "string": 4,
+      "fret": 3,
+      "channel": 5
+    },
+    {
+      "time": 29.344,
+      "number": 50,
+      "velocity": 45,
+      "string": 4,
+      "fret": 5,
+      "channel": 5
+    },
+    {
+      "time": 29.62,
+      "number": 51,
+      "velocity": 59,
+      "string": 4,
+      "fret": 6,
+      "channel": 5
+    },
+    {
+      "time": 29.649,
+      "number": 52,
+      "velocity": 51,
+      "string": 4,
+      "fret": 7,
+      "channel": 5
+    },
+    {
+      "time": 29.778,
+      "number": 54,
+      "velocity": 86,
+      "string": 3,
+      "fret": 4,
+      "channel": 4
+    },
+    {
+      "time": 29.98,
+      "number": 55,
+      "velocity": 61,
+      "string": 3,
+      "fret": 5,
+      "channel": 4
+    },
+    {
+      "time": 30.16,
+      "number": 56,
+      "velocity": 46,
+      "string": 3,
+      "fret": 6,
+      "channel": 4
+    },
+    {
+      "time": 30.182,
+      "number": 57,
+      "velocity": 76,
+      "string": 3,
+      "fret": 7,
+      "channel": 4
+    },
+    {
+      "time": 30.38,
+      "number": 59,
+      "velocity": 63,
+      "string": 2,
+      "fret": 4,
+      "channel": 3
+    },
+    {
+      "time": 30.567,
+      "number": 60,
+      "velocity": 49,
+      "string": 2,
+      "fret": 5,
+      "channel": 3
+    },
+    {
+      "time": 30.577,
+      "number": 60,
+      "velocity": 40,
+      "string": 2,
+      "fret": 5,
+      "channel": 3
+    },
+    {
+      "time": 30.754,
+      "number": 62,
+      "velocity": 28,
+      "string": 2,
+      "fret": 7,
+      "channel": 3
+    },
+    {
+      "time": 30.787,
+      "number": 62,
+      "velocity": 51,
+      "string": 2,
+      "fret": 7,
+      "channel": 3
+    },
+    {
+      "time": 30.982,
+      "number": 64,
+      "velocity": 38,
+      "string": 1,
+      "fret": 5,
+      "channel": 2
+    },
+    {
+      "time": 31.174,
+      "number": 66,
+      "velocity": 25,
+      "string": 1,
+      "fret": 7,
+      "channel": 2
+    },
+    {
+      "time": 31.365,
+      "number": 67,
+      "velocity": 10,
+      "string": 1,
+      "fret": 8,
+      "channel": 2
+    },
+    {
+      "time": 31.39,
+      "number": 67,
+      "velocity": 54,
+      "string": 1,
+      "fret": 8,
+      "channel": 2
+    },
+    {
+      "time": 31.584,
+      "number": 69,
+      "velocity": 72,
+      "string": 0,
+      "fret": 5,
+      "channel": 1
+    },
+    {
+      "time": 31.77,
+      "number": 71,
+      "velocity": 54,
+      "string": 0,
+      "fret": 7,
+      "channel": 1
+    },
+    {
+      "time": 31.996,
+      "number": 72,
+      "velocity": 83,
+      "string": 0,
+      "fret": 8,
+      "channel": 1
+    },
+    {
+      "time": 42.253,
+      "number": 45,
+      "velocity": 29,
+      "string": 5,
+      "fret": 5,
+      "channel": 6
+    },
+    {
+      "time": 42.421,
+      "number": 46,
+      "velocity": 38,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 42.439,
+      "number": 46,
+      "velocity": 99,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 42.495,
+      "number": 47,
+      "velocity": 91,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 42.623,
+      "number": 48,
+      "velocity": 82,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 42.824,
+      "number": 50,
+      "velocity": 51,
+      "string": 4,
+      "fret": 5,
+      "channel": 5
+    },
+    {
+      "time": 42.95,
+      "number": 52,
+      "velocity": 66,
+      "string": 4,
+      "fret": 7,
+      "channel": 5
+    },
+    {
+      "time": 43.112,
+      "number": 53,
+      "velocity": 86,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 43.237,
+      "number": 52,
+      "velocity": 10,
+      "string": 3,
+      "fret": 2,
+      "channel": 4
+    },
+    {
+      "time": 43.258,
+      "number": 52,
+      "velocity": 70,
+      "string": 4,
+      "fret": 7,
+      "channel": 5
+    },
+    {
+      "time": 43.439,
+      "number": 50,
+      "velocity": 65,
+      "string": 4,
+      "fret": 5,
+      "channel": 5
+    },
+    {
+      "time": 43.609,
+      "number": 46,
+      "velocity": 79,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 62.003,
+      "number": 45,
+      "velocity": 52,
+      "string": 5,
+      "fret": 5,
+      "channel": 6
+    },
+    {
+      "time": 62.237,
+      "number": 46,
+      "velocity": 39,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 62.288,
+      "number": 47,
+      "velocity": 39,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 62.487,
+      "number": 48,
+      "velocity": 79,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 62.719,
+      "number": 50,
+      "velocity": 69,
+      "string": 4,
+      "fret": 5,
+      "channel": 5
+    },
+    {
+      "time": 62.948,
+      "number": 52,
+      "velocity": 47,
+      "string": 4,
+      "fret": 7,
+      "channel": 5
+    },
+    {
+      "time": 63.181,
+      "number": 53,
+      "velocity": 62,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 63.432,
+      "number": 55,
+      "velocity": 101,
+      "string": 3,
+      "fret": 5,
+      "channel": 4
+    },
+    {
+      "time": 63.668,
+      "number": 57,
+      "velocity": 60,
+      "string": 3,
+      "fret": 7,
+      "channel": 4
+    },
+    {
+      "time": 63.908,
+      "number": 59,
+      "velocity": 58,
+      "string": 3,
+      "fret": 9,
+      "channel": 4
+    },
+    {
+      "time": 64.129,
+      "number": 60,
+      "velocity": 62,
+      "string": 2,
+      "fret": 5,
+      "channel": 3
+    },
+    {
+      "time": 64.342,
+      "number": 62,
+      "velocity": 40,
+      "string": 2,
+      "fret": 7,
+      "channel": 3
+    },
+    {
+      "time": 64.565,
+      "number": 64,
+      "velocity": 69,
+      "string": 2,
+      "fret": 9,
+      "channel": 3
+    },
+    {
+      "time": 64.808,
+      "number": 65,
+      "velocity": 74,
+      "string": 1,
+      "fret": 6,
+      "channel": 2
+    },
+    {
+      "time": 65.075,
+      "number": 67,
+      "velocity": 63,
+      "string": 1,
+      "fret": 8,
+      "channel": 2
+    },
+    {
+      "time": 65.335,
+      "number": 69,
+      "velocity": 46,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 65.381,
+      "number": 69,
+      "velocity": 106,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 65.724,
+      "number": 71,
+      "velocity": 85,
+      "string": 0,
+      "fret": 7,
+      "channel": 1
+    },
+    {
+      "time": 66.051,
+      "number": 72,
+      "velocity": 62,
+      "string": 0,
+      "fret": 8,
+      "channel": 1
+    },
+    {
+      "time": 66.395,
+      "number": 74,
+      "velocity": 43,
+      "string": 0,
+      "fret": 10,
+      "channel": 1
+    },
+    {
+      "time": 66.42,
+      "number": 74,
+      "velocity": 107,
+      "string": 0,
+      "fret": 10,
+      "channel": 1
+    },
+    {
+      "time": 67.3,
+      "number": 57,
+      "velocity": 16,
+      "string": 5,
+      "fret": 17,
+      "channel": 6
+    },
+    {
+      "time": 67.339,
+      "number": 47,
+      "velocity": 42,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 67.599,
+      "number": 47,
+      "velocity": 16,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 67.628,
+      "number": 48,
+      "velocity": 28,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 67.824,
+      "number": 61,
+      "velocity": 20,
+      "string": 5,
+      "fret": 21,
+      "channel": 6
+    },
+    {
+      "time": 67.847,
+      "number": 50,
+      "velocity": 51,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 68.044,
+      "number": 52,
+      "velocity": 37,
+      "string": 4,
+      "fret": 7,
+      "channel": 5
+    },
+    {
+      "time": 68.264,
+      "number": 53,
+      "velocity": 18,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 68.441,
+      "number": 55,
+      "velocity": 10,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 68.473,
+      "number": 55,
+      "velocity": 38,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 68.674,
+      "number": 57,
+      "velocity": 59,
+      "string": 3,
+      "fret": 7,
+      "channel": 4
+    },
+    {
+      "time": 68.861,
+      "number": 59,
+      "velocity": 40,
+      "string": 3,
+      "fret": 9,
+      "channel": 4
+    },
+    {
+      "time": 68.874,
+      "number": 59,
+      "velocity": 34,
+      "string": 3,
+      "fret": 9,
+      "channel": 4
+    },
+    {
+      "time": 69.05,
+      "number": 60,
+      "velocity": 28,
+      "string": 3,
+      "fret": 10,
+      "channel": 4
+    },
+    {
+      "time": 69.096,
+      "number": 60,
+      "velocity": 66,
+      "string": 3,
+      "fret": 10,
+      "channel": 4
+    },
+    {
+      "time": 69.307,
+      "number": 62,
+      "velocity": 76,
+      "string": 2,
+      "fret": 7,
+      "channel": 3
+    },
+    {
+      "time": 69.551,
+      "number": 64,
+      "velocity": 38,
+      "string": 2,
+      "fret": 9,
+      "channel": 3
+    },
+    {
+      "time": 69.747,
+      "number": 65,
+      "velocity": 20,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 69.779,
+      "number": 65,
+      "velocity": 54,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 70.005,
+      "number": 61,
+      "velocity": 10,
+      "string": 1,
+      "fret": 2,
+      "channel": 2
+    },
+    {
+      "time": 70.013,
+      "number": 67,
+      "velocity": 82,
+      "string": 1,
+      "fret": 8,
+      "channel": 2
+    },
+    {
+      "time": 70.211,
+      "number": 68,
+      "velocity": 59,
+      "string": 1,
+      "fret": 9,
+      "channel": 2
+    },
+    {
+      "time": 70.256,
+      "number": 69,
+      "velocity": 20,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 70.464,
+      "number": 71,
+      "velocity": 53,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 70.66,
+      "number": 72,
+      "velocity": 69,
+      "string": 0,
+      "fret": 8,
+      "channel": 1
+    },
+    {
+      "time": 70.887,
+      "number": 74,
+      "velocity": 34,
+      "string": 0,
+      "fret": 10,
+      "channel": 1
+    },
+    {
+      "time": 71.097,
+      "number": 75,
+      "velocity": 20,
+      "string": 0,
+      "fret": 11,
+      "channel": 1
+    },
+    {
+      "time": 71.109,
+      "number": 59,
+      "velocity": 116,
+      "string": 1,
+      "fret": 0,
+      "channel": 2
+    },
+    {
+      "time": 71.133,
+      "number": 76,
+      "velocity": 62,
+      "string": 0,
+      "fret": 12,
+      "channel": 1
+    },
+    {
+      "time": 71.407,
+      "number": 48,
+      "velocity": 100,
+      "string": 5,
+      "fret": 8,
+      "channel": 6
+    },
+    {
+      "time": 71.676,
+      "number": 50,
+      "velocity": 82,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 71.836,
+      "number": 52,
+      "velocity": 75,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 71.865,
+      "number": 52,
+      "velocity": 51,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 72.055,
+      "number": 53,
+      "velocity": 74,
+      "string": 4,
+      "fret": 8,
+      "channel": 5
+    },
+    {
+      "time": 72.227,
+      "number": 54,
+      "velocity": 52,
+      "string": 4,
+      "fret": 9,
+      "channel": 5
+    },
+    {
+      "time": 72.278,
+      "number": 55,
+      "velocity": 46,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 72.445,
+      "number": 57,
+      "velocity": 26,
+      "string": 4,
+      "fret": 12,
+      "channel": 5
+    },
+    {
+      "time": 72.484,
+      "number": 57,
+      "velocity": 28,
+      "string": 4,
+      "fret": 12,
+      "channel": 5
+    },
+    {
+      "time": 72.688,
+      "number": 59,
+      "velocity": 94,
+      "string": 3,
+      "fret": 9,
+      "channel": 4
+    },
+    {
+      "time": 72.909,
+      "number": 60,
+      "velocity": 80,
+      "string": 3,
+      "fret": 10,
+      "channel": 4
+    },
+    {
+      "time": 73.112,
+      "number": 62,
+      "velocity": 76,
+      "string": 3,
+      "fret": 12,
+      "channel": 4
+    },
+    {
+      "time": 73.331,
+      "number": 64,
+      "velocity": 69,
+      "string": 2,
+      "fret": 9,
+      "channel": 3
+    },
+    {
+      "time": 73.552,
+      "number": 65,
+      "velocity": 39,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 73.736,
+      "number": 66,
+      "velocity": 16,
+      "string": 2,
+      "fret": 11,
+      "channel": 3
+    },
+    {
+      "time": 73.768,
+      "number": 67,
+      "velocity": 54,
+      "string": 2,
+      "fret": 12,
+      "channel": 3
+    },
+    {
+      "time": 73.948,
+      "number": 69,
+      "velocity": 10,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 73.96,
+      "number": 69,
+      "velocity": 85,
+      "string": 1,
+      "fret": 10,
+      "channel": 2
+    },
+    {
+      "time": 74.16789999985694,
+      "number": 71,
+      "velocity": 28,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 74.318,
+      "number": 72,
+      "velocity": 25,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 74.37,
+      "number": 72,
+      "velocity": 72,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 74.578,
+      "number": 74,
+      "velocity": 68,
+      "string": 0,
+      "fret": 10,
+      "channel": 1
+    },
+    {
+      "time": 74.809,
+      "number": 76,
+      "velocity": 16,
+      "string": 0,
+      "fret": 12,
+      "channel": 1
+    },
+    {
+      "time": 74.999,
+      "number": 77,
+      "velocity": 11,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 75.06,
+      "number": 77,
+      "velocity": 46,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 75.269,
+      "number": 71,
+      "velocity": 10,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 75.274,
+      "number": 50,
+      "velocity": 10,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 75.321,
+      "number": 50,
+      "velocity": 10,
+      "string": 3,
+      "fret": 0,
+      "channel": 4
+    },
+    {
+      "time": 75.324,
+      "number": 50,
+      "velocity": 72,
+      "string": 5,
+      "fret": 10,
+      "channel": 6
+    },
+    {
+      "time": 75.562,
+      "number": 52,
+      "velocity": 51,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 75.843,
+      "number": 53,
+      "velocity": 66,
+      "string": 5,
+      "fret": 13,
+      "channel": 6
+    },
+    {
+      "time": 76.087,
+      "number": 55,
+      "velocity": 79,
+      "string": 4,
+      "fret": 10,
+      "channel": 5
+    },
+    {
+      "time": 76.363,
+      "number": 57,
+      "velocity": 64,
+      "string": 4,
+      "fret": 12,
+      "channel": 5
+    },
+    {
+      "time": 76.597,
+      "number": 59,
+      "velocity": 52,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 76.619,
+      "number": 59,
+      "velocity": 68,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 76.866,
+      "number": 61,
+      "velocity": 10,
+      "string": 3,
+      "fret": 11,
+      "channel": 4
+    },
+    {
+      "time": 76.877,
+      "number": 60,
+      "velocity": 96,
+      "string": 3,
+      "fret": 10,
+      "channel": 4
+    },
+    {
+      "time": 77.147,
+      "number": 62,
+      "velocity": 79,
+      "string": 3,
+      "fret": 12,
+      "channel": 4
+    },
+    {
+      "time": 77.412,
+      "number": 64,
+      "velocity": 94,
+      "string": 3,
+      "fret": 14,
+      "channel": 4
+    },
+    {
+      "time": 77.697,
+      "number": 65,
+      "velocity": 88,
+      "string": 2,
+      "fret": 10,
+      "channel": 3
+    },
+    {
+      "time": 77.991,
+      "number": 67,
+      "velocity": 64,
+      "string": 2,
+      "fret": 12,
+      "channel": 3
+    },
+    {
+      "time": 78.304,
+      "number": 69,
+      "velocity": 76,
+      "string": 2,
+      "fret": 14,
+      "channel": 3
+    },
+    {
+      "time": 78.658,
+      "number": 64,
+      "velocity": 10,
+      "string": 1,
+      "fret": 5,
+      "channel": 2
+    },
+    {
+      "time": 78.67,
+      "number": 70,
+      "velocity": 112,
+      "string": 1,
+      "fret": 11,
+      "channel": 2
+    },
+    {
+      "time": 79.132,
+      "number": 71,
+      "velocity": 101,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 79.571,
+      "number": 72,
+      "velocity": 78,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 79.594,
+      "number": 72,
+      "velocity": 79,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 79.862,
+      "number": 73,
+      "velocity": 55,
+      "string": 1,
+      "fret": 14,
+      "channel": 2
+    },
+    {
+      "time": 79.898,
+      "number": 74,
+      "velocity": 61,
+      "string": 1,
+      "fret": 15,
+      "channel": 2
+    },
+    {
+      "time": 80.154,
+      "number": 76,
+      "velocity": 89,
+      "string": 0,
+      "fret": 12,
+      "channel": 1
+    },
+    {
+      "time": 80.428,
+      "number": 77,
+      "velocity": 66,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 80.468,
+      "number": 77,
+      "velocity": 54,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 80.718,
+      "number": 78,
+      "velocity": 25,
+      "string": 0,
+      "fret": 14,
+      "channel": 1
+    },
+    {
+      "time": 80.751,
+      "number": 79,
+      "velocity": 45,
+      "string": 0,
+      "fret": 15,
+      "channel": 1
+    },
+    {
+      "time": 81.041,
+      "number": 52,
+      "velocity": 62,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 81.30789999985694,
+      "number": 53,
+      "velocity": 33,
+      "string": 5,
+      "fret": 13,
+      "channel": 6
+    },
+    {
+      "time": 81.487,
+      "number": 54,
+      "velocity": 16,
+      "string": 5,
+      "fret": 14,
+      "channel": 6
+    },
+    {
+      "time": 81.516,
+      "number": 55,
+      "velocity": 51,
+      "string": 5,
+      "fret": 15,
+      "channel": 6
+    },
+    {
+      "time": 81.617,
+      "number": 54,
+      "velocity": 29,
+      "string": 5,
+      "fret": 14,
+      "channel": 6
+    },
+    {
+      "time": 81.691,
+      "number": 57,
+      "velocity": 61,
+      "string": 4,
+      "fret": 12,
+      "channel": 5
+    },
+    {
+      "time": 81.865,
+      "number": 59,
+      "velocity": 32,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 82.008,
+      "number": 60,
+      "velocity": 10,
+      "string": 4,
+      "fret": 15,
+      "channel": 5
+    },
+    {
+      "time": 82.198,
+      "number": 62,
+      "velocity": 75,
+      "string": 3,
+      "fret": 12,
+      "channel": 4
+    },
+    {
+      "time": 82.358,
+      "number": 63,
+      "velocity": 48,
+      "string": 3,
+      "fret": 13,
+      "channel": 4
+    },
+    {
+      "time": 82.385,
+      "number": 64,
+      "velocity": 25,
+      "string": 3,
+      "fret": 14,
+      "channel": 4
+    },
+    {
+      "time": 82.517,
+      "number": 65,
+      "velocity": 10,
+      "string": 3,
+      "fret": 15,
+      "channel": 4
+    },
+    {
+      "time": 82.56,
+      "number": 63,
+      "velocity": 15,
+      "string": 3,
+      "fret": 13,
+      "channel": 4
+    },
+    {
+      "time": 82.573,
+      "number": 65,
+      "velocity": 15,
+      "string": 3,
+      "fret": 15,
+      "channel": 4
+    },
+    {
+      "time": 82.717,
+      "number": 67,
+      "velocity": 64,
+      "string": 2,
+      "fret": 12,
+      "channel": 3
+    },
+    {
+      "time": 82.891,
+      "number": 69,
+      "velocity": 13,
+      "string": 2,
+      "fret": 14,
+      "channel": 3
+    },
+    {
+      "time": 83.062,
+      "number": 71,
+      "velocity": 20,
+      "string": 2,
+      "fret": 16,
+      "channel": 3
+    },
+    {
+      "time": 83.185,
+      "number": 70,
+      "velocity": 10,
+      "string": 2,
+      "fret": 15,
+      "channel": 3
+    },
+    {
+      "time": 83.264,
+      "number": 71,
+      "velocity": 89,
+      "string": 1,
+      "fret": 12,
+      "channel": 2
+    },
+    {
+      "time": 83.706,
+      "number": 72,
+      "velocity": 80,
+      "string": 1,
+      "fret": 13,
+      "channel": 2
+    },
+    {
+      "time": 84.126,
+      "number": 73,
+      "velocity": 59,
+      "string": 1,
+      "fret": 14,
+      "channel": 2
+    },
+    {
+      "time": 84.156,
+      "number": 74,
+      "velocity": 64,
+      "string": 1,
+      "fret": 15,
+      "channel": 2
+    },
+    {
+      "time": 84.421,
+      "number": 76,
+      "velocity": 88,
+      "string": 1,
+      "fret": 17,
+      "channel": 2
+    },
+    {
+      "time": 84.661,
+      "number": 77,
+      "velocity": 66,
+      "string": 0,
+      "fret": 13,
+      "channel": 1
+    },
+    {
+      "time": 84.867,
+      "number": 79,
+      "velocity": 48,
+      "string": 0,
+      "fret": 15,
+      "channel": 1
+    },
+    {
+      "time": 84.898,
+      "number": 79,
+      "velocity": 64,
+      "string": 0,
+      "fret": 15,
+      "channel": 1
+    },
+    {
+      "time": 85.144,
+      "number": 81,
+      "velocity": 35,
+      "string": 0,
+      "fret": 17,
+      "channel": 1
+    },
+    {
+      "time": 85.159,
+      "number": 81,
+      "velocity": 104,
+      "string": 0,
+      "fret": 17,
+      "channel": 1
+    },
+    {
+      "time": 86.08,
+      "number": 54,
+      "velocity": 15,
+      "string": 5,
+      "fret": 14,
+      "channel": 6
+    },
+    {
+      "time": 86.09,
+      "number": 54,
+      "velocity": 33,
+      "string": 5,
+      "fret": 14,
+      "channel": 6
+    },
+    {
+      "time": 86.836,
+      "number": 55,
+      "velocity": 30,
+      "string": 5,
+      "fret": 15,
+      "channel": 6
+    },
+    {
+      "time": 87.076,
+      "number": 57,
+      "velocity": 10,
+      "string": 5,
+      "fret": 17,
+      "channel": 6
+    },
+    {
+      "time": 87.255,
+      "number": 65,
+      "velocity": 10,
+      "string": 4,
+      "fret": 20,
+      "channel": 5
+    },
+    {
+      "time": 87.277,
+      "number": 58,
+      "velocity": 10,
+      "string": 4,
+      "fret": 13,
+      "channel": 5
+    },
+    {
+      "time": 87.297,
+      "number": 59,
+      "velocity": 73,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 87.929,
+      "number": 53,
+      "velocity": 10,
+      "string": 5,
+      "fret": 13,
+      "channel": 6
+    },
+    {
+      "time": 87.953,
+      "number": 53,
+      "velocity": 86,
+      "string": 5,
+      "fret": 13,
+      "channel": 6
+    },
+    {
+      "time": 88.263,
+      "number": 54,
+      "velocity": 58,
+      "string": 5,
+      "fret": 14,
+      "channel": 6
+    },
+    {
+      "time": 88.281,
+      "number": 55,
+      "velocity": 44,
+      "string": 5,
+      "fret": 15,
+      "channel": 6
+    },
+    {
+      "time": 88.45,
+      "number": 57,
+      "velocity": 21,
+      "string": 5,
+      "fret": 17,
+      "channel": 6
+    },
+    {
+      "time": 88.469,
+      "number": 56,
+      "velocity": 29,
+      "string": 5,
+      "fret": 16,
+      "channel": 6
+    },
+    {
+      "time": 88.486,
+      "number": 57,
+      "velocity": 65,
+      "string": 5,
+      "fret": 17,
+      "channel": 6
+    },
+    {
+      "time": 88.651,
+      "number": 59,
+      "velocity": 13,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 88.667,
+      "number": 59,
+      "velocity": 84,
+      "string": 4,
+      "fret": 14,
+      "channel": 5
+    },
+    {
+      "time": 88.853,
+      "number": 60,
+      "velocity": 49,
+      "string": 4,
+      "fret": 15,
+      "channel": 5
+    },
+    {
+      "time": 89.03,
+      "number": 62,
+      "velocity": 64,
+      "string": 4,
+      "fret": 17,
+      "channel": 5
+    },
+    {
+      "time": 89.195,
+      "number": 64,
+      "velocity": 23,
+      "string": 3,
+      "fret": 14,
+      "channel": 4
+    },
+    {
+      "time": 89.215,
+      "number": 64,
+      "velocity": 107,
+      "string": 3,
+      "fret": 14,
+      "channel": 4
+    },
+    {
+      "time": 89.425,
+      "number": 65,
+      "velocity": 80,
+      "string": 3,
+      "fret": 15,
+      "channel": 4
+    },
+    {
+      "time": 89.657,
+      "number": 67,
+      "velocity": 49,
+      "string": 3,
+      "fret": 17,
+      "channel": 4
+    },
+    {
+      "time": 89.688,
+      "number": 67,
+      "velocity": 110,
+      "string": 3,
+      "fret": 17,
+      "channel": 4
+    },
+    {
+      "time": 90.017,
+      "number": 69,
+      "velocity": 94,
+      "string": 2,
+      "fret": 14,
+      "channel": 3
+    },
+    {
+      "time": 90.527,
+      "number": 71,
+      "velocity": 72,
+      "string": 2,
+      "fret": 16,
+      "channel": 3
+    },
+    {
+      "time": 90.562,
+      "number": 71,
+      "velocity": 80,
+      "string": 2,
+      "fret": 16,
+      "channel": 3
+    },
+    {
+      "time": 91.016,
+      "number": 72,
+      "velocity": 109,
+      "string": 2,
+      "fret": 17,
+      "channel": 3
+    },
+    {
+      "time": 91.325,
+      "number": 73,
+      "velocity": 92,
+      "string": 2,
+      "fret": 18,
+      "channel": 3
+    },
+    {
+      "time": 91.411,
+      "number": 72,
+      "velocity": 88,
+      "string": 2,
+      "fret": 17,
+      "channel": 3
+    },
+    {
+      "time": 91.843,
+      "number": 74,
+      "velocity": 103,
+      "string": 1,
+      "fret": 15,
+      "channel": 2
+    },
+    {
+      "time": 92.442,
+      "number": 76,
+      "velocity": 76,
+      "string": 1,
+      "fret": 17,
+      "channel": 2
+    },
+    {
+      "time": 92.466,
+      "number": 76,
+      "velocity": 94,
+      "string": 1,
+      "fret": 17,
+      "channel": 2
+    },
+    {
+      "time": 92.915,
+      "number": 77,
+      "velocity": 113,
+      "string": 1,
+      "fret": 18,
+      "channel": 2
+    },
+    {
+      "time": 93.36,
+      "number": 79,
+      "velocity": 99,
+      "string": 0,
+      "fret": 15,
+      "channel": 1
+    },
+    {
+      "time": 93.798,
+      "number": 79,
+      "velocity": 110,
+      "string": 0,
+      "fret": 15,
+      "channel": 1
+    },
+    {
+      "time": 94.263,
+      "number": 81,
+      "velocity": 111,
+      "string": 0,
+      "fret": 17,
+      "channel": 1
+    },
+    {
+      "time": 94.662,
+      "number": 82,
+      "velocity": 82,
+      "string": 0,
+      "fret": 18,
+      "channel": 1
+    },
+    {
+      "time": 94.692,
+      "number": 83,
+      "velocity": 117,
+      "string": 0,
+      "fret": 19,
+      "channel": 1
+    },
+    {
+      "time": 95.906,
+      "number": 83,
+      "velocity": 10,
+      "string": 0,
+      "fret": 19,
+      "channel": 1
+    },
+    {
+      "time": 95.923,
+      "number": 66,
+      "velocity": 30,
+      "string": 0,
+      "fret": 2,
+      "channel": 1
+    },
+    {
+      "time": 95.931,
+      "number": 84,
+      "velocity": 116,
+      "string": 0,
+      "fret": 20,
+      "channel": 1
+    },
+    {
+      "time": 97.088,
+      "number": 64,
+      "velocity": 10,
+      "string": 2,
+      "fret": 9,
+      "channel": 3
+    },
+    {
+      "time": 97.099,
+      "number": 63,
+      "velocity": 10,
+      "string": 2,
+      "fret": 8,
+      "channel": 3
+    },
+    {
+      "time": 97.115,
+      "number": 62,
+      "velocity": 10,
+      "string": 2,
+      "fret": 7,
+      "channel": 3
+    },
+    {
+      "time": 119.823,
+      "number": 45,
+      "velocity": 26,
+      "string": 5,
+      "fret": 5,
+      "channel": 6
+    },
+    {
+      "time": 120.768,
+      "number": 46,
+      "velocity": 42,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 120.811,
+      "number": 45,
+      "velocity": 42,
+      "string": 5,
+      "fret": 5,
+      "channel": 6
+    },
+    {
+      "time": 120.913,
+      "number": 46,
+      "velocity": 38,
+      "string": 5,
+      "fret": 6,
+      "channel": 6
+    },
+    {
+      "time": 120.971,
+      "number": 47,
+      "velocity": 42,
+      "string": 5,
+      "fret": 7,
+      "channel": 6
+    },
+    {
+      "time": 122.494,
+      "number": 66,
+      "velocity": 10,
+      "string": 1,
+      "fret": 7,
+      "channel": 2
+    },
+    {
+      "time": 122.495,
+      "number": 68,
+      "velocity": 10,
+      "string": 3,
+      "fret": 18,
+      "channel": 4
+    },
+    {
+      "time": 122.496,
+      "number": 68,
+      "velocity": 10,
+      "string": 4,
+      "fret": 23,
+      "channel": 5
+    },
+    {
+      "time": 128.328,
+      "number": 51,
+      "velocity": 69,
+      "string": 5,
+      "fret": 11,
+      "channel": 6
+    },
+    {
+      "time": 130.462,
+      "number": 52,
+      "velocity": 71,
+      "string": 5,
+      "fret": 12,
+      "channel": 6
+    },
+    {
+      "time": 131.418,
+      "number": 40,
+      "velocity": 46,
+      "string": 5,
+      "fret": 0,
+      "channel": 6
+    },
+    {
+      "time": 135.011,
+      "number": 55,
+      "velocity": 79,
+      "string": 5,
+      "fret": 15,
+      "channel": 6
+    }
+  ],
+  "_appId": "fretboard-heatmap",
+  "_softwareVersion": "0.13.4",
+  "_date": "2024-09-17T13:22:57.806Z"
+}
