@@ -253,9 +253,11 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI keyboard or drum kit and start playing to the metronome.
-        The chart will show you how a summary of where your notes started, the
-        top one is for your right hand and the bottom one for your left hand.
+        This app helps practicing beat sub-divisions such as eighths or triplets
+        on a piano or drum. You can choose a different sub-division for each
+        hand. The chart will show you how a summary of where your notes started,
+        the top one is for your right hand and the bottom one for your left
+        hand.
     </p>
     <p class="explanation">
         <b>Keyboard mode:</b> Left hand plays keys left of the middle A, right

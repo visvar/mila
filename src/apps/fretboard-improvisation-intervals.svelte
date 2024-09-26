@@ -238,8 +238,9 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Each time you play a note, the fretboard below shows you how far each
-        note of the scale is away from the note you just played.
+        This app helps practicing scales on a guitar. Each time you play a note,
+        the fretboard below shows you how far each note of the scale is away
+        from the note you just played.
     </p>
     <ExerciseDrawer>
         <p>1) Go through the scale in steps of 1.</p>

@@ -175,13 +175,14 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI instrument and start playing. The bar chart below shows
-        how often you played each interval: when you go up in pitch, the bar of
-        the played interval in the top half will increase. If you go down, it
-        will show up in the bottom half. Colors denote the type of interval, so
-        you can quickly see if you play, for example, more major or minor
-        intervals. The intervals are labelled by their name and the number of
-        semitones (negative when going from higher to lower notes).
+        This app helps practicing intervals between notes in a melody. You can
+        play a note, then another one some interval apart, and so on. The bar
+        chart below shows how often you played each interval: when you go up in
+        pitch, the bar of the played interval in the top half will increase. If
+        you go down, it will show up in the bottom half. Colors denote the type
+        of interval, so you can quickly see if you play, for example, more major
+        or minor intervals. The intervals are labelled by their name and the
+        number of semitones (negative when going from higher to lower notes).
     </p>
     <ExerciseDrawer>
         <p>1) Play different notes and see which intervals are between them.</p>

@@ -135,12 +135,12 @@
   let currentTool = null;
 
   // row layout?
-  let rows = localStorage.getItem('display-app-rows') === 'true' ?? true;
+  let rows = localStorage.getItem('display-app-rows') === 'true' || false;
 </script>
 
 <main>
   <header>
-    <h1>Music Instrument Learning Apps</h1>
+    <h1>Musical Instrument Learning Apps</h1>
     <nav>
       <!-- main page button -->
       <button

@@ -224,8 +224,9 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Play chords or short arpeggios with pauses inbetween. In the
-        visualization below, you can then see how long the time between the
+        This app helps practicing the timing between chords and between the
+        notes in them. Play chords or short arpeggios with pauses inbetween. In
+        the visualization below, you can then see how long the time between the
         first and last note of each chord/arpeggio was and how much time lies
         between consecutive chords/arpeggios.
     </p>

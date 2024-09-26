@@ -211,8 +211,10 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI keyboard and start playing. The heatmap below shows how
-        often you played each keyboard key. You can color notes depending
+        This app helps practicing scales on a keyboard. The heatmap below shows
+        how often you played each keyboard key. You can color notes depending on
+        whether they belong to the chosen scale or not, so you can see how often
+        you played one outside the scale (on purpose or by accident).
     </p>
     <ExerciseDrawer>
         <p>

@@ -391,7 +391,8 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Set a tempo and try to play different note durations (whole, half,
+        This app helps practicing how long you hold notes. Set a tempo, start
+        the metronome, and try to play different note durations (whole, half,
         quarter, eighth). You can also try dotted notes. Each note will be shown
         as a pie chart, that shows how much of a whole note you played. For
         example, if you tried to play a half note, the pie chart should be half

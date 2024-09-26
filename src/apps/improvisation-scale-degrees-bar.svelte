@@ -116,6 +116,7 @@
                 legend: useColors,
                 domain: ['root', 'scale', 'outside scale'],
                 range: ['#666', '#aaa', '#ddd'],
+                marginLeft: 100,
             },
             y: {
                 tickFormat: (d) => noteNames[(d + rootNr) % 12],
@@ -209,8 +210,8 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI instrument and start playing. The bar chart below shows
-        how often you played each scale degree.
+        This app helps practicing how to use the different degrees of a scale.
+        The bar chart below shows how often you played each scale degree.
     </p>
     <ExerciseDrawer>
         <p>1) Improvise in A minor pentatonic.</p>
@@ -268,10 +269,3 @@
     <RatingButton appId="{appInfo.id}" />
     <MidiInput {noteOn} />
 </main>
-
-<style>
-    /* adjust color legend position */
-    div :global(figure > div) {
-        margin-left: 100px;
-    }
-</style>

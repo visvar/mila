@@ -196,11 +196,13 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Set a tempo and start playing. The time between the notes you play will
-        be displayed as note symbols, so you can see whether you play, for
-        example, correct quarter notes. The note's velocity is encoded as font
-        size, so you can see whether you accent the correct notes, for example
-        the first note in each triplet, or the the first in each group of 4.
+        This app helps practicing accents, that is, playing some notes louder
+        then others to highlight them. Set a tempo and start playing. The time
+        between the notes you play will be displayed as note symbols, so you can
+        see whether you play, for example, correct quarter notes. The note's
+        velocity is encoded as font size, so you can see whether you accent the
+        correct notes, for example the first note in each triplet, or the the
+        first in each group of 4.
         <i>Note: the display is always one note behind.</i>
     </p>
     <ExerciseDrawer>

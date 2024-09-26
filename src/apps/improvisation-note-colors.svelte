@@ -202,10 +202,11 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Notes that you play are shown as bars. The color shows which scale
-        subset a note belongs to. For example, when improvising in C major
-        pentatonic, the note C would be the darkest, followed by the notes of
-        the pentatonic in a brighter color, the rest of the major scale even
+        This app helps practicing improvising in a scale that is a sub-set of
+        another scale. Notes that you play are shown as bars. The color shows
+        which scale subset a note belongs to. For example, when improvising in C
+        major pentatonic, the note C would be the darkest, followed by the notes
+        of the pentatonic in a brighter color, the rest of the major scale even
         brighter, and all remaining notes of the chromatic scale in gray. The
         bars' height encodes the notes' durations.
     </p>

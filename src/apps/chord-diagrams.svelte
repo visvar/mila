@@ -271,7 +271,9 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Play chords on a guitar and see the chord names and diagrams.
+        This app helps practicing different chord shapes on a guitar. Play
+        chords you know (or don't know yet) and see the chord names and
+        diagrams.
     </p>
     <ExerciseDrawer>
         <p>1) Play an A minor chord.</p>

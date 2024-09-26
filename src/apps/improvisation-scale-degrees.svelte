@@ -180,8 +180,8 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI instrument and start playing. The bar chart below shows
-        how often you played each scale degree.
+        This app helps practicing how to use the different degrees of a scale.
+        The bar chart below shows how often you played each scale degree.
     </p>
     <ExerciseDrawer>
         <p>1) Improvise in A minor pentatonic.</p>

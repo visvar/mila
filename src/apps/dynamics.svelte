@@ -196,16 +196,17 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI instrument and start playing. The loudness of each note
-        will be shown as a bar. Bar heights are either exact or rounded to the
-        closest
+        This app helps practicing controlling the loudness of notes, for example
+        to keep at a roughly constant loudness, play accents, or smoothly in- or
+        decrease it. The loudness of each note is be shown as a bar in chart
+        below. Bar heights can be rounded to the closest
         <a
             href="https://en.wikipedia.org/wiki/Dynamics_(music)"
             target="_blank"
             referrerpolicy="no-referrer"
         >
             dynamics marking</a
-        >.
+        > for a clearer overview.
     </p>
     <ExerciseDrawer>
         <p>

@@ -372,9 +372,11 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Adjust the initial and target tempo, record an exercise at the inital
-        tempo, and then practice it with increasing speed until you reach your
-        target tempo.
+        This app helps practicing playing faster. Adjust the initial and target
+        tempo, record an exercise at the inital tempo, and then practice it with
+        increasing speed until you reach your target tempo. All repetitions will
+        be shown time-aligned, so you can see at which tempo you start to
+        struggle keeping up.
     </p>
     <ExerciseDrawer>
         <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>

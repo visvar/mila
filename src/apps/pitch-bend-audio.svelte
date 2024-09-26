@@ -209,7 +209,8 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Allow microphone access and play pitch bends or vibratos. The line chart
+        This app helps practicing pitch bends or vibratos with any instrument
+        that supports pitch modulation or with you singing voice. The line chart
         below shows how far you bend up and down over time.
     </p>
     <ExerciseDrawer>

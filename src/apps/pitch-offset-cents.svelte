@@ -178,8 +178,9 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Allow microphone access and play pitch bends or vibratos. The line chart
-        below shows how far you bend up and down over time.
+        This app helps practicing hitting the correct pitch (for example an
+        exact C) or playing/singing off-tune. The line chart below shows how far
+        you bend up and down over time.
     </p>
     <ExerciseDrawer>
         <p>1) Play or sing a note as accurately as possible.</p>

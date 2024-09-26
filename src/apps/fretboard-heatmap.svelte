@@ -204,8 +204,8 @@
 
     const saveToStorage = () => {
         if (
-            notes.length > 0
-            // &&            JSON.stringify(notes) !== JSON.stringify(example.notes)
+            notes.length > 0 &&
+            JSON.stringify(notes) !== JSON.stringify(example.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -217,9 +217,10 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI guitar and start playing. The heatmap below shows how
-        often you played each fretboard position. If a scale is shown, the color
-        hue will tell you whether a note you played belongs to the scale or not.
+        This app helps practicing scales and improvisation on a guitar. The
+        heatmap below shows how often you played each fretboard position. If a
+        scale is shown, the color hue will tell you whether a note you played
+        belongs to the scale or not.
     </p>
     <ExerciseDrawer>
         <p>1) Play the note A over the whole fretboard.</p>

@@ -273,12 +273,13 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Choose your tempo and subdivision, and start playing. The bar and area
-        charts will show you a summary of when you played notes. Use the
-        integrated metronome. All notes will be timed relative to the first one,
-        but you can adjust all notes to make them earlier or later in case you
-        messed up the first. The last few bars you play will be shown in a row
-        below.<br />
+        This app helps practicing beat sub-divisions such as eighths or
+        triplets. Choose your tempo and subdivision, and start playing. The bar
+        and area charts will show you a summary of when you played notes. Use
+        the integrated metronome. All notes will be timed relative to the first
+        one, but you can adjust all notes to make them earlier or later in case
+        you messed up the first. The last few bars you play will be shown in a
+        row below.<br />
         <i>
             Try playing without looking and focus on the metronome. Try to play
             all notes such that they are within a gray area!

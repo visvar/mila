@@ -229,9 +229,11 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI drum kit and start playing to the metronome. The chart
-        will show you how a summary of where your notes started, one for each
-        type of drum. If you do not have a MIDI drum kit, you can press keys:
+        This app helps practicing beat sub-divisions such as eighths or triplets
+        on drums. Connect a MIDI drum kit and start playing to the metronome.
+        The chart will show you how a summary of where your notes started, one
+        for each type of drum. If you do not have a MIDI drum kit, you can press
+        keys:
         <code>h</code>, <code>s</code>, <code>t</code>, and <code>k</code> for
         hi-hat, snare, tom, and kick drum.
         <i> Try playing without looking, focus on the metronome. </i>

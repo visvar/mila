@@ -177,13 +177,19 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI instrument, choose your tempo, and start playing. The
-        time between two note onsets will be shown as a bar, so you can see how
-        well you still hit, for example, quarter notes after playing for some
-        time. Bar heights are either exact or rounded to a certain duration
-        precision. You can filter very short inter-note times, which happen when
-        playing two notes at roughly the same time, for example in a chord.
-        <i> Try playing without looking! </i>
+        This app helps practicing keeping a constant tempo. Choose your tempo,
+        activate the metronome, and start playing. Once the metronome stops, try
+        to keep a constant tempo as long as possible. The time between two note
+        onsets will be shown as a bar, so you can see how well you still hit,
+        for example, quarter notes after playing for some time. Bar heights are
+        either exact or rounded to a certain duration precision for a clearer
+        overview when monitoring live. You can filter very short inter-note
+        times, which happen when playing two notes at roughly the same time, for
+        example in a chord.
+        <i>
+            Try playing without looking, so you don't correct based on what you
+            see!
+        </i>
     </p>
     <ExerciseDrawer>
         <p>

@@ -329,6 +329,8 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
+        This app helps practicing beat sub-divisions such as eighths or
+        triplets. In this version, you can compare to earlier takes below.
         Choose your tempo and subdivision, and start playing. The bar or area
         chart will show you a summary of when you played notes. Use the
         integrated metronome. All notes will be timed relative to the first one,

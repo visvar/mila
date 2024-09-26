@@ -183,10 +183,10 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Allow microphone access and play pitch bends or vibratos. Similar to a
-        tuner, the needle shows you how far you are off the closest note in
-        cents (0 is perfectly on the note, +/-50% is extactly between two valid
-        notes).
+        This app helps practicing hitting the correct pitch (for example an
+        exact C) or playing/singing off-tune. Similar to a tuner, the needle
+        shows you how far you are off the closest note in cents (0 is perfectly
+        on the note, +/-50% is extactly between two valid notes).
     </p>
     <ExerciseDrawer>
         <p>1) Play or sing a note as accurately as possible.</p>

@@ -393,12 +393,14 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Adjust the initial and target tempo, record an exercise at the inital
-        tempo, and then practice it with increasing speed until you reach your
-        target tempo. The notes you play are displayed in a guitar-tab-like
-        visualization with crosses, numbers above notes indicate the fret. The
-        darkness (white to black) encodes the notes' velocities, so eventual
-        noise (unintended notes) is less distracting.
+        This app helps practicing playing faster on guitar. Adjust the initial
+        and target tempo, record an exercise at the inital tempo, and then
+        practice it with increasing speed until you reach your target tempo. All
+        repetitions will be shown time-aligned, so you can see at which tempo
+        you start to struggle keeping up. The notes you play are displayed in a
+        tablature-like visualization with crosses, numbers above notes indicate
+        the fret. The darkness (white to black) encodes the notes' velocities,
+        so eventual noise (unintended notes) is less distracting.
     </p>
     <ExerciseDrawer>
         <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>

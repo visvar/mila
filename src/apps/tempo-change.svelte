@@ -182,8 +182,9 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Play first at one tempo then change to another one. The chart shows you
-        the tempo over time, so can see whether you changed correctly. <i
+        This app helps practicing tempo changes. Start playing at one tempo then
+        change to another one as accurately as you can. The chart shows you the
+        tempo over time, so can see whether you changed correctly. <i
             >This app assumes tempi between 60 and 180 bpm. Try playing without
             looking!</i
         >

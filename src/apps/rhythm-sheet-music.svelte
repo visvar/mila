@@ -212,12 +212,13 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Set a tempo and start playing. The time between the notes you play will
-        be displayed as note symbols, so you can see whether you play, for
-        example, correct quarter notes. Numbers show you how many percent of the
-        detected note duration you played, for example a -5 means your note was
-        5% too short. Bars below show you these percent as well, <span
-            style="color:{blue}">blue</span
+        This app helps practicing the timing of notes. Set a tempo and start
+        playing. The time between the notes you play will be displayed as note
+        symbols, so you can see whether you play, for example, correct quarter
+        notes. Numbers show you how many percent of the detected note duration
+        you played, for example a -5 means your note was 5% too short. Bars
+        below show you these percent as well, <span style="color:{blue}"
+            >blue</span
         >
         for notes that were too long (playing too slow) and
         <span style="color:{orange}">orange</span> for short (fast) ones.

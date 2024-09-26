@@ -204,8 +204,8 @@
 
     const saveToStorage = () => {
         if (
-            notes.length > 0
-            //  &&            JSON.stringify(notes) !== JSON.stringify(example.notes)
+            notes.length > 0 &&
+            JSON.stringify(notes) !== JSON.stringify(example.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -217,9 +217,11 @@
 <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-        Connect a MIDI guitar and start improvising. The fretboard below shows
-        you where you played the notes, color-coded by how recently you played
-        them. The notes are shifted a little at random to overlap less.
+        This app helps practicing improvisation on a guitar. The fretboard below
+        shows you where you played notes. Each note is a dot that is moved a
+        little bit from its exact position to avoid overlap. A note's color
+        indicates how recently you played it and its area tells how loud it was
+        played.
     </p>
     <ExerciseDrawer>
         <p>1) Play the note A over the whole fretboard.</p>
