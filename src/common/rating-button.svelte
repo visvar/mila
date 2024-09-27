@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
-    import { star } from '../lib/icons.js';
+    import { starIcon } from '../lib/icons.js';
     import {
         localStorageGetUsageData,
         localStorageSetUsageData,
@@ -94,12 +94,12 @@
             }
         }}"
     >
-        {star} rate this app
+        {starIcon} rate this app
     </button>
     {#if shown}
         <p>
-            How much do you agree with these statements? 1 {star}: completely
-            disagree, 5 {star}: completely agree
+            How much do you agree with these statements? 1 {starIcon}:
+            completely disagree, 5 {starIcon}: completely agree
         </p>
         <div class="grid">
             {#if rating}
@@ -111,13 +111,16 @@
                                 class="star {stars <= r.value ? '' : 'rest'}"
                                 on:click="{() => updateRating(r.id, stars)}"
                             >
-                                {star}
+                                {starIcon}
                             </button>
                         {/each}
                     </div>
                 {/each}
                 <div class="label">mean:</div>
-                <div>{d3.mean(rating, (d) => d.value).toFixed(1)} {star}</div>
+                <div>
+                    {d3.mean(rating, (d) => d.value).toFixed(1)}
+                    {starIcon}
+                </div>
             {/if}
         </div>
         <button on:click="{resetRating}">reset</button>

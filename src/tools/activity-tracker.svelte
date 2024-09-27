@@ -3,7 +3,7 @@
     import * as d3 from 'd3';
     import { localStorageGetUsageData } from '../lib/localstorage';
     import { onMount } from 'svelte';
-    import { star } from '../lib/icons';
+    import { starIcon } from '../lib/icons';
     import { COLORS } from '../lib/colors';
 
     /**
@@ -187,7 +187,7 @@
                 Plot.text(appRatings, {
                     x: 'meanRating',
                     y: 'id',
-                    text: (d) => `${d.meanRating.toFixed(1)} ${star}`,
+                    text: (d) => `${d.meanRating.toFixed(1)} ${starIcon}`,
                     textAnchor: 'start',
                     dx: 7,
                     paintOrder: 'stroke',

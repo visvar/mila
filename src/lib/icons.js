@@ -29,9 +29,11 @@ export const microphoneIcon2 = '🎤'
 export const upArrowIcon = '⬆'
 export const downArrowIcon = '⬇'
 
-export const star = '⭐'
+export const starIcon = '⭐'
 
-export const link = '🔗'
+export const linkIcon = '🔗'
+export const pencilIcon = '✎'
+export const saveIcon = '💾'
 
 // media controls
 export const playIcon = '▶'

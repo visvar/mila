@@ -1,6 +1,19 @@
 import { version } from '../../package.json'
 
+
+/**
+ * This file contains functions for managing persistent data storage in the localStorage of the user's browser
+ *
+ * TODO: replace constant loading using getItem with a singleton data model class that updates its state and only writes when something changes - no need to read all the time
+ */
+
+/**
+ * localStorage key for settings
+ */
 export const SETTINGS_KEY = 'app-settings'
+/**
+ * localStorage key for usage and recorded data
+ */
 export const USAGE_KEY = 'usage'
 
 const localSt = window.localStorage
@@ -122,7 +135,7 @@ export function localStorageGetSetting(key) {
  * @param {object} data data to save
  */
 export function localStorageAddRecording(appId, data) {
-  console.log(`saving recording for ${appId}`, data)
+  console.log(`[STORE] saving recording for ${appId}`, data)
   const usage = localStorageGetUsageData()
   if (!usage.appRecordedData) {
     usage.appRecordedData = {}
@@ -135,7 +148,7 @@ export function localStorageAddRecording(appId, data) {
   const string = JSON.stringify(data)
   for (const recording of recordings) {
     if (string === JSON.stringify(recording.data)) {
-      console.log('the recording already exists')
+      console.log('[STORE] the recording already exists')
       return
     }
   }
@@ -149,12 +162,38 @@ export function localStorageAddRecording(appId, data) {
 }
 
 /**
+ * Stores the recorded data of the app in the usage localSorage
+ * @param {string} appId app ID
+ * @param {object} recording recording to update
+ */
+export function localStorageUpdateRecording(appId, recording) {
+  console.log(`[STORE] updating recording for ${appId}`, recording)
+  const usage = localStorageGetUsageData()
+  if (!usage.appRecordedData || !usage.appRecordedData[appId]) {
+    console.log('[STORE] error: recording does not exist')
+    return
+  }
+  const recordings = usage.appRecordedData[appId]
+  // check if the same recording already exists
+  const string = JSON.stringify(recording.data)
+  for (const [index, rec] of recordings.entries()) {
+    if (string === JSON.stringify(rec.data)) {
+      recordings[index] = recording
+      localStorageSetUsageData(usage)
+      return
+    }
+  }
+  // if it does not exist, save it
+  console.log('[STORE] error: recording does not exist')
+}
+
+/**
  * Deletes a recording from the usage data
  * @param {string} appId app ID
  * @param {string} date the date for which the recording should be deleted
  */
 export function localStorageDeleteRecording(appId, date) {
-  console.log(`deleting recording for ${appId}`, date)
+  console.log(`[STORE] deleting recording for ${appId}`, date)
   const usage = localStorageGetUsageData()
   if (!usage.appRecordedData) {
     return

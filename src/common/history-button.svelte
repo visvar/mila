@@ -1,4 +1,5 @@
 <script>
+    import { pencilIcon } from '../lib/icons.js';
     /**
      * A dropdown that allows loading an auto-saved recording.
      *
@@ -8,6 +9,7 @@
         localSorageGetRecordings,
         localStorageDeleteRecording,
     } from '../lib/localstorage.js';
+    import HistoryButtonAnnotation from './history-button-annotation.svelte';
     import PcKeyboardInput from './pc-keyboard-input.svelte';
 
     export let appId;
@@ -40,7 +42,7 @@
     <div class="modal">
         <div class="modal-content">
             <div class="heading">
-                <h2>Load from History</h2>
+                <h2>Load From History</h2>
                 <button
                     title="close (shortcut: Escape)"
                     class="close"
@@ -54,6 +56,7 @@
                 <div>notes</div>
                 <div>load</div>
                 <div>delete</div>
+                <div>annotate</div>
             </div>
             {#each recordings as r, i (r.date)}
                 <div class="recording">
@@ -65,8 +68,10 @@
                     </div>
                     <button on:click="{(e) => loadData(r.data)}"> load </button>
                     <button
+                        class="delete"
                         on:click="{(e) => {
-                            if (askForDelete) {
+                            e.preventDefault();
+                            if (askForDelete === r.date) {
                                 askForDelete = '';
                                 localStorageDeleteRecording(appId, r.date);
                                 loadRecordings();
@@ -77,6 +82,14 @@
                     >
                         {askForDelete === r.date ? 'confirm' : 'delete'}
                     </button>
+                    <HistoryButtonAnnotation
+                        {appId}
+                        recording="{r}"
+                        {loadRecordings}
+                    />
+                    <div title="{r.annotation}" class="annotation">
+                        {r.annotation ? r.annotation.substring(0, 20) : ''}
+                    </div>
                 </div>
             {/each}
         </div>
@@ -95,39 +108,62 @@
         height: 100%;
         overflow: hidden;
         background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(1px);
     }
 
     /* Modal Content/Box */
     .modal-content {
         background-color: #ffffffb7;
         margin: 15% auto;
-        padding: 30px;
-        border: 1px solid #888;
+        padding: 0 20px 10px 20px;
+        box-shadow: #616161 0 0 8px;
         border-radius: 8px;
-        width: 400px;
+        width: 600px;
         max-height: 70%;
         overflow-y: auto;
     }
 
     .heading {
-        text-align: left;
         display: grid;
         grid-template-columns: auto min-content;
-        padding: 0 0 30px 0;
+        padding: 0 0 30px 30px;
     }
 
-    .close {
-        font-size: 24px;
+    button.close,
+    button.close:hover,
+    button.close:focus {
+        margin-right: -20px;
+        padding: 10px 20px;
+        background: none;
+        font-size: 30px;
         font-weight: bold;
+        outline: none;
+        border: none;
+    }
+    button.close:hover {
+        color: #888;
     }
 
     .recording {
-        margin-bottom: 10px;
+        margin-bottom: 2px;
         display: grid;
-        grid-template-columns: auto 80px 90px 90px;
+        grid-template-columns: 140px repeat(4, 90px) auto;
         align-items: center;
         justify-items: center;
         text-align: left;
+    }
+
+    .recording button {
+        background: #fff8;
+    }
+    .recording button.delete {
+        width: 90px;
+    }
+
+    .recording .annotation {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
