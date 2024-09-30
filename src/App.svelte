@@ -2,11 +2,10 @@
   import { version } from '../package.json';
   import { getUrlParam, setUrlParam } from './lib/url';
   import { getNumberOfDaysPassed, setHasAny, updSet } from './lib/lib';
-  import { localStorageGetUsageData } from './lib/localstorage';
   import { audioIcon, midiIcon } from './lib/icons';
   // side bar for skill filtering
   import SkillTree from './SkillTree.svelte';
-  // tools etc
+  // pages for tools etc
   import Tools from './tools/_tools.svelte';
   import Settings from './Settings.svelte';
   import Overview from './Overview.svelte';
@@ -27,10 +26,10 @@
 
   // access protection (not secure of course)
   const usePw = true;
-  let corrP = 'rhyvis';
-  let password = localStorage.getItem('pwd') ?? '';
+  let corrP = 'milamila';
+  let pwd = localStorage.getItem('pwd') ?? '';
   $: {
-    localStorage.setItem('pwd', password);
+    localStorage.setItem('pwd', pwd);
   }
 
   // allow to go back to main page with history
@@ -191,8 +190,8 @@
     </nav>
   </header>
 
-  {#if usePw && password !== corrP}
-    <input type="password" placeholder="password" bind:value="{password}" />
+  {#if usePw && pwd !== corrP}
+    <input type="password" placeholder="password" bind:value="{pwd}" />
   {:else if !currentApp}
     <div class="grid-filter-app">
       <!-- filter -->
