@@ -25,6 +25,7 @@
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -39,6 +40,7 @@
     let binNote = 64;
     let adjustTime = 0;
     let pastBars = 8;
+    let showLoudness = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -49,7 +51,11 @@
             firstTimeStamp = e.timestamp;
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        notes = [...notes, noteInSeconds];
+        const note = {
+            time: noteInSeconds,
+            velocity: e.velocity,
+        };
+        notes = [...notes, note];
         draw();
     };
 
@@ -82,9 +88,14 @@
     const draw = () => {
         const [grid1, grid2] = grid.split(':').map((d) => +d);
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
-        const notesInBeats = notes.map((d) => (d + adjustTime) / quarter);
-        const maxBar = Math.ceil((notesInBeats.at(-1) ?? 0) / grid1);
-        const clamped = notesInBeats.map((d) => d % grid1);
+        const notesInBeats = notes.map((d) => {
+            const time = (d.time + adjustTime) / quarter;
+            return { ...d, time };
+        });
+        const maxBar = Math.ceil((notesInBeats.at(-1)?.time ?? 0) / grid1);
+        const clamped = notesInBeats.map((d) => {
+            return { ...d, time: d.time % grid1 };
+        });
 
         // KDE
         let kdePoints = [];
@@ -92,11 +103,14 @@
             let bandwidth = 4 / binNote;
             let pad = 1;
             let bins = width / 2;
-            const density1d = kde.density1d(clamped, {
-                bandwidth,
-                pad,
-                bins,
-            });
+            const density1d = kde.density1d(
+                clamped.map((d) => d.time),
+                {
+                    bandwidth,
+                    pad,
+                    bins,
+                },
+            );
             kdePoints = density1d.bandwidth(bandwidth);
         }
 
@@ -137,7 +151,7 @@
                     Plot.binX(
                         { y: 'count' },
                         {
-                            x: (d) => d,
+                            x: 'time',
                             fill: '#ccc',
                             thresholds: d3.range(0, grid1 + 1, 4 / binNote),
                         },
@@ -172,8 +186,8 @@
             },
             marks: [
                 // ticks
-                Plot.tickX(notesInBeats, {
-                    x: (d) => d % grid1,
+                Plot.tickX(clamped, {
+                    x: 'time',
                     stroke: '#0002',
                     clip: true,
                 }),
@@ -204,9 +218,10 @@
                 }),
                 // ticks
                 Plot.tickX(notesInBeats, {
-                    x: (d) => d % grid1,
-                    y: (d, i) => Math.floor(d / grid1),
+                    x: (d) => d.time % grid1,
+                    y: (d, i) => Math.floor(d.time / grid1),
                     // stroke: '#0002',
+                    strokeWidth: showLoudness ? (d) => d.velocity * 4 : 1,
                     clip: true,
                 }),
             ],
@@ -221,7 +236,7 @@
         // show how many notes are within the OK areas
         if (notes.length > 0) {
             const score = computeSubdivisionOkScore(
-                notes,
+                notes.map((d) => d.time),
                 grid,
                 tempo,
                 binNote,
@@ -243,6 +258,9 @@
             grid,
             binNote,
             adjustTime,
+            pastBars,
+            showLoudness,
+            // data
             notes,
         };
     };
@@ -253,6 +271,8 @@
         grid = json.grid;
         binNote = json.binNote;
         adjustTime = json.adjustTime;
+        pastBars = json.pastBars;
+        showLoudness = json.showLoudness;
         // data
         notes = json.notes;
         draw();
@@ -324,7 +344,7 @@
             bind:adjustTime
             {tempo}
             {grid}
-            {notes}
+            notes="{notes.map((d) => d.time)}"
             {draw}
         />
         <NumberInput
@@ -335,6 +355,12 @@
             step="{1}"
             min="{8}"
             max="{32}"
+        />
+        <ToggleButton
+            label="loudness"
+            title="Show loudness in the note tick width, for example to see if you set accents correctly"
+            bind:checked="{showLoudness}"
+            callback="{draw}"
         />
     </div>
     <div class="visualization" bind:this="{container}"></div>
@@ -352,11 +378,13 @@
     <RatingButton appId="{appInfo.id}" />
     <PcKeyboardInput
         key=" "
-        keyDown="{() => noteOn({ timestamp: performance.now() })}"
+        keyDown="{() =>
+            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
     />
     <TouchInput
         element="{container}"
-        touchStart="{() => noteOn({ timestamp: performance.now() })}"
+        touchStart="{() =>
+            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
     />
     <MidiInput {noteOn} {controlChange} />
 </main>

@@ -156,11 +156,24 @@
                 ticks: d3.range(-30, 31, 10),
                 grid: true,
             },
+            color: {
+                // diverging color gradient did not help
+                // legend: true,
+                // domain: [-10, 10],
+                // range: [blue, '#ccc', orange],
+                // interpolate: 'hsl',
+                // type: 'diverging',
+                // ticks: [-30, -15, 0, 15, 30],
+                domain: ['short', 'long'],
+                range: [blue, orange],
+            },
             marks: [
                 Plot.barY(bestFit, {
                     x: (d, i) => i,
                     y: (d) => d.offsetPercent - 100,
-                    fill: (d) => (d.offsetPercent < 100 ? orange : blue),
+                    fill: (d) => (d.offsetPercent < 100 ? 'long' : 'short'),
+                    // fill: (d) => d.offsetPercent - 100,
+                    tip: true,
                 }),
                 Plot.ruleY([0]),
             ],
@@ -218,15 +231,18 @@
         notes. Numbers show you how many percent of the detected note duration
         you played, for example a -5 means your note was 5% too short. Bars
         below show you these percent as well, <span style="color:{blue}"
-            >blue</span
+            >blue for notes that were too long (playing too slow)</span
         >
-        for notes that were too long (playing too slow) and
-        <span style="color:{orange}">orange</span> for short (fast) ones.
+        and
+        <span style="color:{orange}">orange for short (fast) ones</span>.
     </p>
     <ExerciseDrawer>
         <p>1) Switch back and forth between quarters and eighths.</p>
         <p>2) Switch between eighths and eighth triplets.</p>
-        <p>3) Set the target to dotted-half and try to play them accurately.</p>
+        <p>
+            3) Set the target to dotted-half notes and try to play them
+            accurately.
+        </p>
     </ExerciseDrawer>
     <div class="control">
         <TempoInput bind:value="{tempo}" callback="{draw}" />

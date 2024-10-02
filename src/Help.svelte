@@ -57,7 +57,7 @@
             the auto-saved takes where you can load or delete them.
             <i
                 >No data is sent anywhere, it all is saved in your browser. You
-                can export or reset it in the settings (⚙️).</i
+                can export or reset it in the settings.</i
             >
         </p>
     </HelpTextDrawer>

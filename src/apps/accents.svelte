@@ -243,7 +243,6 @@
         >
             dotted notes {useDotted ? toggleOnIcon : toggleOffIcon}
         </button>
-
         <ToggleButton
             label="tuplets"
             title="Use tuplets? If not, the closest non-tuplet note will be taken."

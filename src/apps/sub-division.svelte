@@ -10,7 +10,7 @@
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
     import MidiInput from '../common/midi-input.svelte';
-    import example from '../example-recordings/sub-division.json';
+    import example from '../example-recordings/sub-division-linear.json';
     import ImportExportButton from '../common/import-export-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/history-button.svelte';
@@ -24,6 +24,7 @@
     import PageResizeHandler from '../common/page-resize-handler.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -41,6 +42,7 @@
     let binNote = 64;
     let adjustTime = 0;
     let showKde = false;
+    let showLoudness = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -50,7 +52,11 @@
             firstTimeStamp = e.timestamp;
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        notes = [...notes, noteInSeconds];
+        const note = {
+            time: noteInSeconds,
+            velocity: e.velocity,
+        };
+        notes = [...notes, note];
         draw();
     };
 
@@ -112,9 +118,11 @@
         // number of seconds for a fill circle rotation
         const circleSeconds = Utils.bpmToSecondsPerBeat(tempo) * grid1;
 
-        const adjustedNotes = notes.map((d) => d + adjustTime);
+        const adjustedNotes = notes.map((d) => {
+            return { ...d, time: d.time + adjustTime };
+        });
 
-        const clamped = adjustedNotes.map((d) => d % circleSeconds);
+        const clamped = adjustedNotes.map((d) => d.time % circleSeconds);
         const noteAngles = clamped.map((d) => (d / circleSeconds) * TWO_PI);
         const maxBinHeight = r * 0.2;
 
@@ -208,15 +216,19 @@
         if (adjustedNotes.length > 0) {
             ctx.lineWidth = 2;
             ctx.strokeStyle = '#888';
-            const lastNotes = adjustedNotes;
             const layerCount =
-                Math.floor(adjustedNotes.at(-1) / circleSeconds) + 1;
+                Math.floor(adjustedNotes.at(-1).time / circleSeconds) + 1;
             const layerSize = (height / 2 - r - maxBinHeight - 10) / layerCount;
-            for (const [i, n] of lastNotes.entries()) {
-                const angle = (n / circleSeconds) * TWO_PI - topOffs;
+            for (const [i, n] of adjustedNotes.entries()) {
+                // loudness
+                if (showLoudness) {
+                    ctx.lineWidth = n.velocity * 4;
+                }
+                // draw tick
+                const angle = (n.time / circleSeconds) * TWO_PI - topOffs;
                 const dx = Math.cos(angle);
                 const dy = Math.sin(angle);
-                const layer = Math.max(0, Math.floor(n / circleSeconds));
+                const layer = Math.max(0, Math.floor(n.time / circleSeconds));
                 const layerR1 = r + maxBinHeight + layer * layerSize + 5;
                 const layerR2 = layerR1 + layerSize;
                 ctx.beginPath();
@@ -276,7 +288,7 @@
         // score of how many notes are in the OK area
         if (notes.length > 0) {
             const ok = computeSubdivisionOkScore(
-                notes,
+                notes.map((d) => d.time),
                 grid,
                 tempo,
                 binNote,
@@ -302,6 +314,8 @@
             binNote,
             adjustTime,
             showKde,
+            showLoudness,
+            // data
             notes,
         };
     };
@@ -316,6 +330,7 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime;
         showKde = json.showKde ?? false;
+        showLoudness = json.showLoudness;
         // data
         notes = json.notes;
         draw();
@@ -383,11 +398,13 @@
                 <option value="{g}">1/{g} note</option>
             {/each}
         </SelectScollable>
+    </div>
+    <div class="control">
         <SubDivisionAdjustButton
             bind:adjustTime
             {tempo}
             {grid}
-            {notes}
+            notes="{notes.map((d) => d.time)}"
             {draw}
         />
         <button
@@ -399,6 +416,12 @@
         >
             {showKde ? 'area' : 'bars'}
         </button>
+        <ToggleButton
+            label="loudness"
+            title="Show loudness in the note tick width, for example to see if you set accents correctly"
+            bind:checked="{showLoudness}"
+            callback="{draw}"
+        />
     </div>
     <div class="visualization">
         <canvas
@@ -420,11 +443,13 @@
     <MidiInput {noteOn} {controlChange} />
     <PcKeyboardInput
         key=" "
-        keyDown="{() => noteOn({ timestamp: performance.now() })}"
+        keyDown="{() =>
+            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
     />
-    <PageResizeHandler callback="{draw}" />
     <TouchInput
         element="{canvas}"
-        touchStart="{() => noteOn({ timestamp: performance.now() })}"
+        touchStart="{() =>
+            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
     />
+    <PageResizeHandler callback="{draw}" />
 </main>
