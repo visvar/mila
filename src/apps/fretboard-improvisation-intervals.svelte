@@ -22,7 +22,6 @@
     export let appInfo;
 
     let width = 900;
-    let height = 250;
     let container;
     // settings
     let root = 'A';
@@ -117,10 +116,11 @@
         const cellSize = (width - 100) / 25;
         const plot = Plot.plot({
             width,
-            height,
+            // height,
             marginLeft: 50,
             marginBottom: 40,
             padding: 0,
+            aspectRatio: 1,
             x: {
                 domain: d3.range(0, fretCount + 1),
                 tickSize: 0,
@@ -134,8 +134,8 @@
                 legend: true,
                 marginLeft: 100,
                 width: 400,
-                // scheme: 'sinebow',
-                type: 'categorical',
+                type: 'ordinal',
+                scheme: 'YlGnBu',
                 // domain: [0, 3, 4, 7],
                 // range: ['black', 'red'],
             },
@@ -190,6 +190,8 @@
                     y: 'string',
                     fill: 'white',
                     text: showNames ? 'name' : 'degreeStep',
+                    stroke: '#aaa',
+                    strokeWidth: 3,
                 }),
             ],
         });

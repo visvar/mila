@@ -408,7 +408,7 @@
     <svelte:component this="{currentApp.component}" appInfo="{currentApp}" />
   {/if}
   <div class="version-number">
-    <span> </span>
+    <span>version {version}</span>
     <!-- appOverview page button -->
     <button
       on:click="{() => {
@@ -417,8 +417,9 @@
       }}"
       style="background: none; color: #aaa; font-weight: normal"
     >
-      version {version} | overview
+      app overview
     </button>
+    <a href="https://github.com/visvar/mila">GitHub</a>
     <!-- <ScreenshotButton bind:currentApp /> -->
   </div>
 </main>

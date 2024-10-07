@@ -44,6 +44,15 @@
     //     console.log(string);
     // };
     // latex();
+    const latex = () => {
+        let string = 'App & Section & Explanation \\\\';
+        for (const app of APPS) {
+            let line = `${app.title.padEnd(35)} & \\cref{sec:${(app.id + '}').padEnd(35)} & ${app.description.padEnd(95)} \\\\`;
+            string = `${string}\n${line}`;
+        }
+        console.log(string);
+    };
+    latex();
 
     /**
      * draws the tree of skills

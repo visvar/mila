@@ -23,7 +23,6 @@
     export let appInfo;
 
     let width = 900;
-    let height = 260;
     const random = () => (Math.random() - 0.5) * 0.4;
     let stringCount = 6;
     let fretCount = 24;
@@ -73,7 +72,8 @@
         const cellSize = (width - 100) / 25;
         const plot = Plot.plot({
             width,
-            height,
+            // height,
+            aspectRatio: 1,
             marginLeft: 50,
             marginBottom: 40,
             padding: 0,

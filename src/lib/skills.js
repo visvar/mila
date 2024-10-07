@@ -12,12 +12,12 @@ export const SKILL_TREE = [
       {
         id: 'sub-division',
         title: 'sub-division',
-        description: 'Note onsets should follow a sub-division of beats consistently, for example playing straight eighth notes or triplets'
+        description: 'Note onsets should follow a sub-division of beats consistently, for example, playing straight eighths or triplets'
       },
       {
         id: 'tempo-keeping',
         title: 'tempo keeping',
-        description: 'The tempo should be kept same over a longer stretch of time without the help of a metronome'
+        description: 'The tempo should be kept constant over a longer stretch of time without the help of a metronome'
       },
       // TODO: not supported for now
       // {
@@ -70,7 +70,7 @@ export const SKILL_TREE = [
       {
         id: 'bending',
         title: 'bending',
-        description: 'Bends should reach and stay at the intended semitone, the bend should start and end as quickly as intended'
+        description: 'Bends should reach and stay at the intended semitone; the bend should start and end as quickly as intended'
       },
       {
         id: 'vibrato',
@@ -91,7 +91,7 @@ export const SKILL_TREE = [
       {
         id: 'accents',
         title: 'accents',
-        description: 'Important notes should be louder than others, for example to highlight the first of a group of 3 or 4 notes'
+        description: 'Important notes should be louder than others, for example, to highlight the first of a group of 3 or 4 notes'
       },
       {
         id: '(de)crescendo',

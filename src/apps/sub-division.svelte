@@ -3,6 +3,7 @@
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
+    import * as Plot from '@observablehq/plot';
     import MetronomeButton from '../common/metronome-button.svelte';
     import TempoInput from '../common/tempo-input.svelte';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
@@ -34,6 +35,7 @@
     const TWO_PI = Math.PI * 2;
 
     let canvas;
+    let container;
     let width = 900;
     let height = 800;
     // settings
@@ -43,6 +45,7 @@
     let adjustTime = 0;
     let showKde = false;
     let showLoudness = false;
+    let showBarScores = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -300,6 +303,48 @@
                 cy + 7,
             );
         }
+
+        // percentage over bars
+        container.innerText = '';
+        if (showBarScores) {
+            const maxBar = Math.ceil((notes.at(-1)?.time ?? 0) / grid1);
+            const pastBars = maxBar; // TODO: change once pastBars option is there
+            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
+            const scores = byBar.map(([bar, barNotes]) => {
+                const score = computeSubdivisionOkScore(
+                    barNotes.map((d) => d.time),
+                    grid,
+                    tempo,
+                    binNote,
+                    adjustTime,
+                );
+                return (score / barNotes.length) * 100;
+            });
+            const scorePlot = Plot.plot({
+                width,
+                height: 110,
+                x: {
+                    label: 'bar',
+                    domain: d3.range(maxBar - pastBars, maxBar),
+                    tickFormat: (d) => d + 1,
+                },
+                y: {
+                    label: 'percent of notes in gray areas, per bar',
+                    domain: [0, 100],
+                },
+                marks: [
+                    Plot.rectY(scores, {
+                        y: Plot.identity,
+                        x: (d, i) => i,
+                        fill: 'var(--accent)',
+                        tip: true,
+                    }),
+                    Plot.ruleY([0]),
+                    Plot.ruleY([100]),
+                ],
+            });
+            container.appendChild(scorePlot);
+        }
     };
 
     onMount(draw);
@@ -315,6 +360,7 @@
             adjustTime,
             showKde,
             showLoudness,
+            showBarScores,
             // data
             notes,
         };
@@ -330,7 +376,8 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime;
         showKde = json.showKde ?? false;
-        showLoudness = json.showLoudness;
+        showLoudness = json.showLoudness ?? false;
+        showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
         draw();
@@ -417,6 +464,12 @@
             {showKde ? 'area' : 'bars'}
         </button>
         <ToggleButton
+            label="bar scores"
+            title="Show scores (percentage of notes within gray areas) per bar"
+            bind:checked="{showBarScores}"
+            callback="{draw}"
+        />
+        <ToggleButton
             label="loudness"
             title="Show loudness in the note tick width, for example to see if you set accents correctly"
             bind:checked="{showLoudness}"
@@ -429,6 +482,7 @@
             style="width: {width}px; height: {height}px"
         ></canvas>
     </div>
+    <div class="visualization" bind:this="{container}"></div>
     <div class="control">
         <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
         <UndoRedoButton bind:data="{notes}" callback="{draw}" />

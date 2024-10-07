@@ -99,6 +99,21 @@
             </li>
         </ul>
     </HelpTextDrawer>
+
+    <HelpTextDrawer heading="Troubleshooting">
+        <h4>MIDI</h4>
+        <p class="explanation">
+            If MIDI input does not work, make sure that the device is connected
+            and works. The browser can also see MIDI devices that are <i
+                >not in use in other software</i
+            >, such as other browsers that you have opened this website in. Some
+            MIDI software requires a MIDI loopback that simulates a hardware
+            MIDI device. We recommend
+            <a href="https://www.tobias-erichsen.de/software/loopmidi.html"
+                >loopMIDI</a
+            > for Windows.
+        </p>
+    </HelpTextDrawer>
 </main>
 
 <style>

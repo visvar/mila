@@ -41,6 +41,7 @@
     let adjustTime = 0;
     let pastBars = 8;
     let showLoudness = false;
+    let showBarScores = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -245,6 +246,45 @@
             const percent = ((score / notes.length) * 100).toFixed();
             okScore = `${percent}% of notes are within the gray areas`;
         }
+
+        // percentage over bars
+        if (showBarScores) {
+            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
+            const scores = byBar.map(([bar, barNotes]) => {
+                const score = computeSubdivisionOkScore(
+                    barNotes.map((d) => d.time),
+                    grid,
+                    tempo,
+                    binNote,
+                    adjustTime,
+                );
+                return (score / barNotes.length) * 100;
+            });
+            const scorePlot = Plot.plot({
+                width,
+                height: 110,
+                x: {
+                    label: 'bar',
+                    domain: d3.range(maxBar - pastBars, maxBar),
+                    tickFormat: (d) => d + 1,
+                },
+                y: {
+                    label: 'percent of notes in gray areas, per bar',
+                    domain: [0, 100],
+                },
+                marks: [
+                    Plot.rectY(scores, {
+                        y: Plot.identity,
+                        x: (d, i) => i,
+                        fill: 'var(--accent)',
+                        tip: true,
+                    }),
+                    Plot.ruleY([0]),
+                    Plot.ruleY([100]),
+                ],
+            });
+            container.appendChild(scorePlot);
+        }
     };
 
     onMount(draw);
@@ -260,6 +300,7 @@
             adjustTime,
             pastBars,
             showLoudness,
+            showBarScores,
             // data
             notes,
         };
@@ -272,7 +313,8 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime;
         pastBars = json.pastBars;
-        showLoudness = json.showLoudness;
+        showLoudness = json.showLoudness ?? false;
+        showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
         draw();
@@ -355,6 +397,12 @@
             step="{1}"
             min="{8}"
             max="{32}"
+        />
+        <ToggleButton
+            label="bar scores"
+            title="Show scores (percentage of notes within gray areas) per bar"
+            bind:checked="{showBarScores}"
+            callback="{draw}"
         />
         <ToggleButton
             label="loudness"

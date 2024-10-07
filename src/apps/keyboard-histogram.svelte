@@ -39,7 +39,7 @@
     let pastNoteCount = 500;
     let scaleRoot = 'C';
     let scaleType = 'major';
-    let showScale;
+    let showScale = true;
     // data
     let firstTimeStamp;
     let notes = [];
@@ -75,7 +75,7 @@
             height,
             marginLeft: 30,
             marginBottom: 28,
-            marginRight: 40,
+            marginRight: 5,
             padding: 0,
             x: {
                 label: '',
@@ -145,7 +145,7 @@
             width,
             height: 60,
             marginLeft: showScale ? 65 : 30,
-            marginRight: showScale ? 0 : 40,
+            marginRight: showScale ? 40 : 5,
             marginBottom: 10,
             padding: 0,
             x: { axis: false, interval: 1 },

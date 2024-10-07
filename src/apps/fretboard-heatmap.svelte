@@ -24,7 +24,6 @@
     export let appInfo;
 
     let width = 900;
-    let height = 250;
     let stringCount = 6;
     let fretCount = 24;
     // E standard tuning, strings start at high E
@@ -91,7 +90,8 @@
 
         const plot = Plot.plot({
             width,
-            height,
+            // height,
+            aspectRatio: 1,
             marginLeft: 50,
             marginBottom: 40,
             padding: 0,
