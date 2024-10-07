@@ -319,7 +319,7 @@ export const APPS = [
   {
     id: 'sub-division-drums',
     title: 'Sub-Division (Drums)',
-    description: 'Practice rhythmic playing in different sub-divisions.',
+    description: 'Practice rhythmic playing in different sub-divisions, separated by drum.',
     input: 'MIDI',
     instruments: ['drum', 'pc-key'],
     data: ['onset/time', 'instrument'],
@@ -345,7 +345,7 @@ export const APPS = [
   {
     id: 'sub-division-history',
     title: 'Sub-Division (History)',
-    description: 'Practice rhythmic playing in different sub-divisions.',
+    description: 'Practice rhythmic playing in different sub-divisions, compared to previous recordings.',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time'],
@@ -398,7 +398,7 @@ export const APPS = [
     id: 'two-handed-timing',
     title: 'Two-Handed Timing',
     description:
-      'Practice playing a different rhythm with each hand.',
+      'Practice playing sub-divisions with a different rhythm for each hand.',
     input: 'MIDI',
     instruments: ['keyboard', 'drum', 'pc-key'],
     data: ['onset/time', 'instrument'],

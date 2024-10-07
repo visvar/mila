@@ -106,8 +106,9 @@
         const plot = Plot.plot({
             width,
             height: 100,
-            marginTop: 30,
-            marginLeft: 100,
+            marginTop: 10,
+            marginBottom: 0,
+            marginLeft: 50,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
@@ -116,36 +117,37 @@
                 ticks: [],
             },
             y: {
-                domain: [1, 0],
-                ticks: d3.range(3),
-                tickFormat: (d) => ['note', 'percent too long'][d],
+                // domain: [1, 0],
+                // ticks: d3.range(3),
+                // tickFormat: (d) => ['note', 'percent too long'][d],
             },
             marks: [
                 Plot.text(bestFit, {
                     text: 'symbol',
                     x: (d, i) => i,
-                    y: 0,
+                    // y: 0,
                     fontSize: 40,
                 }),
                 // percent deviation
-                Plot.text(bestFit, {
-                    text: (d) => d.offsetPercent - 100,
-                    x: (d, i) => i,
-                    y: 1,
-                    fontSize: 20,
-                }),
+                // Plot.text(bestFit, {
+                //     text: (d) => d.offsetPercent - 100,
+                //     x: (d, i) => i,
+                //     y: 1,
+                //     fontSize: 20,
+                // }),
             ],
         });
         container.appendChild(plot);
         // plot
         const plot2 = Plot.plot({
             width,
-            height: 250,
-            marginLeft: 100,
+            height: 180,
+            marginLeft: 50,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
-                label: 'note',
+                // label: 'note',
+                label: null,
                 domain: d3.range(1, pastNoteCount),
                 tickSize: 0,
                 ticks: [],
@@ -173,7 +175,21 @@
                     y: (d) => d.offsetPercent - 100,
                     fill: (d) => (d.offsetPercent < 100 ? 'long' : 'short'),
                     // fill: (d) => d.offsetPercent - 100,
-                    tip: true,
+                    // tip: true,
+                    // ry1:  (d) => d.offsetPercent < 100 ?0:4,
+                    // ry2:  (d) => d.offsetPercent > 100 ?0:4,
+                    ry: 4,
+                }),
+                Plot.textY(bestFit, {
+                    x: (d, i) => i,
+                    y: (d) =>
+                        d.offsetPercent -
+                        100 +
+                        (d.offsetPercent < 100 ? -4 : 4),
+                    text: (d) => d.offsetPercent - 100,
+                    fill: '#666',
+                    stroke: 'white',
+                    strokeWidth: 8,
                 }),
                 Plot.ruleY([0]),
             ],
@@ -228,10 +244,10 @@
         This app helps practicing the timing of notes. Set a tempo and start
         playing. The time between the notes you play will be displayed as note
         symbols, so you can see whether you play, for example, correct quarter
-        notes. Numbers show you how many percent of the detected note duration
-        you played, for example a -5 means your note was 5% too short. Bars
-        below show you these percent as well, <span style="color:{blue}"
-            >blue for notes that were too long (playing too slow)</span
+        notes. Bars and numbers show you how many percent of the detected note
+        duration you played, for example a -5 means your note was 5% too short. <span
+            style="color:{blue}"
+            >Blue stands for notes that were too long (playing too slow)</span
         >
         and
         <span style="color:{orange}">orange for short (fast) ones</span>.
@@ -256,6 +272,8 @@
         >
             dotted notes {useDotted ? toggleOnIcon : toggleOffIcon}
         </button>
+    </div>
+    <div class="control">
         <SelectScollable
             label="filtering"
             title="You can filter out notes that are shorter than a given note duration."
