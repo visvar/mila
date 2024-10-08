@@ -234,15 +234,12 @@
     <div class="control">
         <TempoInput bind:value="{tempo}" callback="{draw}" />
         <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <button
+        <ToggleButton
+            label="dotted notes"
             title="Use dotted notes? If not, the closest non-dotted note will be taken."
-            on:click="{() => {
-                useDotted = !useDotted;
-                draw();
-            }}"
-        >
-            dotted notes {useDotted ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{useDotted}"
+            callback="{draw}"
+        />
         <ToggleButton
             label="tuplets"
             title="Use tuplets? If not, the closest non-tuplet note will be taken."

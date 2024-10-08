@@ -2,7 +2,6 @@
     import { onDestroy } from 'svelte';
     import Metronome from '../lib/Metronome.js';
     import PcKeyboardInput from './pc-keyboard-input.svelte';
-    import { metronomeIcon } from '../lib/icons.js';
 
     export let tempo = 120;
     export let accent = 4;
@@ -11,18 +10,26 @@
 
     const metro = new Metronome();
     let button;
+    let evenBeep = false;
 
     const toggle = () => {
         metro.toggle(tempo, accent, beepCount > 0 ? beepCount : Infinity);
         // animate button to show toggle
         button.style = 'background: var(--accent)';
         setTimeout(() => (button.style = ''), 500);
+        evenBeep = !evenBeep;
     };
 
     onDestroy(() => {
         // turn off metronome
         metro.stop();
+        evenBeep = false;
     });
+
+    const indicateBeep = () => {
+        evenBeep = !evenBeep;
+    };
+    metro.onClick(indicateBeep);
 </script>
 
 <main>
@@ -32,7 +39,26 @@
         on:click="{toggle}"
         style="{showBeepCountInput ? 'border-radius: 8px 0 0 8px;' : ''}"
     >
-        {metronomeIcon} metronome
+        <div>
+            <svg width="20" height="17">
+                <path
+                    d="M5,16 L15,16 L10,5 Z"
+                    fill="white"
+                    stroke="#888"
+                    stroke-linejoin="round"
+                ></path>
+                <line
+                    x1="10"
+                    y1="13"
+                    x2="{evenBeep ? 5 : 15}"
+                    y2="2"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                ></line>
+            </svg>
+        </div>
+        <div>metronome</div>
     </button>
     {#if showBeepCountInput}
         <input
@@ -60,6 +86,9 @@
 
     button {
         transition: all 250ms;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
 
     input {

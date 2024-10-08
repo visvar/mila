@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --accent: #daecfb;
+  --accentDark: #add2f1;
 }
 
 a {
