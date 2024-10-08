@@ -12,6 +12,7 @@
     import RatingButton from '../common/rating-button.svelte';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import example from '../example-recordings/improvisation-intervals.json';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -191,24 +192,18 @@
         <p>4) Try to play only perfect 5ths and minor intervals.</p>
     </ExerciseDrawer>
     <div class="control">
-        <button
+        <ToggleButton
+            label="unison"
             title="Toggle filtering unison intervals"
-            on:click="{() => {
-                filterUnison = !filterUnison;
-                draw();
-            }}"
-        >
-            unison {!filterUnison ? toggleOnIcon : toggleOffIcon}
-        </button>
-        <button
+            bind:checked="{filterUnison}"
+            callback="{draw}"
+        />
+        <ToggleButton
+            label="colors"
             title="Use colors for interval types"
-            on:click="{() => {
-                useColors = !useColors;
-                draw();
-            }}"
-        >
-            colors {useColors ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{useColors}"
+            callback="{draw}"
+        />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">

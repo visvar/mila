@@ -21,6 +21,7 @@
     import RatingButton from '../common/rating-button.svelte';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -263,15 +264,12 @@
     <div class="control">
         <TempoInput bind:value="{tempo}" callback="{draw}" />
         <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <button
+        <ToggleButton
+            label="dotted notes"
             title="Use dotted notes? If not, the closest non-dotted note will be taken."
-            on:click="{() => {
-                useDotted = !useDotted;
-                draw();
-            }}"
-        >
-            dotted notes {useDotted ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{useDotted}"
+            callback="{draw}"
+        />
     </div>
     <div class="control">
         <SelectScollable

@@ -16,6 +16,7 @@
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import example from '../example-recordings/improvisation-scale-degrees.json';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -195,24 +196,18 @@
         />
     </div>
     <div class="control">
-        <button
+        <ToggleButton
+            label="colors"
             title="Use colors for root, in-scale, outside-scale"
-            on:click="{() => {
-                useColors = !useColors;
-                draw();
-            }}"
-        >
-            colors {useColors ? toggleOnIcon : toggleOffIcon}
-        </button>
-        <button
+            bind:checked="{useColors}"
+            callback="{draw}"
+        />
+        <ToggleButton
+            label="non-scale notes"
             title="Show notes outside the scale"
-            on:click="{() => {
-                showOutsideScale = !showOutsideScale;
-                draw();
-            }}"
-        >
-            non-scale notes {showOutsideScale ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{showOutsideScale}"
+            callback="{draw}"
+        />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">

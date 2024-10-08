@@ -22,6 +22,7 @@
     import InsideTextButton from '../common/inside-text-button.svelte';
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -237,15 +238,12 @@
         </p>
     </ExerciseDrawer>
     <div class="control">
-        <button
+        <ToggleButton
+            label="rounding"
             title="You can change between seeing exact bar heights and binned (rounded) heights."
-            on:click="{() => {
-                isBinning = !isBinning;
-                draw();
-            }}"
-        >
-            rounding {isBinning ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{isBinning}"
+            callback="{draw}"
+        />
         <NumberInput
             title="The number of most recent notes that are shown as bars."
             label="bars"

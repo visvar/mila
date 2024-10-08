@@ -13,6 +13,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
     import NumberInput from '../common/number-input.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -216,15 +217,12 @@
             max="{-5}"
             step="{5}"
         />
-        <button
+        <ToggleButton
+            label="colors"
             title="Use blue for low and red for high"
-            on:click="{() => {
-                colorArea = !colorArea;
-                draw();
-            }}"
-        >
-            colors {colorArea ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{colorArea}"
+            callback="{draw}"
+        />
         <button
             title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
             on:click="{() => {

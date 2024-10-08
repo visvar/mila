@@ -13,6 +13,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
     import NumberInput from '../common/number-input.svelte';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -250,15 +251,12 @@
             max="{-5}"
             step="{5}"
         />
-        <button
+        <ToggleButton
+            label="ignore octave"
             title="When ignoring the octave, the lower visualization will only show the note's chroma from C to B"
-            on:click="{() => {
-                ignoreOctave = !ignoreOctave;
-                draw();
-            }}"
-        >
-            octave {!ignoreOctave ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{ignoreOctave}"
+            callback="{draw}"
+        />
         <button
             title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
             on:click="{() => {

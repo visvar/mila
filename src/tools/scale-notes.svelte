@@ -6,6 +6,7 @@
     import { NOTE_COLORS } from '../lib/colors';
     import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import { downloadJsonFile } from '../lib/json';
+    import ToggleButton from '../common/toggle-button.svelte';
 
     export let toolInfo;
     const w = 400;
@@ -147,15 +148,12 @@
                 {/each}
             </select>
         </label>
-        <button
+        <ToggleButton
+            label="colors"
             title="Use dotted notes? If not, the closest non-dotted note will be taken."
-            on:click="{() => {
-                useColors = !useColors;
-                draw();
-            }}"
-        >
-            colors {useColors ? toggleOnIcon : toggleOffIcon}
-        </button>
+            bind:checked="{useColors}"
+            callback="{draw}"
+        />
     </div>
     <div class="visualization" bind:this="{container}">
         <canvas bind:this="{canvas}" style="width: {w}px; height: {h}px"
