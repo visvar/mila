@@ -18,8 +18,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/noto-sans-symbols-2':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@observablehq/plot':
         specifier: ^0.6.16
         version: 0.6.16
@@ -63,8 +63,8 @@ importers:
         specifier: ^0.57.1
         version: 0.57.1
       npm:
-        specifier: ^10.8.3
-        version: 10.8.3
+        specifier: ^10.9.0
+        version: 10.9.0
       npm-check-updates:
         specifier: ^17.1.3
         version: 17.1.3
@@ -91,7 +91,7 @@ importers:
         specifier: ^4.2.19
         version: 4.2.19
       vite:
-        specifier: ^5.4.7
+        specifier: ^5.4.8
         version: 5.4.8(@types/node@22.7.2)
 
 packages:
@@ -245,8 +245,8 @@ packages:
   '@fontsource/noto-music@5.1.0':
     resolution: {integrity: sha512-p5I4oduEK6pmdrRn2ZSHLm4vIdKes6v7Kn7ivv5JhvvGMVgNhDNAgER5GgG6WwRI+JI46YntZkShaOBUWPdh7Q==}
 
-  '@fontsource/noto-sans-symbols-2@5.1.0':
-    resolution: {integrity: sha512-WeT+RjKJ1W3YY0fFo1yvX1nTobM1ViuNsyBRrDpQnuvdoMjw2Viyw4YnYwohB18xsg9JQOXA9W5B8dfKB9pjSw==}
+  '@fontsource/noto-sans-symbols-2@5.1.1':
+    resolution: {integrity: sha512-sj8hM/kAIbb5WhOrhzvZNyTaV53A88q137hH0LxOf7JP7GKAnUueX4NWyvvPSEC6JLW1WuKy51QQIAY9IrpOtg==}
 
   '@fontsource/noto-sans-symbols@5.1.0':
     resolution: {integrity: sha512-OJrWTXbBlLqlkIe0TQz6NL7tW/lQ2wBen7ncpUQT8pY7ZtnQwTPv0cree0U88JwGuE44mei3h/V69sOCe0lkjQ==}
@@ -1814,8 +1814,8 @@ packages:
     engines: {node: ^18.18.0 || >=20.0.0, npm: '>=8.12.1'}
     hasBin: true
 
-  npm@10.8.3:
-    resolution: {integrity: sha512-0IQlyAYvVtQ7uOhDFYZCGK8kkut2nh8cpAdA9E6FvRSJaTgtZRZgNjlC5ZCct//L73ygrpY93CxXpRJDtNqPVg==}
+  npm@10.9.0:
+    resolution: {integrity: sha512-ZanDioFylI9helNhl2LNd+ErmVD+H5I53ry41ixlLyCBgkuYb+58CvbAp99hW+zr5L9W4X7CchSoeqKdngOLSw==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     bundledDependencies:
@@ -2375,7 +2375,7 @@ snapshots:
 
   '@fontsource/noto-music@5.1.0': {}
 
-  '@fontsource/noto-sans-symbols-2@5.1.0': {}
+  '@fontsource/noto-sans-symbols-2@5.1.1': {}
 
   '@fontsource/noto-sans-symbols@5.1.0': {}
 
@@ -4527,7 +4527,7 @@ snapshots:
 
   npm-check-updates@17.1.3: {}
 
-  npm@10.8.3: {}
+  npm@10.9.0: {}
 
   npmlog@6.0.2:
     dependencies:

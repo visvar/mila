@@ -26,6 +26,7 @@
     import SelectScollable from '../common/select-scollable.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import NonLinearSlider from '../common/non-linear-slider.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -277,7 +278,6 @@
                         y: Plot.identity,
                         x: (d, i) => i,
                         fill: 'var(--accent)',
-                        tip: true,
                     }),
                     Plot.ruleY([0]),
                     Plot.ruleY([100]),
