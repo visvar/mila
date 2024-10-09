@@ -179,13 +179,13 @@
     };
 
     const saveToStorage = () => {
-        const noteString = JSON.stringify(notes);
+        const json = JSON.stringify(notes);
         if (
             notes.length > 0 &&
-            noteString !== JSON.stringify(example1.notes) &&
-            noteString !== JSON.stringify(example2.notes) &&
-            noteString !== JSON.stringify(example3.notes) &&
-            noteString !== JSON.stringify(example4.notes)
+            json !== JSON.stringify(example1.notes) &&
+            json !== JSON.stringify(example2.notes) &&
+            json !== JSON.stringify(example3.notes) &&
+            json !== JSON.stringify(example4.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }

@@ -53,7 +53,6 @@
     };
 
     const draw = () => {
-        container.textContent = '';
         if (notes.length === 0) {
             return;
         }
@@ -110,7 +109,6 @@
                 label: 'notes, increasing from tonic 🡺',
             },
             marks: [
-                // Plot.barX(grouped, {
                 Plot.waffleX(grouped, {
                     x: 'count',
                     y: 'value',
@@ -135,6 +133,7 @@
                 }),
             ],
         });
+        container.textContent = '';
         container.appendChild(plot);
     };
 
@@ -149,6 +148,7 @@
             scale,
             useColors,
             showOutsideScale,
+            // data
             notes,
         };
     };
@@ -162,6 +162,7 @@
         scale = json.scale;
         useColors = json.useColors;
         showOutsideScale = json.showOutsideScale;
+        // data
         notes = json.notes;
         draw();
     };

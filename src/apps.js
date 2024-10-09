@@ -36,7 +36,7 @@ export const APPS = [
   {
     id: 'accents',
     title: 'Accents',
-    description: 'Practice accenting notes by playing them louder.',
+    description: 'Practice accenting notes by playing them louder',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard'],
     data: ['order', 'ioi', 'dynamics'],
@@ -50,7 +50,7 @@ export const APPS = [
     id: 'chord-arpeggio-timing',
     title: 'Chord and Arpeggio Timing',
     description:
-      'See how spaced out the notes in a chord or arpeggio are, and how much time lies between these.',
+      'See how spaced out the notes in a chord or arpeggio are, and how much time lies between these',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'onset/time', 'ioi', 'pitch'],
@@ -64,7 +64,7 @@ export const APPS = [
     id: 'chord-diagrams',
     title: 'Chord Diagrams',
     description:
-      'See what chords you play on a guitar/bass as chord diagrams.',
+      'See what chords you play on a guitar/bass as chord diagrams',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['order', 'onset/time', 'pitch', 'dynamics', 'instrument'],
@@ -77,7 +77,7 @@ export const APPS = [
   {
     id: 'dynamics',
     title: 'Dynamics',
-    description: 'Practice controlling the loudness of notes.',
+    description: 'Practice controlling the loudness of notes',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard'],
     data: ['order', 'dynamics'],
@@ -90,7 +90,7 @@ export const APPS = [
   {
     id: 'duration-pies',
     title: 'Duration Pies',
-    description: 'Practice holding notes for different durations.',
+    description: 'Practice holding notes for different durations',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['order', 'duration/ioi'],
@@ -103,7 +103,7 @@ export const APPS = [
   {
     id: 'fretboard-heatmap',
     title: 'Fretboard Heatmap',
-    description: 'Learn improvising with a scale at different fretboard positions.',
+    description: 'Learn improvising with a scale at different fretboard positions',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['instrument', 'pitch'],
@@ -117,7 +117,7 @@ export const APPS = [
     id: 'fretboard-improvisation-intervals',
     title: 'Fretboard Improvisation Intervals',
     description:
-      'Learn jumping through a scale in intervals of different size.',
+      'Learn jumping through a scale in intervals of different size',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['order', 'pitch', 'instrument', 'pitch-interval'],
@@ -130,7 +130,7 @@ export const APPS = [
   {
     id: 'fretboard-jitter',
     title: 'Fretboard Jitter',
-    description: 'See how you play across different fretboard positions over time.',
+    description: 'See how you play across different fretboard positions over time',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['order', 'instrument'],
@@ -143,7 +143,7 @@ export const APPS = [
   {
     id: 'fretboard-spacetime-cube',
     title: 'Fretboard Spacetime Cube',
-    description: 'See how you play across different fretboard positions over time (in 3D).',
+    description: 'See how you play across different fretboard positions over time (in 3D)',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['onset/time', 'instrument'],
@@ -157,7 +157,7 @@ export const APPS = [
     id: 'improvisation-intervals',
     title: 'Improvisation Intervals',
     description:
-      'See how often you use different intervals in improvisation.',
+      'See how often you use different intervals in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'pitch', 'pitch-interval'],
@@ -171,7 +171,7 @@ export const APPS = [
     id: 'improvisation-note-colors',
     title: 'Improvisation Note Colors',
     description:
-      'See how often you use different kinds of notes in improvisation.',
+      'See how often you use different kinds of notes in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'duration/ioi', 'pitch'],
@@ -185,7 +185,7 @@ export const APPS = [
     id: 'improvisation-scale-degrees',
     title: 'Improvisation Scale Degrees',
     description:
-      'See how often you use different scale degrees in improvisation.',
+      'See how often you use different scale degrees in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['pitch'],
@@ -199,7 +199,7 @@ export const APPS = [
     id: 'improvisation-scale-degrees-bar',
     title: 'Improvisation Scale Degrees (Bar)',
     description:
-      'See how often you use different scale degrees in improvisation, for each played bar.',
+      'See how often you use different scale degrees in improvisation, for each played bar',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['pitch', 'onset/time'],
@@ -212,7 +212,7 @@ export const APPS = [
   {
     id: 'keyboard-histogram',
     title: 'Keyboard Histogram',
-    description: 'See how often you play different keyboard keys and if they belong to a chosen scale.',
+    description: 'See how often you play different keyboard keys and if they belong to a chosen scale',
     input: 'MIDI',
     instruments: ['keyboard'],
     data: ['pitch', 'instrument'],
@@ -225,7 +225,7 @@ export const APPS = [
   {
     id: 'pitch-bend-audio',
     title: 'Pitch Bend (Audio)',
-    description: 'Practice pitch bends and vibratos.',
+    description: 'Practice pitch bends and vibratos',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],
     data: ['onset/time', 'pitch'],
@@ -238,7 +238,7 @@ export const APPS = [
   {
     id: 'pitch-offset-cents',
     title: 'Pitch Offset in Cents',
-    description: 'See how well you are on pitch over time.',
+    description: 'See how well you are on pitch over time',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],
     data: ['onset/time', 'pitch'],
@@ -251,7 +251,7 @@ export const APPS = [
   {
     id: 'pitch-offset-cents-needle',
     title: 'Pitch Offset in Cents (Tuner)',
-    description: 'See how well you are on pitch at a moment.',
+    description: 'See how well you are on pitch at a moment',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],
     data: ['onset/time', 'pitch'],
@@ -265,7 +265,7 @@ export const APPS = [
     id: 'rhythm-sheet-music',
     title: 'Rhythm Sheet Music',
     description:
-      'Practice note timing and get feedback as staff notation and offset in percent.',
+      'Practice note timing and get feedback as staff notation and offset in percent',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['order', 'duration/ioi'],
@@ -279,7 +279,7 @@ export const APPS = [
     id: 'speed-up',
     title: 'Speed-Up',
     description:
-      'Record/choose a short exercise then practice it with steadily increasing tempo.',
+      'Record/choose a short exercise then practice it with steadily increasing tempo',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time', 'exercise'],
@@ -293,7 +293,7 @@ export const APPS = [
     id: 'speed-up-tab',
     title: 'Speed-Up Tab',
     description:
-      'Record/choose a short guitar exercise then practice it with steadily increasing tempo.',
+      'Record/choose a short guitar exercise then practice it with steadily increasing tempo',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['onset/time', 'exercise', 'instrument'],
@@ -306,7 +306,7 @@ export const APPS = [
   {
     id: 'sub-division',
     title: 'Sub-Division (Circular)',
-    description: 'Practice rhythmic playing in different sub-divisions.',
+    description: 'Practice rhythmic playing in different sub-divisions',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time'],
@@ -319,7 +319,7 @@ export const APPS = [
   {
     id: 'sub-division-drums',
     title: 'Sub-Division (Drums)',
-    description: 'Practice rhythmic playing in different sub-divisions, separated by drum.',
+    description: 'Practice rhythmic playing in different sub-divisions, separated by drum',
     input: 'MIDI',
     instruments: ['drum', 'pc-key'],
     data: ['onset/time', 'instrument'],
@@ -332,7 +332,7 @@ export const APPS = [
   {
     id: 'sub-division-linear',
     title: 'Sub-Division (Linear)',
-    description: 'Practice rhythmic playing in different sub-divisions.',
+    description: 'Practice rhythmic playing in different sub-divisions',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time'],
@@ -345,7 +345,7 @@ export const APPS = [
   {
     id: 'sub-division-history',
     title: 'Sub-Division (History)',
-    description: 'Practice rhythmic playing in different sub-divisions, compared to previous recordings.',
+    description: 'Practice rhythmic playing in different sub-divisions, compared to previous recordings',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time'],
@@ -358,7 +358,7 @@ export const APPS = [
   {
     id: 'strumming-pattern',
     title: 'Strumming Pattern',
-    description: 'Practice up/down strumming patterns on guitar.',
+    description: 'Practice up/down strumming patterns on guitar',
     input: 'MIDI',
     instruments: ['guitar/bass'],
     data: ['onset/time', 'instrument'],
@@ -371,7 +371,7 @@ export const APPS = [
   {
     id: 'tempo-drift',
     title: 'Tempo Drift',
-    description: 'Practice keeping your tempo constant over a longer stretch of playing.',
+    description: 'Practice keeping your tempo constant over a longer stretch of playing',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['order', 'duration/ioi'],
@@ -384,7 +384,7 @@ export const APPS = [
   {
     id: 'tempo-change',
     title: 'Tempo Change',
-    description: 'Practice changing the tempo as intended.',
+    description: 'Practice changing the tempo as intended',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
     data: ['onset/time'],
@@ -398,7 +398,7 @@ export const APPS = [
     id: 'two-handed-timing',
     title: 'Two-Handed Timing',
     description:
-      'Practice playing sub-divisions with a different rhythm for each hand.',
+      'Practice playing sub-divisions with a different rhythm for each hand',
     input: 'MIDI',
     instruments: ['keyboard', 'drum', 'pc-key'],
     data: ['onset/time', 'instrument'],

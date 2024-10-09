@@ -11,7 +11,8 @@
     import ImportExportButton from '../common/import-export-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/history-button.svelte';
-    import example from '../example-recordings/speed-up.json';
+    import example1 from '../example-recordings/speed-up-e1.json';
+    import example2 from '../example-recordings/speed-up-e2.json';
     import TouchInput from '../common/touch-input.svelte';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
@@ -20,6 +21,7 @@
     import { replacer } from '../lib/json.js';
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import InsideTextButton from '../common/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -163,8 +165,8 @@
         // plot
         const plot = Plot.plot({
             width,
-            height: 60,
-            marginTop: 10,
+            height: 70,
+            marginTop: 5,
             marginLeft: 40,
             marginBottom: 35,
             x: {
@@ -186,14 +188,24 @@
                     stroke: '#ccc',
                 }),
                 // bar marks
-                Plot.ruleX(d3.range(0, maxBeat + 1, 4)),
+                // Plot.ruleX(d3.range(0, maxBeat + 1, 4)),
+                Plot.ruleX(d3.range(0, maxBeat + 1, 4), {
+                    stroke: '#c8c8c8',
+                    strokeWidth: 3,
+                }),
                 // notes
-                Plot.dot(quantized, {
-                    symbol: 'times',
-                    stroke: '#666',
-                    strokeWidth: 1,
-                    x: (d) => d,
-                    r: 3,
+                // Plot.dot(quantized, {
+                //     symbol: 'times',
+                //     stroke: '#666',
+                //     strokeWidth: 1,
+                //     x: (d) => d,
+                //     r: 3,
+                // }),
+                // exercise note marks (tick)
+                Plot.tickX(quantized, {
+                    stroke: '#333',
+                    strokeWidth: 0.89,
+                    inset: 8,
                 }),
             ],
         });
@@ -206,7 +218,7 @@
             const inBeats = notes.map((d) => (d - firstNoteTime) / quarter);
             const plot = Plot.plot({
                 width,
-                height: 50,
+                height: 40,
                 marginTop: 0,
                 marginLeft: 40,
                 marginBottom: 5,
@@ -224,15 +236,21 @@
                     Plot.text([0], {
                         text: ``,
                     }),
-                    // beat marks
-                    Plot.ruleX(d3.range(0, maxBeat, 1), {
-                        stroke: '#d8d8d8',
-                        strokeWidth: 5,
-                    }),
+                    // // beat marks
+                    // Plot.ruleX(d3.range(0, maxBeat, 1), {
+                    //     stroke: '#d8d8d8',
+                    //     strokeWidth: 5,
+                    //     y: 0,
+                    // }),
                     // bar marks
                     Plot.ruleX(d3.range(0, maxBeat + 1, 4), {
                         stroke: '#c8c8c8',
-                        strokeWidth: 5,
+                        strokeWidth: 3,
+                    }),
+                    // exercise note marks (tick)
+                    Plot.tickX(quantized, {
+                        stroke: '#ddd',
+                        strokeWidth: 0.8,
                     }),
                     // notes
                     // Plot.dot(inBeats, {
@@ -244,9 +262,9 @@
                     // }),
                     Plot.tickX(inBeats, {
                         stroke: '#000',
-                        strokeWidth: 0.8,
+                        strokeWidth: 0.9,
                         x: (d) => d,
-                        inset: 8,
+                        inset: 10,
                     }),
                 ],
             });
@@ -298,7 +316,7 @@
                 'swing',
                 d3
                     .range(0, beatCount, 0.5)
-                    .map((d, i) => (i % 2 === 0 ? i : i + 0.2)),
+                    .map((d, i) => (i % 2 === 0 ? d : d + 0.2)),
             ],
         ]);
         const quarter = Utils.bpmToSecondsPerBeat(initialTempo);
@@ -353,10 +371,11 @@
     };
 
     const saveToStorage = () => {
+        const json = JSON.stringify(practiceRecordings, replacer);
         if (
             exerciseNotes.length > 0 &&
-            JSON.stringify(practiceRecordings, replacer) !==
-                JSON.stringify(example.practiceRecordings, replacer)
+            json !== JSON.stringify(example1.practiceRecordings, replacer) &&
+            json !== JSON.stringify(example2.practiceRecordings, replacer)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -379,7 +398,15 @@
         struggle keeping up.
     </p>
     <ExerciseDrawer>
-        <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
+        <p>
+            1) Select a pre-defined below and play it from 60 to 120 bpm.<br />
+            <InsideTextButton onclick="{() => loadData(example1)}">
+                triplet example
+            </InsideTextButton>
+            <InsideTextButton onclick="{() => loadData(example2)}">
+                swing example
+            </InsideTextButton>
+        </p>
         <p>
             2) Input your own exercise, optionally quantize it, and practice it.
         </p>
@@ -465,13 +492,14 @@
             title="Clear practice but not exercise"
             disabled="{currentStep !== ''}"
             callback="{() => {
+                metro.stop();
                 practiceRecordings = new Map();
                 firstTimeStamp = performance.now();
                 draw();
             }}"
         />
         <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
+        <button on:click="{() => loadData(example1)}"> example </button>
         <HistoryButton appId="{appInfo.id}" {loadData} />
         <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
     </div>

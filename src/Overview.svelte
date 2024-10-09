@@ -30,29 +30,30 @@
     let matrixRow = 'skills';
     let matrixColumn = 'patterns';
 
-    // print latex table
+    // print latex tables
     // TODO: remove
-    // const latex = () => {
-    //     let string = 'category & skill & explanation \\\\';
-    //     for (const node of SKILL_TREE) {
-    //         for (const [index, skill] of node.children.entries()) {
-    //             let cat = index === 0 ? node.title : '';
-    //             let line = `${cat.padEnd(20)} & ${skill.title.padEnd(50)} & ${skill.description} \\\\`;
-    //             string = `${string}\n${line}`;
-    //         }
-    //     }
-    //     console.log(string);
-    // };
-    // latex();
-    const latex = () => {
+    const latexTableSkills = () => {
+        let string = 'category & skill & explanation \\\\';
+        for (const node of SKILL_TREE) {
+            for (const [index, skill] of node.children.entries()) {
+                let cat = index === 0 ? node.title : '';
+                let line = `${cat.padEnd(20)} & ${skill.title.padEnd(50)} & ${skill.description} \\\\`;
+                string = `${string}\n${line}`;
+            }
+        }
+        console.log(string);
+    };
+    latexTableSkills();
+    //
+    const latexTableApps = () => {
         let string = 'App & Section & Explanation \\\\';
         for (const app of APPS) {
-            let line = `${app.title.padEnd(35)} & \\cref{sec:${(app.id + '}').padEnd(35)} & ${app.description.padEnd(95)} \\\\`;
+            let line = `${app.title.padEnd(35)} & \\Cref{sec:${(app.id + '}').padEnd(35)} & ${app.description.padEnd(95)} \\\\`;
             string = `${string}\n${line}`;
         }
         console.log(string);
     };
-    latex();
+    latexTableApps();
 
     /**
      * draws the tree of skills

@@ -6,7 +6,16 @@ A collection of web-based apps for musical instrument practice.
 
 ![](./doc/teaser_hex.png)
 
+## What You Need
+
+Most apps require a MIDI instrument, though a few work with audio or allow you to use a PC keyboard or touch screen.
+
+While several apps should work with any (MIDI) instrument, we only tested them with keyboard, e-drum, and a MIDI guitar pickup.
+
 ## Setup
+
+This is only necessary for local testing or development.
+If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 
 - Install NodeJS and npm
 - Clone/download this repository

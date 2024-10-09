@@ -28,7 +28,8 @@
     export let appInfo;
 
     let width = 900;
-    let height = 600;
+    // let height = 600;
+    let height = 500;
     let container;
     // settings
     let tempo = 120;
@@ -80,16 +81,16 @@
         }
 
         // TODO: color by distance to closest baseline
-        const colorByError = (ioi) => {
-            return d3.min(rules, (r) => Math.abs((ioi - r) / r));
-        };
+        // const colorByError = (ioi) => {
+        //     return d3.min(rules, (r) => Math.abs((ioi - r) / r));
+        // };
         const plot = Plot.plot({
             width,
             height,
             marginLeft: 45,
             marginRight: 1,
             // make sure note symbols etc work
-            style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
+            style: 'font-size: 24px; font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
                 axis: false,
             },
@@ -117,6 +118,7 @@
                     // fill: colorByError,
                     inset: 0,
                     dx: 0.5,
+                    ry1: 4,
                 }),
                 // reference duration lines
                 Plot.ruleY(rules, {
@@ -135,6 +137,22 @@
                 d < 0.6 * quarter ? d * 2 : d > 1.5 * quarter ? d / 2 : d,
             );
         estimatedTempo = secondsPerBeatToBpm(d3.mean(lastNotes));
+
+        // TODO: remove
+        // demo of how it would look with ticks
+        // const notesInBeats = notes.map((d) => d / quarter);
+        // const plot2 = Plot.plot({
+        //     width,
+        //     height: 100,
+        //     x: { label: 'time in beats (quarter notes)' },
+        //     marks: [
+        //         Plot.tickX(notesInBeats, {
+        //             x: (d) => d,
+        //             stroke: '#ddd',
+        //         }),
+        //     ],
+        // });
+        // container.appendChild(plot2);
     };
 
     /**
@@ -283,9 +301,3 @@
         touchStart="{() => noteOn({ timestamp: performance.now() })}"
     />
 </main>
-
-<style>
-    div :global(text) {
-        font-size: 32px;
-    }
-</style>

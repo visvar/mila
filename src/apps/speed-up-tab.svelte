@@ -186,20 +186,23 @@
                 // strings
                 Plot.ruleY(d3.range(0, stringCount), {
                     stroke: '#eee',
+                    strokeDasharray: '6 6',
                 }),
                 // beat marks
                 Plot.ruleX(d3.range(0, maxBeat, 1), {
                     stroke: '#ccc',
                 }),
                 // bar marks
-                Plot.ruleX(d3.range(0, maxBeat, 4)),
+                Plot.ruleX(d3.range(0, maxBeat, 4), {
+                    stroke: '#aaa',
+                }),
                 // notes
-                Plot.dot(quantized, {
-                    symbol: 'times',
+                Plot.tickX(quantized, {
+                    // symbol: 'times',
                     stroke: '#333',
                     x: (d) => d.time,
                     y: (d) => d.string,
-                    r: 4,
+                    strokeWidth: 2,
                 }),
                 Plot.text(quantized, {
                     text: 'fret',
@@ -249,20 +252,23 @@
                     // strings
                     Plot.ruleY(d3.range(0, stringCount), {
                         stroke: '#eee',
+                        strokeDasharray: '6 6',
                     }),
                     // beat marks
                     Plot.ruleX(d3.range(0, maxBeat, 1), {
                         stroke: '#ccc',
                     }),
                     // bar marks
-                    Plot.ruleX(d3.range(0, maxBeat, 4)),
+                    Plot.ruleX(d3.range(0, maxBeat, 4), {
+                        stroke: '#aaa',
+                    }),
                     // notes
-                    Plot.dot(inBeats, {
-                        symbol: 'times',
+                    Plot.tickX(inBeats, {
+                        // symbol: 'times',
                         stroke: 'velocity',
                         x: (d) => d.time,
                         y: (d) => d.string,
-                        r: 4,
+                        strokeWidth: 1.2,
                     }),
                     Plot.text(inBeats, {
                         text: 'fret',
@@ -316,7 +322,7 @@
             ['triplets', d3.range(0, 8, 1 / 3)],
             [
                 'swing',
-                d3.range(0, 8, 0.5).map((d, i) => (i % 2 === 0 ? i : i + 0.2)),
+                d3.range(0, 8, 0.5).map((d, i) => (i % 2 === 0 ? d : d + 0.2)),
             ],
         ]);
         const quarter = Utils.bpmToSecondsPerBeat(initialTempo);
