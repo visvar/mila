@@ -16,6 +16,7 @@
     import MetronomeButton from '../common/metronome-button.svelte';
     import TempoInput from '../common/tempo-input.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import NumberInput from '../common/number-input.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -23,7 +24,7 @@
     export let appInfo;
 
     let width = 900;
-    let height = 400;
+    let height = 350;
     let container;
     // settings
     let pastBeats = 10;
@@ -77,11 +78,12 @@
             width,
             height,
             marginLeft: 60,
-            marginBottom: 40,
+            marginBottom: 0,
             padding: 0,
             x: {
-                label: 'Time in beats',
+                label: null,
                 domain: [minTime, maxTime],
+                grid: true,
             },
             y: {
                 label: 'MIDI Pitch',
@@ -99,6 +101,7 @@
                     fill: '#ddd',
                     stroke: '#ccc',
                     strokeWidth: 2.5,
+                    inset: 4,
                 }),
             ],
         });
@@ -106,7 +109,7 @@
         const plot2 = Plot.plot({
             insetRight: 10,
             width,
-            height: 100,
+            height: 40,
             marginLeft: 60,
             marginTop: 0,
             marginBottom: 0,
@@ -114,11 +117,12 @@
             x: {
                 label: null,
                 domain: [minTime, maxTime],
-                axis: false,
+                // axis: false,
+                grid: true,
             },
             y: {
                 ticks: [],
-                label: 'durations (s)',
+                label: 'durations',
             },
             marks: [
                 Plot.link(chordExtents, {
@@ -141,18 +145,21 @@
         const plot3 = Plot.plot({
             insetRight: 10,
             width,
-            height: 100,
+            height: 75,
             marginLeft: 60,
             // marginRight: -10,
+            marginTop: 0,
             marginBottom: 40,
             padding: 0,
             x: {
                 label: 'Time in beats',
                 domain: [minTime, maxTime],
+                tickSize: 10,
+                grid: true,
             },
             y: {
                 ticks: [],
-                label: 'gaps (s)',
+                label: 'gaps',
             },
             marks: [
                 Plot.link(chordGaps, {
@@ -160,19 +167,21 @@
                     x1: (d) => d[0],
                     x2: (d) => d[1],
                     y: 0,
+                    marker: 'dot',
                 }),
-                Plot.tickX(chordGaps, {
-                    clip: true,
-                    x: (d) => d[0],
-                }),
+                // Plot.tickX(chordGaps, {
+                //     clip: true,
+                //     x: (d) => d[0],
+                //     inset: 4,
+                // }),
                 Plot.text(chordGaps, {
                     clip: true,
-                    x: (d) => d[0],
+                    x: (d) => (d[0] + d[1]) / 2,
                     y: 0,
                     text: (d, i) => (d[1] - d[0]).toFixed(1),
                     dx: 2,
                     dy: 10,
-                    textAnchor: 'start',
+                    textAnchor: 'middle',
                 }),
             ],
         });
@@ -245,30 +254,24 @@
         </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
-            <label
+            <NumberInput
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
-            >
-                max. note distance
-                <input
-                    type="number"
-                    bind:value="{maxNoteDistance}"
-                    on:change="{draw}"
-                    min="0.05"
-                    max="5"
-                    step="0.05"
-                />
-            </label>
-            <label title="time in beats that is shown">
-                beats shown
-                <input
-                    type="number"
-                    bind:value="{pastBeats}"
-                    on:change="{draw}"
-                    min="10"
-                    max="300"
-                    step="10"
-                />
-            </label>
+                label="max note distance"
+                bind:value="{maxNoteDistance}"
+                callback="{draw}"
+                min="{0.05}"
+                max="{5}"
+                step="{0.05}"
+            />
+            <NumberInput
+                title="The time in beats that is shown"
+                label="beats shown"
+                bind:value="{pastBeats}"
+                callback="{draw}"
+                min="{10}"
+                max="{300}"
+                step="{10}"
+            />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">

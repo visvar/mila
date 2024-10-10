@@ -224,7 +224,7 @@ export const APPS = [
   },
   {
     id: 'pitch-bend-audio',
-    title: 'Pitch Bend (Audio)',
+    title: 'Pitch Bend',
     description: 'Practice pitch bends and vibratos',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],
@@ -237,7 +237,7 @@ export const APPS = [
   },
   {
     id: 'pitch-offset-cents',
-    title: 'Pitch Offset in Cents',
+    title: 'Pitch Offset',
     description: 'See how well you are on pitch over time',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],
@@ -250,7 +250,7 @@ export const APPS = [
   },
   {
     id: 'pitch-offset-cents-needle',
-    title: 'Pitch Offset in Cents (Tuner)',
+    title: 'Pitch Offset (Tuner)',
     description: 'See how well you are on pitch at a moment',
     input: 'audio',
     instruments: ['guitar/bass', 'keyboard', 'singing'],

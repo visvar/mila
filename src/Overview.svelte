@@ -46,9 +46,9 @@
     latexTableSkills();
     //
     const latexTableApps = () => {
-        let string = 'App & Section & Explanation \\\\';
+        let string = 'App & Section & Figure & Explanation \\\\';
         for (const app of APPS) {
-            let line = `${app.title.padEnd(35)} & \\Cref{sec:${(app.id + '}').padEnd(35)} & ${app.description.padEnd(95)} \\\\`;
+            let line = `${app.title.padEnd(35)} &\n \\Cref{sec:${(app.id + '}').padEnd(35)} &\n \\Cref{fig:${(app.id + '}').padEnd(35)} &\n ${app.description.padEnd(95)} \\\\\n\n`;
             string = `${string}\n${line}`;
         }
         console.log(string);

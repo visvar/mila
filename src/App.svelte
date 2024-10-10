@@ -87,7 +87,15 @@
 
   // tags
   const allInputs = new Set(APPS.flatMap((d) => d.input).sort());
-  const allInstruments = new Set(APPS.flatMap((d) => d.instruments).sort());
+  // const allInstruments = new Set(APPS.flatMap((d) => d.instruments).sort());
+  const allInstruments = new Set([
+    'drum',
+    'guitar/bass',
+    'keyboard',
+    'singing',
+    'pc-key',
+    'touch',
+  ]);
   const allData = new Set(APPS.flatMap((d) => d.data));
   const allSkills = new Set(APPS.flatMap((d) => d.skills).sort());
   const allDifficulties = new Set(['beginner', 'intermediate', 'advanced']);
@@ -364,8 +372,8 @@
             </div>
             <div class="tags">
               <!-- input -->
-              {app.input === 'audio' ? audioIcon : ''}
-              {app.input === 'MIDI' ? midiIcon : ''}
+              <!-- {app.input === 'audio' ? audioIcon : ''}
+              {app.input === 'MIDI' ? midiIcon : ''} -->
               <!-- instrument -->
               {app.instruments.includes('guitar/bass') ? '🎸' : ''}
               {app.instruments.includes('drum') ? '🥁' : ''}

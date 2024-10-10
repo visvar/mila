@@ -158,12 +158,13 @@
                               { y: 'count' },
                               {
                                   x: (d) => d,
-                                  fill: '#ccc',
+                                  fill: '#eee',
                                   thresholds: d3.range(
                                       0,
                                       grid1 + 1,
                                       4 / binNote,
                                   ),
+                                  ry2: 4,
                               },
                           ),
                       ),
