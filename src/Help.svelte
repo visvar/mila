@@ -60,6 +60,13 @@
                 can export or reset it in the settings.</i
             >
         </p>
+
+        <p class="explanation">
+            <b>Importing.</b>
+            Import a recorded take from a file through the import button or by dragging
+            and dropping a file on the app (a blue background indicates that you
+            can drop it).
+        </p>
     </HelpTextDrawer>
 
     <HelpTextDrawer heading="Keyboard Shortcuts">

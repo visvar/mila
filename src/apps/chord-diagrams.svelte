@@ -19,6 +19,7 @@
     import RatingButton from '../common/rating-button.svelte';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import NumberInput from '../common/number-input.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -268,58 +269,69 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing different chord shapes on a guitar. Play
-        chords you know (or don't know yet) and see the chord names and
-        diagrams.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play an A minor chord.</p>
-        <p>
-            2) Play chords you don't know by placing your fingers in different
-            positions. If they sound good, look what they are called.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing different chord shapes on a guitar. Play
+            chords you know (or don't know yet) and see the chord names and
+            diagrams.
         </p>
-        <p>3) Play an A minor chord in three different positions.</p>
-    </ExerciseDrawer>
-    <div class="control">
-        <NumberInput
-            title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
-            label="max. note distance"
-            bind:value="{maxNoteDistance}"
-            callback="{draw}"
-            min="{0.05}"
-            max="{5}"
-            step="{0.05}"
-        />
-        <NumberInput
-            title="maximum distance between the lowest and highest fret"
-            label="max. fret span"
-            bind:value="{maxFretSpan}"
-            callback="{draw}"
-            min="{5}"
-            max="{25}"
-            step="{1}"
-        />
-        <NumberInput
-            title="The number of played chords that is displayed"
-            label="chord count"
-            bind:value="{pastChords}"
-            callback="{draw}"
-            min="{10}"
-            max="{300}"
-            step="{10}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+        <ExerciseDrawer>
+            <p>1) Play an A minor chord.</p>
+            <p>
+                2) Play chords you don't know by placing your fingers in
+                different positions. If they sound good, look what they are
+                called.
+            </p>
+            <p>3) Play an A minor chord in three different positions.</p>
+        </ExerciseDrawer>
+        <div class="control">
+            <NumberInput
+                title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
+                label="max. note distance"
+                bind:value="{maxNoteDistance}"
+                callback="{draw}"
+                min="{0.05}"
+                max="{5}"
+                step="{0.05}"
+            />
+            <NumberInput
+                title="maximum distance between the lowest and highest fret"
+                label="max. fret span"
+                bind:value="{maxFretSpan}"
+                callback="{draw}"
+                min="{5}"
+                max="{25}"
+                step="{1}"
+            />
+            <NumberInput
+                title="The number of played chords that is displayed"
+                label="chord count"
+                bind:value="{pastChords}"
+                callback="{draw}"
+                min="{10}"
+                max="{300}"
+                step="{10}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

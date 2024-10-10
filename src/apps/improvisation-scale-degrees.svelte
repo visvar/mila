@@ -4,7 +4,6 @@
     import * as Plot from '@observablehq/plot';
     import { Scale } from '@tonaljs/tonal';
     import { Midi } from 'musicvis-lib';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import MidiInput from '../common/midi-input.svelte';
     import ImportExportButton from '../common/import-export-button.svelte';
@@ -17,6 +16,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import example from '../example-recordings/improvisation-scale-degrees.json';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -179,45 +179,56 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing how to use the different degrees of a scale.
-        The bar chart below shows how often you played each scale degree.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Improvise in A minor pentatonic.</p>
-        <p>2) Improvise in a scale you did not know before.</p>
-    </ExerciseDrawer>
-    <div class="control">
-        <ScaleSelect
-            bind:scaleRoot="{root}"
-            bind:scaleType="{scale}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="control">
-        <ToggleButton
-            label="colors"
-            title="Use colors for root, in-scale, outside-scale"
-            bind:checked="{useColors}"
-            callback="{draw}"
-        />
-        <ToggleButton
-            label="non-scale notes"
-            title="Show notes outside the scale"
-            bind:checked="{showOutsideScale}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing how to use the different degrees of a
+            scale. The bar chart below shows how often you played each scale
+            degree.
+        </p>
+        <ExerciseDrawer>
+            <p>1) Improvise in A minor pentatonic.</p>
+            <p>2) Improvise in a scale you did not know before.</p>
+        </ExerciseDrawer>
+        <div class="control">
+            <ScaleSelect
+                bind:scaleRoot="{root}"
+                bind:scaleType="{scale}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="control">
+            <ToggleButton
+                label="colors"
+                title="Use colors for root, in-scale, outside-scale"
+                bind:checked="{useColors}"
+                callback="{draw}"
+            />
+            <ToggleButton
+                label="non-scale notes"
+                title="Show notes outside the scale"
+                bind:checked="{showOutsideScale}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

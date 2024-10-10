@@ -1,7 +1,6 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import MidiInput from '../common/midi-input.svelte';
     import ImportExportButton from '../common/import-export-button.svelte';
@@ -23,6 +22,7 @@
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -194,86 +194,97 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing controlling the loudness of notes, for example
-        to keep at a roughly constant loudness, play accents, or smoothly in- or
-        decrease it. The loudness of each note is be shown as a bar in chart
-        below. Bar heights can be rounded to the closest
-        <a
-            href="https://en.wikipedia.org/wiki/Dynamics_(music)"
-            target="_blank"
-            referrerpolicy="no-referrer"
-        >
-            dynamics marking</a
-        > for a clearer overview.
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Play all notes between a mezzo-piano (mp) and a forte (f).
-            <InsideTextButton onclick="{() => loadData(example1)}">
-                example
-            </InsideTextButton>
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing controlling the loudness of notes, for
+            example to keep at a roughly constant loudness, play accents, or
+            smoothly in- or decrease it. The loudness of each note is be shown
+            as a bar in chart below. Bar heights can be rounded to the closest
+            <a
+                href="https://en.wikipedia.org/wiki/Dynamics_(music)"
+                target="_blank"
+                referrerpolicy="no-referrer"
+            >
+                dynamics marking</a
+            > for a clearer overview.
         </p>
-        <p>
-            2) Play a crescendo, starting at below pp and rising until above ff
-            smoothly.
-            <InsideTextButton onclick="{() => loadData(example2)}">
-                example
-            </InsideTextButton>
-        </p>
-        <p>
-            3) Play a descrescendo from above ff to below pp.
-            <InsideTextButton onclick="{() => loadData(example3)}">
-                example
-            </InsideTextButton>
-        </p>
-        <p>
-            4) Play accents, for example on each 4th note. They should be loud
-            enough to be easily distinguishable from the non-accented notes.
-            <InsideTextButton onclick="{() => loadData(example4)}">
-                example
-            </InsideTextButton>
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <ToggleButton
-            label="rounding"
-            title="You can change between seeing exact bar heights and binned (rounded) heights."
-            bind:checked="{isBinning}"
-            callback="{draw}"
-        />
-        <NumberInput
-            title="The number of most recent notes that are shown as bars."
-            label="bars"
-            bind:value="{barLimit}"
-            callback="{draw}"
-            step="{25}"
-            min="{25}"
-            max="{1000}"
-        />
-        <SelectScollable
-            label="color"
-            bind:value="{coloring}"
-            callback="{draw}"
-        >
-            {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
-                <option value="{opt}">{opt}</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example4)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+        <ExerciseDrawer>
+            <p>
+                1) Play all notes between a mezzo-piano (mp) and a forte (f).
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                2) Play a crescendo, starting at below pp and rising until above
+                ff smoothly.
+                <InsideTextButton onclick="{() => loadData(example2)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                3) Play a descrescendo from above ff to below pp.
+                <InsideTextButton onclick="{() => loadData(example3)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                4) Play accents, for example on each 4th note. They should be
+                loud enough to be easily distinguishable from the non-accented
+                notes.
+                <InsideTextButton onclick="{() => loadData(example4)}">
+                    example
+                </InsideTextButton>
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <ToggleButton
+                label="rounding"
+                title="You can change between seeing exact bar heights and binned (rounded) heights."
+                bind:checked="{isBinning}"
+                callback="{draw}"
+            />
+            <NumberInput
+                title="The number of most recent notes that are shown as bars."
+                label="bars"
+                bind:value="{barLimit}"
+                callback="{draw}"
+                step="{25}"
+                min="{25}"
+                max="{1000}"
+            />
+            <SelectScollable
+                label="color"
+                bind:value="{coloring}"
+                callback="{draw}"
+            >
+                {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
+                    <option value="{opt}">{opt}</option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example4)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>
 
 <style>
     div :global(text) {

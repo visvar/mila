@@ -17,6 +17,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import example from '../example-recordings/improvisation-note-colors.json';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -199,101 +200,112 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing improvising in a scale that is a sub-set of
-        another scale. Notes that you play are shown as bars. The color shows
-        which scale subset a note belongs to. For example, when improvising in C
-        major pentatonic, the note C would be the darkest, followed by the notes
-        of the pentatonic in a brighter color, the rest of the major scale even
-        brighter, and all remaining notes of the chromatic scale in gray. The
-        bars' height encodes the notes' durations.
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Improvise something in the scale of C major pentatonic. Check if
-            you only used this scale's notes using the colors.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing improvising in a scale that is a sub-set
+            of another scale. Notes that you play are shown as bars. The color
+            shows which scale subset a note belongs to. For example, when
+            improvising in C major pentatonic, the note C would be the darkest,
+            followed by the notes of the pentatonic in a brighter color, the
+            rest of the major scale even brighter, and all remaining notes of
+            the chromatic scale in gray. The bars' height encodes the notes'
+            durations.
         </p>
-        <p>
-            2) Improvise something in A minor pentatonic. Check if you only used
-            this scale's notes using the colors and how often and when you used
-            the tonic A.
-        </p>
-        <p>
-            3) Improvise in A minor blues, see how often and when you used the
-            blue note (D#).
-        </p>
-        <p>4) Improvise in a scale you do not know yet.</p>
-    </ExerciseDrawer>
-    <div class="control">
-        <label>
-            scale type 1
-            <select
-                bind:value="{scaleType1}"
-                on:change="{draw}"
-                style="background-color: {scale1Color};"
-            >
-                {#each ['major', 'minor'] as s}
-                    <option value="{s}">{s}</option>
-                {/each}
-            </select>
-        </label>
-        <label>
-            scale type 2
-            <select
-                bind:value="{scaleType2}"
-                on:change="{draw}"
-                style="background-color: {scale2Color};"
-            >
-                {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
-                    <option value="{s}">{s}</option>
-                {/each}
-            </select>
-        </label>
-        <label>
-            root note
-            <select
-                bind:value="{root}"
-                on:change="{draw}"
-                style="background-color: {rootColor};"
-            >
-                {#each Midi.NOTE_NAMES as n}
-                    <option value="{n}">{n}</option>
-                {/each}
-            </select>
-        </label>
-    </div>
-    <div class="control">
-        <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <ToggleButton
-            bind:checked="{showDuration}"
-            label="show duration"
-            title="Show duration in the bar's height?"
-            callback="{draw}"
-        />
-        <ToggleButton
-            bind:checked="{showLoudness}"
-            label="show loudness"
-            title="Show loudness in the bar's opacity?"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton
-            bind:notes
-            {saveToStorage}
-            callback="{() => {
-                openNoteMap = new Map();
-                draw();
-            }}"
-        />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} />
-</main>
+        <ExerciseDrawer>
+            <p>
+                1) Improvise something in the scale of C major pentatonic. Check
+                if you only used this scale's notes using the colors.
+            </p>
+            <p>
+                2) Improvise something in A minor pentatonic. Check if you only
+                used this scale's notes using the colors and how often and when
+                you used the tonic A.
+            </p>
+            <p>
+                3) Improvise in A minor blues, see how often and when you used
+                the blue note (D#).
+            </p>
+            <p>4) Improvise in a scale you do not know yet.</p>
+        </ExerciseDrawer>
+        <div class="control">
+            <label>
+                scale type 1
+                <select
+                    bind:value="{scaleType1}"
+                    on:change="{draw}"
+                    style="background-color: {scale1Color};"
+                >
+                    {#each ['major', 'minor'] as s}
+                        <option value="{s}">{s}</option>
+                    {/each}
+                </select>
+            </label>
+            <label>
+                scale type 2
+                <select
+                    bind:value="{scaleType2}"
+                    on:change="{draw}"
+                    style="background-color: {scale2Color};"
+                >
+                    {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
+                        <option value="{s}">{s}</option>
+                    {/each}
+                </select>
+            </label>
+            <label>
+                root note
+                <select
+                    bind:value="{root}"
+                    on:change="{draw}"
+                    style="background-color: {rootColor};"
+                >
+                    {#each Midi.NOTE_NAMES as n}
+                        <option value="{n}">{n}</option>
+                    {/each}
+                </select>
+            </label>
+        </div>
+        <div class="control">
+            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <ToggleButton
+                bind:checked="{showDuration}"
+                label="show duration"
+                title="Show duration in the bar's height?"
+                callback="{draw}"
+            />
+            <ToggleButton
+                bind:checked="{showLoudness}"
+                label="show loudness"
+                title="Show loudness in the bar's opacity?"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton
+                bind:notes
+                {saveToStorage}
+                callback="{() => {
+                    openNoteMap = new Map();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} {noteOff} {controlChange} />
+    </main>
+</FileDropTarget>

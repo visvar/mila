@@ -17,6 +17,7 @@
     import example from '../example-recordings/tempo-change.json';
     import NumberInput from '../common/number-input.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -179,68 +180,81 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing tempo changes. Start playing at one tempo then
-        change to another one as accurately as you can. The chart shows you the
-        tempo over time, so can see whether you changed correctly. <i
-            >This app assumes tempi between 60 and 180 bpm. Try playing without
-            looking!</i
-        >
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play at a contant tempo.</p>
-        <p>2) Start with tempo 90 and suddenly jump to 150.</p>
-        <p>3) Start with tempo 90 and smoothly increase until you reach 150.</p>
-        <p>
-            4) Switch back and forth between two tempi, try to always hit the
-            same two BPM values.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing tempo changes. Start playing at one tempo
+            then change to another one as accurately as you can. The chart shows
+            you the tempo over time, so can see whether you changed correctly. <i
+                >This app assumes tempi between 60 and 180 bpm. Try playing
+                without looking!</i
+            >
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <NumberInput
-            title="Size of the time bins in seconds"
-            label="time step"
-            bind:value="{timeBinSize}"
-            callback="{draw}"
-            min="{1}"
-            max="{10}"
-            step="{1}"
+        <ExerciseDrawer>
+            <p>1) Play at a contant tempo.</p>
+            <p>2) Start with tempo 90 and suddenly jump to 150.</p>
+            <p>
+                3) Start with tempo 90 and smoothly increase until you reach
+                150.
+            </p>
+            <p>
+                4) Switch back and forth between two tempi, try to always hit
+                the same two BPM values.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <NumberInput
+                title="Size of the time bins in seconds"
+                label="time step"
+                bind:value="{timeBinSize}"
+                callback="{draw}"
+                min="{1}"
+                max="{10}"
+                step="{1}"
+            />
+            <NumberInput
+                title="Size of the tempo bins in BPM"
+                label="tempo step"
+                bind:value="{tempoBinSize}"
+                callback="{draw}"
+                min="{2}"
+                max="{20}"
+                step="{1}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton
+                tempo="{120}"
+                accent="{4}"
+                beepCount="{8}"
+                showBeepCountInput
+            />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+        <PcKeyboardInput
+            key=" "
+            keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
-        <NumberInput
-            title="Size of the tempo bins in BPM"
-            label="tempo step"
-            bind:value="{tempoBinSize}"
-            callback="{draw}"
-            min="{2}"
-            max="{20}"
-            step="{1}"
+        <TouchInput
+            element="{container}"
+            touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton
-            tempo="{120}"
-            accent="{4}"
-            beepCount="{8}"
-            showBeepCountInput
-        />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-    <PcKeyboardInput
-        key=" "
-        keyDown="{() => noteOn({ timestamp: performance.now() })}"
-    />
-    <TouchInput
-        element="{container}"
-        touchStart="{() => noteOn({ timestamp: performance.now() })}"
-    />
-</main>
+    </main>
+</FileDropTarget>

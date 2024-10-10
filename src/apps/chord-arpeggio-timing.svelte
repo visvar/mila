@@ -15,6 +15,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import MetronomeButton from '../common/metronome-button.svelte';
     import TempoInput from '../common/tempo-input.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -221,61 +222,72 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing the timing between chords and between the
-        notes in them. Play chords or short arpeggios with pauses inbetween. In
-        the visualization below, you can then see how long the time between the
-        first and last note of each chord/arpeggio was and how much time lies
-        between consecutive chords/arpeggios.
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Play a chord progression that is tricky for you. Make sure the
-            time between each chord and the previous is always roughly the same.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing the timing between chords and between the
+            notes in them. Play chords or short arpeggios with pauses inbetween.
+            In the visualization below, you can then see how long the time
+            between the first and last note of each chord/arpeggio was and how
+            much time lies between consecutive chords/arpeggios.
         </p>
-        <p>
-            2) Play an arpeggio of this chord progression (with a pause after
-            each).
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <label
-            title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
-        >
-            max. note distance
-            <input
-                type="number"
-                bind:value="{maxNoteDistance}"
-                on:change="{draw}"
-                min="0.05"
-                max="5"
-                step="0.05"
+        <ExerciseDrawer>
+            <p>
+                1) Play a chord progression that is tricky for you. Make sure
+                the time between each chord and the previous is always roughly
+                the same.
+            </p>
+            <p>
+                2) Play an arpeggio of this chord progression (with a pause
+                after each).
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <label
+                title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
+            >
+                max. note distance
+                <input
+                    type="number"
+                    bind:value="{maxNoteDistance}"
+                    on:change="{draw}"
+                    min="0.05"
+                    max="5"
+                    step="0.05"
+                />
+            </label>
+            <label title="time in beats that is shown">
+                beats shown
+                <input
+                    type="number"
+                    bind:value="{pastBeats}"
+                    on:change="{draw}"
+                    min="10"
+                    max="300"
+                    step="10"
+                />
+            </label>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{4}" />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
             />
-        </label>
-        <label title="time in beats that is shown">
-            beats shown
-            <input
-                type="number"
-                bind:value="{pastBeats}"
-                on:change="{draw}"
-                min="10"
-                max="300"
-                step="10"
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
             />
-        </label>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{4}" />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

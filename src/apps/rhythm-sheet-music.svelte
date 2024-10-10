@@ -3,7 +3,6 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
-    import { toggleOnIcon, toggleOffIcon } from '../lib/icons.js';
     import MetronomeButton from '../common/metronome-button.svelte';
     import TempoInput from '../common/tempo-input.svelte';
     import NoteCountInput from '../common/note-count-input.svelte';
@@ -22,6 +21,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -239,78 +239,88 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing the timing of notes. Set a tempo and start
-        playing. The time between the notes you play will be displayed as note
-        symbols, so you can see whether you play, for example, correct quarter
-        notes. Bars and numbers show you how many percent of the detected note
-        duration you played, for example a -5 means your note was 5% too short. <span
-            style="color:{blue}"
-            >Blue stands for notes that were too long (playing too slow)</span
-        >
-        and
-        <span style="color:{orange}">orange for short (fast) ones</span>.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Switch back and forth between quarters and eighths.</p>
-        <p>2) Switch between eighths and eighth triplets.</p>
-        <p>
-            3) Set the target to dotted-half notes and try to play them
-            accurately.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing the timing of notes. Set a tempo and start
+            playing. The time between the notes you play will be displayed as
+            note symbols, so you can see whether you play, for example, correct
+            quarter notes. Bars and numbers show you how many percent of the
+            detected note duration you played, for example a -5 means your note
+            was 5% too short. <span style="color:{blue}"
+                >Blue stands for notes that were too long (playing too slow)</span
+            >
+            and
+            <span style="color:{orange}">orange for short (fast) ones</span>.
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <ToggleButton
-            label="dotted notes"
-            title="Use dotted notes? If not, the closest non-dotted note will be taken."
-            bind:checked="{useDotted}"
-            callback="{draw}"
+        <ExerciseDrawer>
+            <p>1) Switch back and forth between quarters and eighths.</p>
+            <p>2) Switch between eighths and eighth triplets.</p>
+            <p>
+                3) Set the target to dotted-half notes and try to play them
+                accurately.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <ToggleButton
+                label="dotted notes"
+                title="Use dotted notes? If not, the closest non-dotted note will be taken."
+                bind:checked="{useDotted}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="control">
+            <SelectScollable
+                label="filtering"
+                title="You can filter out notes that are shorter than a given note duration."
+                bind:value="{filterNote}"
+                callback="{draw}"
+            >
+                {#each FILTER_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="target"
+                title="You can choose a single duration you want to practice and turn of automaticly guessing the closest one."
+                bind:value="{targetDuration}"
+                callback="{draw}"
+            >
+                <option value="auto">auto</option>
+                {#each noteDurations as d}
+                    <option value="{d.name}">{d.symbol} {d.name}</option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{4}" />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+        <PcKeyboardInput
+            key=" "
+            keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
-    </div>
-    <div class="control">
-        <SelectScollable
-            label="filtering"
-            title="You can filter out notes that are shorter than a given note duration."
-            bind:value="{filterNote}"
-            callback="{draw}"
-        >
-            {#each FILTER_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            label="target"
-            title="You can choose a single duration you want to practice and turn of automaticly guessing the closest one."
-            bind:value="{targetDuration}"
-            callback="{draw}"
-        >
-            <option value="auto">auto</option>
-            {#each noteDurations as d}
-                <option value="{d.name}">{d.symbol} {d.name}</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{4}" />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-    <PcKeyboardInput
-        key=" "
-        keyDown="{() => noteOn({ timestamp: performance.now() })}"
-    />
-    <TouchInput
-        element="{container}"
-        touchStart="{() => noteOn({ timestamp: performance.now() })}"
-    />
-</main>
+        <TouchInput
+            element="{container}"
+            touchStart="{() => noteOn({ timestamp: performance.now() })}"
+        />
+    </main>
+</FileDropTarget>

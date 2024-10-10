@@ -24,6 +24,7 @@
     import example from '../example-recordings/sub-division-drums_old.json';
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -226,125 +227,135 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing beat sub-divisions such as eighths or triplets
-        on drums. Connect a MIDI drum kit and start playing to the metronome.
-        The chart will show you how a summary of where your notes started, one
-        for each type of drum. If you do not have a MIDI drum kit, you can press
-        keys:
-        <code>h</code>, <code>s</code>, <code>t</code>, and <code>k</code> for
-        hi-hat, snare, tom, and kick drum.
-        <i> Try playing without looking, focus on the metronome. </i>
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play the kick on beat 1 and 3 and the snare on 2 and 4.</p>
-        <p>2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.</p>
-        <p>3) Play 2) and sometimes add a fill on the toms.</p>
-        <p>
-            4) Play a swing feel, where you shift every second note a bit late.
-            Try to do this consistently!
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing beat sub-divisions such as eighths or
+            triplets on drums. Connect a MIDI drum kit and start playing to the
+            metronome. The chart will show you how a summary of where your notes
+            started, one for each type of drum. If you do not have a MIDI drum
+            kit, you can press keys:
+            <code>h</code>, <code>s</code>, <code>t</code>, and <code>k</code>
+            for hi-hat, snare, tom, and kick drum.
+            <i> Try playing without looking, focus on the metronome. </i>
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <SelectScollable
-            label="grid"
-            title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
-            bind:value="{grid}"
-            callback="{draw}"
-        >
-            {#each GRIDS as g}
-                <option value="{g.divisions}">{g.label}</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            label="binning"
-            title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
-            bind:value="{binNote}"
-            callback="{draw}"
-        >
-            {#each BIN_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="control">
-        <NumberInput
-            title="Shift all notes by an amount in seconds"
-            label="adjust"
-            bind:value="{adjustTime}"
-            callback="{draw}"
-            step="{0.01}"
-            min="{-2}"
-            max="{2}"
-        />
-        <!-- TODO: currently broken for drums -->
-        <!-- <SubDivisionAdjustButton
+        <ExerciseDrawer>
+            <p>1) Play the kick on beat 1 and 3 and the snare on 2 and 4.</p>
+            <p>2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.</p>
+            <p>3) Play 2) and sometimes add a fill on the toms.</p>
+            <p>
+                4) Play a swing feel, where you shift every second note a bit
+                late. Try to do this consistently!
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <SelectScollable
+                label="grid"
+                title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
+                bind:value="{grid}"
+                callback="{draw}"
+            >
+                {#each GRIDS as g}
+                    <option value="{g.divisions}">{g.label}</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="binning"
+                title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
+                bind:value="{binNote}"
+                callback="{draw}"
+            >
+                {#each BIN_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="control">
+            <NumberInput
+                title="Shift all notes by an amount in seconds"
+                label="adjust"
+                bind:value="{adjustTime}"
+                callback="{draw}"
+                step="{0.01}"
+                min="{-2}"
+                max="{2}"
+            />
+            <!-- TODO: currently broken for drums -->
+            <!-- <SubDivisionAdjustButton
             bind:adjustTime
             {tempo}
             {grid}
             notes="{notes.map((d) => d.time)}"
             {draw}
         /> -->
-        <NumberInput
-            title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
-            label="last bars"
-            bind:value="{pastBars}"
-            callback="{draw}"
-            min="{1}"
-            max="{100}"
+            <NumberInput
+                title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
+                label="last bars"
+                bind:value="{pastBars}"
+                callback="{draw}"
+                min="{1}"
+                max="{100}"
+            />
+            <button
+                title="Toggle between an area chart and a histogram of the note density"
+                on:click="{() => {
+                    showKde = !showKde;
+                    draw();
+                }}"
+                style="width: 120px"
+            >
+                {showKde ? 'density area' : 'histogram'}
+            </button>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
+            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <PcKeyboardInput
+            key="s"
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), note: { number: 38 } })}"
         />
-        <button
-            title="Toggle between an area chart and a histogram of the note density"
-            on:click="{() => {
-                showKde = !showKde;
-                draw();
-            }}"
-            style="width: 120px"
-        >
-            {showKde ? 'density area' : 'histogram'}
-        </button>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-        <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <PcKeyboardInput
-        key="s"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 38 } })}"
-    />
-    <PcKeyboardInput
-        key="h"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 46 } })}"
-    />
-    <PcKeyboardInput
-        key="t"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 48 } })}"
-    />
-    <PcKeyboardInput
-        key="k"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 36 } })}"
-    />
-    <MidiInput {noteOn} {controlChange} />
-</main>
+        <PcKeyboardInput
+            key="h"
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), note: { number: 46 } })}"
+        />
+        <PcKeyboardInput
+            key="t"
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), note: { number: 48 } })}"
+        />
+        <PcKeyboardInput
+            key="k"
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), note: { number: 36 } })}"
+        />
+        <MidiInput {noteOn} {controlChange} />
+    </main>
 
-<style>
-    code {
-        background-color: #eee;
-        padding: 4px;
-        border-radius: 4px;
-    }
-</style>
+    <style>
+        code {
+            background-color: #eee;
+            padding: 4px;
+            border-radius: 4px;
+        }
+    </style>
+</FileDropTarget>

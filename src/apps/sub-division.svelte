@@ -26,6 +26,7 @@
     import SelectScollable from '../common/select-scollable.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -395,115 +396,126 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing beat sub-divisions such as eighths or
-        triplets. Choose your tempo and subdivision, and start playing. The bar
-        or area chart will show you a summary of when you played notes. Use the
-        integrated metronome. All notes will be timed relative to the first one,
-        but you can adjust all notes to make them earlier or later in case you
-        messed up the first. Each bar you play will be shown its own layer
-        around the circle. The lightgray areas show where a note would have to
-        be to be timed well (depending on the binning setting), the score in the
-        center shows the percentage of notes that are inside these areas.<br />
-        <i>
-            Try playing without looking and focus on the metronome. Try to play
-            all notes such that they are within a gray area!
-        </i>
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play triplets.</p>
-        <p>
-            2) Switch back and forth between a half bar of eighths and a half
-            bar of triplets.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing beat sub-divisions such as eighths or
+            triplets. Choose your tempo and subdivision, and start playing. The
+            bar or area chart will show you a summary of when you played notes.
+            Use the integrated metronome. All notes will be timed relative to
+            the first one, but you can adjust all notes to make them earlier or
+            later in case you messed up the first. Each bar you play will be
+            shown its own layer around the circle. The lightgray areas show
+            where a note would have to be to be timed well (depending on the
+            binning setting), the score in the center shows the percentage of
+            notes that are inside these areas.<br />
+            <i>
+                Try playing without looking and focus on the metronome. Try to
+                play all notes such that they are within a gray area!
+            </i>
         </p>
-        <p>
-            3) Play a swing feel, where you shift every second note a bit late.
-            Try to do this consistently!
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <SelectScollable
-            label="grid"
-            title="The whole circle is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
-            bind:value="{grid}"
-            callback="{draw}"
-        >
-            {#each GRIDS as g}
-                <option value="{g.divisions}">{g.label}</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            label="binning"
-            title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
-            bind:value="{binNote}"
-            callback="{draw}"
-        >
-            {#each BIN_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="control">
-        <SubDivisionAdjustButton
-            bind:adjustTime
-            {tempo}
-            {grid}
-            notes="{notes.map((d) => d.time)}"
-            {draw}
+        <ExerciseDrawer>
+            <p>1) Play triplets.</p>
+            <p>
+                2) Switch back and forth between a half bar of eighths and a
+                half bar of triplets.
+            </p>
+            <p>
+                3) Play a swing feel, where you shift every second note a bit
+                late. Try to do this consistently!
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <SelectScollable
+                label="grid"
+                title="The whole circle is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
+                bind:value="{grid}"
+                callback="{draw}"
+            >
+                {#each GRIDS as g}
+                    <option value="{g.divisions}">{g.label}</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="binning"
+                title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
+                bind:value="{binNote}"
+                callback="{draw}"
+            >
+                {#each BIN_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="control">
+            <SubDivisionAdjustButton
+                bind:adjustTime
+                {tempo}
+                {grid}
+                notes="{notes.map((d) => d.time)}"
+                {draw}
+            />
+            <button
+                title="Toggle between bars and area"
+                on:click="{() => {
+                    showKde = !showKde;
+                    draw();
+                }}"
+            >
+                {showKde ? 'area' : 'bars'}
+            </button>
+            <ToggleButton
+                label="bar scores"
+                title="Show scores (percentage of notes within gray areas) per bar"
+                bind:checked="{showBarScores}"
+                callback="{draw}"
+            />
+            <ToggleButton
+                label="loudness"
+                title="Show loudness in the note tick width, for example to see if you set accents correctly"
+                bind:checked="{showLoudness}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization">
+            <canvas
+                bind:this="{canvas}"
+                style="width: {width}px; height: {height}px"
+            ></canvas>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
+            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} {controlChange} />
+        <PcKeyboardInput
+            key=" "
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />
-        <button
-            title="Toggle between bars and area"
-            on:click="{() => {
-                showKde = !showKde;
-                draw();
-            }}"
-        >
-            {showKde ? 'area' : 'bars'}
-        </button>
-        <ToggleButton
-            label="bar scores"
-            title="Show scores (percentage of notes within gray areas) per bar"
-            bind:checked="{showBarScores}"
-            callback="{draw}"
+        <TouchInput
+            element="{canvas}"
+            touchStart="{() =>
+                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />
-        <ToggleButton
-            label="loudness"
-            title="Show loudness in the note tick width, for example to see if you set accents correctly"
-            bind:checked="{showLoudness}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization">
-        <canvas
-            bind:this="{canvas}"
-            style="width: {width}px; height: {height}px"
-        ></canvas>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-        <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {controlChange} />
-    <PcKeyboardInput
-        key=" "
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
-    />
-    <TouchInput
-        element="{canvas}"
-        touchStart="{() =>
-            noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
-    />
-    <PageResizeHandler callback="{draw}" />
-</main>
+        <PageResizeHandler callback="{draw}" />
+    </main>
+</FileDropTarget>

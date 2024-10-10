@@ -18,6 +18,7 @@
     import { replacer } from '../lib/json.js';
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -396,114 +397,127 @@
     });
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing playing faster on guitar. Adjust the initial
-        and target tempo, record an exercise at the inital tempo, and then
-        practice it with increasing speed until you reach your target tempo. All
-        repetitions will be shown time-aligned, so you can see at which tempo
-        you start to struggle keeping up. The notes you play are displayed in a
-        tablature-like visualization with crosses, numbers above notes indicate
-        the fret. The darkness (white to black) encodes the notes' velocities,
-        so eventual noise (unintended notes) is less distracting.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
-        <p>
-            2) Input your own exercise, optionally quantize it, and practice it.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing playing faster on guitar. Adjust the
+            initial and target tempo, record an exercise at the inital tempo,
+            and then practice it with increasing speed until you reach your
+            target tempo. All repetitions will be shown time-aligned, so you can
+            see at which tempo you start to struggle keeping up. The notes you
+            play are displayed in a tablature-like visualization with crosses,
+            numbers above notes indicate the fret. The darkness (white to black)
+            encodes the notes' velocities, so eventual noise (unintended notes)
+            is less distracting.
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput
-            label="initial tempo"
-            title="Set a tempo at which you are able to input the exercise precisely (in BPM)"
-            bind:value="{initialTempo}"
-            callback="{draw}"
-        />
-        <TempoInput
-            label="target tempo"
-            title="Set the tempo you want to be able to play the exercise at (in BPM)"
-            bind:value="{targetTempo}"
-            callback="{draw}"
-        />
-        <NumberInput
-            title="Set the tempo increase between practice runs (in BPM)"
-            label="step"
-            bind:value="{tempoIncrease}"
-            min="{1}"
-            max="{20}"
-            step="{1}"
-        />
-        <SelectScollable
-            label="quantize exercise"
-            bind:value="{quantize}"
-            callback="{draw}"
-        >
-            {#each ['off', '32nd', '16th', '8th', 'triplet', 'quintuplet'] as d}
-                <option value="{d}">{d}</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="control">
-        <label>
-            exercise
-            <select on:change="{predefinedExercise}">
-                <option selected disabled></option>
-                {#each ['quarter', 'eighth', 'triplets', 'swing'] as d}
-                    <option>{d}</option>
+        <ExerciseDrawer>
+            <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
+            <p>
+                2) Input your own exercise, optionally quantize it, and practice
+                it.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput
+                label="initial tempo"
+                title="Set a tempo at which you are able to input the exercise precisely (in BPM)"
+                bind:value="{initialTempo}"
+                callback="{draw}"
+            />
+            <TempoInput
+                label="target tempo"
+                title="Set the tempo you want to be able to play the exercise at (in BPM)"
+                bind:value="{targetTempo}"
+                callback="{draw}"
+            />
+            <NumberInput
+                title="Set the tempo increase between practice runs (in BPM)"
+                label="step"
+                bind:value="{tempoIncrease}"
+                min="{1}"
+                max="{20}"
+                step="{1}"
+            />
+            <SelectScollable
+                label="quantize exercise"
+                bind:value="{quantize}"
+                callback="{draw}"
+            >
+                {#each ['off', '32nd', '16th', '8th', 'triplet', 'quintuplet'] as d}
+                    <option value="{d}">{d}</option>
                 {/each}
-            </select>
-        </label>
-        <button
-            title="Start recording the exercise."
-            on:click="{inputExercise}"
-            disabled="{currentStep === 'input exercise' ||
-                currentStep === 'practice'}"
-        >
-            input exercise
-        </button>
-        <button
-            title="Stop recording the exercise."
-            on:click="{saveExercise}"
-            disabled="{currentStep !== 'input exercise'}"
-        >
-            save exercise
-        </button>
-        <button
-            title="Start recording the practice with speed-up."
-            on:click="{startPractice}"
-            disabled="{exerciseNotes.length === 0}"
-        >
-            start practice
-        </button>
-        <button
-            title="Stop recording the practice with speed-up."
-            on:click="{stopPractice}"
-            disabled="{currentStep !== 'practice'}"
-        >
-            stop practice
-        </button>
-    </div>
-    <div>
-        current step: <b>{currentStep}</b> current tempo: <b>{currentTempo}</b> BPM
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton
-            {saveToStorage}
-            title="Clear practice but not exercise"
-            disabled="{currentStep !== ''}"
-            callback="{() => {
-                practiceRecordings = new Map();
-                firstTimeStamp = performance.now();
-                draw();
-            }}"
-        />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+            </SelectScollable>
+        </div>
+        <div class="control">
+            <label>
+                exercise
+                <select on:change="{predefinedExercise}">
+                    <option selected disabled></option>
+                    {#each ['quarter', 'eighth', 'triplets', 'swing'] as d}
+                        <option>{d}</option>
+                    {/each}
+                </select>
+            </label>
+            <button
+                title="Start recording the exercise."
+                on:click="{inputExercise}"
+                disabled="{currentStep === 'input exercise' ||
+                    currentStep === 'practice'}"
+            >
+                input exercise
+            </button>
+            <button
+                title="Stop recording the exercise."
+                on:click="{saveExercise}"
+                disabled="{currentStep !== 'input exercise'}"
+            >
+                save exercise
+            </button>
+            <button
+                title="Start recording the practice with speed-up."
+                on:click="{startPractice}"
+                disabled="{exerciseNotes.length === 0}"
+            >
+                start practice
+            </button>
+            <button
+                title="Stop recording the practice with speed-up."
+                on:click="{stopPractice}"
+                disabled="{currentStep !== 'practice'}"
+            >
+                stop practice
+            </button>
+        </div>
+        <div>
+            current step: <b>{currentStep}</b> current tempo:
+            <b>{currentTempo}</b> BPM
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton
+                {saveToStorage}
+                title="Clear practice but not exercise"
+                disabled="{currentStep !== ''}"
+                callback="{() => {
+                    practiceRecordings = new Map();
+                    firstTimeStamp = performance.now();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

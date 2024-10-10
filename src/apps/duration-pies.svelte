@@ -23,6 +23,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import UndoRedoButton from '../common/undo-redo-button.svelte';
     import PageResizeHandler from '../common/page-resize-handler.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -388,106 +389,118 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing how long you hold notes. Set a tempo, start
-        the metronome, and try to play different note durations (whole, half,
-        quarter, eighth). You can also try dotted notes. Each note will be shown
-        as a pie chart, that shows how much of a whole note you played. For
-        example, if you tried to play a half note, the pie chart should be half
-        full. If you play longer than a whole note, the addtional time will be
-        shown in red. You can also switch to a bar ('test tube') encoding.
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Play a quarter note <span class="icon">𝅘𝅥 ◔</span>, a half note
-            <span class="icon">𝅗𝅥 ◑</span>, a dotted half note
-            <span class="icon">𝅗𝅥. ◕</span>
-            , and a whole note <span class="icon">𝅝</span>
-            <span class="icon" style="font-size: 14px">⬤</span>.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing how long you hold notes. Set a tempo,
+            start the metronome, and try to play different note durations
+            (whole, half, quarter, eighth). You can also try dotted notes. Each
+            note will be shown as a pie chart, that shows how much of a whole
+            note you played. For example, if you tried to play a half note, the
+            pie chart should be half full. If you play longer than a whole note,
+            the addtional time will be shown in red. You can also switch to a
+            bar ('test tube') encoding.
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <NoteCountInput
-            bind:value="{pastNoteCount}"
-            callback="{draw}"
-            step="{1}"
-            min="{1}"
-            max="{12}"
-        />
-        <ToggleButton
-            bind:checked="{usePies}"
-            callback="{draw}"
-            label="pies"
-            title="Toggles between pie and bar chart encoding"
-        />
-        <ToggleButton
-            bind:checked="{showClosestDuration}"
-            callback="{draw}"
-            label="show closest duration"
-            title="Show the closest note duration as an inner piece"
-        />
-    </div>
-    <div class="visualization">
-        <canvas
-            bind:this="{canvas}"
-            style="width: {width}px; height: {height}px"
-        ></canvas>
-    </div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{4}" />
-        <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-        <ResetNotesButton
-            {saveToStorage}
-            bind:notes
-            callback="{() => {
-                openNoteMap = new Map();
-                draw();
+        <ExerciseDrawer>
+            <p>
+                1) Play a quarter note <span class="icon">𝅘𝅥 ◔</span>, a half
+                note
+                <span class="icon">𝅗𝅥 ◑</span>, a dotted half note
+                <span class="icon">𝅗𝅥. ◕</span>
+                , and a whole note <span class="icon">𝅝</span>
+                <span class="icon" style="font-size: 14px">⬤</span>.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <NoteCountInput
+                bind:value="{pastNoteCount}"
+                callback="{draw}"
+                step="{1}"
+                min="{1}"
+                max="{12}"
+            />
+            <ToggleButton
+                bind:checked="{usePies}"
+                callback="{draw}"
+                label="pies"
+                title="Toggles between pie and bar chart encoding"
+            />
+            <ToggleButton
+                bind:checked="{showClosestDuration}"
+                callback="{draw}"
+                label="show closest duration"
+                title="Show the closest note duration as an inner piece"
+            />
+        </div>
+        <div class="visualization">
+            <canvas
+                bind:this="{canvas}"
+                style="width: {width}px; height: {height}px"
+            ></canvas>
+        </div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{4}" />
+            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
+            <ResetNotesButton
+                {saveToStorage}
+                bind:notes
+                callback="{() => {
+                    openNoteMap = new Map();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} {noteOff} {controlChange} />
+        <PcKeyboardInput
+            key=" "
+            keyDown="{() => {
+                if (isKeyDown) {
+                    return;
+                }
+                isKeyDown = true;
+                noteOn({
+                    note: { number: 0 },
+                    timestamp: performance.now(),
+                });
+            }}"
+            keyUp="{() => {
+                isKeyDown = false;
+                noteOff({
+                    note: { number: 0 },
+                    timestamp: performance.now(),
+                });
             }}"
         />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} />
-    <PcKeyboardInput
-        key=" "
-        keyDown="{() => {
-            if (isKeyDown) {
-                return;
-            }
-            isKeyDown = true;
-            noteOn({
-                note: { number: 0 },
-                timestamp: performance.now(),
-            });
-        }}"
-        keyUp="{() => {
-            isKeyDown = false;
-            noteOff({
-                note: { number: 0 },
-                timestamp: performance.now(),
-            });
-        }}"
-    />
-    <TouchInput
-        element="{canvas}"
-        touchStart="{() => {
-            noteOn({
-                note: { number: 0 },
-                timestamp: performance.now(),
-            });
-        }}"
-        touchEnd="{() => {
-            noteOff({
-                note: { number: 0 },
-                timestamp: performance.now(),
-            });
-        }}"
-    />
-    <PageResizeHandler callback="{draw}" />
-</main>
+        <TouchInput
+            element="{canvas}"
+            touchStart="{() => {
+                noteOn({
+                    note: { number: 0 },
+                    timestamp: performance.now(),
+                });
+            }}"
+            touchEnd="{() => {
+                noteOff({
+                    note: { number: 0 },
+                    timestamp: performance.now(),
+                });
+            }}"
+        />
+        <PageResizeHandler callback="{draw}" />
+    </main>
+</FileDropTarget>

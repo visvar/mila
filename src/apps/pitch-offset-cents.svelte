@@ -6,7 +6,6 @@
     import { Midi, Note } from '@tonaljs/tonal';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import ImportExportButton from '../common/import-export-button.svelte';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import example from '../example-recordings/pitch-offset-cents.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/rating-button.svelte';
@@ -14,6 +13,7 @@
     import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
     import NumberInput from '../common/number-input.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -176,79 +176,92 @@
     };
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing hitting the correct pitch (for example an
-        exact C) or playing/singing off-tune. The line chart below shows how far
-        you bend up and down over time.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play or sing a note as accurately as possible.</p>
-        <p>2) Bend/sing a note 25 cents higher (for example as a vibrato).</p>
-    </ExerciseDrawer>
-    {#if bendValues.length > 0}
-        <p>
-            Current closest note: {closestNote}
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing hitting the correct pitch (for example an
+            exact C) or playing/singing off-tune. The line chart below shows how
+            far you bend up and down over time.
         </p>
-    {/if}
-    <div class="control">
-        <button
-            title="Pause the moving visualization (shortcut: space)"
-            style="width: 75px"
-            on:click="{pause}"
-        >
-            {paused ? 'play' : 'pause'}
-        </button>
-        <NumberInput
-            label="past seconds"
-            bind:value="{pastTime}"
-            callback="{draw}"
-            min="{5}"
-            max="{60}"
-            step="{5}"
-        />
-        <NumberInput
-            title="The minimum loudness in decibels for a sound to be registered as input. Lower means fainter notes will be registered but there will be more noise such as octave errors."
-            label="min. decibels"
-            bind:value="{minVolumeDecibels}"
-            callback="{() => (detector.minVolumeDecibels = minVolumeDecibels)}"
-            min="{-40}"
-            max="{-5}"
-            step="{5}"
-        />
-        <ToggleButton
-            label="colors"
-            title="Use blue for low and red for high"
-            bind:checked="{colorArea}"
-            callback="{draw}"
-        />
-        <button
-            title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
-            on:click="{() => {
-                audioContext.resume();
-                getPitchFromAudio();
-            }}"
-        >
-            resume
-        </button>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton
-            bind:notes="{bendValues}"
-            saveToStorage="{// too much data
-            () => {}}"
-            callback="{() => {
-                firstTimeStamp = performance.now();
-                draw();
-            }}"
-        />>
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <!-- <HistoryButton appId="{appInfo.id}" {loadData} /> -->
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <PcKeyboardInput key=" " keyDown="{pause}" />
-</main>
+        <ExerciseDrawer>
+            <p>1) Play or sing a note as accurately as possible.</p>
+            <p>
+                2) Bend/sing a note 25 cents higher (for example as a vibrato).
+            </p>
+        </ExerciseDrawer>
+        {#if bendValues.length > 0}
+            <p>
+                Current closest note: {closestNote}
+            </p>
+        {/if}
+        <div class="control">
+            <button
+                title="Pause the moving visualization (shortcut: space)"
+                style="width: 75px"
+                on:click="{pause}"
+            >
+                {paused ? 'play' : 'pause'}
+            </button>
+            <NumberInput
+                label="past seconds"
+                bind:value="{pastTime}"
+                callback="{draw}"
+                min="{5}"
+                max="{60}"
+                step="{5}"
+            />
+            <NumberInput
+                title="The minimum loudness in decibels for a sound to be registered as input. Lower means fainter notes will be registered but there will be more noise such as octave errors."
+                label="min. decibels"
+                bind:value="{minVolumeDecibels}"
+                callback="{() =>
+                    (detector.minVolumeDecibels = minVolumeDecibels)}"
+                min="{-40}"
+                max="{-5}"
+                step="{5}"
+            />
+            <ToggleButton
+                label="colors"
+                title="Use blue for low and red for high"
+                bind:checked="{colorArea}"
+                callback="{draw}"
+            />
+            <button
+                title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
+                on:click="{() => {
+                    audioContext.resume();
+                    getPitchFromAudio();
+                }}"
+            >
+                resume
+            </button>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton
+                bind:notes="{bendValues}"
+                saveToStorage="{// too much data
+                () => {}}"
+                callback="{() => {
+                    firstTimeStamp = performance.now();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <!-- <HistoryButton appId="{appInfo.id}" {loadData} /> -->
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <PcKeyboardInput key=" " keyDown="{pause}" />
+    </main>
+</FileDropTarget>

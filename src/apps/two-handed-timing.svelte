@@ -22,6 +22,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -250,126 +251,139 @@
     };
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing beat sub-divisions such as eighths or triplets
-        on a piano or drum. You can choose a different sub-division for each
-        hand. The chart will show you how a summary of where your notes started,
-        the top one is for your right hand and the bottom one for your left
-        hand.
-    </p>
-    <p class="explanation">
-        <b>Keyboard mode:</b> Left hand plays keys left of the middle A, right
-        hand others.
-        <b>Drum mode:</b> Left hand plays snare, right hand any other drum.
-        <b>PC keyboard:</b> <code>f</code>
-        for left and <code>j</code> for right.
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Only single notes. Play triplets with your right and eighths with
-            your left hand.
-            <i> Try playing without looking, focus on the metronome. </i>
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing beat sub-divisions such as eighths or
+            triplets on a piano or drum. You can choose a different sub-division
+            for each hand. The chart will show you how a summary of where your
+            notes started, the top one is for your right hand and the bottom one
+            for your left hand.
         </p>
-        <p>
-            2) Play the same rhythm as in 1) but using different notes, to form
-            a melody.
+        <p class="explanation">
+            <b>Keyboard mode:</b> Left hand plays keys left of the middle A,
+            right hand others.
+            <b>Drum mode:</b> Left hand plays snare, right hand any other drum.
+            <b>PC keyboard:</b> <code>f</code>
+            for left and <code>j</code> for right.
         </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <ToggleButton
-            bind:checked="{drumMode}"
-            label="drum mode"
-            title="Toggle between piano keyboard and drum mode"
-        />
-        <SelectScollable
-            label="grid left"
-            title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
-            bind:value="{gridLeft}"
-            callback="{draw}"
-        >
-            {#each GRIDS as g}
-                <option value="{g.divisions}">{g.label}</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            label="right"
-            title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
-            bind:value="{gridRight}"
-            callback="{draw}"
-        >
-            {#each GRIDS as g}
-                <option value="{g.divisions}">{g.label}</option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="control">
-        <SelectScollable
-            label="binning"
-            title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
-            bind:value="{binNote}"
-            callback="{draw}"
-        >
-            {#each BIN_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-        <label title="Shift all notes by an amount in seconds">
-            adjust
-            <input
-                type="number"
-                bind:value="{adjustTime}"
-                on:change="{draw}"
-                step="0.01"
-                min="-2"
-                max="2"
-                style="width: 55px"
+        <ExerciseDrawer>
+            <p>
+                1) Only single notes. Play triplets with your right and eighths
+                with your left hand.
+                <i> Try playing without looking, focus on the metronome. </i>
+            </p>
+            <p>
+                2) Play the same rhythm as in 1) but using different notes, to
+                form a melody.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <ToggleButton
+                bind:checked="{drumMode}"
+                label="drum mode"
+                title="Toggle between piano keyboard and drum mode"
             />
-        </label>
-        <NumberInput
-            title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
-            label="bars"
-            bind:value="{pastBars}"
-            callback="{draw}"
-            min="{1}"
-            max="{100}"
+            <SelectScollable
+                label="grid left"
+                title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
+                bind:value="{gridLeft}"
+                callback="{draw}"
+            >
+                {#each GRIDS as g}
+                    <option value="{g.divisions}">{g.label}</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="right"
+                title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
+                bind:value="{gridRight}"
+                callback="{draw}"
+            >
+                {#each GRIDS as g}
+                    <option value="{g.divisions}">{g.label}</option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="control">
+            <SelectScollable
+                label="binning"
+                title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
+                bind:value="{binNote}"
+                callback="{draw}"
+            >
+                {#each BIN_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+            <label title="Shift all notes by an amount in seconds">
+                adjust
+                <input
+                    type="number"
+                    bind:value="{adjustTime}"
+                    on:change="{draw}"
+                    step="0.01"
+                    min="-2"
+                    max="2"
+                    style="width: 55px"
+                />
+            </label>
+            <NumberInput
+                title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
+                label="bars"
+                bind:value="{pastBars}"
+                callback="{draw}"
+                min="{1}"
+                max="{100}"
+            />
+            <button
+                title="Toggle between an area chart and a histogram of the note density"
+                on:click="{() => {
+                    showKde = !showKde;
+                    draw();
+                }}"
+                style="width: 120px"
+            >
+                {showKde ? 'density area' : 'histogram'}
+            </button>
+        </div>
+        <div class="visualization" bind:this="{containerRight}"></div>
+        <div class="visualization" bind:this="{containerLeft}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{+gridLeft.split(':')[0]}" />
+            <RhythmPlayerButton
+                notes="{getRhythmNotes(gridLeft, gridRight, tempo)}"
+            />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <PcKeyboardInput
+            key="f"
+            keyDown="{() =>
+                noteOn({ timestamp: performance.now(), note: { number: 0 } })}"
         />
-        <button
-            title="Toggle between an area chart and a histogram of the note density"
-            on:click="{() => {
-                showKde = !showKde;
-                draw();
-            }}"
-            style="width: 120px"
-        >
-            {showKde ? 'density area' : 'histogram'}
-        </button>
-    </div>
-    <div class="visualization" bind:this="{containerRight}"></div>
-    <div class="visualization" bind:this="{containerLeft}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{+gridLeft.split(':')[0]}" />
-        <RhythmPlayerButton
-            notes="{getRhythmNotes(gridLeft, gridRight, tempo)}"
+        <PcKeyboardInput
+            key="j"
+            keyDown="{() =>
+                noteOn({
+                    timestamp: performance.now(),
+                    note: { number: 127 },
+                })}"
         />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <PcKeyboardInput
-        key="f"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 0 } })}"
-    />
-    <PcKeyboardInput
-        key="j"
-        keyDown="{() =>
-            noteOn({ timestamp: performance.now(), note: { number: 127 } })}"
-    />
-    <MidiInput {noteOn} {controlChange} />
-</main>
+        <MidiInput {noteOn} {controlChange} />
+    </main>
+</FileDropTarget>

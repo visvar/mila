@@ -59,7 +59,7 @@
     <select
         bind:this="{select}"
         bind:value
-        on:change="{callback}"
+        on:input="{callback}"
         on:mousewheel="{scrollOptions}"
         class="{className}"
         {disabled}

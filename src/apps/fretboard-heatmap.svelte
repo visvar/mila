@@ -17,6 +17,7 @@
     import example from '../example-recordings/fretboard-heatmap.json';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -214,51 +215,61 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing scales and improvisation on a guitar. The
-        heatmap below shows how often you played each fretboard position. If a
-        scale is shown, the color hue will tell you whether a note you played
-        belongs to the scale or not.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play the note A over the whole fretboard.</p>
-        <p>
-            2) Play the A minor pentatonic scale over the whole fretboard,
-            string by string. Check if you played wrong notes.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing scales and improvisation on a guitar. The
+            heatmap below shows how often you played each fretboard position. If
+            a scale is shown, the color hue will tell you whether a note you
+            played belongs to the scale or not.
         </p>
-        <p>3) Improvise in A minor pentatonic over the whole fretboard.</p>
-        <p>
-            4) Improvise in a scale you do not know yet over the whole
-            fretboard.
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <ToggleButton
-            bind:checked="{showScale}"
-            label="show scale"
-            title="If active, the color hue will show whether notes are in the selected scale or not"
-            callback="{draw}"
-        />
-        <ScaleSelect
-            bind:scaleRoot
-            bind:scaleType
-            callback="{draw}"
-            bind:scaleInfo
-            disabled="{!showScale}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+        <ExerciseDrawer>
+            <p>1) Play the note A over the whole fretboard.</p>
+            <p>
+                2) Play the A minor pentatonic scale over the whole fretboard,
+                string by string. Check if you played wrong notes.
+            </p>
+            <p>3) Improvise in A minor pentatonic over the whole fretboard.</p>
+            <p>
+                4) Improvise in a scale you do not know yet over the whole
+                fretboard.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <ToggleButton
+                bind:checked="{showScale}"
+                label="show scale"
+                title="If active, the color hue will show whether notes are in the selected scale or not"
+                callback="{draw}"
+            />
+            <ScaleSelect
+                bind:scaleRoot
+                bind:scaleType
+                callback="{draw}"
+                bind:scaleInfo
+                disabled="{!showScale}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

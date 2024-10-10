@@ -3,7 +3,6 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
-    import { toggleOnIcon, toggleOffIcon } from '../lib/icons.js';
     import MetronomeButton from '../common/metronome-button.svelte';
     import TempoInput from '../common/tempo-input.svelte';
     import NoteCountInput from '../common/note-count-input.svelte';
@@ -20,6 +19,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -193,97 +193,109 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing accents, that is, playing some notes louder
-        then others to highlight them. Set a tempo and start playing. The time
-        between the notes you play will be displayed as note symbols, so you can
-        see whether you play, for example, correct quarter notes. The note's
-        velocity is encoded as font size, so you can see whether you accent the
-        correct notes, for example the first note in each triplet, or the the
-        first in each group of 4.
-        <i>Note: the display is always one note behind.</i>
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Play quarter notes and accent the first one in each group of 4.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing accents, that is, playing some notes
+            louder then others to highlight them. Set a tempo and start playing.
+            The time between the notes you play will be displayed as note
+            symbols, so you can see whether you play, for example, correct
+            quarter notes. The note's velocity is encoded as font size, so you
+            can see whether you accent the correct notes, for example the first
+            note in each triplet, or the the first in each group of 4.
+            <i>Note: the display is always one note behind.</i>
         </p>
-        <p>2) Play triplets and accent the first note in each triplet.</p>
-        <p>
-            3) Switch between triplets and sixteenth notes and accent the first
-            note in each group of 3 and 4.
-        </p>
-        <p>
-            4) Play triplets and accent the first note in each odd triplet and
-            the second in each even triplet.
-        </p>
-        <p>
-            5) Try different accent patterns such as:<br />
-            <b>1</b> e + <b>a</b> 2 e + a 3 <b>e</b> + a <b>4</b> e + a<br />
-            <span class="icon">
-                <span class="acc">𝅘𝅥</span> 𝅘𝅥 𝅘𝅥 <span class="acc">𝅘𝅥</span> | 𝅘𝅥 𝅘𝅥
-                𝅘𝅥 𝅘𝅥 | 𝅘𝅥
-                <span class="acc">𝅘𝅥</span>
-                𝅘𝅥 𝅘𝅥 |
-                <span class="acc">𝅘𝅥</span>
-                𝅘𝅥 𝅘𝅥 𝅘𝅥
-            </span>
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
-        <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <ToggleButton
-            label="dotted notes"
-            title="Use dotted notes? If not, the closest non-dotted note will be taken."
-            bind:checked="{useDotted}"
-            callback="{draw}"
-        />
-        <ToggleButton
-            label="tuplets"
-            title="Use tuplets? If not, the closest non-tuplet note will be taken."
-            bind:checked="{useTuplets}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="control">
-        <SelectScollable
-            title="You can filter out notes that are shorter than a given note duration."
-            label="filtering"
-            bind:value="{filterNote}"
-            callback="{draw}"
-        >
-            {#each FILTER_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            title="You can choose a value for loudness to only show loud and quiet notes in two different sizes instead of exactly sizing notes by loudness. Set to 0 to use smooth sizing."
-            label="loudness threshold"
-            bind:value="{velocityThreshold}"
-            callback="{draw}"
-        >
-            {#each VELOCITIES_LOGIC.entries() as [velocity, label]}
-                <option value="{velocity / 127}">
-                    {(velocity / 127).toFixed(1)}
-                    {label}
-                </option>
-            {/each}
-        </SelectScollable>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <MetronomeButton {tempo} accent="{4}" />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+        <ExerciseDrawer>
+            <p>
+                1) Play quarter notes and accent the first one in each group of
+                4.
+            </p>
+            <p>2) Play triplets and accent the first note in each triplet.</p>
+            <p>
+                3) Switch between triplets and sixteenth notes and accent the
+                first note in each group of 3 and 4.
+            </p>
+            <p>
+                4) Play triplets and accent the first note in each odd triplet
+                and the second in each even triplet.
+            </p>
+            <p>
+                5) Try different accent patterns such as:<br />
+                <b>1</b> e + <b>a</b> 2 e + a 3 <b>e</b> + a <b>4</b> e + a<br
+                />
+                <span class="icon">
+                    <span class="acc">𝅘𝅥</span> 𝅘𝅥 𝅘𝅥 <span class="acc">𝅘𝅥</span> |
+                    𝅘𝅥 𝅘𝅥 𝅘𝅥 𝅘𝅥 | 𝅘𝅥
+                    <span class="acc">𝅘𝅥</span>
+                    𝅘𝅥 𝅘𝅥 |
+                    <span class="acc">𝅘𝅥</span>
+                    𝅘𝅥 𝅘𝅥 𝅘𝅥
+                </span>
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <ToggleButton
+                label="dotted notes"
+                title="Use dotted notes? If not, the closest non-dotted note will be taken."
+                bind:checked="{useDotted}"
+                callback="{draw}"
+            />
+            <ToggleButton
+                label="tuplets"
+                title="Use tuplets? If not, the closest non-tuplet note will be taken."
+                bind:checked="{useTuplets}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="control">
+            <SelectScollable
+                title="You can filter out notes that are shorter than a given note duration."
+                label="filtering"
+                bind:value="{filterNote}"
+                callback="{draw}"
+            >
+                {#each FILTER_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                title="You can choose a value for loudness to only show loud and quiet notes in two different sizes instead of exactly sizing notes by loudness. Set to 0 to use smooth sizing."
+                label="loudness threshold"
+                bind:value="{velocityThreshold}"
+                callback="{draw}"
+            >
+                {#each VELOCITIES_LOGIC.entries() as [velocity, label]}
+                    <option value="{velocity / 127}">
+                        {(velocity / 127).toFixed(1)}
+                        {label}
+                    </option>
+                {/each}
+            </SelectScollable>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <MetronomeButton {tempo} accent="{4}" />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>
 
 <style>
     .acc {

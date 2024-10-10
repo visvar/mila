@@ -3,7 +3,7 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from '@tonaljs/tonal';
-    import { getCs, clamp } from '../lib/lib';
+    import { clamp } from '../lib/lib';
     import { Midi } from 'musicvis-lib';
     import NoteCountInput from '../common/note-count-input.svelte';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
@@ -18,7 +18,7 @@
     import ToggleButton from '../common/toggle-button.svelte';
     import ShareConfigButton from '../common/share-config-button.svelte';
     import example from '../example-recordings/keyboard-histogram.json';
-    import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -208,49 +208,60 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing scales on a keyboard. The heatmap below shows
-        how often you played each keyboard key. You can color notes depending on
-        whether they belong to the chosen scale or not, so you can see how often
-        you played one outside the scale (on purpose or by accident).
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Improvise something while trying to use the whole range of the
-            keyboard.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing scales on a keyboard. The heatmap below
+            shows how often you played each keyboard key. You can color notes
+            depending on whether they belong to the chosen scale or not, so you
+            can see how often you played one outside the scale (on purpose or by
+            accident).
         </p>
-        <p>
-            2) Improvise something while trying to use both hands (far enough
-            apart) for the same amount of notes.
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
-        <ToggleButton
-            bind:checked="{showScale}"
-            label="show scale"
-            title="If active, the color hue will show whether notes are in the selected scale or not"
-            callback="{draw}"
-        />
-        <ScaleSelect
-            bind:scaleInfo
-            bind:scaleRoot
-            bind:scaleType
-            disabled="{!showScale}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {controlChange} />
-</main>
+        <ExerciseDrawer>
+            <p>
+                1) Improvise something while trying to use the whole range of
+                the keyboard.
+            </p>
+            <p>
+                2) Improvise something while trying to use both hands (far
+                enough apart) for the same amount of notes.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <ToggleButton
+                bind:checked="{showScale}"
+                label="show scale"
+                title="If active, the color hue will show whether notes are in the selected scale or not"
+                callback="{draw}"
+            />
+            <ScaleSelect
+                bind:scaleInfo
+                bind:scaleRoot
+                bind:scaleType
+                disabled="{!showScale}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} {controlChange} />
+    </main>
+</FileDropTarget>

@@ -2,9 +2,8 @@
     import { onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
     import { PitchDetector } from 'pitchy';
-    import { Midi, Note } from '@tonaljs/tonal';
+    import { Midi } from '@tonaljs/tonal';
     import * as d3 from 'd3';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import ImportExportButton from '../common/import-export-button.svelte';
     import example from '../example-recordings/pitch-bend-audio.json';
@@ -14,6 +13,7 @@
     import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
     import NumberInput from '../common/number-input.svelte';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -207,81 +207,93 @@
     };
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing pitch bends or vibratos with any instrument
-        that supports pitch modulation or with you singing voice. The line chart
-        below shows how far you bend up and down over time.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play/sing a bend by one semitone (for example, A to A#).</p>
-        <p>2) Play/sing a bend by two semitones (for example, A to B).</p>
-        <p>3) Play/sing a vibrato where you always bend by one semitone.</p>
-        <p>
-            4) Play/sing a vibrato and then a second one with twice the
-            frequency of modulation.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing pitch bends or vibratos with any
+            instrument that supports pitch modulation or with you singing voice.
+            The line chart below shows how far you bend up and down over time.
         </p>
-        <p>
-            5) Slide from one note to a much higher one as smoothly as possible.
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <button
-            title="Pause the moving visualization (shortcut: space)"
-            style="width: 75px"
-            on:click="{pause}"
-        >
-            {paused ? 'play' : 'pause'}
-        </button>
-        <NumberInput
-            label="past seconds"
-            bind:value="{pastTime}"
-            callback="{draw}"
-            min="{5}"
-            max="{60}"
-            step="{5}"
-        />
-        <NumberInput
-            title="The minimum loudness in decibels for a sound to be registered as input. Lower means fainter notes will be registered but there will be more noise such as octave errors."
-            label="min. decibels"
-            bind:value="{minVolumeDecibels}"
-            callback="{() => (detector.minVolumeDecibels = minVolumeDecibels)}"
-            min="{-40}"
-            max="{-5}"
-            step="{5}"
-        />
-        <ToggleButton
-            label="ignore octave"
-            title="When ignoring the octave, the lower visualization will only show the note's chroma from C to B"
-            bind:checked="{ignoreOctave}"
-            callback="{draw}"
-        />
-        <button
-            title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
-            on:click="{() => {
-                audioContext.resume();
-                getPitchFromAudio();
-            }}"
-        >
-            resume
-        </button>
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton
-            bind:notes="{bendValues}"
-            saveToStorage="{// otherwise too much data
-            () => {}}"
-            callback="{() => {
-                firstTimeStamp = performance.now();
-                draw();
-            }}"
-        />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <PcKeyboardInput key=" " keyDown="{pause}" />
-</main>
+        <ExerciseDrawer>
+            <p>1) Play/sing a bend by one semitone (for example, A to A#).</p>
+            <p>2) Play/sing a bend by two semitones (for example, A to B).</p>
+            <p>3) Play/sing a vibrato where you always bend by one semitone.</p>
+            <p>
+                4) Play/sing a vibrato and then a second one with twice the
+                frequency of modulation.
+            </p>
+            <p>
+                5) Slide from one note to a much higher one as smoothly as
+                possible.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <button
+                title="Pause the moving visualization (shortcut: space)"
+                style="width: 75px"
+                on:click="{pause}"
+            >
+                {paused ? 'play' : 'pause'}
+            </button>
+            <NumberInput
+                label="past seconds"
+                bind:value="{pastTime}"
+                callback="{draw}"
+                min="{5}"
+                max="{60}"
+                step="{5}"
+            />
+            <NumberInput
+                title="The minimum loudness in decibels for a sound to be registered as input. Lower means fainter notes will be registered but there will be more noise such as octave errors."
+                label="min. decibels"
+                bind:value="{minVolumeDecibels}"
+                callback="{() =>
+                    (detector.minVolumeDecibels = minVolumeDecibels)}"
+                min="{-40}"
+                max="{-5}"
+                step="{5}"
+            />
+            <ToggleButton
+                label="ignore octave"
+                title="When ignoring the octave, the lower visualization will only show the note's chroma from C to B"
+                bind:checked="{ignoreOctave}"
+                callback="{draw}"
+            />
+            <button
+                title="Press this button if your browser prevents audio access because there needs to be a user interaction first"
+                on:click="{() => {
+                    audioContext.resume();
+                    getPitchFromAudio();
+                }}"
+            >
+                resume
+            </button>
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton
+                bind:notes="{bendValues}"
+                saveToStorage="{// otherwise too much data
+                () => {}}"
+                callback="{() => {
+                    firstTimeStamp = performance.now();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <PcKeyboardInput key=" " keyDown="{pause}" />
+    </main>
+</FileDropTarget>

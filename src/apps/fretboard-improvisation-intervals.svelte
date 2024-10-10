@@ -15,6 +15,7 @@
     import ScaleSelect from '../common/scale-select.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import ShareConfigButton from '../common/share-config-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -237,46 +238,56 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing scales on a guitar. Each time you play a note,
-        the fretboard below shows you how far each note of the scale is away
-        from the note you just played.
-    </p>
-    <ExerciseDrawer>
-        <p>1) Go through the scale in steps of 1.</p>
-        <p>2) Go through the scale in steps of 2.</p>
-        <p>3) Go through the scale in steps of 3.</p>
-        <p>4) ...</p>
-    </ExerciseDrawer>
-    <div class="control">
-        <ScaleSelect
-            bind:scaleRoot="{root}"
-            bind:scaleType="{scale}"
-            callback="{draw}"
-        />
-        <ToggleButton
-            bind:checked="{showNames}"
-            title="Toggle between note names and scale steps"
-            label="note names"
-            callback="{draw}"
-        />
-        <ToggleButton
-            bind:checked="{limitFrets}"
-            title="Limit frets to those that are in reach"
-            label="limit frets"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing scales on a guitar. Each time you play a
+            note, the fretboard below shows you how far each note of the scale
+            is away from the note you just played.
+        </p>
+        <ExerciseDrawer>
+            <p>1) Go through the scale in steps of 1.</p>
+            <p>2) Go through the scale in steps of 2.</p>
+            <p>3) Go through the scale in steps of 3.</p>
+            <p>4) ...</p>
+        </ExerciseDrawer>
+        <div class="control">
+            <ScaleSelect
+                bind:scaleRoot="{root}"
+                bind:scaleType="{scale}"
+                callback="{draw}"
+            />
+            <ToggleButton
+                bind:checked="{showNames}"
+                title="Toggle between note names and scale steps"
+                label="note names"
+                callback="{draw}"
+            />
+            <ToggleButton
+                bind:checked="{limitFrets}"
+                title="Limit frets to those that are in reach"
+                label="limit frets"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

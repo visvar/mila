@@ -2,7 +2,6 @@
     import { onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import ResetNotesButton from '../common/reset-notes-button.svelte';
     import MidiInput from '../common/midi-input.svelte';
     import ImportExportButton from '../common/import-export-button.svelte';
@@ -13,6 +12,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import example from '../example-recordings/improvisation-intervals.json';
     import ToggleButton from '../common/toggle-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -173,46 +173,60 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing intervals between notes in a melody. You can
-        play a note, then another one some interval apart, and so on. The bar
-        chart below shows how often you played each interval: when you go up in
-        pitch, the bar of the played interval in the top half will increase. If
-        you go down, it will show up in the bottom half. Colors denote the type
-        of interval, so you can quickly see if you play, for example, more major
-        or minor intervals. The intervals are labelled by their name and the
-        number of semitones (negative when going from higher to lower notes).
-    </p>
-    <ExerciseDrawer>
-        <p>1) Play different notes and see which intervals are between them.</p>
-        <p>2) Try to play only perfect 5ths.</p>
-        <p>3) Try to play only perfect 5ths and major intervals.</p>
-        <p>4) Try to play only perfect 5ths and minor intervals.</p>
-    </ExerciseDrawer>
-    <div class="control">
-        <ToggleButton
-            label="unison"
-            title="Toggle filtering unison intervals"
-            bind:checked="{filterUnison}"
-            callback="{draw}"
-        />
-        <ToggleButton
-            label="colors"
-            title="Use colors for interval types"
-            bind:checked="{useColors}"
-            callback="{draw}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-</main>
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing intervals between notes in a melody. You
+            can play a note, then another one some interval apart, and so on.
+            The bar chart below shows how often you played each interval: when
+            you go up in pitch, the bar of the played interval in the top half
+            will increase. If you go down, it will show up in the bottom half.
+            Colors denote the type of interval, so you can quickly see if you
+            play, for example, more major or minor intervals. The intervals are
+            labelled by their name and the number of semitones (negative when
+            going from higher to lower notes).
+        </p>
+        <ExerciseDrawer>
+            <p>
+                1) Play different notes and see which intervals are between
+                them.
+            </p>
+            <p>2) Try to play only perfect 5ths.</p>
+            <p>3) Try to play only perfect 5ths and major intervals.</p>
+            <p>4) Try to play only perfect 5ths and minor intervals.</p>
+        </ExerciseDrawer>
+        <div class="control">
+            <ToggleButton
+                label="unison"
+                title="Toggle filtering unison intervals"
+                bind:checked="{filterUnison}"
+                callback="{draw}"
+            />
+            <ToggleButton
+                label="colors"
+                title="Use colors for interval types"
+                bind:checked="{useColors}"
+                callback="{draw}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+    </main>
+</FileDropTarget>

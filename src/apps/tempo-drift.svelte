@@ -21,6 +21,7 @@
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -192,112 +193,124 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app helps practicing keeping a constant tempo. Choose your tempo,
-        activate the metronome, and start playing. Once the metronome stops, try
-        to keep a constant tempo as long as possible. The time between two note
-        onsets will be shown as a bar, so you can see how well you still hit,
-        for example, quarter notes after playing for some time. Bar heights are
-        either exact or rounded to a certain duration precision for a clearer
-        overview when monitoring live. You can filter very short inter-note
-        times, which happen when playing two notes at roughly the same time, for
-        example in a chord.
-        <i>
-            Try playing without looking, so you don't correct based on what you
-            see!
-        </i>
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Choose a tempo and play only quarter notes. After the count-in,
-            keep the tempo as constant as possible for a few minutes.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app helps practicing keeping a constant tempo. Choose your
+            tempo, activate the metronome, and start playing. Once the metronome
+            stops, try to keep a constant tempo as long as possible. The time
+            between two note onsets will be shown as a bar, so you can see how
+            well you still hit, for example, quarter notes after playing for
+            some time. Bar heights are either exact or rounded to a certain
+            duration precision for a clearer overview when monitoring live. You
+            can filter very short inter-note times, which happen when playing
+            two notes at roughly the same time, for example in a chord.
+            <i>
+                Try playing without looking, so you don't correct based on what
+                you see!
+            </i>
         </p>
-        <p>
-            2) Play a piece/song (that has constant tempo). After the count-in,
-            keep the tempo as constant as possible for a few minutes.
-        </p>
-        <p>
-            3) Try to play at a given tempo without count-in, just by guessing
-            how fast it is supposed to be played. You can use the randomize
-            tempo button (⚂) to get challenged for a random tempo.
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <TempoInput bind:value="{tempo}" on:change="{draw}" />
-        <button
-            title="randomize tempo"
-            on:click="{() => {
-                let newTempo = tempo;
-                while (newTempo === tempo) {
-                    newTempo = Math.round(Math.random() * 12 + 6) * 10;
-                }
-                tempo = newTempo;
-            }}"
-        >
-            ⚂
-        </button>
-        <SelectScollable
-            label="rounding"
-            title="You can change between seeing exact bar heights and binned (rounded) heights."
-            bind:value="{binNote}"
-            callback="{draw}"
-        >
-            <option value="{0}">off</option>
-            {#each BIN_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-        <SelectScollable
-            label="filtering"
-            title="You can filter out notes that are shorter than a given note duration."
-            bind:value="{filterNote}"
-            callback="{draw}"
-        >
-            <option value="{0}">off</option>
-            {#each BIN_NOTES as g}
-                <option value="{g}">1/{g} note</option>
-            {/each}
-        </SelectScollable>
-        <NumberInput
-            title="The number of most recent notes that are shown as bars."
-            label="bars"
-            bind:value="{barLimit}"
-            callback="{draw}"
-            step="{25}"
-            min="{25}"
-            max="{1000}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    {#if estimatedTempo}
-        <div>
-            estimated: {estimatedTempo.toFixed()} bpm (assuming quarter notes)
+        <ExerciseDrawer>
+            <p>
+                1) Choose a tempo and play only quarter notes. After the
+                count-in, keep the tempo as constant as possible for a few
+                minutes.
+            </p>
+            <p>
+                2) Play a piece/song (that has constant tempo). After the
+                count-in, keep the tempo as constant as possible for a few
+                minutes.
+            </p>
+            <p>
+                3) Try to play at a given tempo without count-in, just by
+                guessing how fast it is supposed to be played. You can use the
+                randomize tempo button (⚂) to get challenged for a random tempo.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <TempoInput bind:value="{tempo}" on:change="{draw}" />
+            <button
+                title="randomize tempo"
+                on:click="{() => {
+                    let newTempo = tempo;
+                    while (newTempo === tempo) {
+                        newTempo = Math.round(Math.random() * 12 + 6) * 10;
+                    }
+                    tempo = newTempo;
+                }}"
+            >
+                ⚂
+            </button>
+            <SelectScollable
+                label="rounding"
+                title="You can change between seeing exact bar heights and binned (rounded) heights."
+                bind:value="{binNote}"
+                callback="{draw}"
+            >
+                <option value="{0}">off</option>
+                {#each BIN_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="filtering"
+                title="You can filter out notes that are shorter than a given note duration."
+                bind:value="{filterNote}"
+                callback="{draw}"
+            >
+                <option value="{0}">off</option>
+                {#each BIN_NOTES as g}
+                    <option value="{g}">1/{g} note</option>
+                {/each}
+            </SelectScollable>
+            <NumberInput
+                title="The number of most recent notes that are shown as bars."
+                label="bars"
+                bind:value="{barLimit}"
+                callback="{draw}"
+                step="{25}"
+                min="{25}"
+                max="{1000}"
+            />
         </div>
-    {/if}
-    <div class="control">
-        <MetronomeButton
-            {tempo}
-            accent="{4}"
-            beepCount="{8}"
-            showBeepCountInput
+        <div class="visualization" bind:this="{container}"></div>
+        {#if estimatedTempo}
+            <div>
+                estimated: {estimatedTempo.toFixed()} bpm (assuming quarter notes)
+            </div>
+        {/if}
+        <div class="control">
+            <MetronomeButton
+                {tempo}
+                accent="{4}"
+                beepCount="{8}"
+                showBeepCountInput
+            />
+            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} />
+        <PcKeyboardInput
+            key=" "
+            keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
-        <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} />
-    <PcKeyboardInput
-        key=" "
-        keyDown="{() => noteOn({ timestamp: performance.now() })}"
-    />
-    <TouchInput
-        element="{container}"
-        touchStart="{() => noteOn({ timestamp: performance.now() })}"
-    />
-</main>
+        <TouchInput
+            element="{container}"
+            touchStart="{() => noteOn({ timestamp: performance.now() })}"
+        />
+    </main>
+</FileDropTarget>

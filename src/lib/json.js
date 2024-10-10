@@ -37,11 +37,10 @@ export function reviver(key, value) {
 
 /**
  * Takes a file input event and returns the file's content as object parsed from JSON
- * @param {InputEvent} fileInputEvent file input event
+ * @param {File} file file handle of an event
  * @returns {Promise<*>} parsed JSON content of the file
  */
-export async function parseJsonFile(fileInputEvent) {
-  const file = fileInputEvent.target.files[0]
+export async function parseJsonFile(file) {
   const text = await file.text()
   const json = JSON.parse(text, reviver)
   return json

@@ -18,6 +18,7 @@
     import ShareConfigButton from '../common/share-config-button.svelte';
     import NumberInput from '../common/number-input.svelte';
     import MidiReplayButton from '../common/midi-replay-button.svelte';
+    import FileDropTarget from '../common/file-drop-target.svelte';
 
     export let appInfo;
     let width = 900;
@@ -247,71 +248,81 @@
     onDestroy(saveToStorage);
 </script>
 
-<main class="app">
-    <h2>{appInfo.title}</h2>
-    <p class="explanation">
-        This app shows you how you strummed (up or down? which strings?), so you
-        can make sure you strumm a pattern as intended. The upper chart shows
-        you the when you played a note on which string. The lower chart shows
-        you the time between the start of the first and last note of the chord
-        (rectangle width) and which strings it spanned (rectangle y and height).
-        Blue chords were strummed upward and orange ones downward. The strumming
-        direction is further indicated by arrow heads. Due to how guitar tabs
-        are drawn from the point of view of the guitarist, downward strumming
-        will result in upward arrows in the lower visualization. Single notes
-        are drawn in red. The opactiy encodes the notes' mean velocity
-        (loudness).
-    </p>
-    <ExerciseDrawer>
-        <p>
-            1) Strum up and down alternating: <code>U D U D</code>.
+<FileDropTarget {loadData}>
+    <main class="app">
+        <h2>{appInfo.title}</h2>
+        <p class="explanation">
+            This app shows you how you strummed (up or down? which strings?), so
+            you can make sure you strumm a pattern as intended. The upper chart
+            shows you the when you played a note on which string. The lower
+            chart shows you the time between the start of the first and last
+            note of the chord (rectangle width) and which strings it spanned
+            (rectangle y and height). Blue chords were strummed upward and
+            orange ones downward. The strumming direction is further indicated
+            by arrow heads. Due to how guitar tabs are drawn from the point of
+            view of the guitarist, downward strumming will result in upward
+            arrows in the lower visualization. Single notes are drawn in red.
+            The opactiy encodes the notes' mean velocity (loudness).
         </p>
-        <p>
-            2) Strumming a pattern like <code>D U U D</code> or
-            <code>D D U D</code>.
-        </p>
-        <p>
-            3) Strum chords like Am, E, G, D and make sure you only strum the
-            strings you intend.
-        </p>
-    </ExerciseDrawer>
-    <div class="control">
-        <NumberInput
-            title="time in seconds for past notes to be shown"
-            label="time"
-            bind:value="{pastSeconds}"
-            callback="{draw}"
-            min="{10}"
-            max="{300}"
-            step="{10}"
-        />
-        <NumberInput
-            title="maximum distance between notes such that they still count as beloning to the same chord"
-            label="max. note distance"
-            bind:value="{maxNoteDistance}"
-            callback="{draw}"
-            min="{0.01}"
-            max="{5}"
-            step="{0.01}"
-        />
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-        <ResetNotesButton
-            {saveToStorage}
-            bind:notes
-            callback="{() => {
-                openNoteMap = new Map();
-                firstTimeStamp = performance.now();
-                draw();
-            }}"
-        />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-        <button on:click="{() => loadData(example)}"> example </button>
-        <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
-        <ShareConfigButton {getExportData} {loadData} appId="{appInfo.id}" />
-    </div>
-    <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} />
-</main>
+        <ExerciseDrawer>
+            <p>
+                1) Strum up and down alternating: <code>U D U D</code>.
+            </p>
+            <p>
+                2) Strumming a pattern like <code>D U U D</code> or
+                <code>D D U D</code>.
+            </p>
+            <p>
+                3) Strum chords like Am, E, G, D and make sure you only strum
+                the strings you intend.
+            </p>
+        </ExerciseDrawer>
+        <div class="control">
+            <NumberInput
+                title="time in seconds for past notes to be shown"
+                label="time"
+                bind:value="{pastSeconds}"
+                callback="{draw}"
+                min="{10}"
+                max="{300}"
+                step="{10}"
+            />
+            <NumberInput
+                title="maximum distance between notes such that they still count as beloning to the same chord"
+                label="max. note distance"
+                bind:value="{maxNoteDistance}"
+                callback="{draw}"
+                min="{0.01}"
+                max="{5}"
+                step="{0.01}"
+            />
+        </div>
+        <div class="visualization" bind:this="{container}"></div>
+        <div class="control">
+            <ResetNotesButton
+                {saveToStorage}
+                bind:notes
+                callback="{() => {
+                    openNoteMap = new Map();
+                    firstTimeStamp = performance.now();
+                    draw();
+                }}"
+            />
+            <ImportExportButton
+                {loadData}
+                {getExportData}
+                appId="{appInfo.id}"
+            />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
+            <ShareConfigButton
+                {getExportData}
+                {loadData}
+                appId="{appInfo.id}"
+            />
+        </div>
+        <RatingButton appId="{appInfo.id}" />
+        <MidiInput {noteOn} {noteOff} />
+    </main>
+</FileDropTarget>

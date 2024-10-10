@@ -13,7 +13,8 @@
      * @param {InputEvent} e file input event
      */
     const importData = async (e) => {
-        const json = await parseJsonFile(e);
+        const file = e.target.files[0];
+        const json = await parseJsonFile(file);
         loadData(json);
     };
 
