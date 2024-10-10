@@ -170,6 +170,7 @@
             marginRight: 40,
             x: {
                 label: 'mean of partial ratings',
+                domain: [0, 5],
             },
             y: {
                 label: 'app',
@@ -204,7 +205,7 @@
             width,
             marginLeft: 200,
             marginRight: 40,
-            x: { axis: false },
+            x: { axis: false, domain: [0, 5] },
             y: {
                 label: 'app',
                 domain: appRatings.map((d) => d.id),

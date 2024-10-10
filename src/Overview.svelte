@@ -391,7 +391,6 @@
 
     <!-- skill descriptions -->
     <HelpTextDrawer heading="Skill Descriptions">
-        <h2>skill description</h2>
         <table style="text-align: left;">
             <thead>
                 <th style="width: fit-content">category</th>
@@ -484,23 +483,23 @@
         </div>
     </HelpTextDrawer>
 
-    <HelpTextDrawer heading="App List">
-        <h3>App List</h3>
+    <!-- <HelpTextDrawer heading="App List">
         <ul class="list">
             {#each apps as d}
                 <li>{d.title}</li>
             {/each}
         </ul>
-    </HelpTextDrawer>
+    </HelpTextDrawer> -->
 </main>
 
 <style>
     table {
         margin: 10px auto;
+        font-size: 12px;
     }
 
     td:not(.spacer) {
-        min-width: 60px;
+        min-width: 50px;
         padding: 1px 4px;
     }
 

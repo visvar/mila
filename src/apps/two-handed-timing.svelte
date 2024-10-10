@@ -23,6 +23,7 @@
     import NumberInput from '../common/number-input.svelte';
     import SelectScollable from '../common/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import SubDivisionAdjustButton from '../common/sub-division-adjust-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -318,18 +319,13 @@
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
-            <label title="Shift all notes by an amount in seconds">
-                adjust
-                <input
-                    type="number"
-                    bind:value="{adjustTime}"
-                    on:change="{draw}"
-                    step="0.01"
-                    min="-2"
-                    max="2"
-                    style="width: 55px"
-                />
-            </label>
+            <SubDivisionAdjustButton
+                bind:adjustTime
+                {tempo}
+                grid="{gridLeft}"
+                notes="{notes.map((d) => d.time)}"
+                {draw}
+            />
             <NumberInput
                 title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
                 label="bars"

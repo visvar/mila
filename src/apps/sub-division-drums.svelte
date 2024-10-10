@@ -273,23 +273,13 @@
             </SelectScollable>
         </div>
         <div class="control">
-            <NumberInput
-                title="Shift all notes by an amount in seconds"
-                label="adjust"
-                bind:value="{adjustTime}"
-                callback="{draw}"
-                step="{0.01}"
-                min="{-2}"
-                max="{2}"
+            <SubDivisionAdjustButton
+                bind:adjustTime
+                {tempo}
+                {grid}
+                notes="{notes.map((d) => d.time)}"
+                {draw}
             />
-            <!-- TODO: currently broken for drums -->
-            <!-- <SubDivisionAdjustButton
-            bind:adjustTime
-            {tempo}
-            {grid}
-            notes="{notes.map((d) => d.time)}"
-            {draw}
-        /> -->
             <NumberInput
                 title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
                 label="last bars"
