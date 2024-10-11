@@ -253,6 +253,7 @@ div.grid.rows div.current-filters {
 }
 
 
+
 /* apps */
 
 .app {
@@ -265,6 +266,10 @@ div.visualization {
   width: 900px;
   margin: 10px auto;
   user-select: none;
+}
+
+div.visualization {
+  min-height: 200px;
 }
 
 p.explanation {

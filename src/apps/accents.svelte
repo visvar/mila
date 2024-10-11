@@ -61,6 +61,34 @@
      */
     const draw = () => {
         container.textContent = '';
+        // legend
+        const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
+        const legend = Plot.plot({
+            // subtitle: 'loudness',
+            width: width,
+            height: 100,
+            marginTop: 30,
+            marginLeft: width * 0.35,
+            marginRight: width * 0.35,
+            marginBottom: 35,
+            // make sure note symbols etc work
+            style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
+            x: {
+                label: 'loudness',
+                labelAnchor: 'center',
+                ticks: legendTicks,
+                tickSize: 0,
+                tickFormat: (d, i) => [...VELOCITIES_LOGIC.values()][i],
+            },
+            marks: [
+                Plot.text(legendTicks, {
+                    text: (d) => '𝅘𝅥',
+                    x: (d, i) => d,
+                    fontSize: (d) => d * 60 + 10,
+                }),
+            ],
+        });
+        container.appendChild(legend);
         if (notes.length === 0) {
             return;
         }
@@ -95,8 +123,11 @@
         // plot
         const plot = Plot.plot({
             width,
-            height: 100,
-            marginLeft: 80,
+            height: 110,
+            marginTop: 30,
+            marginLeft: 20,
+            marginRight: 20,
+            marginBottom: 10,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
@@ -117,33 +148,6 @@
             ],
         });
         container.appendChild(plot);
-        // legend
-        const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
-        const plot2 = Plot.plot({
-            // subtitle: 'loudness',
-            width: width,
-            height: 100,
-            marginTop: 20,
-            marginLeft: width * 0.35,
-            marginRight: width * 0.35,
-            marginBottom: 35,
-            // make sure note symbols etc work
-            style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
-            x: {
-                label: 'loudness',
-                labelAnchor: 'center',
-                ticks: legendTicks,
-                tickFormat: (d, i) => [...VELOCITIES_LOGIC.values()][i],
-            },
-            marks: [
-                Plot.text(legendTicks, {
-                    text: (d) => '𝅘𝅥',
-                    x: (d, i) => d,
-                    fontSize: (d) => d * 60 + 10,
-                }),
-            ],
-        });
-        container.appendChild(plot2);
     };
 
     /**
