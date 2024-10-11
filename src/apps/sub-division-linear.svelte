@@ -347,17 +347,6 @@
                 play all notes such that they are within a gray area!
             </i>
         </p>
-        <ExerciseDrawer>
-            <p>1) Play triplets.</p>
-            <p>
-                2) Switch back and forth between a half bar of eighths and a
-                half bar of triplets.
-            </p>
-            <p>
-                3) Play a swing feel, where you shift every second note a bit
-                late. Try to do this consistently!
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <SelectScollable
@@ -426,6 +415,17 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play triplets.</p>
+            <p>
+                2) Switch back and forth between a half bar of eighths and a
+                half bar of triplets.
+            </p>
+            <p>
+                3) Play a swing feel, where you shift every second note a bit
+                late. Try to do this consistently!
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key=" "

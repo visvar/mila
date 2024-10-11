@@ -186,15 +186,6 @@
             labelled by their name and the number of semitones (negative when
             going from higher to lower notes).
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Play different notes and see which intervals are between
-                them.
-            </p>
-            <p>2) Try to play only perfect 5ths.</p>
-            <p>3) Try to play only perfect 5ths and major intervals.</p>
-            <p>4) Try to play only perfect 5ths and minor intervals.</p>
-        </ExerciseDrawer>
         <div class="control">
             <ToggleButton
                 label="unison"
@@ -220,6 +211,15 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Play different notes and see which intervals are between
+                them.
+            </p>
+            <p>2) Try to play only perfect 5ths.</p>
+            <p>3) Try to play only perfect 5ths and major intervals.</p>
+            <p>4) Try to play only perfect 5ths and minor intervals.</p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

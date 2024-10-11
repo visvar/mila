@@ -269,17 +269,6 @@
             <b>PC keyboard:</b> <code>f</code>
             for left and <code>j</code> for right.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Only single notes. Play triplets with your right and eighths
-                with your left hand.
-                <i> Try playing without looking, focus on the metronome. </i>
-            </p>
-            <p>
-                2) Play the same rhythm as in 1) but using different notes, to
-                form a melody.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <ToggleButton
@@ -361,6 +350,17 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Only single notes. Play triplets with your right and eighths
+                with your left hand.
+                <i> Try playing without looking, focus on the metronome. </i>
+            </p>
+            <p>
+                2) Play the same rhythm as in 1) but using different notes, to
+                form a melody.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key="f"

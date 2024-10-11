@@ -190,18 +190,6 @@
                 without looking!</i
             >
         </p>
-        <ExerciseDrawer>
-            <p>1) Play at a contant tempo.</p>
-            <p>2) Start with tempo 90 and suddenly jump to 150.</p>
-            <p>
-                3) Start with tempo 90 and smoothly increase until you reach
-                150.
-            </p>
-            <p>
-                4) Switch back and forth between two tempi, try to always hit
-                the same two BPM values.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <NumberInput
                 title="Size of the time bins in seconds"
@@ -240,6 +228,18 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play at a contant tempo.</p>
+            <p>2) Start with tempo 90 and suddenly jump to 150.</p>
+            <p>
+                3) Start with tempo 90 and smoothly increase until you reach
+                150.
+            </p>
+            <p>
+                4) Switch back and forth between two tempi, try to always hit
+                the same two BPM values.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
         <PcKeyboardInput

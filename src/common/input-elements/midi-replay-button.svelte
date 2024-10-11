@@ -13,8 +13,8 @@
     let isPlaying = false;
     // progress indicator circle
     let circle;
-    const circleSize = 20;
-    const circleRadius = (circleSize - 4) / 2;
+    const iconSize = 24;
+    const circleRadius = (iconSize - 4) / 2;
     let circleRaf;
     let startTime = 0;
 
@@ -104,21 +104,28 @@
         on:click="{handleClick}"
         disabled="{notes.length === 0}"
     >
-        <!-- show either progress or play button -->
-        {#if isPlaying}
-            {stopIcon}
-        {:else}
-            {playIcon}
-        {/if}
         <svg
-            width="{circleSize}px"
-            height="{circleSize}px"
+            width="{iconSize}px"
+            height="{iconSize}px"
+            style="width: {iconSize}px; height: {iconSize}px;"
+        >
+            <path
+                x="{0}"
+                y="{0}"
+                d="{`M4,4 L4,${iconSize - 4} L${iconSize - 4},${isPlaying ? iconSize - 4 : iconSize / 2} L${isPlaying ? iconSize - 4 : 4},4 Z`}"
+                fill="#444"
+            ></path>
+        </svg>
+        <svg
+            width="{iconSize}"
+            height="{iconSize}"
+            style="width: {iconSize}px; height: {iconSize}px;"
             visibility="{isPlaying ? 'visible' : 'hidden'}"
         >
             <circle
                 bind:this="{circle}"
-                cx="{circleSize / 2}"
-                cy="{circleSize / 2}"
+                cx="{iconSize / 2}"
+                cy="{iconSize / 2}"
                 r="{circleRadius}"
             ></circle>
         </svg>
@@ -130,28 +137,37 @@
         max="{10}"
         step="{0.5}"
         width="40px"
-        disabled="{notes.length === 0}"
-        style="border-radius: 0 8px 8px 0;"
+        disabled="{notes.length === 0 || isPlaying}"
+        style="border-radius: 0 8px 8px 0; margin: 0;"
     />
 </main>
 
 <style>
     main {
-        display: inline-block;
+        margin: 0px 6px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0;
+        position: relative;
+        top: 5px;
     }
 
     button {
-        width: 80px;
-        display: inline-flex;
+        margin: 0;
+        padding-bottom: 0;
+        margin-right: -12px;
+        display: inline-block;
         align-items: center;
-        justify-items: stretch;
-        margin-right: -23px;
+        /* justify-items: stretch; */
         border-radius: 8px 0 0 8px;
     }
 
     svg {
         display: inline-block;
-        margin-left: 8px;
+    }
+
+    svg path {
+        transition: all 300ms;
     }
 
     svg circle {

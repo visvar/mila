@@ -276,15 +276,6 @@
             chords you know (or don't know yet) and see the chord names and
             diagrams.
         </p>
-        <ExerciseDrawer>
-            <p>1) Play an A minor chord.</p>
-            <p>
-                2) Play chords you don't know by placing your fingers in
-                different positions. If they sound good, look what they are
-                called.
-            </p>
-            <p>3) Play an A minor chord in three different positions.</p>
-        </ExerciseDrawer>
         <div class="control">
             <NumberInput
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
@@ -325,6 +316,15 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play an A minor chord.</p>
+            <p>
+                2) Play chords you don't know by placing your fingers in
+                different positions. If they sound good, look what they are
+                called.
+            </p>
+            <p>3) Play an A minor chord in three different positions.</p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

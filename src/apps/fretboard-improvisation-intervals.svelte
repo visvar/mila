@@ -245,12 +245,6 @@
             note, the fretboard below shows you how far each note of the scale
             is away from the note you just played.
         </p>
-        <ExerciseDrawer>
-            <p>1) Go through the scale in steps of 1.</p>
-            <p>2) Go through the scale in steps of 2.</p>
-            <p>3) Go through the scale in steps of 3.</p>
-            <p>4) ...</p>
-        </ExerciseDrawer>
         <div class="control">
             <ScaleSelect
                 bind:scaleRoot="{root}"
@@ -281,6 +275,12 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Go through the scale in steps of 1.</p>
+            <p>2) Go through the scale in steps of 2.</p>
+            <p>3) Go through the scale in steps of 3.</p>
+            <p>4) ...</p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

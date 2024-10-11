@@ -210,23 +210,6 @@
                 you see!
             </i>
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Choose a tempo and play only quarter notes. After the
-                count-in, keep the tempo as constant as possible for a few
-                minutes.
-            </p>
-            <p>
-                2) Play a piece/song (that has constant tempo). After the
-                count-in, keep the tempo as constant as possible for a few
-                minutes.
-            </p>
-            <p>
-                3) Try to play at a given tempo without count-in, just by
-                guessing how fast it is supposed to be played. You can use the
-                randomize tempo button (⚂) to get challenged for a random tempo.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" on:change="{draw}" />
             <button
@@ -296,6 +279,23 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Choose a tempo and play only quarter notes. After the
+                count-in, keep the tempo as constant as possible for a few
+                minutes.
+            </p>
+            <p>
+                2) Play a piece/song (that has constant tempo). After the
+                count-in, keep the tempo as constant as possible for a few
+                minutes.
+            </p>
+            <p>
+                3) Try to play at a given tempo without count-in, just by
+                guessing how fast it is supposed to be played. You can use the
+                randomize tempo button (⚂) to get challenged for a random tempo.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
         <PcKeyboardInput

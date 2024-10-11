@@ -401,16 +401,6 @@
             the addtional time will be shown in red. You can also switch to a
             bar ('test tube') encoding.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Play a quarter note <span class="icon">𝅘𝅥 ◔</span>, a half
-                note
-                <span class="icon">𝅗𝅥 ◑</span>, a dotted half note
-                <span class="icon">𝅗𝅥. ◕</span>
-                , and a whole note <span class="icon">𝅝</span>
-                <span class="icon" style="font-size: 14px">⬤</span>.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <NoteCountInput
@@ -458,6 +448,16 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Play a quarter note <span class="icon">𝅘𝅥 ◔</span>, a half
+                note
+                <span class="icon">𝅗𝅥 ◑</span>, a dotted half note
+                <span class="icon">𝅗𝅥. ◕</span>
+                , and a whole note <span class="icon">𝅝</span>
+                <span class="icon" style="font-size: 14px">⬤</span>.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} {noteOff} {controlChange} />
         <PcKeyboardInput

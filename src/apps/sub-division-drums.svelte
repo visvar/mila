@@ -239,15 +239,6 @@
             for hi-hat, snare, tom, and kick drum.
             <i> Try playing without looking, focus on the metronome. </i>
         </p>
-        <ExerciseDrawer>
-            <p>1) Play the kick on beat 1 and 3 and the snare on 2 and 4.</p>
-            <p>2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.</p>
-            <p>3) Play 2) and sometimes add a fill on the toms.</p>
-            <p>
-                4) Play a swing feel, where you shift every second note a bit
-                late. Try to do this consistently!
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <SelectScollable
@@ -311,6 +302,15 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play the kick on beat 1 and 3 and the snare on 2 and 4.</p>
+            <p>2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.</p>
+            <p>3) Play 2) and sometimes add a fill on the toms.</p>
+            <p>
+                4) Play a swing feel, where you shift every second note a bit
+                late. Try to do this consistently!
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key="s"
@@ -337,9 +337,11 @@
 
     <style>
         code {
-            background-color: #eee;
+            margin-right: 2px;
             padding: 4px;
             border-radius: 4px;
+            background-color: #eee;
+            box-shadow: #ccc 1px 1px;
         }
     </style>
 </FileDropTarget>

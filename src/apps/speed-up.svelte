@@ -398,22 +398,6 @@
             All repetitions will be shown time-aligned, so you can see at which
             tempo you start to struggle keeping up.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Select a pre-defined below and play it from 60 to 120 bpm.<br
-                />
-                <InsideTextButton onclick="{() => loadData(example1)}">
-                    triplet example
-                </InsideTextButton>
-                <InsideTextButton onclick="{() => loadData(example2)}">
-                    swing example
-                </InsideTextButton>
-            </p>
-            <p>
-                2) Input your own exercise, optionally quantize it, and practice
-                it.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput
                 label="initial tempo"
@@ -510,6 +494,22 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Select a pre-defined below and play it from 60 to 120 bpm.<br
+                />
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    triplet example
+                </InsideTextButton>
+                <InsideTextButton onclick="{() => loadData(example2)}">
+                    swing example
+                </InsideTextButton>
+            </p>
+            <p>
+                2) Input your own exercise, optionally quantize it, and practice
+                it.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
         <PcKeyboardInput

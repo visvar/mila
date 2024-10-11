@@ -212,22 +212,6 @@
             the chromatic scale in gray. The bars' height encodes the notes'
             durations.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Improvise something in the scale of C major pentatonic. Check
-                if you only used this scale's notes using the colors.
-            </p>
-            <p>
-                2) Improvise something in A minor pentatonic. Check if you only
-                used this scale's notes using the colors and how often and when
-                you used the tonic A.
-            </p>
-            <p>
-                3) Improvise in A minor blues, see how often and when you used
-                the blue note (D#).
-            </p>
-            <p>4) Improvise in a scale you do not know yet.</p>
-        </ExerciseDrawer>
         <div class="control">
             <label>
                 scale type 1
@@ -299,6 +283,22 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Improvise something in the scale of C major pentatonic. Check
+                if you only used this scale's notes using the colors.
+            </p>
+            <p>
+                2) Improvise something in A minor pentatonic. Check if you only
+                used this scale's notes using the colors and how often and when
+                you used the tonic A.
+            </p>
+            <p>
+                3) Improvise in A minor blues, see how often and when you used
+                the blue note (D#).
+            </p>
+            <p>4) Improvise in a scale you do not know yet.</p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} {noteOff} {controlChange} />
     </main>

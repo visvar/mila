@@ -263,19 +263,6 @@
             arrows in the lower visualization. Single notes are drawn in red.
             The opactiy encodes the notes' mean velocity (loudness).
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Strum up and down alternating: <code>U D U D</code>.
-            </p>
-            <p>
-                2) Strumming a pattern like <code>D U U D</code> or
-                <code>D D U D</code>.
-            </p>
-            <p>
-                3) Strum chords like Am, E, G, D and make sure you only strum
-                the strings you intend.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <NumberInput
                 title="time in seconds for past notes to be shown"
@@ -316,6 +303,19 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Strum up and down alternating: <code>U D U D</code>.
+            </p>
+            <p>
+                2) Strumming a pattern like <code>D U U D</code> or
+                <code>D D U D</code>.
+            </p>
+            <p>
+                3) Strum chords like Am, E, G, D and make sure you only strum
+                the strings you intend.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} {noteOff} />
     </main>

@@ -68,11 +68,12 @@ h5 {
 h1 {
   display: inline-block;
   margin: 0 20px;
-  font-size: 2em;
+  font-size: 32px;
 }
 
 h2 {
-  font-size: 1.25em;
+  margin: 10px 20px;
+  font-size: 24px;
 }
 
 label {
@@ -84,10 +85,10 @@ button,
 input,
 select {
   margin: 2px 6px;
-  padding: 0.4em 0.8em;
+  padding: 6px 12px;
   border-radius: 8px;
   border: 2px solid transparent;
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
   font-family: inherit;
   background-color: #f8f8f8;

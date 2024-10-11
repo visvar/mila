@@ -218,16 +218,6 @@
             can see how often you played one outside the scale (on purpose or by
             accident).
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Improvise something while trying to use the whole range of
-                the keyboard.
-            </p>
-            <p>
-                2) Improvise something while trying to use both hands (far
-                enough apart) for the same amount of notes.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
             <ToggleButton
@@ -256,6 +246,16 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Improvise something while trying to use the whole range of
+                the keyboard.
+            </p>
+            <p>
+                2) Improvise something while trying to use both hands (far
+                enough apart) for the same amount of notes.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} {controlChange} />
     </main>

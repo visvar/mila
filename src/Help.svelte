@@ -116,9 +116,9 @@
             >, such as other browsers that you have opened this website in. Some
             MIDI software requires a MIDI loopback that simulates a hardware
             MIDI device. We recommend
-            <a href="https://www.tobias-erichsen.de/software/loopmidi.html"
-                >loopMIDI</a
-            > for Windows.
+            <a href="https://www.tobias-erichsen.de/software/loopmidi.html">
+                loopMIDI
+            </a> for Windows.
         </p>
     </HelpTextDrawer>
 </main>
@@ -128,5 +128,17 @@
         margin: auto;
         width: max-content;
         text-align: left;
+    }
+
+    ul li {
+        margin-bottom: 2px;
+    }
+
+    code {
+        margin-right: 2px;
+        padding: 4px;
+        border-radius: 4px;
+        background-color: #eee;
+        box-shadow: #ccc 1px 1px;
     }
 </style>

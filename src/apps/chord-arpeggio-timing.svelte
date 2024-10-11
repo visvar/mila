@@ -240,17 +240,6 @@
             between the first and last note of each chord/arpeggio was and how
             much time lies between consecutive chords/arpeggios.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Play a chord progression that is tricky for you. Make sure
-                the time between each chord and the previous is always roughly
-                the same.
-            </p>
-            <p>
-                2) Play an arpeggio of this chord progression (with a pause
-                after each).
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <NumberInput
@@ -284,6 +273,17 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Play a chord progression that is tricky for you. Make sure
+                the time between each chord and the previous is always roughly
+                the same.
+            </p>
+            <p>
+                2) Play an arpeggio of this chord progression (with a pause
+                after each).
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

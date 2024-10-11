@@ -223,18 +223,6 @@
             a scale is shown, the color hue will tell you whether a note you
             played belongs to the scale or not.
         </p>
-        <ExerciseDrawer>
-            <p>1) Play the note A over the whole fretboard.</p>
-            <p>
-                2) Play the A minor pentatonic scale over the whole fretboard,
-                string by string. Check if you played wrong notes.
-            </p>
-            <p>3) Improvise in A minor pentatonic over the whole fretboard.</p>
-            <p>
-                4) Improvise in a scale you do not know yet over the whole
-                fretboard.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
             <ToggleButton
@@ -263,6 +251,18 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play the note A over the whole fretboard.</p>
+            <p>
+                2) Play the A minor pentatonic scale over the whole fretboard,
+                string by string. Check if you played wrong notes.
+            </p>
+            <p>3) Improvise in A minor pentatonic over the whole fretboard.</p>
+            <p>
+                4) Improvise in a scale you do not know yet over the whole
+                fretboard.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

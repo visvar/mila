@@ -253,14 +253,6 @@
             and
             <span style="color:{orange}">orange for short (fast) ones</span>.
         </p>
-        <ExerciseDrawer>
-            <p>1) Switch back and forth between quarters and eighths.</p>
-            <p>2) Switch between eighths and eighth triplets.</p>
-            <p>
-                3) Set the target to dotted-half notes and try to play them
-                accurately.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
@@ -306,6 +298,14 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Switch back and forth between quarters and eighths.</p>
+            <p>2) Switch between eighths and eighth triplets.</p>
+            <p>
+                3) Set the target to dotted-half notes and try to play them
+                accurately.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
         <PcKeyboardInput

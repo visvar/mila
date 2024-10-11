@@ -188,10 +188,6 @@
         shows you how far you are off the closest note in cents (0 is perfectly
         on the note, +/-50% is extactly between two valid notes).
     </p>
-    <ExerciseDrawer>
-        <p>1) Play or sing a note as accurately as possible.</p>
-        <p>2) Bend/sing a note 25 cents higher (for example as a vibrato).</p>
-    </ExerciseDrawer>
     <div class="control">
         <NumberInput
             label="past seconds"
@@ -223,6 +219,10 @@
             style="width: {width}px; height: {height}px"
         ></canvas>
     </div>
+    <ExerciseDrawer>
+        <p>1) Play or sing a note as accurately as possible.</p>
+        <p>2) Bend/sing a note 25 cents higher (for example as a vibrato).</p>
+    </ExerciseDrawer>
     <RatingButton appId="{appInfo.id}" />
     <PageResizeHandler callback="{draw}" />
 </main>

@@ -205,34 +205,6 @@
             note in each triplet, or the the first in each group of 4.
             <i>Note: the display is always one note behind.</i>
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Play quarter notes and accent the first one in each group of
-                4.
-            </p>
-            <p>2) Play triplets and accent the first note in each triplet.</p>
-            <p>
-                3) Switch between triplets and sixteenth notes and accent the
-                first note in each group of 3 and 4.
-            </p>
-            <p>
-                4) Play triplets and accent the first note in each odd triplet
-                and the second in each even triplet.
-            </p>
-            <p>
-                5) Try different accent patterns such as:<br />
-                <b>1</b> e + <b>a</b> 2 e + a 3 <b>e</b> + a <b>4</b> e + a<br
-                />
-                <span class="icon">
-                    <span class="acc">𝅘𝅥</span> 𝅘𝅥 𝅘𝅥 <span class="acc">𝅘𝅥</span> |
-                    𝅘𝅥 𝅘𝅥 𝅘𝅥 𝅘𝅥 | 𝅘𝅥
-                    <span class="acc">𝅘𝅥</span>
-                    𝅘𝅥 𝅘𝅥 |
-                    <span class="acc">𝅘𝅥</span>
-                    𝅘𝅥 𝅘𝅥 𝅘𝅥
-                </span>
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
@@ -286,6 +258,36 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Play quarter notes and accent the first one in each group of
+                4.
+            </p>
+            <p>2) Play triplets and accent the first note in each triplet.</p>
+            <p>
+                3) Switch between triplets and sixteenth notes and accent the
+                first note in each group of 3 and 4.
+            </p>
+            <p>
+                4) Play triplets and accent the first note in each odd triplet
+                and the second in each even triplet.
+            </p>
+            <p>
+                5) Try different accent patterns such as:<br />
+                <span style="margin-left: 25px">
+                    <b>1</b> e + <b>a</b> 2 e + a 3 <b>e</b> + a <b>4</b> e + a<br
+                    />
+                </span>
+                <span class="icon" style="margin-left: 25px">
+                    <span class="acc">𝅘𝅥</span> 𝅘𝅥 𝅘𝅥 <span class="acc">𝅘𝅥</span> |
+                    𝅘𝅥 𝅘𝅥 𝅘𝅥 𝅘𝅥 | 𝅘𝅥
+                    <span class="acc">𝅘𝅥</span>
+                    𝅘𝅥 𝅘𝅥 |
+                    <span class="acc">𝅘𝅥</span>
+                    𝅘𝅥 𝅘𝅥 𝅘𝅥
+                </span>
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

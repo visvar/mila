@@ -209,35 +209,6 @@
                 dynamics marking</a
             > for a clearer overview.
         </p>
-        <ExerciseDrawer>
-            <p>
-                1) Play all notes between a mezzo-piano (mp) and a forte (f).
-                <InsideTextButton onclick="{() => loadData(example1)}">
-                    example
-                </InsideTextButton>
-            </p>
-            <p>
-                2) Play a crescendo, starting at below pp and rising until above
-                ff smoothly.
-                <InsideTextButton onclick="{() => loadData(example2)}">
-                    example
-                </InsideTextButton>
-            </p>
-            <p>
-                3) Play a descrescendo from above ff to below pp.
-                <InsideTextButton onclick="{() => loadData(example3)}">
-                    example
-                </InsideTextButton>
-            </p>
-            <p>
-                4) Play accents, for example on each 4th note. They should be
-                loud enough to be easily distinguishable from the non-accented
-                notes.
-                <InsideTextButton onclick="{() => loadData(example4)}">
-                    example
-                </InsideTextButton>
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <ToggleButton
                 label="rounding"
@@ -275,6 +246,35 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>
+                1) Play all notes between a mezzo-piano (mp) and a forte (f).
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                2) Play a crescendo, starting at below pp and rising until above
+                ff smoothly.
+                <InsideTextButton onclick="{() => loadData(example2)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                3) Play a descrescendo from above ff to below pp.
+                <InsideTextButton onclick="{() => loadData(example3)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                4) Play accents, for example on each 4th note. They should be
+                loud enough to be easily distinguishable from the non-accented
+                notes.
+                <InsideTextButton onclick="{() => loadData(example4)}">
+                    example
+                </InsideTextButton>
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

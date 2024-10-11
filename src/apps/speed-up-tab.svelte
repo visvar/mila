@@ -410,13 +410,6 @@
             encodes the notes' velocities, so eventual noise (unintended notes)
             is less distracting.
         </p>
-        <ExerciseDrawer>
-            <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
-            <p>
-                2) Input your own exercise, optionally quantize it, and practice
-                it.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <TempoInput
                 label="initial tempo"
@@ -511,6 +504,13 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
+            <p>
+                2) Input your own exercise, optionally quantize it, and practice
+                it.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

@@ -121,28 +121,30 @@
     });
 </script>
 
-<button
-    title="Import current app data and settings"
-    on:click="{() => fileInput.click()}"
-    class="left"
->
-    import
-</button>
-<button
-    title="Export current app data and settings"
-    on:click="{exportData}"
-    class="middle"
->
-    export
-</button>
-<button
-    title="Get a link that contains the current app configuration. It will also contain recorded data if it fits into the link"
-    on:click="{shareLink}"
-    bind:this="{button}"
-    class="right"
->
-    share
-</button>
+<main>
+    <button
+        title="Import current app data and settings"
+        on:click="{() => fileInput.click()}"
+        class="left"
+    >
+        import
+    </button>
+    <button
+        title="Export current app data and settings"
+        on:click="{exportData}"
+        class="middle"
+    >
+        export
+    </button>
+    <button
+        title="Get a link that contains the current app configuration. It will also contain recorded data if it fits into the link"
+        on:click="{shareLink}"
+        bind:this="{button}"
+        class="right"
+    >
+        share
+    </button>
+</main>
 
 <!-- invisible file input -->
 <input

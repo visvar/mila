@@ -214,19 +214,6 @@
             instrument that supports pitch modulation or with you singing voice.
             The line chart below shows how far you bend up and down over time.
         </p>
-        <ExerciseDrawer>
-            <p>1) Play/sing a bend by one semitone (for example, A to A#).</p>
-            <p>2) Play/sing a bend by two semitones (for example, A to B).</p>
-            <p>3) Play/sing a vibrato where you always bend by one semitone.</p>
-            <p>
-                4) Play/sing a vibrato and then a second one with twice the
-                frequency of modulation.
-            </p>
-            <p>
-                5) Slide from one note to a much higher one as smoothly as
-                possible.
-            </p>
-        </ExerciseDrawer>
         <div class="control">
             <button
                 title="Pause the moving visualization (shortcut: space)"
@@ -287,6 +274,19 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play/sing a bend by one semitone (for example, A to A#).</p>
+            <p>2) Play/sing a bend by two semitones (for example, A to B).</p>
+            <p>3) Play/sing a vibrato where you always bend by one semitone.</p>
+            <p>
+                4) Play/sing a vibrato and then a second one with twice the
+                frequency of modulation.
+            </p>
+            <p>
+                5) Slide from one note to a much higher one as smoothly as
+                possible.
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput key=" " keyDown="{pause}" />
     </main>

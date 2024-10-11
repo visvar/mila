@@ -183,12 +183,6 @@
             exact C) or playing/singing off-tune. The line chart below shows how
             far you bend up and down over time.
         </p>
-        <ExerciseDrawer>
-            <p>1) Play or sing a note as accurately as possible.</p>
-            <p>
-                2) Bend/sing a note 25 cents higher (for example as a vibrato).
-            </p>
-        </ExerciseDrawer>
         {#if bendValues.length > 0}
             <p>
                 Current closest note: {closestNote}
@@ -255,6 +249,12 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Play or sing a note as accurately as possible.</p>
+            <p>
+                2) Bend/sing a note 25 cents higher (for example as a vibrato).
+            </p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput key=" " keyDown="{pause}" />
     </main>

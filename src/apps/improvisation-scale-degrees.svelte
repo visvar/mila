@@ -186,10 +186,6 @@
             scale. The bar chart below shows how often you played each scale
             degree.
         </p>
-        <ExerciseDrawer>
-            <p>1) Improvise in A minor pentatonic.</p>
-            <p>2) Improvise in a scale you did not know before.</p>
-        </ExerciseDrawer>
         <div class="control">
             <ScaleSelect
                 bind:scaleRoot="{root}"
@@ -222,6 +218,10 @@
                 appId="{appInfo.id}"
             />
         </div>
+        <ExerciseDrawer>
+            <p>1) Improvise in A minor pentatonic.</p>
+            <p>2) Improvise in a scale you did not know before.</p>
+        </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
         <MidiInput {noteOn} />
     </main>

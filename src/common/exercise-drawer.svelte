@@ -1,47 +1,20 @@
-<script>
-    import { onMount } from 'svelte';
-
-    export let shown = false;
-
-    let container;
-
-    const setStyle = () => {
-        container.style = shown ? 'display: inline-block' : 'display: none';
-    };
-
-    const toggle = () => {
-        shown = !shown;
-        setStyle();
-    };
-
-    onMount(setStyle);
-</script>
-
-<div class="exercise-grid">
-    <button on:click="{toggle}">{shown ? 'Hide' : 'Show'} exercise</button>
-    <div bind:this="{container}" class="exercise-content">
-        <slot></slot>
-    </div>
+<div class="exercise-content">
+    <h4>Exercises</h4>
+    <slot></slot>
 </div>
 
 <style>
-    button {
-        width: 140px;
-    }
-
-    div.exercise-grid {
-        margin: 5px auto;
-        max-width: 850px;
-        display: grid;
-        grid-template-columns: max-content auto;
-        gap: 5px;
+    h4 {
+        text-align: center;
     }
 
     div.exercise-content {
-        display: inline-block;
-        padding: 0 10px;
-        border: 2px solid #eee;
-        border-radius: 6px;
+        /* display: inline-block; */
+        width: 700px;
+        margin: 20px auto;
+        padding: 0 20px;
+        border: 3px solid #f4f4f4;
+        border-radius: 8px;
         transition: all 500ms;
         text-align: left;
     }

@@ -339,17 +339,6 @@
         smaller below (new to old, left to right and top to bottom).<br />
         <i> Try playing without looking and focus on the metronome. </i>
     </p>
-    <ExerciseDrawer>
-        <p>1) Play triplets.</p>
-        <p>
-            2) Switch back and forth between a half bar of eighths and a half
-            bar of triplets.
-        </p>
-        <p>
-            3) Play a swing feel, where you shift every second note a bit late.
-            Try to do this consistently!
-        </p>
-    </ExerciseDrawer>
     <div class="control">
         <TempoInput bind:value="{tempo}" callback="{draw}" />
         <SelectScollable
@@ -419,6 +408,17 @@
             style="width: {width}px; height: {height / 2}px"
         ></canvas>
     </div>
+    <ExerciseDrawer>
+        <p>1) Play triplets.</p>
+        <p>
+            2) Switch back and forth between a half bar of eighths and a half
+            bar of triplets.
+        </p>
+        <p>
+            3) Play a swing feel, where you shift every second note a bit late.
+            Try to do this consistently!
+        </p>
+    </ExerciseDrawer>
     <RatingButton appId="{appInfo.id}" />
     <MidiInput {noteOn} />
     <PcKeyboardInput
