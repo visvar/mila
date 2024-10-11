@@ -1,5 +1,5 @@
 <script>
-    import ToggleButton from './common/toggle-button.svelte';
+    import ToggleButton from './common/input-elements/toggle-button.svelte';
     import { updSet } from './lib/lib';
     import * as d3 from 'd3';
     import { SKILL_TREE, SKILL_TREE_LEAFS } from './lib/skills';

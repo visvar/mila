@@ -1,27 +1,26 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
-    import MidiInput from '../common/midi-input.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import { VELOCITIES_LOGIC, VELOCITIES_MEANING } from '../lib/music';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
     import example1 from '../example-recordings/dynamics-e1.json';
     import example2 from '../example-recordings/dynamics-e2.json';
     import example3 from '../example-recordings/dynamics-e3.json';
     import example4 from '../example-recordings/dynamics-e4.json';
     import * as d3 from 'd3';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
     import { drumPitchReplacementMapMD90 } from '../lib/drums';
     import { Midi } from 'musicvis-lib';
     import { NOTE_COLORS } from '../lib/colors';
-    import InsideTextButton from '../common/inside-text-button.svelte';
-    import NumberInput from '../common/number-input.svelte';
-    import SelectScollable from '../common/select-scollable.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
@@ -268,16 +267,11 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <button on:click="{() => loadData(example4)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example4)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

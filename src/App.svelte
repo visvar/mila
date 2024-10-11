@@ -2,7 +2,6 @@
   import { version } from '../package.json';
   import { getUrlParam, setUrlParam } from './lib/url';
   import { getNumberOfDaysPassed, setHasAny, updSet } from './lib/lib';
-  import { audioIcon, midiIcon } from './lib/icons';
   // side bar for skill filtering
   import SkillTree from './SkillTree.svelte';
   // pages for tools etc
@@ -13,8 +12,9 @@
   import Welcome from './Welcome.svelte';
   // APPS
   import { APPS } from './apps';
-  import PcKeyboardInput from './common/pc-keyboard-input.svelte';
+  import PcKeyboardInput from './common/input-handlers/pc-keyboard-input.svelte';
   import ScreenshotButton from './common/screenshot-button.svelte';
+  import AppTileTags from './common/app-tile-tags.svelte';
 
   let currentApp = null;
 
@@ -356,7 +356,12 @@
               setUrlParam(window, 'd', app.id);
             }}"
           >
-            <h2>{app.title}{appUsageCount.get(app.id) ? '' : ' ✨'}</h2>
+            <h2>
+              {app.title}
+              {#if !appUsageCount.get(app.id)}
+                <span title="You never used this app, try it!">✨</span>
+              {/if}
+            </h2>
             <div class="description">
               {app.description}
             </div>
@@ -370,20 +375,7 @@
                 )}.
               {/if}
             </div>
-            <div class="tags">
-              <!-- input -->
-              <!-- {app.input === 'audio' ? audioIcon : ''}
-              {app.input === 'MIDI' ? midiIcon : ''} -->
-              <!-- instrument -->
-              {app.instruments.includes('guitar/bass') ? '🎸' : ''}
-              {app.instruments.includes('drum') ? '🥁' : ''}
-              {app.instruments.includes('keyboard') ? '🎹' : ''}
-              {app.instruments.includes('wind') ? '🪈' : ''}
-              {app.instruments.includes('singing') ? '🎤' : ''}
-              {app.instruments.includes('strings') ? '🎻' : ''}
-              {app.instruments.includes('pc-key') ? '⌨️' : ''}
-              {app.instruments.includes('touch') ? '👇' : ''}
-            </div>
+            <AppTileTags {app} />
           </div>
         {/each}
       </div>

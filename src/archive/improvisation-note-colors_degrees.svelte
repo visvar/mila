@@ -5,12 +5,12 @@
     import { Scale } from '@tonaljs/tonal';
     import { clamp } from '../lib/lib';
     import { Midi } from 'musicvis-lib';
-    import NoteCountInput from '../common/note-count-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
+    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ExportButton2 from '../common/export-button2.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
 
     /**
      * TODO: support minor, see https://en.wikipedia.org/wiki/Degree_(music)

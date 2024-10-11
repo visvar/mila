@@ -2,7 +2,7 @@
     import { onDestroy } from 'svelte';
     import NumberInput from './number-input.svelte';
     import * as d3 from 'd3';
-    import { playIcon, stopIcon } from '../lib/icons';
+    import { playIcon, stopIcon } from '../../lib/icons';
 
     export let notes = [];
     export let speed = 1;
@@ -145,7 +145,7 @@
         display: inline-flex;
         align-items: center;
         justify-items: stretch;
-        margin-right: -25px;
+        margin-right: -23px;
         border-radius: 8px 0 0 8px;
     }
 

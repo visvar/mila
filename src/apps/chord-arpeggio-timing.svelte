@@ -3,20 +3,19 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Midi, Utils } from 'musicvis-lib';
-    import MidiInput from '../common/midi-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
     import { detectChords } from '../lib/chords';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
     import example from '../example-recordings/chord-arpeggio-timing.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
-    import MetronomeButton from '../common/metronome-button.svelte';
-    import TempoInput from '../common/tempo-input.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
-    import NumberInput from '../common/number-input.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -277,16 +276,11 @@
         <div class="control">
             <MetronomeButton {tempo} accent="{4}" />
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

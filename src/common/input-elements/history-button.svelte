@@ -1,5 +1,5 @@
 <script>
-    import { pencilIcon } from '../lib/icons.js';
+    import { pencilIcon } from '../../lib/icons.js';
     /**
      * A dropdown that allows loading an auto-saved recording.
      *
@@ -8,9 +8,9 @@
     import {
         localSorageGetRecordings,
         localStorageDeleteRecording,
-    } from '../lib/localstorage.js';
+    } from '../../lib/localstorage.js';
     import HistoryButtonAnnotation from './history-button-annotation.svelte';
-    import PcKeyboardInput from './pc-keyboard-input.svelte';
+    import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
 
     export let appId;
     export let loadData = (e) => {};

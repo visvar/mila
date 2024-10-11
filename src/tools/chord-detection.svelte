@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
     import { Chord, Note } from '@tonaljs/tonal';
-    import MidiInput from '../common/midi-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
 
     export let toolInfo;
 

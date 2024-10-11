@@ -5,20 +5,20 @@
     import { Note } from '@tonaljs/tonal';
     import { clamp } from '../lib/lib';
     import { Midi } from 'musicvis-lib';
-    import NoteCountInput from '../common/note-count-input.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
-    import MidiInput from '../common/midi-input.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
-    import ScaleSelect from '../common/scale-select.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
+    import ScaleSelect from '../common/input-elements/scale-select.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import example from '../example-recordings/keyboard-histogram.json';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -247,17 +247,12 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <ImportExportButton
-                {loadData}
-                {getExportData}
-                appId="{appInfo.id}"
-            />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
-            <ShareConfigButton
-                {getExportData}
+            <ImportExportButton
                 {loadData}
+                {getExportData}
                 appId="{appInfo.id}"
             />
         </div>

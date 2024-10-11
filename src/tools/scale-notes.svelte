@@ -6,7 +6,7 @@
     import { NOTE_COLORS } from '../lib/colors';
     import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import { downloadJsonFile } from '../lib/json';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     export let toolInfo;
     const w = 400;

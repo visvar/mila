@@ -86,11 +86,10 @@
 
 <style>
     .select1 {
-        margin-right: -2px;
         border-radius: 8px 0 0 8px;
+        margin-right: -8px;
     }
     .select2 {
-        margin-left: -2px;
         border-radius: 0 8px 8px 0;
     }
 </style>

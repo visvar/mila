@@ -1,6 +1,6 @@
 <script>
     import { Guitar, Midi } from 'musicvis-lib';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     export let toolInfo;
     let stringCount = 6;

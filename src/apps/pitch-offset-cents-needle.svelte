@@ -5,9 +5,9 @@
     import { Midi, Note } from '@tonaljs/tonal';
     import { Canvas } from 'musicvis-lib';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import PageResizeHandler from '../common/page-resize-handler.svelte';
-    import NumberInput from '../common/number-input.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
 
     /**
      * contains the app meta information defined in App.js

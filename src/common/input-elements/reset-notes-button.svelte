@@ -1,5 +1,5 @@
 <script>
-    import PcKeyboardInput from './pc-keyboard-input.svelte';
+    import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
 
     export let notes = [];
     export let saveToStorage;

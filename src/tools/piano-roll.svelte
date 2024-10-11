@@ -4,8 +4,8 @@
     import * as Plot from '@observablehq/plot';
     import { Midi } from 'musicvis-lib';
     import { getCs } from '../lib/lib';
-    import MidiInput from '../common/midi-input.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     export let toolInfo;
     let width = 900;

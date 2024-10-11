@@ -1,11 +1,11 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
-    import { starIcon } from '../lib/icons.js';
+    import { starIcon } from '../../lib/icons.js';
     import {
         localStorageGetUsageData,
         localStorageSetUsageData,
-    } from '../lib/localstorage.js';
+    } from '../../lib/localstorage.js';
 
     export let appId;
 

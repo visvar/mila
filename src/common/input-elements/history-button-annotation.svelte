@@ -1,6 +1,6 @@
 <script>
-    import { pencilIcon, saveIcon } from '../lib/icons';
-    import { localStorageUpdateRecording } from '../lib/localstorage';
+    import { pencilIcon, saveIcon } from '../../lib/icons';
+    import { localStorageUpdateRecording } from '../../lib/localstorage';
 
     export let appId;
     export let recording;

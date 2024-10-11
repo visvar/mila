@@ -5,16 +5,15 @@
     import { Scale } from '@tonaljs/tonal';
     import { clamp } from '../lib/lib';
     import { Midi } from 'musicvis-lib';
-    import NoteCountInput from '../common/note-count-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import example from '../example-recordings/improvisation-note-colors.json';
     import FileDropTarget from '../common/file-drop-target.svelte';
@@ -292,16 +291,11 @@
                     draw();
                 }}"
             />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

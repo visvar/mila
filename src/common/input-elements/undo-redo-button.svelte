@@ -1,5 +1,5 @@
 <script>
-    import PcKeyboardInput from './pc-keyboard-input.svelte';
+    import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
 
     export let data = [];
     export let callback = () => {};
@@ -52,6 +52,6 @@
 
     button.right {
         border-radius: 0 8px 8px 0;
-        margin-left: -10px;
+        margin-left: -8px;
     }
 </style>

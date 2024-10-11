@@ -6,7 +6,7 @@
     import 'aframe-svelte';
     import { Midi } from 'musicvis-lib';
     import { roundToStep } from '../lib/lib';
-    import MidiInput from '../common/midi-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
     import * as AFRAME from 'aframe';
 
     /**

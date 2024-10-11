@@ -1,7 +1,7 @@
 <script>
     import { onDestroy } from 'svelte';
-    import Metronome from '../lib/Metronome.js';
-    import PcKeyboardInput from './pc-keyboard-input.svelte';
+    import Metronome from '../../lib/Metronome.js';
+    import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
 
     export let tempo = 120;
     export let accent = 4;
@@ -93,7 +93,7 @@
 
     input {
         width: 34px;
-        margin-left: -10px;
+        margin-left: -8px;
         border-radius: 0 8px 8px 0;
     }
 </style>

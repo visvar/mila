@@ -3,24 +3,24 @@
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
-    import MetronomeButton from '../common/metronome-button.svelte';
-    import TempoInput from '../common/tempo-input.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import { BIN_NOTES, GRIDS } from '../lib/music';
-    import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
+    import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
     import {
         localSorageGetRecordings,
         localStorageAddRecording,
     } from '../lib/localstorage';
-    import TouchInput from '../common/touch-input.svelte';
+    import TouchInput from '../common/input-handlers/touch-input.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { COLORS } from '../lib/colors';
-    import RatingButton from '../common/rating-button.svelte';
-    import SubDivisionAdjustButton from '../common/sub-division-adjust-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
     import { computeSubdivisionOkScore } from '../lib/lib';
-    import HistoryButton from '../common/history-button.svelte';
-    import SelectScollable from '../common/select-scollable.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
 
     /**
      * contains the app meta information defined in App.js

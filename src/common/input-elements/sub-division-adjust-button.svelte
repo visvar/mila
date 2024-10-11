@@ -77,7 +77,7 @@
         border-radius: 8px 0 0 8px;
     }
     button {
-        margin-left: -10px;
+        margin-left: -8px;
         border-radius: 0 8px 8px 0;
     }
 </style>

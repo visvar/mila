@@ -31,6 +31,7 @@ body {
   display: flex;
   min-width: 960px;
   min-height: 100vh;
+  overflow-y: scroll;
 }
 
 #app {
@@ -42,7 +43,7 @@ body {
 }
 
 header {
-  margin: 0 -10px 15px -10px;
+  margin: 0 -10px 30px -10px;
   padding: 7px;
   background-color: var(--accent);
   border-radius: 0 0 8px 8px;
@@ -135,7 +136,6 @@ svg text {
 }
 
 .filter {
-  padding-top: 20px;
   text-align: left;
 }
 
@@ -167,7 +167,7 @@ svg text {
 
 div.grid {
   width: fit-content;
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 0 10px;
   display: grid;
   grid-template-columns: repeat(3, auto);

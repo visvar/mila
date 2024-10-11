@@ -6,18 +6,17 @@
     import Metronome from '../lib/Metronome.js';
     import { delay } from '../lib/lib.js';
     import { Note } from '@tonaljs/tonal';
-    import TempoInput from '../common/tempo-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
-    import HistoryButton from '../common/history-button.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
     import { replacer } from '../lib/json.js';
-    import NumberInput from '../common/number-input.svelte';
-    import SelectScollable from '../common/select-scollable.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
@@ -505,15 +504,10 @@
                     draw();
                 }}"
             />
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

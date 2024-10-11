@@ -3,24 +3,23 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
-    import MetronomeButton from '../common/metronome-button.svelte';
-    import TempoInput from '../common/tempo-input.svelte';
-    import NoteCountInput from '../common/note-count-input.svelte';
-    import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
+    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
+    import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import { noteDurations } from '../lib/note-durations.js';
-    import MidiInput from '../common/midi-input.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
     import example from '../example-recordings/rhythm-sheet-music.json';
-    import TouchInput from '../common/touch-input.svelte';
+    import TouchInput from '../common/input-handlers/touch-input.svelte';
     import { FILTER_NOTES } from '../lib/music.js';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
-    import SelectScollable from '../common/select-scollable.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
@@ -299,16 +298,11 @@
         <div class="control">
             <MetronomeButton {tempo} accent="{4}" />
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

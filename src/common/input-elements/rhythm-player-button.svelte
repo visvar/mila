@@ -1,6 +1,6 @@
 <script>
     import { onDestroy } from 'svelte';
-    import RhythmPlayer from '../lib/RhythmPlayer.js';
+    import RhythmPlayer from '../../lib/RhythmPlayer.js';
     import { Note } from 'musicvis-lib';
 
     /**

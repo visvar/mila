@@ -4,26 +4,25 @@
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
-    import MetronomeButton from '../common/metronome-button.svelte';
-    import TempoInput from '../common/tempo-input.svelte';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import { BIN_NOTES, GRIDS } from '../lib/music';
-    import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
+    import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
     import { clamp } from '../lib/lib';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { drumPitchReplacementMapMD90 } from '../lib/drums';
     import { COLORS } from '../lib/colors';
-    import RatingButton from '../common/rating-button.svelte';
-    import SubDivisionAdjustButton from '../common/sub-division-adjust-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
-    import UndoRedoButton from '../common/undo-redo-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
+    import UndoRedoButton from '../common/input-elements/undo-redo-button.svelte';
     import example from '../example-recordings/sub-division-drums_old.json';
-    import NumberInput from '../common/number-input.svelte';
-    import SelectScollable from '../common/select-scollable.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
@@ -304,16 +303,11 @@
             <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
             <UndoRedoButton bind:data="{notes}" callback="{draw}" />
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

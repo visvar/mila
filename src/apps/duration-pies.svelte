@@ -3,26 +3,25 @@
     import * as d3 from 'd3';
     import { clamp } from '../lib/lib';
     import { Canvas, Utils } from 'musicvis-lib';
-    import NoteCountInput from '../common/note-count-input.svelte';
-    import MidiInput from '../common/midi-input.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
+    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
+    import MidiInput from '../common/input-handlers/midi-input.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
-    import HistoryButton from '../common/history-button.svelte';
-    import MetronomeButton from '../common/metronome-button.svelte';
-    import TempoInput from '../common/tempo-input.svelte';
+    import HistoryButton from '../common/input-elements/history-button.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
     import { noteDurations } from '../lib/note-durations';
     import example from '../example-recordings/duration-pies.json';
-    import PcKeyboardInput from '../common/pc-keyboard-input.svelte';
-    import TouchInput from '../common/touch-input.svelte';
+    import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
+    import TouchInput from '../common/input-handlers/touch-input.svelte';
     import { noteHalf, noteQuarter, noteEighth, noteWhole } from '../lib/icons';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import ToggleButton from '../common/toggle-button.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import { COLORS } from '../lib/colors';
-    import RatingButton from '../common/rating-button.svelte';
-    import ShareConfigButton from '../common/share-config-button.svelte';
-    import UndoRedoButton from '../common/undo-redo-button.svelte';
-    import PageResizeHandler from '../common/page-resize-handler.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
+    import UndoRedoButton from '../common/input-elements/undo-redo-button.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
@@ -451,16 +450,11 @@
                     draw();
                 }}"
             />
+            <button on:click="{() => loadData(example)}"> example </button>
+            <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
                 {getExportData}
-                appId="{appInfo.id}"
-            />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ShareConfigButton
-                {getExportData}
-                {loadData}
                 appId="{appInfo.id}"
             />
         </div>

@@ -5,12 +5,12 @@
         createRealTimeBpmProcessor,
         getBiquadFilter,
     } from 'realtime-bpm-analyzer';
-    import ResetNotesButton from '../common/reset-notes-button.svelte';
+    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExportButton2 from '../common/export-button2.svelte';
-    import ImportExportButton from '../common/import-export-button.svelte';
-    import MetronomeButton from '../common/metronome-button.svelte';
+    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
-    import RatingButton from '../common/rating-button.svelte';
+    import RatingButton from '../common/input-elements/rating-button.svelte';
 
     /**
      * TODO: try https://github.com/chrvadala/music-beat-detector
