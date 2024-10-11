@@ -211,7 +211,11 @@
         </p>
         <div class="control">
             <TempoInput bind:value="{tempo}" callback="{draw}" />
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <NoteCountInput
+                bind:value="{pastNoteCount}"
+                callback="{draw}"
+                max="{70}"
+            />
             <ToggleButton
                 label="dotted notes"
                 title="Use dotted notes? If not, the closest non-dotted note will be taken."

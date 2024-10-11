@@ -26,7 +26,8 @@
     let width = 900;
     let height = 300;
     let container;
-    const noteNames = Midi.NOTE_NAMES_FLAT;
+    // const noteNames = Midi.NOTE_NAMES_FLAT;
+    const noteNames = Midi.NOTE_NAMES;
     const rootColor = '#1B5E20';
     const scale1Color = '#D4E157';
     const scale2Color = '#689F38';
@@ -43,6 +44,16 @@
     let firstTimeStamp;
     let notes = [];
     let openNoteMap = new Map();
+    $: scale1 = new Set(
+        Scale.get(`${root} ${scaleType1}`).notes.map(
+            (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
+        ),
+    );
+    $: scale2 = new Set(
+        Scale.get(`${root} ${scaleType2}`).notes.map(
+            (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
+        ),
+    );
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -86,16 +97,6 @@
     };
 
     const draw = () => {
-        const scale1 = new Set(
-            Scale.get(`${root} ${scaleType1}`).notes.map(
-                (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
-            ),
-        );
-        const scale2 = new Set(
-            Scale.get(`${root} ${scaleType2}`).notes.map(
-                (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
-            ),
-        );
         const colorMap = noteNames.map((note) => {
             if (note === root) {
                 return rootColor;
@@ -265,6 +266,24 @@
                 callback="{draw}"
             />
         </div>
+        <div class="legend">
+            <!-- legend -->
+            <div style="background: {restColor};">
+                <div style="background: {scale1Color};">
+                    <div style="background: {scale2Color}; color: white">
+                        <div style="background: {rootColor}; color: white">
+                            root: {root}
+                        </div>
+                        {scaleType2}:
+                        {[...scale2].join(', ')}
+                    </div>
+                    {scaleType1}:
+                    {[...scale1].join(', ')}
+                </div>
+                chromatic:
+                {[...d3.difference(Midi.NOTE_NAMES, scale1)].join(', ')}
+            </div>
+        </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
@@ -303,3 +322,13 @@
         <MidiInput {noteOn} {noteOff} {controlChange} />
     </main>
 </FileDropTarget>
+
+<style>
+    .legend div {
+        margin: 0 auto 5px auto;
+        padding: 5px 20px;
+        width: fit-content;
+        text-align: center;
+        border-radius: 20px;
+    }
+</style>
