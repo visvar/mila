@@ -25,8 +25,11 @@
     export let appInfo;
 
     let width = 900;
-    let height = 500;
+    let height = 350;
     let container;
+    const rootColor = '#1B5E20';
+    const scaleColor = '#689F38';
+    const restColor = 'lightgray';
     // settings
     let root = 'A';
     let scale = 'minor pentatonic';
@@ -37,7 +40,8 @@
     let firstTimeStamp;
     let notes = [];
     // domain knowledge
-    const noteNames = Midi.NOTE_NAMES_FLAT;
+    // const noteNames = Midi.NOTE_NAMES_FLAT;
+    const noteNames = Midi.NOTE_NAMES;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -108,29 +112,37 @@
         const plot = Plot.plot({
             width,
             height,
-            marginLeft: 70,
-            marginRight: 10,
+            marginLeft: 50,
+            marginRight: 50,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             color: {
                 legend: useColors,
                 domain: ['root', 'scale', 'outside scale'],
-                range: ['#666', '#aaa', '#ddd'],
+                range: [rootColor, scaleColor, restColor],
                 marginLeft: 100,
             },
             y: {
-                tickFormat: (d) => noteNames[(d + rootNr) % 12],
                 domain: showOutsideScale
                     ? d3.range(0, 12, 1)
                     : [...scaleOffsets],
                 reverse: true,
                 label: 'notes, increasing from tonic 🡺',
+                grid: true,
             },
             fx: {
                 label: null,
                 axis: false,
             },
             marks: [
+                Plot.axisY({
+                    tickFormat: (d) => noteNames[(d + rootNr) % 12],
+                    anchor: 'left',
+                }),
+                Plot.axisY({
+                    anchor: 'right',
+                    tickFormat: (d) => noteNames[(d + rootNr) % 12],
+                }),
                 // bar line
                 Plot.ruleX([0], { strokeWidth: 2, stroke: 'darkgray' }),
                 Plot.waffleX(data, {
@@ -144,14 +156,14 @@
                         }
                         // root?
                         if (d.value === 0) {
-                            return '#666';
+                            return 'root';
                         }
                         //  in scale?
                         if (scaleOffsets.has(d.value)) {
-                            return '#aaa';
+                            return 'scale';
                         }
                         // out of scale
-                        return '#eee';
+                        return 'outside scale';
                     },
                     dx: 0.5,
                     rx: 4,

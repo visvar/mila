@@ -17,6 +17,7 @@
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import example from '../example-recordings/improvisation-note-colors.json';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -36,7 +37,7 @@
     // let root = 'A';
     let root = 'C';
     let scaleType1 = 'major';
-    let scaleType2 = 'major pentatonic';
+    $: scaleType2 = `${scaleType1} pentatonic`;
     let pastNoteCount = 50;
     let showDuration = false;
     let showLoudness = false;
@@ -111,7 +112,8 @@
         const limited = notes.slice(-pastNoteCount);
         const plot = Plot.plot({
             width,
-            height: showDuration ? height : height * 0.7,
+            // height: showDuration ? height : height * 0.7,
+            height,
             marginLeft: 50,
             marginBottom: 50,
             padding: 0,
@@ -125,7 +127,7 @@
                 labelAnchor: 'center',
             },
             color: {
-                legend: true,
+                // legend: true,
                 domain: d3.range(12),
                 range: colorMap,
                 tickFormat: (d) => Midi.NOTE_NAMES[d],
@@ -214,42 +216,36 @@
             durations.
         </p>
         <div class="control">
-            <label>
-                scale type 1
-                <select
-                    bind:value="{scaleType1}"
-                    on:change="{draw}"
-                    style="background-color: {scale1Color};"
-                >
-                    {#each ['major', 'minor'] as s}
-                        <option value="{s}">{s}</option>
-                    {/each}
-                </select>
-            </label>
-            <label>
-                scale type 2
-                <select
-                    bind:value="{scaleType2}"
-                    on:change="{draw}"
-                    style="background-color: {scale2Color};"
-                >
-                    {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
-                        <option value="{s}">{s}</option>
-                    {/each}
-                </select>
-            </label>
-            <label>
-                root note
-                <select
-                    bind:value="{root}"
-                    on:change="{draw}"
-                    style="background-color: {rootColor};"
-                >
-                    {#each Midi.NOTE_NAMES as n}
-                        <option value="{n}">{n}</option>
-                    {/each}
-                </select>
-            </label>
+            <SelectScollable
+                label="scale type 1"
+                bind:value="{scaleType1}"
+                callback="{draw}"
+                style="background-color: {scale1Color};"
+            >
+                {#each ['major', 'minor'] as s}
+                    <option value="{s}">{s}</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="scale type 2"
+                bind:value="{scaleType2}"
+                callback="{draw}"
+                style="background-color: {scale2Color};"
+            >
+                {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
+                    <option value="{s}">{s}</option>
+                {/each}
+            </SelectScollable>
+            <SelectScollable
+                label="root note"
+                bind:value="{root}"
+                callback="{draw}"
+                style="background-color: {rootColor};"
+            >
+                {#each Midi.NOTE_NAMES as n}
+                    <option value="{n}">{n}</option>
+                {/each}
+            </SelectScollable>
         </div>
         <div class="control">
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
@@ -268,19 +264,19 @@
         </div>
         <div class="legend">
             <!-- legend -->
-            <div style="background: {restColor};">
+            <div style="background: {restColor}; width: 250px">
                 <div style="background: {scale1Color};">
                     <div style="background: {scale2Color}; color: white">
                         <div style="background: {rootColor}; color: white">
                             root: {root}
                         </div>
-                        {scaleType2}:
-                        {[...scale2].join(', ')}
+                        {scaleType2}:<br />
+                        {[...d3.difference(scale2, [root])].join(', ')}
                     </div>
-                    {scaleType1}:
-                    {[...scale1].join(', ')}
+                    {scaleType1}:<br />
+                    {[...d3.difference(scale1, scale2)].join(', ')}
                 </div>
-                chromatic:
+                chromatic:<br />
                 {[...d3.difference(Midi.NOTE_NAMES, scale1)].join(', ')}
             </div>
         </div>
@@ -326,8 +322,8 @@
 <style>
     .legend div {
         margin: 0 auto 5px auto;
-        padding: 5px 20px;
-        width: fit-content;
+        padding: 5px 15px;
+        /* width: fit-content; */
         text-align: center;
         border-radius: 20px;
     }

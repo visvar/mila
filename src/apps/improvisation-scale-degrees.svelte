@@ -26,6 +26,9 @@
     // let height = 500;
     let height = 300;
     let container;
+    const rootColor = '#1B5E20';
+    const scaleColor = '#689F38';
+    const restColor = 'lightgray';
     // settings
     let root = 'A';
     let scale = 'minor pentatonic';
@@ -96,7 +99,7 @@
             color: {
                 legend: useColors,
                 domain: ['root', 'scale', 'outside scale'],
-                range: ['#444', '#888', '#bbb'],
+                range: [rootColor, scaleColor, restColor],
                 marginLeft: 100,
             },
             y: {
@@ -118,14 +121,14 @@
                         }
                         // root?
                         if (d.value === 0) {
-                            return '#666';
+                            return 'root';
                         }
                         //  in scale?
                         if (scaleOffsets.has(d.value)) {
-                            return '#aaa';
+                            return 'scale';
                         }
                         // out of scale
-                        return '#eee';
+                        return 'outside scale';
                     },
                     dx: 0.5,
                     rx: 4,

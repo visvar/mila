@@ -10,7 +10,7 @@
     /**
      * callback on change
      */
-    export let callback = () => {};
+    export let callback = (evt) => {};
     export let label = '';
     export let title = '';
     export let className = '';
@@ -50,7 +50,7 @@
         } else {
             value = values[index];
         }
-        callback();
+        callback(evt);
     };
 </script>
 
@@ -59,7 +59,7 @@
     <select
         bind:this="{select}"
         bind:value
-        on:input="{callback}"
+        on:input="{(evt) => callback(evt)}"
         on:mousewheel="{scrollOptions}"
         class="{className}"
         {disabled}

@@ -13,8 +13,8 @@
   // APPS
   import { APPS } from './apps';
   import PcKeyboardInput from './common/input-handlers/pc-keyboard-input.svelte';
-  import ScreenshotButton from './common/screenshot-button.svelte';
   import AppTileTags from './common/app-tile-tags.svelte';
+  import SelectScollable from './common/input-elements/select-scollable.svelte';
 
   let currentApp = null;
 
@@ -216,16 +216,17 @@
         <!-- sort -->
         <div>
           <h2>sorting and layout</h2>
-          <select
+          <SelectScollable
             bind:value="{sortAppsBy}"
-            on:change="{(e) => {
+            callback="{(e) => {
               localStorage.setItem('display-app-sorting', e.target.value);
             }}"
+            style="margin-left: -10px"
           >
             <option value="title">title (A-Z)</option>
             <option value="used">most used</option>
             <option value="recent">recently used</option>
-          </select>
+          </SelectScollable>
           <!-- layout -->
           <button
             on:click="{() => {
@@ -420,7 +421,6 @@
       app overview
     </button>
     <a href="https://github.com/visvar/mila">GitHub</a>
-    <!-- <ScreenshotButton bind:currentApp /> -->
   </div>
 </main>
 <!-- shortcut for search -->

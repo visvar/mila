@@ -1,10 +1,8 @@
 <script>
-    import { Chord, Scale } from '@tonaljs/tonal';
+    import { Scale } from '@tonaljs/tonal';
     import { Midi } from 'musicvis-lib';
-    import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import { NOTE_COLORS } from '../lib/colors';
-    import { toggleOffIcon, toggleOnIcon } from '../lib/icons';
     import { downloadJsonFile } from '../lib/json';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
