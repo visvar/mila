@@ -162,17 +162,6 @@ export const SKILL_TREE = [
         title: 'strumming strings',
         description: 'Only the intended strings should be strummed'
       },
-      // TODO: include this skills once they are supported?
-      // {
-      //   id: 'sweep-picking',
-      //   title: 'sweep-picking',
-      //   description: 'Consecutive strings should be picked fast and fluidly while fretting notes'
-      // },
-      // {
-      //   id: 'piano-cross-over-pass-under',
-      //   title: 'piano cross-over and pass-under',
-      //   description: 'When moving the hand to a new position while playing, notes should be played with out change in timing'
-      // }
     ]
   },
   // TODO: ensemble is out of scope for now

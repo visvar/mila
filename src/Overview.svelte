@@ -32,28 +32,28 @@
 
     // print latex tables
     // TODO: remove
-    const latexTableSkills = () => {
-        let string = 'category & skill & explanation \\\\';
-        for (const node of SKILL_TREE) {
-            for (const [index, skill] of node.children.entries()) {
-                let cat = index === 0 ? node.title : '';
-                let line = `${cat.padEnd(20)} & ${skill.title.padEnd(50)} & ${skill.description} \\\\`;
-                string = `${string}\n${line}`;
-            }
-        }
-        console.log(string);
-    };
-    latexTableSkills();
-    //
-    const latexTableApps = () => {
-        let string = 'App & Section & Figure & Explanation \\\\';
-        for (const app of APPS) {
-            let line = `${app.title.padEnd(35)} &\n \\Cref{sec:${(app.id + '}').padEnd(35)} &\n \\Cref{fig:${(app.id + '}').padEnd(35)} &\n ${app.description.padEnd(95)} \\\\\n\n`;
-            string = `${string}\n${line}`;
-        }
-        console.log(string);
-    };
-    latexTableApps();
+    // const latexTableSkills = () => {
+    //     let string = 'category & skill & explanation \\\\';
+    //     for (const node of SKILL_TREE) {
+    //         for (const [index, skill] of node.children.entries()) {
+    //             let cat = index === 0 ? node.title : '';
+    //             let line = `${cat.padEnd(20)} & ${skill.title.padEnd(50)} & ${skill.description} \\\\`;
+    //             string = `${string}\n${line}`;
+    //         }
+    //     }
+    //     console.log(string);
+    // };
+    // latexTableSkills();
+    // //
+    // const latexTableApps = () => {
+    //     let string = 'App & Section & Figure & Explanation \\\\';
+    //     for (const app of APPS) {
+    //         let line = `${app.title.padEnd(35)} &\n \\Cref{sec:${(app.id + '}').padEnd(35)} &\n \\Cref{fig:${(app.id + '}').padEnd(35)} &\n ${app.description.padEnd(95)} \\\\\n\n`;
+    //         string = `${string}\n${line}`;
+    //     }
+    //     console.log(string);
+    // };
+    // latexTableApps();
 
     /**
      * draws the tree of skills

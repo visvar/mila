@@ -1,9 +1,6 @@
 <script>
-    import { pencilIcon } from '../../lib/icons.js';
     /**
      * A dropdown that allows loading an auto-saved recording.
-     *
-     * TODO: add a delete button for the currently selected recording, requires implementing localStorageDeleteRecording()
      */
     import {
         localSorageGetRecordings,

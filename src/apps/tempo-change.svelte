@@ -27,9 +27,10 @@
     let height = 600;
     let container;
     let firstTimeStamp;
+    const minDist = 0.025;
     // settings
     // let pastTime = 60;
-    let timeBinSize = 2;
+    let timeBinSize = 5;
     let tempoBinSize = 5;
     // data
     let notes = [];
@@ -50,7 +51,7 @@
                 i === 0 ? 0 : d - timeBin[i - 1],
             );
             // filter IOIs
-            const filtered = iois.filter((d) => d > 0.025 && d < 1.5);
+            const filtered = iois.filter((d) => d > 0.0125 && d < 1.5);
             const bpms = filtered.map((d) => {
                 // convert to bpm
                 d = secondsPerBeatToBpm(d);
@@ -61,15 +62,20 @@
                 while (d < 60) {
                     d *= 2;
                 }
+                d = Math.round(d);
                 return d;
             });
             // bin into bins of 5 bpms
             const binBpms = d3
                 .bin()
                 .domain([60, 180])
-                .thresholds(d3.range(60, 185, tempoBinSize));
+                .thresholds(d3.range(60, 181, tempoBinSize));
             const binnedByBpm = binBpms(bpms);
-            for (const bpm of binnedByBpm) {
+            // mark maximum
+            const maxIndex = d3.maxIndex(binnedByBpm, (d) => d.length);
+            console.log(maxIndex);
+
+            for (const [index, bpm] of binnedByBpm.entries()) {
                 if (bpm.length > 0)
                     bpmValues.push({
                         time0: timeBin.x0,
@@ -78,6 +84,7 @@
                         tempo1: bpm.x1,
                         count: bpm.length,
                         confidence: bpm.length / filtered.length,
+                        max: index === maxIndex,
                     });
             }
         }
@@ -89,7 +96,13 @@
             firstTimeStamp = e.timestamp;
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        notes.push(noteInSeconds);
+        // ignore note if it comes too early after the previous, as in a chord or due to noise
+        if (
+            notes.length === 0 ||
+            Math.abs(noteInSeconds - notes.at(-1)) > minDist
+        ) {
+            notes.push(noteInSeconds);
+        }
         draw();
     };
 
@@ -121,13 +134,11 @@
                 legend: true,
                 marginLeft: width * 0.3,
                 width: width * 0.6,
-                type: 'quantize',
+                // type: 'quantize',
+                type: 'sqrt',
                 domain: [0, 1],
             },
             marks: [
-                Plot.ruleY([60, 90, 120, 150, 180]),
-                // workaround to have smoother time
-                Plot.ruleX([notes.at(-1)], { opacity: 0 }),
                 Plot.rect(bpmValues, {
                     x1: 'time0',
                     x2: 'time1',
@@ -136,7 +147,14 @@
                     fill: 'confidence',
                     clip: true,
                     tip: true,
+                    stroke: 'max',
+                    strokeWidth: 1,
+                    rx: 3,
+                    inset: 1,
                 }),
+                Plot.ruleY([60, 90, 120, 150, 180]),
+                // workaround to have smoother time
+                Plot.ruleX([notes.at(-1)], { opacity: 0 }),
             ],
         });
         container.appendChild(plot);
@@ -230,11 +248,11 @@
         </div>
         <ExerciseDrawer>
             <p>1) Play at a contant tempo.</p>
-            <p>2) Start with tempo 90 and suddenly jump to 150.</p>
             <p>
-                3) Start with tempo 90 and smoothly increase until you reach
+                2) Start with tempo 90 and smoothly increase until you reach
                 150.
             </p>
+            <p>3) Start with tempo 90 and suddenly jump to 150.</p>
             <p>
                 4) Switch back and forth between two tempi, try to always hit
                 the same two BPM values.

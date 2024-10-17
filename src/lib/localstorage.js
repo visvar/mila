@@ -38,10 +38,9 @@ export function localStorageKBytes() {
 }
 
 /**
- * TODO: this only check how much is still left, so we would need to back current values up, test, and then restore them
  * TODO: use binary search for better result, might underestimate by 50% currently
  * @returns {number} localStorage limit in KB
- */
+*/
 export function localStorageSizeKBytes() {
   let string = '12345678'
   let characters = 0
@@ -68,7 +67,9 @@ export function localStorageSizeKBytes() {
   // }
 
   localSt.removeItem('__test__')
-  return (characters * 32) / 1024
+  // the above only check how much is still left, so we need to add the current size
+  const currentDataSize = localStorageKBytes()
+  return (characters * 32) / 1024 + currentDataSize
 }
 
 export function localStorageReport() {
