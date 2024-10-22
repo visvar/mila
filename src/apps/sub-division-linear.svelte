@@ -110,6 +110,7 @@
                     bandwidth,
                     pad,
                     bins,
+                    extent: [0, grid1],
                 },
             );
             kdePoints = density1d.bandwidth(bandwidth);

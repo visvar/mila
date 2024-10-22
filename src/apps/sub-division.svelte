@@ -189,24 +189,38 @@
         // draw KDE
         if (showKde && noteAngles.length > 1) {
             let bandwidth = 4 / binNote;
-            let pad = 0.1;
+            let pad = 0;
             let bins = 360;
             const density1d = kde.density1d(noteAngles, {
                 bandwidth,
                 pad,
                 bins,
+                extent: [0, TWO_PI],
             });
-            const points = density1d.bandwidth(bandwidth);
+            let points = density1d.bandwidth(bandwidth);
             const maxValue = d3.max([...points], (d) => d.y);
-            // smooth around first and last point
-            // console.log([...points]);
+            // fix issue with negative angle when adjusting
+            points = [...points].map((d) => {
+                return { ...d, x: d.x < 0 ? d.x + TWO_PI : d.x };
+            });
+            points.sort((a, b) => a.x - b.x);
+
             ctx.beginPath();
-            for (const p of points) {
+            for (const [index, p] of points.entries()) {
                 const angle = p.x - topOffs;
-                const rp = r + (p.y / maxValue) * maxBinHeight;
+                // interpolate first and last
+                let y = p.y;
+                if (index === 0 || index === points.length - 1) {
+                    y = (points.at(0).y + points.at(-1).y) / 2;
+                }
+                const rp = r + (y / maxValue) * maxBinHeight;
                 const dx = Math.cos(angle);
                 const dy = Math.sin(angle);
-                ctx.lineTo(cx + dx * rp, cy + dy * rp);
+                if (index === 0) {
+                    ctx.moveTo(cx + dx * rp, cy + dy * rp);
+                } else {
+                    ctx.lineTo(cx + dx * rp, cy + dy * rp);
+                }
             }
             ctx.closePath();
             ctx.fillStyle = COLORS.accent;

@@ -38,7 +38,7 @@
     let grid = GRIDS[0].divisions;
     let binNote = 64;
     let adjustTime = 0;
-    let showKde = false;
+    let showKde = true;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -134,17 +134,30 @@
                 bandwidth,
                 pad,
                 bins,
+                extent: [0, TWO_PI],
             });
-            const points = density1d.bandwidth(bandwidth);
+            let points = density1d.bandwidth(bandwidth);
             const maxValue = d3.max([...points], (d) => d.y);
-            // smooth around first and last point
-            ctx.beginPath();
-            for (const p of points) {
+            // fix issue with negative angle when adjusting
+            points = [...points].map((d) => {
+                return { ...d, x: d.x < 0 ? d.x + TWO_PI : d.x };
+            });
+            points.sort((a, b) => a.x - b.x);
+            for (const [index, p] of points.entries()) {
                 const angle = p.x - topOffs;
-                const rp = r + (p.y / maxValue) * maxBinHeight;
+                // interpolate first and last
+                let y = p.y;
+                if (index === 0 || index === points.length - 1) {
+                    y = (points.at(0).y + points.at(-1).y) / 2;
+                }
+                const rp = r + (y / maxValue) * maxBinHeight;
                 const dx = Math.cos(angle);
                 const dy = Math.sin(angle);
-                ctx.lineTo(cx + dx * rp, cy + dy * rp);
+                if (index === 0) {
+                    ctx.moveTo(cx + dx * rp, cy + dy * rp);
+                } else {
+                    ctx.lineTo(cx + dx * rp, cy + dy * rp);
+                }
             }
             ctx.closePath();
             ctx.fillStyle = COLORS.accent;
@@ -171,7 +184,7 @@
         ctx.beginPath();
         ctx.lineWidth = 2;
         ctx.fillStyle = '#ccc';
-        ctx.font = `${size * 0.05}px sans-serif`;
+        ctx.font = `${size * 0.08}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         for (const [index, g] of coarseGridAngles.entries()) {
@@ -238,9 +251,8 @@
 
     const drawLoaded = () => {
         const count = 8;
-        const recordings = localSorageGetRecordings(appInfo.id)
-            .slice(-count)
-            .reverse();
+        const recordings = localSorageGetRecordings(appInfo.id).slice(-count);
+        // .reverse();
 
         //  reset canvas
         const ctx = canvas2.getContext('2d');
@@ -257,7 +269,8 @@
         canvas2.style.width = `${rect.width}px`;
         canvas2.style.height = `${rect.height}px`;
         // fade-out old data
-        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, width, height);
 
         const columns = 4;
         for (const [index, recording] of recordings.entries()) {
@@ -271,10 +284,15 @@
             const x = (index % columns) * size;
             const y = Math.floor(index / columns) * size;
             // title
+            ctx.font = `12px sans-serif`;
             ctx.textBaseline = 'top';
             ctx.textAlign = 'center';
             ctx.fillStyle = '#333';
-            ctx.fillText(recording.date.slice(0, 16), x + size / 2, y);
+            ctx.fillText(
+                recording.date.slice(0, 16).replace('T', '  '),
+                x + size / 2,
+                y,
+            );
             ctx.fillText(
                 `tempo: ${tempo} grid: ${grid} adjust: ${adjustTime}`,
                 x + size / 2,
@@ -288,8 +306,8 @@
                 binNote,
                 adjustTime,
                 showKde,
-                size * 0.9,
-                x,
+                size * 0.8,
+                x + size * 0.1,
                 y + 22,
             );
         }
