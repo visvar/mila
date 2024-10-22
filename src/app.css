@@ -107,6 +107,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+}
+
 button,
 label {
   user-select: none;

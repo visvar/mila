@@ -23,6 +23,7 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -345,6 +346,7 @@
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
+            <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
             <ImportExportButton
                 {loadData}
                 {getExportData}

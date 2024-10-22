@@ -24,9 +24,15 @@ If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 - `npm start`
 - Open the URL shown in the console
 
-## Used Libraries
+## Used Libraries and Packages
 
-- Obersable Plot
-- D3
-- https://www.npmjs.com/package/fflate for compression of share links
-- @tonaljs/tonal music theory such as scales
+- [Svelte](https://svelte.dev/) components
+- [Observable Plot](https://observablehq.com/plot/) visualization
+- [D3](https://d3js.org/) scales, data processing
+- [@tonaljs/tonal](https://github.com/tonaljs/tonal) music theory such as scales
+- [musicvis-lib](https://github.com/fheyen/musicvis-lib) more technical musical functions
+- [pitchy](https://github.com/ianprime0509/pitchy) pitch detection from audio
+- [fflate]([fflate](https://www.npmjs.com/package/fflate)) compression of share links
+- [webmidi](https://github.com/djipco/webmidi) Web MIDI API wrapper
+- [fast-kde](https://github.com/uwdata/fast-kde) density estimation
+- [@fontsource](https://github.com/fontsource/fontsource) noto-music, noto-sans, noto-sans-symbols, noto-sans-symbols-2 for cross-plattform note symbols and icons

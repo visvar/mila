@@ -39,7 +39,7 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
-    let estimatedTempo = 0;
+    // let estimatedTempo = 0;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -93,6 +93,8 @@
             style: 'font-size: 24px; font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
                 axis: false,
+                // ticks: [],
+                // label: 'inter-onset times between notes, sorted by time',
             },
             y: {
                 ticks: rules,
@@ -130,13 +132,13 @@
         container.appendChild(plot);
 
         // tempo estimation
-        const lastNotes = iois
-            .filter((d) => d > 0.8 * sixteenth && d < 1.25 * quarter)
-            .slice(-24)
-            .map((d) =>
-                d < 0.6 * quarter ? d * 2 : d > 1.5 * quarter ? d / 2 : d,
-            );
-        estimatedTempo = secondsPerBeatToBpm(d3.mean(lastNotes));
+        // const lastNotes = iois
+        //     .filter((d) => d > 0.8 * sixteenth && d < 1.25 * quarter)
+        //     .slice(-24)
+        //     .map((d) =>
+        //         d < 0.6 * quarter ? d * 2 : d > 1.5 * quarter ? d / 2 : d,
+        //     );
+        // estimatedTempo = secondsPerBeatToBpm(d3.mean(lastNotes));
 
         // TODO: remove
         // demo of how it would look with ticks
@@ -257,11 +259,11 @@
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
-        {#if estimatedTempo}
+        <!-- {#if estimatedTempo}
             <div>
                 estimated: {estimatedTempo.toFixed()} bpm (assuming quarter notes)
             </div>
-        {/if}
+        {/if} -->
         <div class="control">
             <MetronomeButton
                 {tempo}

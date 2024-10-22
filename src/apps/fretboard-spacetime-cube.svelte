@@ -147,6 +147,7 @@
 
     onDestroy(() => {
         clearInterval(testInterval);
+        window.location.reload();
     });
 </script>
 
@@ -165,23 +166,23 @@
         <!-- text with explanation -->
         <a-entity
             text="value: {appInfo.title}; color: #666; width: 5"
-            position="-1.75 1.85 -1.5"
+            position="-1.75 1.85 -3"
             scale=".35 .35 .35"
         ></a-entity>
         <a-entity
             text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nGo back in your browser to return to the main page.; color: #666; width: 5"
-            position="-2 1.5 -1.5"
+            position="-2 1.5 -3"
             scale=".25 .25 .25"
         ></a-entity>
         <!-- text for debugging -->
         <a-entity
             text="value: {debugMsg}; color: #666; width: 5"
-            position="-2 1 -1.5"
+            position="-2 1 -3"
             scale=".25 .25 .25"
         ></a-entity>
         <!-- visualization container -->
         <a-box
-            position="-1 .5 -1"
+            position="-1 .5 -3"
             rotation="0 0 0"
             scale=".1 .1 .1"
             visible="true"

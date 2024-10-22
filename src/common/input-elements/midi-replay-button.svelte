@@ -2,7 +2,6 @@
     import { onDestroy } from 'svelte';
     import NumberInput from './number-input.svelte';
     import * as d3 from 'd3';
-    import { playIcon, stopIcon } from '../../lib/icons';
 
     export let notes = [];
     export let speed = 1;
@@ -77,6 +76,12 @@
     const handleClick = () => {
         !isPlaying ? replay() : stop();
     };
+
+    // react to user resetting notes by stopping
+    // TODO: needs to know whether notes changed from outside or inside this component...
+    // $: if (isPlaying && notes.length === 0) {
+    //     stop();
+    // }
 
     onDestroy(reset);
 
