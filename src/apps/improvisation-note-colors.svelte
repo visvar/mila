@@ -110,6 +110,7 @@
             }
         });
         const limited = notes.slice(-pastNoteCount);
+        const durationLimit = 1;
         const plot = Plot.plot({
             width,
             // height: showDuration ? height : height * 0.7,
@@ -122,7 +123,7 @@
             },
             y: {
                 axis: showDuration,
-                domain: [0, 1],
+                domain: [0, durationLimit],
                 label: 'duration in seconds',
                 labelAnchor: 'center',
             },
@@ -144,12 +145,12 @@
                 // data
                 Plot.barY(limited, {
                     x: (d, i) => i,
-                    y: showDuration ? 'duration' : 1,
+                    y: showDuration ? 'duration' : durationLimit,
                     fill: (d) => d.number % 12,
                     opacity: showLoudness ? (d) => d.velocity : 1,
                     inset: 0.5,
                     rx: 4,
-                    tip: true,
+                    // tip: true,
                 }),
                 Plot.text(limited, {
                     x: (d, i) => i,

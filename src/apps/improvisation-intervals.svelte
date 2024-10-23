@@ -88,10 +88,12 @@
                 return { interval: int, count: grp.length };
             });
 
+        const padding = ' '.repeat(25);
+
         const plot = Plot.plot({
             width,
             height,
-            marginLeft: 120,
+            marginLeft: 125,
             marginRight: 10,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
@@ -101,19 +103,15 @@
                 range: ['#7da2e8', '#ed796a', 'gold', '#ccc'],
                 marginLeft: 100,
             },
-            x: {
-                // axis: false,
-            },
             y: {
-                // ticks: rules,
+                label: `🡸 going down ${padding}|${padding} going up 🡺     `,
+                reverse: true,
+                domain: d3.range(-12, 13, 1),
                 tickFormat: (d) =>
                     d >= 0
                         ? `${intervalNames[d].name} (${d})`
                         : `${intervalNames[-d].name} (${d})`,
-                domain: d3.range(-12, 13, 1),
-                label: `🡸 going down ${' '.repeat(75)} going up 🡺     `,
-                reverse: true,
-                // type: 'ordinal',
+                type: 'band',
             },
             marks: [
                 Plot.ruleY([-12, 0, 12], { stroke: '#888', strokeWidth: 1.5 }),
