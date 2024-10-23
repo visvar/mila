@@ -31,8 +31,8 @@
     const scaleColor = '#689F38';
     const restColor = 'lightgray';
     // settings
-    let root = 'A';
-    let scale = 'minor pentatonic';
+    let root = 'C';
+    let scale = 'major pentatonic';
     let useColors = true;
     let showOutsideScale = true;
     let tempo = 120;

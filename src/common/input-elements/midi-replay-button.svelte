@@ -2,10 +2,21 @@
     import { onDestroy } from 'svelte';
     import NumberInput from './number-input.svelte';
     import * as d3 from 'd3';
+    import Player from '../../lib/Player';
+    import { Note } from 'musicvis-lib';
+    import SelectScollable from './select-scollable.svelte';
+    import { drumIcon, guitarIcon, muteIcon, pianoIcon } from '../../lib/icons';
 
     export let notes = [];
     export let speed = 1;
     export let callback = () => {};
+    // export let allowSound = false;
+    export let allowSound = true;
+
+    /**
+     * @type {'silent'|'percussion'|'acoustic_grand_piano'}
+     */
+    export let sound = 'silent';
 
     let timeouts = [];
     let oldNotes;
@@ -13,9 +24,12 @@
     // progress indicator circle
     let circle;
     const iconSize = 24;
-    const circleRadius = (iconSize - 4) / 2;
+    const circleRadius = 4;
     let circleRaf;
     let startTime = 0;
+    const player = new Player();
+    // player.preloadInstrument('acoustic_grand_piano')
+    $: player.preloadInstrument(sound);
 
     /**
      * plays notes
@@ -51,6 +65,22 @@
         };
         startTime = performance.now();
         circleRaf = requestAnimationFrame(update);
+        // start soundfont player
+        if (sound !== 'silent') {
+            const notes2 = oldNotes.map((d) => {
+                const duration = d.duration ?? 1;
+                return Note.from({
+                    // pitch: 31, // sticks
+                    pitch: d.number ?? 33, // metro click
+                    start: d.time,
+                    end: d.time + duration,
+                    duration,
+                    velocity: d.velocityRaw ?? d.velocity ?? 127,
+                    channel: 0,
+                });
+            });
+            player.playNotes(notes2, sound, 0, undefined, speed);
+        }
     };
 
     const reset = () => {
@@ -63,6 +93,7 @@
         }
         cancelAnimationFrame(circleRaf);
         timeouts = [];
+        player.stop();
     };
 
     /**
@@ -79,6 +110,7 @@
 
     // react to user resetting notes by stopping
     // TODO: needs to know whether notes changed from outside or inside this component...
+    // TODO: better to notify app that is playing and forbid reset etc
     // $: if (isPlaying && notes.length === 0) {
     //     stop();
     // }
@@ -119,22 +151,33 @@
                 y="{0}"
                 d="{`M4,4 L4,${iconSize - 4} L${iconSize - 4},${isPlaying ? iconSize - 4 : iconSize / 2} L${isPlaying ? iconSize - 4 : 4},4 Z`}"
                 fill="#444"
+                stroke="#444"
+                stroke-width="3"
+                stroke-linejoin="round"
+                rx="3"
             ></path>
-        </svg>
-        <svg
-            width="{iconSize}"
-            height="{iconSize}"
-            style="width: {iconSize}px; height: {iconSize}px;"
-            visibility="{isPlaying ? 'visible' : 'hidden'}"
-        >
             <circle
                 bind:this="{circle}"
                 cx="{iconSize / 2}"
                 cy="{iconSize / 2}"
                 r="{circleRadius}"
+                visibility="{isPlaying ? 'visible' : 'hidden'}"
             ></circle>
         </svg>
     </button>
+    {#if allowSound}
+        <SelectScollable
+            title="sound"
+            bind:value="{sound}"
+            style="margin: 0 -12px 0 0; border-radius: 0"
+            disabled="{notes.length === 0 || isPlaying}"
+        >
+            <option value="silent">{muteIcon}</option>
+            <option value="acoustic_grand_piano">{pianoIcon}</option>
+            <option value="percussion">{drumIcon}</option>
+            <option value="acoustic_guitar_nylon">{guitarIcon}</option>
+        </SelectScollable>
+    {/if}
     <NumberInput
         title="replay speed (2 means twice as fast, 0.5 half as fast)"
         bind:value="{speed}"
@@ -176,8 +219,8 @@
     }
 
     svg circle {
-        stroke: #888;
-        stroke-width: 2px;
+        stroke: white;
+        stroke-width: 4px;
         fill: transparent;
         /* fill: black; */
     }

@@ -35,12 +35,22 @@ export const linkIcon = '🔗'
 export const pencilIcon = '✎'
 export const saveIcon = '💾'
 
+// instruments
+export const pianoIcon = '🎹'
+export const drumIcon = '🥁'
+export const guitarIcon = '🎸'
+
+// other inputs
+export const pcKeyIcon = '⌨️'
+export const touchIcon = '👇'
+
 // media controls
 export const playIcon = '▶'
 export const stopIcon = '⏹'
 export const recordIcon = '⏺'
 export const forwardIcon = '⏩'
 export const backwardIcon = '⏪'
+export const muteIcon = '🔇'
 
 // note durations
 export const noteWhole = '𝅝'

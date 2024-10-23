@@ -46,7 +46,8 @@
       !['tools', 'settings', 'overview', 'help', 'welcome'].includes(currentApp)
     ) {
       // alert('Please go back to the main page first to prevent data loss');
-      return true;
+      // TODO: warning that data might be lost? now only mentioned in help
+      // return true;
     }
   };
 

@@ -487,7 +487,7 @@
                 style="width: {width}px; height: {height}px"
             ></canvas>
         </div>
-        <div class="visualization" bind:this="{container}"></div>
+        <div bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
             <UndoRedoButton bind:data="{notes}" callback="{draw}" />

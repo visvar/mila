@@ -57,7 +57,7 @@ class Player {
     ['electric_guitar_clean', { value: 'electric_guitar_clean', label: 'Electric guitar clean' }],
     // ['electric_guitar_muted', { value: 'electric_guitar_muted', label: 'Electric guitar muted' }],
     // ['overdriven_guitar', { value: 'overdriven_guitar', label: 'Overdriven guitar' }],
-    ['kalimba', { value: 'kalimba', label: 'Kalimba' }],
+    // ['kalimba', { value: 'kalimba', label: 'Kalimba' }],
     ['percussion', { value: 'percussion', label: 'Percussion' }],
   ]);
 
@@ -196,6 +196,9 @@ class Player {
    * @param {string} sound instrument name
    */
   async preloadInstrument(sound) {
+    if (sound === 'silent') {
+      return
+    }
     const file = `soundfonts/${sound}-mp3.js`
     if (this.#log) {
       console.log(`[Player] Pre-loading sound font from ${file}`)
@@ -260,7 +263,7 @@ class Player {
       console.log(`[Player] Playing ${note.getName()} for ${duration}s`)
     }
     try {
-      this.#instrument.play(note.pitch, time, { duration })
+      this.#instrument.play(note.pitch, time, { duration, gain: note.velocity, sustain: note.getDuration() })
     } catch (error) {
       console.error('[Player] Error for note', note, error)
     }

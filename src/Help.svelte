@@ -26,6 +26,15 @@
             The most tricky to use are the guitar (fretboard) apps, which
             require are MIDI guitar or a guitar with an added MIDI pickup.
         </p>
+        <h4>What if I only have a MIDI keyboard without synthesizer?</h4>
+        <p class="explanation">
+            You can simply open a web synth in another tab! For example,
+            <a
+                href="https://midi.city/"
+                target="_blank"
+                referrerpolicy="no-referrer">midi.city</a
+            >.
+        </p>
     </HelpTextDrawer>
 
     <HelpTextDrawer heading="How do I use this website?">
@@ -59,6 +68,9 @@
                 >No data is sent anywhere, it all is saved in your browser. You
                 can export or reset it in the settings.</i
             >
+            <span class="warning">Warning:</span> Auto-save only works when you reset
+            or exit the app by returning to the home screen. If you refresh the page
+            or close the tab while in an app, its current data will be lost.
         </p>
 
         <p class="explanation">

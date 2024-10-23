@@ -18,6 +18,7 @@
     import example from '../example-recordings/improvisation-note-colors.json';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -76,7 +77,7 @@
                 oldNote.end = noteInSeconds;
             }
         }
-        notes.push(note);
+        notes = [...notes, note];
         openNoteMap.set(e.note.number, note);
         draw();
     };
@@ -145,10 +146,20 @@
                 // data
                 Plot.barY(limited, {
                     x: (d, i) => i,
-                    y: showDuration ? 'duration' : durationLimit,
+                    y: (d) => {
+                        // if bar height is duration, show currently held notes in full height
+                        if (showDuration) {
+                            return d.duration > 0 ? d.duration : durationLimit;
+                        }
+                        return durationLimit;
+                    },
                     fill: (d) => d.number % 12,
+                    stroke: (d) => d.number % 12,
                     opacity: showLoudness ? (d) => d.velocity : 1,
-                    inset: 0.5,
+                    fillOpacity: (d) =>
+                        // if bar height is duration, show currently held notes without fill, only stroke
+                        showDuration && d.duration === 0 ? 0 : 1,
+                    inset: 1.5,
                     rx: 4,
                     // tip: true,
                 }),
@@ -293,6 +304,7 @@
             />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

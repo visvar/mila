@@ -35,6 +35,7 @@
     "musicvis-lib": "^0.57.1",
     "npm-check-updates": "^17.1.4",
     "pitchy": "^4.1.0",
+    "soundfont-player": "^0.12.0",
     "underscore": "^1.13.7",
     "webmidi": "^3.1.11"
   }

@@ -27,7 +27,7 @@
     let container;
     // settings
     let pastBeats = 10;
-    let maxNoteDistance = 0.2;
+    let maxNoteDistance = 0.25;
     let tempo = 90;
     // data
     let firstTimeStamp = 0;
@@ -129,14 +129,16 @@
                     x1: (d) => d[0],
                     x2: (d) => d[1],
                     y: 0,
+                    strokeWidth: 4,
+                    stroke: '#888',
                 }),
                 Plot.text(chordExtents, {
                     clip: true,
-                    x: (d) => d[0],
+                    x: (d) => (d[0] + d[1]) / 2,
                     y: 0,
                     text: (d, i) => (d[1] - d[0]).toFixed(1),
                     dy: 10,
-                    textAnchor: 'start',
+                    textAnchor: 'middle',
                 }),
             ],
         });
@@ -167,19 +169,16 @@
                     x2: (d) => d[1],
                     y: 0,
                     marker: 'dot',
+                    strokeWidth: 4,
+                    stroke: '#888',
                 }),
-                // Plot.tickX(chordGaps, {
-                //     clip: true,
-                //     x: (d) => d[0],
-                //     inset: 4,
-                // }),
                 Plot.text(chordGaps, {
                     clip: true,
                     x: (d) => (d[0] + d[1]) / 2,
                     y: 0,
                     text: (d, i) => (d[1] - d[0]).toFixed(1),
                     dx: 2,
-                    dy: 10,
+                    dy: 12,
                     textAnchor: 'middle',
                 }),
             ],
