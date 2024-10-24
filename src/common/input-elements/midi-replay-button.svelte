@@ -24,7 +24,7 @@
     // progress indicator circle
     let circle;
     const iconSize = 24;
-    const circleRadius = 4;
+    const circleRadius = 4.5;
     let circleRaf;
     let startTime = 0;
     const player = new Player();
@@ -67,15 +67,19 @@
         circleRaf = requestAnimationFrame(update);
         // start soundfont player
         if (sound !== 'silent') {
+            const firstTime = oldNotes.at(0).time;
             const notes2 = oldNotes.map((d) => {
-                const duration = d.duration ?? 1;
+                const time = d.time - firstTime;
+                const duration = d.duration ?? 0.2;
+                let velocity = d.velocityRaw ?? d.velocity ?? 1;
+                velocity = velocity <= 1 ? velocity : velocity / 127;
                 return Note.from({
                     // pitch: 31, // sticks
                     pitch: d.number ?? 33, // metro click
-                    start: d.time,
-                    end: d.time + duration,
+                    start: time,
+                    end: time + duration,
                     duration,
-                    velocity: d.velocityRaw ?? d.velocity ?? 127,
+                    velocity,
                     channel: 0,
                 });
             });
@@ -146,6 +150,7 @@
             height="{iconSize}px"
             style="width: {iconSize}px; height: {iconSize}px;"
         >
+            <!-- play/stop button. morphs from one to the other -->
             <path
                 x="{0}"
                 y="{0}"
@@ -156,11 +161,21 @@
                 stroke-linejoin="round"
                 rx="3"
             ></path>
+            <!-- circle for full time -->
+            <circle
+                cx="{iconSize / 2}"
+                cy="{iconSize / 2}"
+                r="{circleRadius}"
+                stroke="#888"
+                visibility="{isPlaying ? 'visible' : 'hidden'}"
+            ></circle>
+            <!-- circle for current time -->
             <circle
                 bind:this="{circle}"
                 cx="{iconSize / 2}"
                 cy="{iconSize / 2}"
                 r="{circleRadius}"
+                stroke="white"
                 visibility="{isPlaying ? 'visible' : 'hidden'}"
             ></circle>
         </svg>
@@ -169,7 +184,7 @@
         <SelectScollable
             title="sound"
             bind:value="{sound}"
-            style="margin: 0 -12px 0 0; border-radius: 0"
+            style="margin: 0 -12.5px 0 -0.5px; border-radius: 0"
             disabled="{notes.length === 0 || isPlaying}"
         >
             <option value="silent">{muteIcon}</option>
@@ -198,6 +213,7 @@
         padding: 0;
         position: relative;
         top: 5px;
+        gap: 0;
     }
 
     button {
@@ -219,7 +235,6 @@
     }
 
     svg circle {
-        stroke: white;
         stroke-width: 4px;
         fill: transparent;
         /* fill: black; */

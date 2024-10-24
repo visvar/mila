@@ -239,7 +239,7 @@
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
-            <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
+            <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

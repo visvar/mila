@@ -3,6 +3,7 @@
   "barLimit": 100,
   "notes": [
     {
+      "time": 0,
       "velocity": 31,
       "number": 47,
       "note": "B",
@@ -10,6 +11,7 @@
       "channel": 1
     },
     {
+      "time": 0.2,
       "velocity": 70,
       "number": 47,
       "note": "B",
@@ -17,6 +19,7 @@
       "channel": 1
     },
     {
+      "time": 0.4,
       "velocity": 88,
       "number": 47,
       "note": "B",
@@ -24,6 +27,7 @@
       "channel": 1
     },
     {
+      "time": 0.6,
       "velocity": 110,
       "number": 47,
       "note": "B",
@@ -31,6 +35,7 @@
       "channel": 1
     },
     {
+      "time": 0.8,
       "velocity": 123,
       "number": 47,
       "note": "B",

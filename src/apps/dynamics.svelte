@@ -22,6 +22,7 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -54,7 +55,7 @@
             isSharp: e.note.accidental ? true : false,
             channel: e.message.channel,
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 
@@ -240,6 +241,7 @@
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example4)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

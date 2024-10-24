@@ -129,11 +129,11 @@
                 labelAnchor: 'center',
             },
             color: {
-                // legend: true,
                 domain: d3.range(12),
                 range: colorMap,
-                tickFormat: (d) => Midi.NOTE_NAMES[d],
-                marginLeft: 190,
+                // legend: true,
+                // tickFormat: (d) => Midi.NOTE_NAMES[d],
+                // marginLeft: 190,
             },
             opacity: {
                 domain: [0, 127],
@@ -166,7 +166,7 @@
                 Plot.text(limited, {
                     x: (d, i) => i,
                     y: 0,
-                    text: 'name',
+                    text: (d) => d.name.split('').join('\n'),
                     fontSize: 12,
                     dy: 16,
                 }),

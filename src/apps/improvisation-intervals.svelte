@@ -12,6 +12,7 @@
     import example from '../example-recordings/improvisation-intervals.json';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import { INTERVALS as intervalNames } from '../lib/music';
 
     /**
      * contains the app meta information defined in App.js
@@ -23,29 +24,11 @@
     let height = 500;
     let container;
     // settings
-    let filterUnison = true;
+    let showUnison = true;
     let useColors = true;
     // data
     let firstTimeStamp;
     let notes = [];
-
-    // domain knowledge
-    // see https://muted.io/intervals-chart/
-    const intervalNames = [
-        { semitones: 0, name: 'Unison', short: 'P1', type: 'perfect' },
-        { semitones: 1, name: 'Minor 2nd', short: 'm2', type: 'minor' },
-        { semitones: 2, name: 'Major 2nd', short: 'M2', type: 'major' },
-        { semitones: 3, name: 'Minor 3rd', short: 'm3', type: 'minor' },
-        { semitones: 4, name: 'Major 3rd', short: 'M3', type: 'major' },
-        { semitones: 5, name: 'Perfect 4th', short: 'P4', type: 'perfect' },
-        { semitones: 6, name: 'Augmented 4th', short: 'A4', type: 'tritone' },
-        { semitones: 7, name: 'Perfect 5th', short: 'P5', type: 'perfect' },
-        { semitones: 8, name: 'Minor 6th', short: 'm6', type: 'minor' },
-        { semitones: 9, name: 'Major 6th', short: 'M6', type: 'major' },
-        { semitones: 10, name: 'Minor 7th', short: 'm7', type: 'minor' },
-        { semitones: 11, name: 'Major 7th', short: 'M7', type: 'major' },
-        { semitones: 12, name: 'Perfect 8ve', short: 'P8', type: 'perfect' },
-    ];
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -68,7 +51,7 @@
         let intervals = notes.map((d, i) =>
             i === 0 ? 0 : d.number - notes[i - 1].number,
         );
-        if (filterUnison) {
+        if (!showUnison) {
             intervals = intervals.filter((d) => d !== 0);
         }
         intervals = intervals.map((d) => {
@@ -139,7 +122,7 @@
      */
     const getExportData = () => {
         return {
-            filterUnison,
+            showUnison,
             useColors,
             // data
             notes,
@@ -151,7 +134,7 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        filterUnison = json.filterUnison;
+        showUnison = json.showUnison;
         useColors = json.useColors;
         // data
         notes = json.notes;
@@ -188,7 +171,7 @@
             <ToggleButton
                 label="unison"
                 title="Toggle filtering unison intervals"
-                bind:checked="{filterUnison}"
+                bind:checked="{showUnison}"
                 callback="{draw}"
             />
             <ToggleButton

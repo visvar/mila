@@ -82,6 +82,32 @@ export const BIN_NOTES = [8, 16, 32, 64, 128, 24, 48, 96, 192]
 
 export const FILTER_NOTES = [4, 8, 16, 32, 64, 128]
 
+
+
+// TODO: move to mvlib
+/**
+ *
+ * @see https://muted.io/intervals-chart/
+ * @type {object[]}
+ */
+export const INTERVALS = [
+  { semitones: 0, name: 'Unison', short: 'P1', type: 'perfect' },
+  { semitones: 1, name: 'Minor 2nd', short: 'm2', type: 'minor' },
+  { semitones: 2, name: 'Major 2nd', short: 'M2', type: 'major' },
+  { semitones: 3, name: 'Minor 3rd', short: 'm3', type: 'minor' },
+  { semitones: 4, name: 'Major 3rd', short: 'M3', type: 'major' },
+  { semitones: 5, name: 'Perfect 4th', short: 'P4', type: 'perfect' },
+  { semitones: 6, name: 'Augmented 4th', short: 'A4', type: 'tritone' },
+  { semitones: 7, name: 'Perfect 5th', short: 'P5', type: 'perfect' },
+  { semitones: 8, name: 'Minor 6th', short: 'm6', type: 'minor' },
+  { semitones: 9, name: 'Major 6th', short: 'M6', type: 'major' },
+  { semitones: 10, name: 'Minor 7th', short: 'm7', type: 'minor' },
+  { semitones: 11, name: 'Major 7th', short: 'M7', type: 'major' },
+  { semitones: 12, name: 'Perfect 8ve', short: 'P8', type: 'perfect' },
+]
+
+
+
 // see https://en.wikipedia.org/wiki/Dynamics_(music)
 // TODO: move to mvlib
 /**

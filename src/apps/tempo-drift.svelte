@@ -46,7 +46,7 @@
             firstTimeStamp = e.timestamp;
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        notes.push(noteInSeconds);
+        notes = [...notes, noteInSeconds];
         draw();
     };
 
@@ -274,7 +274,11 @@
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MidiReplayButton
+                bind:notes
+                callback="{draw}"
+                allowSound="{false}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}

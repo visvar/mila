@@ -9,6 +9,8 @@
         evt.preventDefault();
         const file = evt.dataTransfer.files[0];
         const json = await parseJsonFile(file);
+        console.log('dropped json', json);
+
         loadData(json);
         container.style = 'background: none';
     };
