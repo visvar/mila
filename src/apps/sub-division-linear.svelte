@@ -212,13 +212,6 @@
                 label: 'recent bars',
             },
             marks: [
-                // OK areas
-                Plot.tickX([...fineGrid, grid1], {
-                    x: (d) => d,
-                    stroke: '#eee',
-                    clip: true,
-                    strokeWidth: (width / binNote) * 2,
-                }),
                 // ticks
                 Plot.tickX(notesInBeats, {
                     x: (d) => d.time % grid1,
@@ -226,6 +219,14 @@
                     // stroke: '#0002',
                     strokeWidth: showLoudness ? (d) => d.velocity * 4 : 1,
                     clip: true,
+                }),
+                // OK areas
+                Plot.tickX([...fineGrid, grid1], {
+                    x: (d) => d,
+                    stroke: '#ccc',
+                    opacity: 0.7,
+                    clip: true,
+                    strokeWidth: (width / binNote) * 2,
                 }),
             ],
         });

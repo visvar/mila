@@ -167,7 +167,6 @@
             scaleType,
             pastNoteCount,
             showDuration,
-            showLoudness,
             // data
             notes,
         };
@@ -182,7 +181,6 @@
         scaleType = json.scaleType;
         pastNoteCount = json.pastNoteCount;
         showDuration = json.showDuration;
-        showLoudness = json.showLoudness;
         // data
         notes = json.notes;
         draw();

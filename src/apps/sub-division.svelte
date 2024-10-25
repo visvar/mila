@@ -132,13 +132,52 @@
         // for 3/4 bars there are less bins
         const binCount = (binNote * grid1) / 4;
 
+        // draw notes
+        if (adjustedNotes.length > 0) {
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#888';
+            const layerCount =
+                Math.floor(adjustedNotes.at(-1).time / circleSeconds) + 1;
+            const layerSize = (height / 2 - r - maxBinHeight - 10) / layerCount;
+            for (const [i, n] of adjustedNotes.entries()) {
+                // loudness
+                if (showLoudness) {
+                    ctx.lineWidth = n.velocity * 4;
+                }
+                // draw tick
+                const angle = (n.time / circleSeconds) * TWO_PI - topOffs;
+                const dx = Math.cos(angle);
+                const dy = Math.sin(angle);
+                const layer = Math.max(0, Math.floor(n.time / circleSeconds));
+                const layerR1 = r + maxBinHeight + layer * layerSize + 5;
+                const layerR2 = layerR1 + layerSize;
+                ctx.beginPath();
+                ctx.moveTo(cx + dx * layerR1, cy + dy * layerR1);
+                ctx.lineTo(cx + dx * layerR2, cy + dy * layerR2);
+                ctx.stroke();
+            }
+            // draw rings
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#eee';
+            ctx.fillStyle = 'transparent';
+            for (let i = 0; i < layerCount; i++) {
+                const layerR = r + maxBinHeight + i * layerSize + 5;
+                // Canvas.drawCircle(ctx, cx, cy, layerR);
+                ctx.beginPath();
+                ctx.arc(cx, cy, layerR, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+
         // draw wegdes for 'good enough' (OK area)
-        ctx.fillStyle = '#f8f8f8';
+        ctx.fillStyle = '#f8f8f8aa';
         const wedgeSize = TWO_PI / binCount;
         const wedges = d3
             .range(grid1 * grid2)
             .map((d) => (TWO_PI / (grid1 * grid2)) * d - topOffs);
         const rWedge = height / 2;
+        ctx.beginPath();
         for (const g of wedges) {
             const dx1 = Math.cos(g - wedgeSize);
             const dy1 = Math.sin(g - wedgeSize);
@@ -227,39 +266,6 @@
             ctx.fill();
             ctx.strokeStyle = '#aaa';
             ctx.stroke();
-        }
-
-        // draw notes
-        if (adjustedNotes.length > 0) {
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = '#888';
-            const layerCount =
-                Math.floor(adjustedNotes.at(-1).time / circleSeconds) + 1;
-            const layerSize = (height / 2 - r - maxBinHeight - 10) / layerCount;
-            for (const [i, n] of adjustedNotes.entries()) {
-                // loudness
-                if (showLoudness) {
-                    ctx.lineWidth = n.velocity * 4;
-                }
-                // draw tick
-                const angle = (n.time / circleSeconds) * TWO_PI - topOffs;
-                const dx = Math.cos(angle);
-                const dy = Math.sin(angle);
-                const layer = Math.max(0, Math.floor(n.time / circleSeconds));
-                const layerR1 = r + maxBinHeight + layer * layerSize + 5;
-                const layerR2 = layerR1 + layerSize;
-                ctx.beginPath();
-                ctx.moveTo(cx + dx * layerR1, cy + dy * layerR1);
-                ctx.lineTo(cx + dx * layerR2, cy + dy * layerR2);
-                ctx.stroke();
-            }
-            // draw rings
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = '#eee';
-            for (let i = 0; i < layerCount; i++) {
-                const layerR = r + maxBinHeight + i * layerSize + 5;
-                Canvas.drawCircle(ctx, cx, cy, layerR);
-            }
         }
 
         // grid
