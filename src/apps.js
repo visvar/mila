@@ -26,6 +26,7 @@ import SubDivisionHistory from './apps/sub-division-history.svelte'
 import PitchOffsetCentsNeedle from './apps/pitch-offset-cents-needle.svelte'
 import DurationPies from './apps/duration-pies.svelte'
 import TempoChange from './apps/tempo-change.svelte'
+import ImprovisationNoteColors2 from './apps/improvisation-note-colors2.svelte'
 
 /**
  * All apps defined here
@@ -180,6 +181,20 @@ export const APPS = [
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
     component: ImprovisationNoteColors
+  },
+  {
+    id: 'improvisation-note-colors2',
+    title: 'Improvisation Note Colors 2',
+    description:
+      'See how often you use different kinds of notes in improvisation',
+    input: 'MIDI',
+    instruments: ['guitar/bass', 'keyboard'],
+    data: ['order', 'duration/ioi', 'pitch'],
+    skills: ['pitch-intervals', 'scale-degrees', 'scale-notes'],
+    patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note'],
+    timeScale: ['a few bars'],
+    difficulty: ['intermediate', 'advanced'],
+    component: ImprovisationNoteColors2
   },
   {
     id: 'improvisation-scale-degrees',

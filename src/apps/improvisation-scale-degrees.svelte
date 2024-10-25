@@ -50,7 +50,7 @@
             velocity: e.rawVelocity,
             time: noteInSeconds,
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 

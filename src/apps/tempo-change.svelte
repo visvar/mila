@@ -101,7 +101,7 @@
             notes.length === 0 ||
             Math.abs(noteInSeconds - notes.at(-1)) > minDist
         ) {
-            notes.push(noteInSeconds);
+            notes = [...notes, noteInSeconds];
         }
         draw();
     };

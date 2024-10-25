@@ -61,7 +61,7 @@
                 oldNote.end = noteInSeconds;
             }
         }
-        notes.push(note);
+        notes = [...notes, note];
         openNoteMap.set(e.note.number, note);
         draw();
     };

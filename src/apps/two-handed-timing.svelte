@@ -53,10 +53,11 @@
             firstTimeStamp = e.timestamp;
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        notes.push({
+        const note = {
             time: noteInSeconds,
             number: e.note.number,
-        });
+        };
+        notes = [...notes, note];
         draw();
     };
 

@@ -14,11 +14,15 @@
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
-    import { NOTE_TO_CHROMA_MAP } from '../lib/music';
+    import {
+        NOTE_TO_CHROMA_MAP,
+        SCALE_DEGREES_MAJOR,
+        SCALE_DEGREES_MINOR,
+    } from '../lib/music';
     import example from '../example-recordings/improvisation-note-colors.json';
     import FileDropTarget from '../common/file-drop-target.svelte';
-    import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import ScaleSelect from '../common/input-elements/scale-select.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -28,33 +32,27 @@
     let width = 900;
     let height = 300;
     let container;
-    // const noteNames = Midi.NOTE_NAMES_FLAT;
     const noteNames = Midi.NOTE_NAMES;
-    const rootColor = '#1B5E20';
-    const scale1Color = '#D4E157';
-    const scale2Color = '#689F38';
-    const restColor = 'lightgray';
     // settings
+    // let root = 'A';
     let root = 'C';
-    let scaleType1 = 'major';
-    $: scaleType2 = `${scaleType1} pentatonic`;
+    let scaleType = 'major';
     let pastNoteCount = 50;
     let showDuration = false;
-    let showLoudness = false;
     // data
     let firstTimeStamp;
     let notes = [];
     let openNoteMap = new Map();
-    $: scale1 = new Set(
-        Scale.get(`${root} ${scaleType1}`).notes.map(
-            (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
-        ),
+    $: scaleNotes = Scale.get(`${root} ${scaleType}`).notes.map(
+        (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
     );
-    $: scale2 = new Set(
-        Scale.get(`${root} ${scaleType2}`).notes.map(
-            (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
-        ),
-    );
+    $: scaleDegrees = [
+        ...(scaleType === 'major'
+            ? SCALE_DEGREES_MAJOR
+            : SCALE_DEGREES_MINOR
+        ).values(),
+    ];
+    let colorMap = ['#eee', ...d3.schemeObservable10];
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -98,22 +96,10 @@
     };
 
     const draw = () => {
-        const colorMap = noteNames.map((note) => {
-            if (note === root) {
-                return rootColor;
-            } else if (scale2.has(note)) {
-                return scale2Color;
-            } else if (scale1.has(note)) {
-                return scale1Color;
-            } else {
-                return restColor;
-            }
-        });
         const limited = notes.slice(-pastNoteCount);
         const durationLimit = 1;
         const plot = Plot.plot({
             width,
-            // height: showDuration ? height : height * 0.7,
             height,
             marginLeft: 50,
             marginBottom: 50,
@@ -128,15 +114,11 @@
                 labelAnchor: 'center',
             },
             color: {
-                domain: d3.range(12),
+                domain: d3.range(-1, 7),
                 range: colorMap,
-                // legend: true,
-                // tickFormat: (d) => Midi.NOTE_NAMES[d],
-                // marginLeft: 190,
-            },
-            opacity: {
-                domain: [0, 127],
-                range: [0.3, 1],
+                legend: true,
+                tickFormat: (d) => (d === -1 ? 'non-scale' : scaleNotes[d]),
+                marginLeft: 190,
             },
             marks: [
                 Plot.ruleY([0], {
@@ -152,9 +134,8 @@
                         }
                         return durationLimit;
                     },
-                    fill: (d) => d.number % 12,
-                    stroke: (d) => d.number % 12,
-                    opacity: showLoudness ? (d) => d.velocity : 1,
+                    fill: (d) => scaleNotes.indexOf(d.name),
+                    stroke: (d) => scaleNotes.indexOf(d.name),
                     fillOpacity: (d) =>
                         // if bar height is duration, show currently held notes without fill, only stroke
                         showDuration && d.duration === 0 ? 0 : 1,
@@ -183,8 +164,7 @@
     const getExportData = () => {
         return {
             root,
-            scaleType1,
-            scaleType2,
+            scaleType,
             pastNoteCount,
             showDuration,
             showLoudness,
@@ -199,8 +179,7 @@
     const loadData = (json) => {
         saveToStorage();
         root = json.root;
-        scaleType1 = json.scaleType1;
-        scaleType2 = json.scaleType2;
+        scaleType = json.scaleType;
         pastNoteCount = json.pastNoteCount;
         showDuration = json.showDuration;
         showLoudness = json.showLoudness;
@@ -225,48 +204,18 @@
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
-            This app helps practicing improvising in a scale that is a sub-set
-            of another scale. Notes that you play are shown as bars. The color
-            shows which scale subset a note belongs to. For example, when
-            improvising in C major pentatonic, the note C would be the darkest,
-            followed by the notes of the pentatonic in a brighter color, the
-            rest of the major scale even brighter, and all remaining notes of
-            the chromatic scale in gray. The bars' height encodes the notes'
-            durations.
+            This app helps practicing improvising in a scale by coloring the
+            different scale degrees to show you which you play when. Notes that
+            you play are shown as bars. Optionally, the bars' height encodes the
+            notes' durations. You can change the colors if you like.
         </p>
         <div class="control">
-            <SelectScollable
-                label="scale type 1"
-                bind:value="{scaleType1}"
+            <ScaleSelect
+                bind:scaleRoot="{root}"
+                bind:scaleType
                 callback="{draw}"
-                style="background-color: {scale1Color};"
-            >
-                {#each ['major', 'minor'] as s}
-                    <option value="{s}">{s}</option>
-                {/each}
-            </SelectScollable>
-            <SelectScollable
-                label="scale type 2"
-                bind:value="{scaleType2}"
-                callback="{draw}"
-                style="background-color: {scale2Color};"
-            >
-                {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
-                    <option value="{s}">{s}</option>
-                {/each}
-            </SelectScollable>
-            <SelectScollable
-                label="root note"
-                bind:value="{root}"
-                callback="{draw}"
-                style="background-color: {rootColor};"
-            >
-                {#each Midi.NOTE_NAMES as n}
-                    <option value="{n}">{n}</option>
-                {/each}
-            </SelectScollable>
-        </div>
-        <div class="control">
+                allowedScales="{['major', 'minor']}"
+            />
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
             <ToggleButton
                 bind:checked="{showDuration}"
@@ -274,30 +223,22 @@
                 title="Show duration in the bar's height?"
                 callback="{draw}"
             />
-            <ToggleButton
-                bind:checked="{showLoudness}"
-                label="show loudness"
-                title="Show loudness in the bar's opacity?"
-                callback="{draw}"
-            />
         </div>
         <div class="legend">
-            <!-- legend -->
-            <div style="background: {restColor}; width: 250px">
-                <div style="background: {scale1Color};">
-                    <div style="background: {scale2Color}; color: white">
-                        <div style="background: {rootColor}; color: white">
-                            root: {root}
-                        </div>
-                        {scaleType2}:<br />
-                        {[...d3.difference(scale2, [root])].join(', ')}
-                    </div>
-                    {scaleType1}:<br />
-                    {[...d3.difference(scale1, scale2)].join(', ')}
-                </div>
-                chromatic:<br />
-                {[...d3.difference(Midi.NOTE_NAMES, scale1)].join(', ')}
-            </div>
+            {#each scaleDegrees as degree, index}
+                <label title="change color">
+                    <input
+                        on:change="{(evt) => {
+                            colorMap[index + 1] = evt.target.value;
+                            colorMap = [...colorMap];
+                            draw();
+                        }}"
+                        type="color"
+                        value="{colorMap[index + 1]}"
+                    />
+                    {degree.name}
+                </label>
+            {/each}
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
@@ -340,11 +281,21 @@
 </FileDropTarget>
 
 <style>
-    .legend div {
-        margin: 0 auto 5px auto;
-        padding: 5px 15px;
-        /* width: fit-content; */
+    .legend label {
+        display: inline-flex;
+        align-items: center;
+        font-size: 10.5px;
+        margin: 0 5px;
+        padding: 0 5px;
         text-align: center;
-        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .legend input[type='color'] {
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        border: none;
+        outline: none;
     }
 </style>

@@ -22,7 +22,7 @@
     /**
      * maximum value
      */
-    export let max = 500;
+    export let max = Infinity;
     /**
      * step between values
      */

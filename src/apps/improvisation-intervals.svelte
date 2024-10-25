@@ -13,6 +13,8 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import { INTERVALS as intervalNames } from '../lib/music';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -21,11 +23,11 @@
 
     let width = 900;
     // let height = 650;
-    let height = 500;
+    let height = 400;
     let container;
     // settings
     let showUnison = true;
-    let useColors = true;
+    let intervalLimit = 40;
     // data
     let firstTimeStamp;
     let notes = [];
@@ -41,7 +43,7 @@
             velocity: e.rawVelocity,
             time: noteInSeconds,
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 
@@ -71,8 +73,9 @@
                 return { interval: int, count: grp.length };
             });
 
-        const padding = ' '.repeat(25);
+        const padding = ' '.repeat(20);
 
+        container.textContent = '';
         const plot = Plot.plot({
             width,
             height,
@@ -81,7 +84,7 @@
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             color: {
-                legend: useColors,
+                // legend: true,
                 domain: ['minor', 'major', 'perfect', 'tritone'],
                 range: ['#7da2e8', '#ed796a', 'gold', '#ccc'],
                 marginLeft: 100,
@@ -102,17 +105,59 @@
                     x: 'count',
                     y: 'interval',
                     // fill: '#ddd',
-                    fill: useColors
-                        ? (d) => intervalNames[Math.abs(d.interval)].type
-                        : '#ddd',
+                    fill: (d) => intervalNames[Math.abs(d.interval)].type,
                     dx: 0.5,
                     rx: 4,
-                    inset: 1,
                 }),
             ],
         });
-        container.textContent = '';
         container.appendChild(plot);
+        const plot2 = Plot.plot({
+            width,
+            height,
+            marginLeft: 125,
+            marginRight: 10,
+            marginTop: 30,
+            color: {
+                legend: true,
+                domain: ['minor', 'major', 'perfect', 'tritone'],
+                range: ['#7da2e8', '#ed796a', 'gold', '#ccc'],
+                marginLeft: 100,
+            },
+            x: { nice: true, label: 'intervals sorted by time', ticks: [] },
+            y: {
+                label: `🡸 going down ${padding}|${padding} going up 🡺     `,
+                reverse: true,
+                domain: d3.range(-12, 13, 1),
+                tickFormat: (d) =>
+                    d >= 0
+                        ? `${intervalNames[d].name} (${d})`
+                        : `${intervalNames[-d].name} (${d})`,
+                type: 'band',
+            },
+            marks: [
+                Plot.ruleY([-12, 0, 12], {
+                    stroke: '#888',
+                    strokeWidth: 1.5,
+                }),
+                Plot.rectY(intervals.slice(-intervalLimit), {
+                    x: (d, i) => i,
+                    fill: (d) => intervalNames[Math.abs(d)].type,
+                    rx: 4,
+                }),
+                intervalLimit <= 40
+                    ? Plot.textY(intervals.slice(-intervalLimit), {
+                          x: (d, i) => i,
+                          y: (d) => (d > 0 ? d + 1 : d - 1),
+                          text: (d) => intervalNames[Math.abs(d)].short,
+                          fill: 'black',
+                          stroke: 'white',
+                          strokeWidth: 3,
+                      })
+                    : null,
+            ],
+        });
+        container.appendChild(plot2);
     };
 
     onMount(draw);
@@ -123,7 +168,6 @@
     const getExportData = () => {
         return {
             showUnison,
-            useColors,
             // data
             notes,
         };
@@ -135,7 +179,6 @@
     const loadData = (json) => {
         saveToStorage();
         showUnison = json.showUnison;
-        useColors = json.useColors;
         // data
         notes = json.notes;
         draw();
@@ -165,7 +208,8 @@
             Colors denote the type of interval, so you can quickly see if you
             play, for example, more major or minor intervals. The intervals are
             labelled by their name and the number of semitones (negative when
-            going from higher to lower notes).
+            going from higher to lower notes). The second chart on the bottom
+            shows the intervals over time with the same colors.
         </p>
         <div class="control">
             <ToggleButton
@@ -174,11 +218,13 @@
                 bind:checked="{showUnison}"
                 callback="{draw}"
             />
-            <ToggleButton
-                label="colors"
-                title="Use colors for interval types"
-                bind:checked="{useColors}"
+            <NumberInput
+                title="The number of most recent notes that are shown as bars."
+                label="bars"
+                bind:value="{intervalLimit}"
                 callback="{draw}"
+                step="{10}"
+                min="{40}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
@@ -186,6 +232,7 @@
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

@@ -56,7 +56,7 @@
         if (notes.length > 0 && noteInSeconds - notes.at(-1) < minIOI) {
             return;
         }
-        notes.push(noteInSeconds);
+         notes = [...notes, noteInSeconds];
         draw();
     };
 

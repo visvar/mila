@@ -65,7 +65,7 @@
             fret: e.note.number - tuningPitches[string],
             channel: e.message.channel,
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 

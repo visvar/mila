@@ -52,7 +52,7 @@
             time: noteInSeconds,
             velocity: e.velocity,
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 

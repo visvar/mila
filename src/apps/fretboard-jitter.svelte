@@ -54,7 +54,7 @@
             stringJitter: string + random(),
             fretJitter: fret + random(),
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 

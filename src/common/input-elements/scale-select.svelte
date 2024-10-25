@@ -7,9 +7,13 @@
     export let scaleInfo = null;
     export let callback = () => {};
     export let disabled = false;
+    /**
+     * @type {string[]}
+     */
+    export let allowedScales = null;
 
     const noteNames = Midi.NOTE_NAMES_FLAT;
-    const scales = Scale.names().sort();
+    $: scales = allowedScales ?? Scale.names().sort();
 
     const update = (r, t) => {
         scaleInfo = Scale.get(`${r} ${t}`);

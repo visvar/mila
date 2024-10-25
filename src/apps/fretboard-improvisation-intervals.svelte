@@ -52,7 +52,7 @@
             string,
             fret: e.note.number - tuningPitches[string],
         };
-        notes.push(note);
+        notes = [...notes, note];
         draw();
     };
 

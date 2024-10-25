@@ -196,3 +196,31 @@ export const TEMPO_NAMES = new Map([
   ['Presto', 200],
   ['Prestissimo', 400]
 ])
+
+/**
+ * @see https://en.wikipedia.org/wiki/Degree_(music)
+ * @type {Map<number,object>}
+ */
+export const SCALE_DEGREES_MAJOR = new Map([
+  [1, { degree: 1, semitones: 0, short: 'Ton', name: 'Tonic', meaning: 'Tonal center, note of final resolution' }],
+  [2, { degree: 2, semitones: 2, short: 'SpT', name: 'Supertonic', meaning: 'One whole step above the tonic' }],
+  [3, { degree: 3, semitones: 4, short: 'Med', name: 'Mediant', meaning: 'Midway between tonic and dominant, (in minor key) tonic of relative major key' }],
+  [4, { degree: 4, semitones: 5, short: 'SbD', name: 'Subdominant', meaning: 'Lower dominant, happens to have the same interval below tonic as dominant is above tonic' }],
+  [5, { degree: 5, semitones: 7, short: 'Dom', name: 'Dominant', meaning: 'Second in importance to the tonic' }],
+  [6, { degree: 6, semitones: 9, short: 'SbM', name: 'Submediant', meaning: 'Lower mediant, midway between tonic and subdominant, (in major key) tonic of relative minor key' }],
+  [7, { degree: 7, semitones: 11, short: 'Lea', name: 'Leading tone', meaning: 'One whole step below tonic in natural minor scale' }],
+])
+
+/**
+ * @see https://en.wikipedia.org/wiki/Degree_(music)
+ * @type {Map<number,object>}
+ */
+export const SCALE_DEGREES_MINOR = new Map([
+  [1, { degree: 1, semitones: 0, short: 'Ton', name: 'Tonic', meaning: 'Tonal center, note of final resolution' }],
+  [2, { degree: 2, semitones: 2, short: 'SpT', name: 'Supertonic', meaning: 'One whole step above the tonic' }],
+  [3, { degree: 3, semitones: 3, short: 'Med', name: 'Mediant', meaning: 'Midway between tonic and dominant, (in minor key) tonic of relative major key' }],
+  [4, { degree: 4, semitones: 5, short: 'SbD', name: 'Subdominant', meaning: 'Lower dominant, happens to have the same interval below tonic as dominant is above tonic' }],
+  [5, { degree: 5, semitones: 7, short: 'Dom', name: 'Dominant', meaning: 'Second in importance to the tonic' }],
+  [6, { degree: 6, semitones: 8, short: 'SbM', name: 'Submediant', meaning: 'Lower mediant, midway between tonic and subdominant, (in major key) tonic of relative minor key' }],
+  [7, { degree: 7, semitones: 10, short: 'SbT', name: 'Subtonic', meaning: 'One whole step below tonic in natural minor scale' }],
+])
