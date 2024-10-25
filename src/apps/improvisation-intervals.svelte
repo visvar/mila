@@ -244,7 +244,10 @@
                 1) Play different notes and see which intervals are between
                 them.
             </p>
-            <p>2) Try to play only perfect 5ths.</p>
+            <p>
+                2) Try to play only perfect 5ths (for example, go through the
+                circle of fifths).
+            </p>
             <p>3) Try to play only perfect 5ths and major intervals.</p>
             <p>4) Try to play only perfect 5ths and minor intervals.</p>
         </ExerciseDrawer>

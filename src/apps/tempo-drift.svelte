@@ -1,9 +1,7 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
-    import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
-    import { secondsPerBeatToBpm } from '../lib/lib';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -21,6 +19,8 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import { noteEighth } from '../lib/icons';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -29,13 +29,14 @@
 
     let width = 900;
     // let height = 600;
-    let height = 500;
+    let height = 400;
     let container;
     // settings
     let tempo = 120;
     let binNote = 0;
     let filterNote = 64;
     let barLimit = 50;
+    let showEighthLine = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -80,6 +81,19 @@
             binnedIois = iois.map((d) => Math.round(d / binSize) * binSize);
         }
 
+        const slicedIois = binnedIois.slice(-barLimit);
+
+        // filter out all likely eight notes
+        const indexedIois = slicedIois.map((d, i) => {
+            return {
+                index: i,
+                duration: d,
+            };
+        });
+        const eightNotes = indexedIois.filter(
+            (d) => d.duration > 0.75 * eighth && d.duration < 1.25 * eighth,
+        );
+
         // TODO: color by distance to closest baseline
         // const colorByError = (ioi) => {
         //     return d3.min(rules, (r) => Math.abs((ioi - r) / r));
@@ -97,6 +111,7 @@
                 // label: 'inter-onset times between notes, sorted by time',
             },
             y: {
+                label: null,
                 ticks: rules,
                 tickFormat: (d) => {
                     const index = rules.indexOf(d);
@@ -112,7 +127,7 @@
             // },
             marks: [
                 // bars
-                Plot.barY(binnedIois.slice(-barLimit), {
+                Plot.barY(slicedIois, {
                     x: (d, i) => i,
                     y: (d) => d,
                     fill: '#ddd',
@@ -126,6 +141,16 @@
                 Plot.ruleY(rules, {
                     stroke: '#aaa',
                 }),
+                // eight note line
+                showEighthLine
+                    ? Plot.lineY(
+                          eightNotes,
+                          Plot.windowY(
+                              { k: 20, anchor: 'middle' },
+                              { x: 'index', y: 'duration', strokeWidth: 2 },
+                          ),
+                      )
+                    : null,
             ],
         });
         container.textContent = '';
@@ -166,6 +191,8 @@
             binNote,
             filterNote,
             barLimit,
+            showEighthLine,
+            // data
             notes,
         };
     };
@@ -176,6 +203,8 @@
         binNote = json.binNote ?? 'off';
         filterNote = json.filterNote ?? 'off';
         barLimit = json.barLimit;
+        showEighthLine = json.showEighthLine;
+        // data
         notes = json.notes;
         draw();
     };
@@ -256,6 +285,12 @@
                 step="{25}"
                 min="{25}"
                 max="{1000}"
+            />
+            <ToggleButton
+                label="{noteEighth} line"
+                title="Show a line for the (likely) eighth notes' duration over time."
+                bind:checked="{showEighthLine}"
+                callback="{draw}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>

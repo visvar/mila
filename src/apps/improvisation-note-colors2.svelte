@@ -284,7 +284,7 @@
     .legend label {
         display: inline-flex;
         align-items: center;
-        font-size: 10.5px;
+        font-size: 11px;
         margin: 0 5px;
         padding: 0 5px;
         text-align: center;
@@ -294,7 +294,7 @@
     .legend input[type='color'] {
         padding: 0;
         width: 20px;
-        height: 20px;
+        height: 22px;
         border: none;
         outline: none;
     }
