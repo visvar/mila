@@ -50,7 +50,8 @@
         // URL encoding
         // const encoded = encodeURI(serialized);
         const encoded = encodeURI(json);
-        const link = `${location.href.replace('&json=', '')}&json=${encoded}`;
+        const base = location.href.replace('&json=', '').replace('?json=', '');
+        const link = `${base}&json=${encoded}`;
         return link;
     };
 

@@ -203,7 +203,7 @@
         binNote = json.binNote ?? 'off';
         filterNote = json.filterNote ?? 'off';
         barLimit = json.barLimit;
-        showEighthLine = json.showEighthLine;
+        showEighthLine = json.showEighthLine ?? false;
         // data
         notes = json.notes;
         draw();
