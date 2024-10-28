@@ -37,14 +37,16 @@
         <p>{messages.length} messages received</p>
         <table>
             <thead>
-                <th>timestamp</th>
-                <th>manufacturer</th>
-                <th>name</th>
-                <th>channel</th>
-                <th>command</th>
-                <th>data</th>
-                <th>note</th>
-                <th>velocity</th>
+                <tr>
+                    <th>timestamp</th>
+                    <th>manufacturer</th>
+                    <th>name</th>
+                    <th>channel</th>
+                    <th>command</th>
+                    <th>data</th>
+                    <th>note</th>
+                    <th>velocity</th>
+                </tr>
             </thead>
             <tbody>
                 <!-- {#each messages as m (m.timestamp)} -->

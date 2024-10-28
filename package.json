@@ -15,6 +15,8 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "svelte": "^4.2.19",
+    "gh-pages": "^6.2.0",
+    "npm-check-updates": "^17.1.4",
     "vite": "^5.4.9"
   },
   "dependencies": {
@@ -31,9 +33,7 @@
     "fast-kde": "^0.2.2",
     "fflate": "^0.8.2",
     "file-saver": "^2.0.5",
-    "gh-pages": "^6.2.0",
     "musicvis-lib": "^0.57.1",
-    "npm-check-updates": "^17.1.4",
     "pitchy": "^4.1.0",
     "soundfont-player": "^0.12.0",
     "underscore": "^1.13.7",

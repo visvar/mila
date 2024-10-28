@@ -36,10 +36,12 @@
     <div class="visualization">
         <table>
             <thead>
-                <th>name</th>
-                {#each Midi.NOTE_NAMES as note}
-                    <th>{note}</th>
-                {/each}
+                <tr>
+                    <th>name</th>
+                    {#each Midi.NOTE_NAMES as note}
+                        <th>{note}</th>
+                    {/each}
+                </tr>
             </thead>
             <tbody>
                 {#each colorSchemes as scheme}

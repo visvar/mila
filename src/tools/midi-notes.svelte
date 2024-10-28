@@ -12,42 +12,46 @@
         <div>
             <h3>MIDI Notes</h3>
             <table>
-                <tr>
-                    <th>number</th>
-                    <th>name</th>
-                    <th>octave</th>
-                    <th>frequency (Hz)</th>
-                </tr>
-                {#each Midi.MIDI_NOTES as note}
+                <tbody>
                     <tr>
-                        <td>{note.pitch}</td>
-                        <td>{note.name}</td>
-                        <td>{note.octave}</td>
-                        <td>{note.frequency.toFixed(2)}</td>
+                        <th>number</th>
+                        <th>name</th>
+                        <th>octave</th>
+                        <th>frequency (Hz)</th>
                     </tr>
-                {/each}
+                    {#each Midi.MIDI_NOTES as note}
+                        <tr>
+                            <td>{note.pitch}</td>
+                            <td>{note.name}</td>
+                            <td>{note.octave}</td>
+                            <td>{note.frequency.toFixed(2)}</td>
+                        </tr>
+                    {/each}
+                </tbody>
             </table>
         </div>
 
         <div>
             <h3>Drum Notes</h3>
             <table>
-                <tr>
-                    <th>number</th>
-                    <th>name</th>
-                    <th>label</th>
-                    <th>MIDI note</th>
-                </tr>
-                {#each [...drumPitchReplacementMapMD90.entries()].map( ([key, value]) => {
-                        return { pitch: key, ...value };
-                    }, ) as note}
+                <tbody>
                     <tr>
-                        <td>{note.pitch}</td>
-                        <td>{note.name}</td>
-                        <td>{note.label}</td>
-                        <td>{Midi.MIDI_NOTES[note.pitch].label}</td>
+                        <th>number</th>
+                        <th>name</th>
+                        <th>label</th>
+                        <th>MIDI note</th>
                     </tr>
-                {/each}
+                    {#each [...drumPitchReplacementMapMD90.entries()].map( ([key, value]) => {
+                            return { pitch: key, ...value };
+                        }, ) as note}
+                        <tr>
+                            <td>{note.pitch}</td>
+                            <td>{note.name}</td>
+                            <td>{note.label}</td>
+                            <td>{Midi.MIDI_NOTES[note.pitch].label}</td>
+                        </tr>
+                    {/each}
+                </tbody>
             </table>
         </div>
     </div>

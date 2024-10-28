@@ -143,66 +143,76 @@
     <HelpTextDrawer heading="Inputs and Instruments">
         <table>
             <thead>
-                <th style="min-width: 270px">app</th>
-                <th
-                    colspan="2"
-                    style="border-bottom: 4px solid {d3.schemeObservable10[0]};"
-                >
-                    input
-                </th>
-                <th class="spacer"></th>
-                <th
-                    colspan="{allInstruments.size}"
-                    style="border-bottom: 4px solid {d3.schemeObservable10[1]};"
-                >
-                    instrument
-                </th>
-                <th class="spacer"></th>
-                <th
-                    colspan="{allData.size}"
-                    style="border-bottom: 4px solid {d3.schemeObservable10[2]};"
-                >
-                    data
-                </th>
-                <th class="spacer"></th>
-                <th
-                    colspan="{allTimeScales.length}"
-                    style="border-bottom: 4px solid {d3.schemeObservable10[3]};"
-                >
-                    time scale
-                </th>
+                <tr>
+                    <th style="min-width: 270px">app</th>
+                    <th
+                        colspan="2"
+                        style="border-bottom: 4px solid {d3
+                            .schemeObservable10[0]};"
+                    >
+                        input
+                    </th>
+                    <th class="spacer"></th>
+                    <th
+                        colspan="{allInstruments.size}"
+                        style="border-bottom: 4px solid {d3
+                            .schemeObservable10[1]};"
+                    >
+                        instrument
+                    </th>
+                    <th class="spacer"></th>
+                    <th
+                        colspan="{allData.size}"
+                        style="border-bottom: 4px solid {d3
+                            .schemeObservable10[2]};"
+                    >
+                        data
+                    </th>
+                    <th class="spacer"></th>
+                    <th
+                        colspan="{allTimeScales.length}"
+                        style="border-bottom: 4px solid {d3
+                            .schemeObservable10[3]};"
+                    >
+                        time scale
+                    </th>
+                </tr>
             </thead>
             <thead>
-                <th></th>
-                <!-- input -->
-                <th class="small">MIDI</th>
-                <th class="small">audio</th>
-                <!-- instrument -->
-                <th class="spacer"></th>
-                {#each [...allInstruments] as i}
-                    <th class="small">{i}</th>
-                {/each}
-                <!-- data -->
-                <th class="spacer"></th>
-                {#each [...allData] as d}
-                    <th class="small">{d}</th>
-                {/each}
-                <!-- time scale -->
-                <th class="spacer"></th>
-                {#each allTimeScales as d}
-                    <th class="small">{d}</th>
-                {/each}
+                <tr>
+                    <th></th>
+                    <!-- input -->
+                    <th class="small">MIDI</th>
+                    <th class="small">audio</th>
+                    <!-- instrument -->
+                    <th class="spacer"></th>
+                    {#each [...allInstruments] as i}
+                        <th class="small">{i}</th>
+                    {/each}
+                    <!-- data -->
+                    <th class="spacer"></th>
+                    {#each [...allData] as d}
+                        <th class="small">{d}</th>
+                    {/each}
+                    <!-- time scale -->
+                    <th class="spacer"></th>
+                    {#each allTimeScales as d}
+                        <th class="small">{d}</th>
+                    {/each}
+                </tr>
             </thead>
             <thead>
-                <th></th>
-                <!-- input -->
-                <th colspan="2"></th>
-                <!-- instrument -->
-                <th colspan="{allInstruments.size}"></th>
-                <!-- instrument -->
-                <th colspan="{allInstruments.size}"></th>
-                <!-- time scale -->
-                <th colspan="{allTimeScales.length}"></th>
+                <tr>
+                    <th></th>
+                    <!-- input -->
+                    <th colspan="2"></th>
+                    <!-- instrument -->
+                    <th colspan="{allInstruments.size}"></th>
+                    <!-- instrument -->
+                    <th colspan="{allInstruments.size}"></th>
+                    <!-- time scale -->
+                    <th colspan="{allTimeScales.length}"></th>
+                </tr>
             </thead>
             <tbody>
                 {#each apps as d}
@@ -263,29 +273,32 @@
     <HelpTextDrawer heading="Skills">
         <table>
             <thead>
-                <th style="min-width: 270px">app</th>
-                <!-- skill -->
-                {#each SKILL_TREE as s, index}
-                    <th
-                        colspan="{s.children.length}"
-                        style="border-bottom: 4px solid {d3.schemeObservable10[
-                            index
-                        ]}"
-                    >
-                        {s.title}
-                    </th>
-                    <th class="spacer"></th>
-                {/each}
+                <tr>
+                    <th style="min-width: 270px">app</th>
+                    <!-- skill -->
+                    {#each SKILL_TREE as s, index}
+                        <th
+                            colspan="{s.children.length}"
+                            style="border-bottom: 4px solid {d3
+                                .schemeObservable10[index]}"
+                        >
+                            {s.title}
+                        </th>
+                        <th class="spacer"></th>
+                    {/each}
+                </tr>
             </thead>
             <thead>
-                <th></th>
-                <!-- skill -->
-                {#each SKILL_TREE as s}
-                    {#each s.children as skill}
-                        <th class="small">{skill.title}</th>
+                <tr>
+                    <th></th>
+                    <!-- skill -->
+                    {#each SKILL_TREE as s}
+                        {#each s.children as skill}
+                            <th class="small">{skill.title}</th>
+                        {/each}
+                        <th class="spacer"></th>
                     {/each}
-                    <th class="spacer"></th>
-                {/each}
+                </tr>
             </thead>
             <tbody>
                 {#each apps as d}
@@ -324,11 +337,13 @@
     <HelpTextDrawer heading="Design Patterns">
         <table>
             <thead>
-                <th style="min-width: 270px">app</th>
-                <!-- patterns -->
-                {#each [...allPatterns] as d}
-                    <th class="small">{d}</th>
-                {/each}
+                <tr>
+                    <th style="min-width: 270px">app</th>
+                    <!-- patterns -->
+                    {#each [...allPatterns] as d}
+                        <th class="small">{d}</th>
+                    {/each}
+                </tr>
             </thead>
             <tbody>
                 {#each apps as d}
@@ -359,11 +374,13 @@
     <HelpTextDrawer heading="Difficulty">
         <table>
             <thead>
-                <th style="min-width: 270px">app</th>
-                <!-- patterns -->
-                {#each ['beginner', 'intermediate', 'advanced'] as d}
-                    <th class="small">{d}</th>
-                {/each}
+                <tr>
+                    <th style="min-width: 270px">app</th>
+                    <!-- patterns -->
+                    {#each ['beginner', 'intermediate', 'advanced'] as d}
+                        <th class="small">{d}</th>
+                    {/each}
+                </tr>
             </thead>
             <tbody>
                 {#each apps as d}
@@ -393,9 +410,11 @@
     <HelpTextDrawer heading="Skill Descriptions">
         <table style="text-align: left;">
             <thead>
-                <th style="width: fit-content">category</th>
-                <th style="width: fit-content">skill</th>
-                <th>explanation</th>
+                <tr>
+                    <th style="width: fit-content">category</th>
+                    <th style="width: fit-content">skill</th>
+                    <th>explanation</th>
+                </tr>
             </thead>
             <tbody>
                 {#each SKILL_TREE as node}

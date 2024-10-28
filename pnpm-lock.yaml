@@ -47,15 +47,9 @@ importers:
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
-      gh-pages:
-        specifier: ^6.2.0
-        version: 6.2.0
       musicvis-lib:
         specifier: ^0.57.1
         version: 0.57.1
-      npm-check-updates:
-        specifier: ^17.1.4
-        version: 17.1.4
       pitchy:
         specifier: ^4.1.0
         version: 4.1.0
@@ -72,6 +66,12 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.1.2
         version: 3.1.2(svelte@4.2.19)(vite@5.4.9(@types/node@22.7.2))
+      gh-pages:
+        specifier: ^6.2.0
+        version: 6.2.0
+      npm-check-updates:
+        specifier: ^17.1.4
+        version: 17.1.4
       svelte:
         specifier: ^4.2.19
         version: 4.2.19
