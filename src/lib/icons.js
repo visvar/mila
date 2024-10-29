@@ -28,6 +28,7 @@ export const microphoneIcon2 = '🎤'
 
 export const upArrowIcon = '⬆'
 export const downArrowIcon = '⬇'
+export const upDownArrowIcon = '⇅'
 
 export const starIcon = '⭐'
 

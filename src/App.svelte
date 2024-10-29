@@ -15,6 +15,7 @@
   import PcKeyboardInput from './common/input-handlers/pc-keyboard-input.svelte';
   import AppTileTags from './common/app-tile-tags.svelte';
   import SelectScollable from './common/input-elements/select-scollable.svelte';
+  import { upDownArrowIcon } from './lib/icons';
 
   let currentApp = null;
 
@@ -216,7 +217,6 @@
         </div>
         <!-- sort -->
         <div>
-          <h2>sorting and layout</h2>
           <SelectScollable
             bind:value="{sortAppsBy}"
             callback="{(e) => {
@@ -224,9 +224,9 @@
             }}"
             style="margin-left: -10px"
           >
-            <option value="title">title (A-Z)</option>
-            <option value="used">most used</option>
-            <option value="recent">recently used</option>
+            <option value="title">{upDownArrowIcon} title (A-Z)</option>
+            <option value="used">{upDownArrowIcon} most used</option>
+            <option value="recent">{upDownArrowIcon} recently used</option>
           </SelectScollable>
           <!-- layout -->
           <button
