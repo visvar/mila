@@ -2,10 +2,9 @@
     import { onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
-    import { Scale } from '@tonaljs/tonal';
+    import { Chord, Scale } from '@tonaljs/tonal';
     import { clamp } from '../lib/lib';
     import { Midi } from 'musicvis-lib';
-    import NoteCountInput from '../common/input-elements/note-count-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
@@ -23,22 +22,25 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import ScaleSelect from '../common/input-elements/scale-select.svelte';
+    import { detectChords } from '../lib/chords';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import SelectScollable from '../common/input-elements/select-scollable.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    let width = 900;
-    let height = 300;
+    let width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     let container;
     const noteNames = Midi.NOTE_NAMES;
     // settings
     // let root = 'A';
     let root = 'C';
     let scaleType = 'major';
-    let pastNoteCount = 50;
-    let showDuration = false;
+    let barCount = 50;
+    let maxNoteDistance = 0.1;
+    let showDuration = true;
     // data
     let firstTimeStamp;
     let notes = [];
@@ -52,7 +54,41 @@
             : SCALE_DEGREES_MINOR
         ).values(),
     ];
-    let colorMap = ['#eee', ...d3.schemeObservable10];
+    // let colorMap = ['#eee', ...d3.schemeObservable10];
+    let colorMapIndex = 0;
+    const colorMaps = [
+        {
+            label: 'all',
+            colors: ['#eee', ...d3.schemeTableau10],
+        },
+        {
+            label: '1 4 7',
+            colors: [
+                '#eeeeee',
+                d3.schemeTableau10[0],
+                '#dddddd',
+                '#dddddd',
+                d3.schemeTableau10[1],
+                '#dddddd',
+                '#dddddd',
+                d3.schemeTableau10[2],
+            ],
+        },
+        {
+            label: '1 4 5 7',
+            colors: [
+                '#eeeeee',
+                d3.schemeTableau10[0],
+                '#dddddd',
+                '#dddddd',
+                d3.schemeTableau10[1],
+                d3.schemeTableau10[2],
+                '#dddddd',
+                d3.schemeTableau10[3],
+            ],
+        },
+    ];
+    $: colorMap = colorMaps[colorMapIndex];
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -91,17 +127,19 @@
 
     const controlChange = (e) => {
         const clamped = clamp(e.rawValue * 2, 20, 250);
-        pastNoteCount = clamped;
+        barCount = clamped;
         draw();
     };
 
     const draw = () => {
-        const limited = notes.slice(-pastNoteCount);
+        const limited = notes.slice(-barCount);
         const durationLimit = 1;
+        container.textContent = '';
         const plot = Plot.plot({
             width,
-            height,
-            marginLeft: 50,
+            height: 250,
+            marginLeft: 45,
+            marginRight: 10,
             marginBottom: 50,
             padding: 0,
             x: {
@@ -115,10 +153,11 @@
             },
             color: {
                 domain: d3.range(-1, 7),
-                range: colorMap,
+                range: colorMap.colors,
                 legend: true,
                 tickFormat: (d) => (d === -1 ? 'non-scale' : scaleNotes[d]),
-                marginLeft: 190,
+                width: 500,
+                marginLeft: width / 2 - 250,
             },
             marks: [
                 Plot.ruleY([0], {
@@ -152,8 +191,82 @@
                 }),
             ],
         });
-        container.textContent = '';
         container.appendChild(plot);
+
+        // chords
+        const chords = detectChords(notes, maxNoteDistance)
+            .slice(-barCount)
+            // sort notes in chord by pitch
+            .map((c) => c.sort((a, b) => a.number - b.number));
+        const chordNames = chords.map((chord) =>
+            Chord.detect(chord.map((d) => d.name)),
+        );
+        const chordNotes = chords.flatMap((chord, chordIndex) =>
+            chord.map((n, noteIndex) => {
+                return { ...n, chordIndex, noteIndex };
+            }),
+        );
+
+        const chordPlot = Plot.plot({
+            width,
+            height: 300,
+            marginLeft: 30,
+            marginRight: 50,
+            marginBottom: 120,
+            padding: 0,
+            x: {
+                axis: false,
+            },
+            y: {
+                ticks: [],
+                label: 'chord notes sorted by pitch',
+                labelAnchor: 'center',
+            },
+            color: {
+                domain: d3.range(-1, 7),
+                range: colorMap.colors,
+            },
+            marks: [
+                Plot.ruleY([0], {
+                    stroke: '#ddd',
+                }),
+                Plot.rectY(chordNotes, {
+                    // y: 'noteIndex',
+                    // sort: { color: null, y: 'noteIndex' },
+                    y1: (d) => d.noteIndex,
+                    y2: (d) => d.noteIndex + 1,
+                    x: 'chordIndex',
+                    fill: (d) => scaleNotes.indexOf(d.name),
+                    stroke: (d) => scaleNotes.indexOf(d.name),
+                    offset: 'normalize',
+                    rx: 4,
+                    inset: 1.5,
+                    // fillOpacity: (d) => (d.duration === 0 ? 0 : 1),
+                }),
+                // chord note text labels
+                Plot.text(chordNotes, {
+                    x: 'chordIndex',
+                    y: 'noteIndex',
+                    text: (d) => d.name.split('').join('\n'),
+                    fontSize: 10,
+                    fill: 'black',
+                    stroke: '#eee',
+                    strokeWidth: 2,
+                    dy: -12,
+                }),
+                // chord names, if detected
+                Plot.text(chordNames, {
+                    x: (d, i) => i,
+                    y: 0,
+                    text: (d) => d.join('   '),
+                    fontSize: 10,
+                    dy: 8,
+                    rotate: 45,
+                    textAnchor: 'start',
+                }),
+            ],
+        });
+        container.appendChild(chordPlot);
     };
 
     onMount(draw);
@@ -165,7 +278,7 @@
         return {
             root,
             scaleType,
-            pastNoteCount,
+            pastNoteCount: barCount,
             showDuration,
             // data
             notes,
@@ -179,7 +292,7 @@
         saveToStorage();
         root = json.root;
         scaleType = json.scaleType;
-        pastNoteCount = json.pastNoteCount;
+        barCount = json.pastNoteCount;
         showDuration = json.showDuration;
         // data
         notes = json.notes;
@@ -214,25 +327,55 @@
                 callback="{draw}"
                 allowedScales="{['major', 'minor']}"
             />
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <NumberInput
+                title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
+                label="max. note distance"
+                bind:value="{maxNoteDistance}"
+                callback="{draw}"
+                min="{0.05}"
+                max="{2}"
+                step="{0.05}"
+            />
+            <NumberInput
+                title="The number of played chords that is displayed"
+                label="chord count"
+                bind:value="{barCount}"
+                callback="{draw}"
+                min="{10}"
+                max="{100}"
+                step="{10}"
+            />
             <ToggleButton
                 bind:checked="{showDuration}"
                 label="show duration"
                 title="Show duration in the bar's height?"
                 callback="{draw}"
             />
+            <SelectScollable
+                label="colors"
+                title="Choose a color map"
+                bind:value="{colorMapIndex}"
+                callback="{draw}"
+            >
+                {#each colorMaps as cm, index}
+                    <option value="{index}">{cm.label}</option>
+                {/each}
+            </SelectScollable>
         </div>
         <div class="legend">
             {#each scaleDegrees as degree, index}
                 <label title="change color">
                     <input
                         on:change="{(evt) => {
-                            colorMap[index + 1] = evt.target.value;
-                            colorMap = [...colorMap];
+                            colorMap.colors[index + 1] = evt.target.value;
+                            colorMap = {
+                                ...colorMap,
+                                colors: [...colorMap.colors],
+                            };
                             draw();
                         }}"
                         type="color"
-                        value="{colorMap[index + 1]}"
+                        value="{colorMap.colors?.[index + 1]}"
                     />
                     {degree.name}
                 </label>

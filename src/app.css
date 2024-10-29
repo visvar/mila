@@ -36,7 +36,7 @@ body {
 
 #app {
   width: 100%;
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 0 repeat(3, 10px);
   text-align: center;
@@ -48,6 +48,7 @@ header {
   background-color: var(--accent);
   border-radius: 0 0 8px 8px;
   display: flex;
+  justify-content: center;
 }
 
 header nav {
@@ -276,15 +277,18 @@ div.grid.rows div.current-filters {
 /* apps */
 
 .app {
-  width: 940px;
+  /* width: 940px; */
   margin: 10px auto;
 }
 
 div.control,
 div.visualization {
-  width: 900px;
   margin: 10px auto;
   user-select: none;
+}
+
+div.control {
+  width: 900px;
 }
 
 div.visualization {

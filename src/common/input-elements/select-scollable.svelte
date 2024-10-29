@@ -1,6 +1,8 @@
 <script>
     /**
      * a <select> that can be scrolled through with the mouse wheel
+     *
+     * The <option> values can only be strings or numbers
      */
 
     /**
@@ -29,6 +31,7 @@
         const values = options.map((d) => d.value);
         // get index o current value
         let currentIndex = values.indexOf(value);
+
         if (currentIndex === -1) {
             // try string
             currentIndex = values.indexOf(value.toString());
