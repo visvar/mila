@@ -34,6 +34,7 @@ body {
   min-width: 960px;
   min-height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #app {
@@ -331,6 +332,10 @@ code {
 @media only screen and (max-width: 1300px) {
   :root {
     --home-app-columns: 2
+  }
+
+  body {
+    overflow-x: auto;
   }
 
   header {

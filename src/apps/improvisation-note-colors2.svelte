@@ -25,7 +25,6 @@
   import { detectChords } from '../lib/chords';
   import NumberInput from '../common/input-elements/number-input.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
-  import FakeMidiInput from '../common/input-handlers/fake-midi-input.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -425,9 +424,8 @@
       </p>
       <p>4) Improvise in a scale you do not know yet.</p>
     </ExerciseDrawer>
-    <FakeMidiInput {noteOn} {noteOff} />
+    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} />
   </main>
 </FileDropTarget>
 

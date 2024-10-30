@@ -19,7 +19,6 @@
   import example from '../example-recordings/keyboard-histogram.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
-  import FakeMidiInput from '../common/input-handlers/fake-midi-input.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -249,8 +248,7 @@
         for the same amount of notes.
       </p>
     </ExerciseDrawer>
-    <FakeMidiInput {noteOn} />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {controlChange} />
+    <MidiInput {noteOn} {controlChange} pcKeyAllowed />
   </main>
 </FileDropTarget>

@@ -416,8 +416,8 @@
       </p>
       <p>4) Improvise in a scale you do not know yet.</p>
     </ExerciseDrawer>
+    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} />
   </main>
 </FileDropTarget>
 
