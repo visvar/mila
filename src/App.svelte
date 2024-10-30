@@ -66,7 +66,7 @@
       };
     }
     const appClicks = usage.appClicks;
-    if (currentApp) {
+    if (currentApp && currentApp.id) {
       const thisAppUsage = appClicks[currentApp.id] ?? [];
       thisAppUsage.push(new Date().toISOString());
       appClicks[currentApp.id] = thisAppUsage;
@@ -83,13 +83,9 @@
       );
     }
   }
-  // log data usage
-  // console.log('localStorage space', localStorageReport());
-  // console.log('usage data', localStorageGetUsageData());
 
   // tags
   const allInputs = new Set(APPS.flatMap((d) => d.input).sort());
-  // const allInstruments = new Set(APPS.flatMap((d) => d.instruments).sort());
   const allInstruments = new Set([
     'drum',
     'guitar/bass',
