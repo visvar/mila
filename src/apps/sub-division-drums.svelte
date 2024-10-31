@@ -20,11 +20,15 @@
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
     import UndoRedoButton from '../common/input-elements/undo-redo-button.svelte';
-    import example from '../example-recordings/sub-division-drums_old.json';
+    import example from '../example-recordings/sub-division-drums.json';
+    import example1 from '../example-recordings/sub-division-drums-e1.json';
+    import example2 from '../example-recordings/sub-division-drums-e2.json';
+    import example4 from '../example-recordings/sub-division-drums-e4.json';
     import NumberInput from '../common/input-elements/number-input.svelte';
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -217,9 +221,13 @@
     };
 
     const saveToStorage = () => {
+        const json = JSON.stringify(notes);
         if (
-            notes.length > 0
-            // && JSON.stringify(notes) !== JSON.stringify(example.notes)
+            notes.length > 0 &&
+            json !== JSON.stringify(example.notes) &&
+            json !== JSON.stringify(example1.notes) &&
+            json !== JSON.stringify(example2.notes) &&
+            json !== JSON.stringify(example4.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -279,6 +287,7 @@
                 callback="{draw}"
                 min="{1}"
                 max="{100}"
+                step="{4}"
             />
             <button
                 title="Toggle between an area chart and a histogram of the note density"
@@ -306,12 +315,26 @@
             />
         </div>
         <ExerciseDrawer>
-            <p>1) Play the kick on beat 1 and 3 and the snare on 2 and 4.</p>
-            <p>2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.</p>
+            <p>
+                1) Play the kick on beat 1 and 3 and the snare on 2 and 4.
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                2) Play 1) and add the hi-hat on beat 1, 2, 3, 4. <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                >
+                    example
+                </InsideTextButton>
+            </p>
             <p>3) Play 2) and sometimes add a fill on the toms.</p>
             <p>
                 4) Play a swing feel, where you shift every second note a bit
                 late. Try to do this consistently!
+                <InsideTextButton onclick="{() => loadData(example4)}">
+                    example
+                </InsideTextButton>
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
@@ -337,14 +360,4 @@
         />
         <MidiInput {noteOn} {controlChange} />
     </main>
-
-    <style>
-        code {
-            margin-right: 2px;
-            padding: 4px;
-            border-radius: 4px;
-            background-color: #eee;
-            box-shadow: #ccc 1px 1px;
-        }
-    </style>
 </FileDropTarget>

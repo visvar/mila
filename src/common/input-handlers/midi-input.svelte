@@ -138,7 +138,9 @@
         class="right">-</button
       >
     </div>
-    <div>Notes: a = C, w = C#, s = B, ...</div>
+    <div>
+      Notes: <code>a</code> = C, <code>w</code> = C#, <code>s</code> = B, ...
+    </div>
   </main>
 {/if}
 

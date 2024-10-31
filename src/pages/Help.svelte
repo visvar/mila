@@ -1,5 +1,5 @@
 <script>
-    import HelpTextDrawer from './common/help-text-drawer.svelte';
+    import HelpTextDrawer from '../common/help-text-drawer.svelte';
 </script>
 
 <main>
@@ -144,13 +144,5 @@
 
     ul li {
         margin-bottom: 2px;
-    }
-
-    code {
-        margin-right: 2px;
-        padding: 4px;
-        border-radius: 4px;
-        background-color: #eee;
-        box-shadow: #ccc 1px 1px;
     }
 </style>

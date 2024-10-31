@@ -3,13 +3,13 @@
   import { getUrlParam, setUrlParam } from './lib/url';
   import { getNumberOfDaysPassed, setHasAny, updSet } from './lib/lib';
   // side bar for skill filtering
-  import SkillTree from './SkillTree.svelte';
+  import SkillTree from './pages/SkillTree.svelte';
   // pages for tools etc
   import Tools from './tools/_tools.svelte';
-  import Settings from './Settings.svelte';
-  import Overview from './Overview.svelte';
-  import Help from './Help.svelte';
-  import Welcome from './Welcome.svelte';
+  import Settings from './pages/Settings.svelte';
+  import Overview from './pages/Overview.svelte';
+  import Help from './pages/Help.svelte';
+  import Welcome from './pages/Welcome.svelte';
   // APPS
   import { APPS } from './apps';
   import PcKeyboardInput from './common/input-handlers/pc-keyboard-input.svelte';

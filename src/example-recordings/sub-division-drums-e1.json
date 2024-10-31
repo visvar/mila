@@ -1,0 +1,133 @@
+{
+  "tempo": 60,
+  "grid": "4:1",
+  "binNote": 64,
+  "adjustTime": 0,
+  "pastBars": 4,
+  "showKde": true,
+  "notes": [
+    {
+      "time": 0,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 1.072,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 1.9997999999523164,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 3.023700000047684,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 4.0477000000476835,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 5.0477000000476835,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 6.047799999952316,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 7.0957000000476835,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 8.023700000047684,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 8.999799999952316,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 9.975799999952317,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 11.047700000047683,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 12.0235,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 13.047799999952316,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 13.999700000047683,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 15.047600000023841,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 16.0235,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 17.023799999952317,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 18.11960000002384,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 19.0235,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 20.0075,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 21.031600000023843,
+      "number": 38,
+      "drum": "SN"
+    },
+    {
+      "time": 22.03139999997616,
+      "number": 36,
+      "drum": "KD"
+    },
+    {
+      "time": 23.00739999997616,
+      "number": 38,
+      "drum": "SN"
+    }
+  ],
+  "_appId": "sub-division-drums",
+  "_softwareVersion": "0.19.4",
+  "_date": "2024-10-31T10:20:28.495Z"
+}

@@ -1,10 +1,10 @@
 <script>
-    import { SKILL_TREE } from './lib/skills';
+    import { SKILL_TREE } from '../lib/skills';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { onMount } from 'svelte';
-    import { APPS } from './apps';
-    import HelpTextDrawer from './common/help-text-drawer.svelte';
+    import { APPS } from '../apps';
+    import HelpTextDrawer from '../common/help-text-drawer.svelte';
 
     export let apps = [];
     // export let allInstruments = new Set();

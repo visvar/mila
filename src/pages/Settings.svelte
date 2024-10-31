@@ -1,6 +1,6 @@
 <script>
   import saveAs from 'file-saver';
-  import { localStorageReport, SETTINGS_KEY } from './lib/localstorage';
+  import { localStorageReport, SETTINGS_KEY } from '../lib/localstorage';
   let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? '{}');
 
   const updateSetting = (key, value) => {

@@ -13,12 +13,15 @@
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/input-elements/history-button.svelte';
     import example from '../example-recordings/accents.json';
+    import example1 from '../example-recordings/accents-e1.json';
+    import example2 from '../example-recordings/accents-e2.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { FILTER_NOTES, VELOCITIES_LOGIC } from '../lib/music.js';
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -109,22 +112,30 @@
             .filter((d) => useDotted || !d.dotted)
             .filter((d) => useTuplets || !d.tuplet);
         const bestFit = deltas.slice(1).map((delta) => {
-            const bestIndex = d3.minIndex(possible, (d) =>
+            // best fitting duration
+            const bestDurIndex = d3.minIndex(possible, (d) =>
                 Math.abs(delta.delta - d.beats),
             );
-            const best = possible[bestIndex];
+            const bestDur = possible[bestDurIndex];
+            // best fitting dynamics
+            const possibleDyn = [...VELOCITIES_LOGIC.entries()];
+            const bestIndex = d3.minIndex(possibleDyn, (d) =>
+                Math.abs(delta.velocity * 127 - d[0]),
+            );
+            const bestDyn = possibleDyn[bestIndex][1];
             return {
-                ...best,
+                ...bestDur,
                 beats: delta,
                 velocity: delta.velocity,
-                offsetPercent: ((delta.delta / best.beats) * 100).toFixed(),
+                velocityLabel: bestDyn,
+                offsetPercent: ((delta.delta / bestDur.beats) * 100).toFixed(),
             };
         });
         // plot
         const plot = Plot.plot({
             width,
             height: 110,
-            marginTop: 30,
+            marginTop: 50,
             marginLeft: 20,
             marginRight: 20,
             marginBottom: 10,
@@ -135,8 +146,11 @@
                 domain: d3.range(1, pastNoteCount),
                 ticks: [],
             },
-            y: {},
+            y: {
+                axis: false,
+            },
             marks: [
+                // note symbols
                 Plot.text(bestFit, {
                     text: 'symbol',
                     x: (d, i) => i,
@@ -144,6 +158,14 @@
                         velocityThreshold > 0
                             ? (d) => (d.velocity < velocityThreshold ? 35 : 70)
                             : (d) => d.velocity * 60 + 10,
+                    y: 1,
+                }),
+                // dynamics as text
+                Plot.text(bestFit, {
+                    text: 'velocityLabel',
+                    x: (d, i) => i,
+                    y: 0,
+                    fill: '#888',
                 }),
             ],
         });
@@ -183,9 +205,12 @@
     };
 
     const saveToStorage = () => {
+        const json = JSON.stringify(notes);
         if (
             notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
+            json !== JSON.stringify(example.notes) &&
+            json !== JSON.stringify(example1.notes) &&
+            json !== JSON.stringify(example2.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -270,8 +295,16 @@
             <p>
                 1) Play quarter notes and accent the first one in each group of
                 4.
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    example
+                </InsideTextButton>
             </p>
-            <p>2) Play triplets and accent the first note in each triplet.</p>
+            <p>
+                2) Play triplets and accent the first note in each triplet.
+                <InsideTextButton onclick="{() => loadData(example2)}">
+                    example
+                </InsideTextButton>
+            </p>
             <p>
                 3) Switch between triplets and sixteenth notes and accent the
                 first note in each group of 3 and 4.

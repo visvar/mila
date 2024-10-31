@@ -308,9 +308,12 @@ p.explanation {
 
 /* used for keyboard shortcut styling */
 code {
-  background-color: #eee;
+  margin-right: 2px;
   padding: 4px;
   border-radius: 4px;
+  background-color: #eee;
+  box-shadow: #ccc 1px 1px;
+  user-select: none;
 }
 
 

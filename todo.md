@@ -1,11 +1,17 @@
 # TODO
 
-- features
-  - wide mode, allow to toggle to a 'full screen with' mode for some vis
+## New features
 
-- refactoring
-  - update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
-    - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
-  - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
-  - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
-  - use an effect instead of calling draw()
+- wide mode, allow to toggle to a 'full screen width' mode for some vis
+
+## Fixes and improvements
+
+- re-think auto-saving and how to handle examples
+
+## Refactoring
+
+- update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
+  - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
+- use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
+- use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
+- use an effect instead of calling draw()

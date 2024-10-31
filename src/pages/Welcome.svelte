@@ -1,8 +1,8 @@
 <script>
-    import ToggleButton from './common/input-elements/toggle-button.svelte';
-    import { updSet } from './lib/lib';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
+    import { updSet } from '../lib/lib';
     import * as d3 from 'd3';
-    import { SKILL_TREE, SKILL_TREE_LEAFS } from './lib/skills';
+    import { SKILL_TREE, SKILL_TREE_LEAFS } from '../lib/skills';
 
     export let finishWelcome;
     export let allInstruments = new Set();
@@ -17,7 +17,7 @@
     const questions = [
         {
             id: 'start',
-            text: 'This website contains a colelction of small apps that help you practice you instrument by giving you visual feedback. To make it easier for you to get started, please answer the following few questions, so we can pick appropriate settings for you. You can repeat this process or adapt settings anytime.',
+            text: 'This website contains a colelction of small apps that help you practice you instrument by giving you visual feedback. To make it easikser for you to get started, please answer the following few questions, so we can pick appropriate settings for you. You can repeat this process or adapt settings anytime.',
             options: [
                 {
                     text: 'sure!',
