@@ -1,5 +1,5 @@
 <script>
-    import { Note } from '@tonaljs/tonal';
+    import { Note } from 'tonal';
     import { onMount } from 'svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
 

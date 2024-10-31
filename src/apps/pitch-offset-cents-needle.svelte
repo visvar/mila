@@ -2,7 +2,7 @@
     import { onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import { PitchDetector } from 'pitchy';
-    import { Midi, Note } from '@tonaljs/tonal';
+    import { Midi, Note } from 'tonal';
     import { Canvas } from 'musicvis-lib';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';

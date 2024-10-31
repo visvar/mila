@@ -1,5 +1,5 @@
 <script>
-    import { Scale } from '@tonaljs/tonal';
+    import { Scale } from 'tonal';
     import { Midi } from 'musicvis-lib';
     import { onMount } from 'svelte';
     import { NOTE_COLORS } from '../lib/colors';

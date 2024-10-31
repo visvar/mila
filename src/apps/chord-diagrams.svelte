@@ -4,7 +4,7 @@
     import * as Plot from '@observablehq/plot';
     import { Midi } from 'musicvis-lib';
     import { NOTE_COLORS } from '../lib/colors';
-    import { Chord, Note } from '@tonaljs/tonal';
+    import { Chord, Note } from 'tonal';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import { detectChords } from '../lib/chords';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';

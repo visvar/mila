@@ -1,7 +1,7 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
-    import { Note } from '@tonaljs/tonal';
+    import { Note } from 'tonal';
     import 'aframe';
     import 'aframe-svelte';
     import { Midi } from 'musicvis-lib';

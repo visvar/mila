@@ -29,7 +29,7 @@ If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 - [Svelte](https://svelte.dev/) components
 - [Observable Plot](https://observablehq.com/plot/) visualization
 - [D3](https://d3js.org/) scales, data processing
-- [@tonaljs/tonal](https://github.com/tonaljs/tonal) music theory such as scales
+- [tonal](https://github.com/tonaljs/tonal) music theory such as scales, chords, progressions
 - [musicvis-lib](https://github.com/fheyen/musicvis-lib) more technical musical functions
 - [pitchy](https://github.com/ianprime0509/pitchy) pitch detection from audio
 - [fflate]([fflate](https://www.npmjs.com/package/fflate)) compression of share links

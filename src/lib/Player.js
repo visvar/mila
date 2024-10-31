@@ -194,10 +194,11 @@ class Player {
    * immediately once it is called
    *
    * @param {string} sound instrument name
+   * @returns {Promise<Player>} itself
    */
   async preloadInstrument(sound) {
     if (sound === 'silent') {
-      return
+      return this
     }
     const file = `soundfonts/${sound}-mp3.js`
     if (this.#log) {
@@ -221,6 +222,7 @@ class Player {
     if (this.#log) {
       console.log(`[Player] Finished loading soundfont ${sound}`)
     }
+    return this
   }
 
   /**
@@ -263,7 +265,7 @@ class Player {
       console.log(`[Player] Playing ${note.getName()} for ${duration}s`)
     }
     try {
-      this.#instrument.play(note.pitch, time, { duration, gain: note.velocity, sustain: note.getDuration() })
+      this.#instrument.play(note.pitch, time, { duration, gain: note.velocity * this.#volume, sustain: note.getDuration() })
     } catch (error) {
       console.error('[Player] Error for note', note, error)
     }

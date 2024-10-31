@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
-  import { Scale, Chord } from '@tonaljs/tonal';
+  import { Scale, Chord } from 'tonal';
   import { clamp } from '../lib/lib';
   import { Midi } from 'musicvis-lib';
   import NoteCountInput from '../common/input-elements/note-count-input.svelte';
@@ -263,7 +263,7 @@
       root,
       scaleType1,
       scaleType2,
-      pastNoteCount: barCount,
+      barCount,
       showDuration,
       showLoudness,
       // data
@@ -279,9 +279,9 @@
     root = json.root;
     scaleType1 = json.scaleType1;
     scaleType2 = json.scaleType2;
-    barCount = json.pastNoteCount;
-    showDuration = json.showDuration;
-    showLoudness = json.showLoudness;
+    barCount = json.barCount ?? 50;
+    showDuration = json.showDuration ?? false;
+    showLoudness = json.showLoudness ?? false;
     // data
     notes = json.notes;
     draw();

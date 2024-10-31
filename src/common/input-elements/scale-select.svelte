@@ -1,5 +1,5 @@
 <script>
-    import { Scale } from '@tonaljs/tonal';
+    import { Scale } from 'tonal';
     import { Midi } from 'musicvis-lib';
 
     export let scaleRoot = 'C';

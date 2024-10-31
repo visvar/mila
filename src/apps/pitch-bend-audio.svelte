@@ -2,7 +2,7 @@
     import { onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
     import { PitchDetector } from 'pitchy';
-    import { Midi } from '@tonaljs/tonal';
+    import { Midi } from 'tonal';
     import * as d3 from 'd3';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';

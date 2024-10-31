@@ -3,7 +3,7 @@
     import * as Plot from '@observablehq/plot';
     import * as d3 from 'd3';
     import { PitchDetector } from 'pitchy';
-    import { Midi, Note } from '@tonaljs/tonal';
+    import { Midi, Note } from 'tonal';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import example from '../example-recordings/pitch-offset-cents.json';

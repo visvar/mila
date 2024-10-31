@@ -1,5 +1,5 @@
 <script>
-    import { Note, Midi } from '@tonaljs/tonal';
+    import { Note, Midi } from 'tonal';
     import { PitchDetector } from 'pitchy';
     import { onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';

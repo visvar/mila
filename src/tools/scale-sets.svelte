@@ -1,5 +1,5 @@
 <script>
-    import { Chord, Scale } from '@tonaljs/tonal';
+    import { Chord, Scale } from 'tonal';
     import { Midi } from 'musicvis-lib';
     import * as d3 from 'd3';
 

@@ -7,6 +7,7 @@
 ## Fixes and improvements
 
 - re-think auto-saving and how to handle examples
+- fix Tone.sampler not working in improvisation-chord-progression
 
 ## Refactoring
 

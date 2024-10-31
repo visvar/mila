@@ -2,7 +2,7 @@
     import { onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
-    import { Note, Scale } from '@tonaljs/tonal';
+    import { Note, Scale } from 'tonal';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';

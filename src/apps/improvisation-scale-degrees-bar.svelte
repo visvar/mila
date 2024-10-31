@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
-  import { Scale } from '@tonaljs/tonal';
+  import { Scale } from 'tonal';
   import { Midi, Utils } from 'musicvis-lib';
   import MetronomeButton from '../common/input-elements/metronome-button.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';

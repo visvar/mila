@@ -2,104 +2,91 @@
   import { onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
-  import { Chord, Scale } from '@tonaljs/tonal';
-  import { clamp } from '../lib/lib';
-  import { Midi } from 'musicvis-lib';
+  import { Scale, Chord, Progression } from 'tonal';
+  import { Midi, Note as Note2 } from 'musicvis-lib';
+  import NoteCountInput from '../common/input-elements/note-count-input.svelte';
   import MidiInput from '../common/input-handlers/midi-input.svelte';
   import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
   import { localStorageAddRecording } from '../lib/localstorage';
   import HistoryButton from '../common/input-elements/history-button.svelte';
   import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
+  import { Utils } from 'musicvis-lib';
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
   import ToggleButton from '../common/input-elements/toggle-button.svelte';
-  import {
-    NOTE_TO_CHROMA_MAP,
-    SCALE_DEGREES_MAJOR,
-    SCALE_DEGREES_MINOR,
-  } from '../lib/music';
+  import { NOTE_TO_CHROMA_MAP } from '../lib/music';
   import example from '../example-recordings/improvisation-note-colors.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
-  import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
-  import ScaleSelect from '../common/input-elements/scale-select.svelte';
-  import { detectChords } from '../lib/chords';
-  import NumberInput from '../common/input-elements/number-input.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
+  import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+  import { detectChords } from '../lib/chords.js';
+  import NumberInput from '../common/input-elements/number-input.svelte';
+  import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+  import TempoInput from '../common/input-elements/tempo-input.svelte';
+  import Player from '../lib/Player';
+  import * as Tone from 'tone';
 
   /**
    * contains the app meta information defined in App.js
    */
   export let appInfo;
 
+  let height = 250;
   let container;
+  // colors
+  const scaleColor = '#D4E157';
+  const chordColor = '#689F38';
+  const restColor = 'lightgray';
+  const durationLimit = 1;
+  // const noteNames = Midi.NOTE_NAMES_FLAT;
   const noteNames = Midi.NOTE_NAMES;
+  const chordProgressions = [
+    {
+      label: 'ii V I (2-5-1) 7th',
+      chords: ['IIm7', 'V7', 'IMaj7', 'IMaj7'],
+      chordsShort: ['ii', 'V', 'I', 'I'],
+    },
+    {
+      label: 'ii V I (2-5-1)',
+      chords: ['IIm', 'V', 'I', 'I'],
+      chordsShort: ['ii', 'V', 'I', 'I'],
+    },
+    {
+      label: 'I ii V (1-2-7)',
+      chords: ['IMaj7', 'IIm7', 'V7', 'V7'],
+      chordsShort: ['I', 'ii', 'V', 'V'],
+    },
+  ];
+  $: chordProgressionsNotes = chordProgressions.map((p) => {
+    const chords = Progression.fromRomanNumerals(root, p.chords);
+    const chordNotes = chords.map((c) => new Set(Chord.get(c).notes));
+    return { ...p, chordNotes };
+  });
+  let chordProgLabel = chordProgressions[0].label;
+  $: chordProg = chordProgressionsNotes.filter(
+    (d) => d.label === chordProgLabel,
+  )[0];
+  // player for 'backing track'
+  const player = new Player().setVolume(3);
+  player.preloadInstrument('acoustic_grand_piano');
+  // synth for played notes
+  let synth;
   // settings
-  // let root = 'A';
   let root = 'C';
   let scaleType = 'major';
-  let barCount = 50;
+  let tempo = 90;
   let maxNoteDistance = 0.1;
-  let showDuration = true;
+  let barCount = 50;
+  let useSynth = false;
   // data
   let firstTimeStamp;
   let notes = [];
   let openNoteMap = new Map();
-  $: scaleNotes = Scale.get(`${root} ${scaleType}`).notes.map(
-    (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
+  $: scaleNotes = new Set(
+    Scale.get(`${root} ${scaleType}`).notes.map(
+      (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
+    ),
   );
-  $: scaleDegrees = [
-    ...(scaleType === 'major'
-      ? SCALE_DEGREES_MAJOR
-      : SCALE_DEGREES_MINOR
-    ).values(),
-  ];
-  let colorMapIndex = 0;
-  const colorMaps = [
-    {
-      label: 'all',
-      colors: ['#eeeeee', ...d3.schemeTableau10],
-    },
-    {
-      label: '1 3 7',
-      colors: [
-        '#eeeeee',
-        d3.schemeTableau10[0],
-        '#dddddd',
-        d3.schemeTableau10[1],
-        '#dddddd',
-        '#dddddd',
-        '#dddddd',
-        d3.schemeTableau10[2],
-      ],
-    },
-    {
-      label: '1 4 7',
-      colors: [
-        '#eeeeee',
-        d3.schemeTableau10[0],
-        '#dddddd',
-        '#dddddd',
-        d3.schemeTableau10[1],
-        '#dddddd',
-        '#dddddd',
-        d3.schemeTableau10[2],
-      ],
-    },
-    {
-      label: '1 4 5 7',
-      colors: [
-        '#eeeeee',
-        d3.schemeTableau10[0],
-        '#dddddd',
-        '#dddddd',
-        d3.schemeTableau10[1],
-        d3.schemeTableau10[2],
-        '#dddddd',
-        d3.schemeTableau10[3],
-      ],
-    },
-  ];
-  $: colorMap = colorMaps[colorMapIndex];
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -123,6 +110,13 @@
     }
     notes = [...notes, note];
     openNoteMap.set(e.note.number, note);
+    if (useSynth) {
+      synth.triggerAttack(
+        `${note.name}${Math.floor(note.number / 12)}`,
+        Tone.now(),
+        note.velocity,
+      );
+    }
     draw();
   };
 
@@ -132,44 +126,61 @@
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
+      if (useSynth) {
+        synth.triggerRelease(
+          `${note.name}${Math.floor(note.number / 12)}`,
+          Tone.now(),
+        );
+      }
     }
-    draw();
-  };
-
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    barCount = clamped;
     draw();
   };
 
   const draw = () => {
     const width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
-    const limited = notes.slice(-barCount);
-    const durationLimit = 1;
+    const barDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
+    const notes2 = notes.map((note) => {
+      // is this note in bar 1, 2, 3, 4?
+      const currentBar = Math.floor(note.time / barDuration) % 4;
+      const currentChordNotes = chordProg.chordNotes[currentBar];
+      // assign color
+      let colorType = 'rest';
+      // if (note.name === root) {
+      //   colorType = 'root';
+      // } else
+      if (currentChordNotes.has(note.name)) {
+        colorType = 'chord';
+      } else if (scaleNotes.has(note.name)) colorType = 'scale';
+      return {
+        ...note,
+        colorType,
+        chord: chordProg.chords[currentBar],
+        chordShort: chordProg.chordsShort[currentBar],
+      };
+    });
+
     container.textContent = '';
+    const limited = notes2.slice(-barCount);
     const plot = Plot.plot({
       width,
-      height: 250,
-      marginLeft: 45,
-      marginRight: 10,
+      height,
+      marginLeft: 50,
       marginBottom: 50,
       padding: 0,
       x: {
         axis: false,
       },
       y: {
-        axis: showDuration,
+        axis: true,
         domain: [0, durationLimit],
         label: 'duration in seconds',
         labelAnchor: 'center',
       },
       color: {
-        domain: d3.range(-1, 7),
-        range: colorMap.colors,
-        legend: true,
-        tickFormat: (d) => (d === -1 ? 'non-scale' : scaleNotes[d]),
-        width: 500,
-        marginLeft: width / 2 - 250,
+        domain: ['chord', 'scale', 'rest'],
+        range: [chordColor, scaleColor, restColor],
+        // legend: true,
+        // marginLeft: width / 2 - 100,
       },
       marks: [
         Plot.ruleY([0], {
@@ -180,16 +191,13 @@
           x: (d, i) => i,
           y: (d) => {
             // if bar height is duration, show currently held notes in full height
-            if (showDuration) {
-              return d.duration > 0 ? d.duration : durationLimit;
-            }
-            return durationLimit;
+            return d.duration > 0 ? d.duration : durationLimit;
           },
-          fill: (d) => scaleNotes.indexOf(d.name),
-          stroke: (d) => scaleNotes.indexOf(d.name),
+          fill: 'colorType',
+          stroke: 'colorType',
           fillOpacity: (d) =>
             // if bar height is duration, show currently held notes without fill, only stroke
-            showDuration && d.duration === 0 ? 0 : 1,
+            d.duration === 0 ? 0 : 1,
           inset: 1.5,
           rx: 4,
           // tip: true,
@@ -201,15 +209,33 @@
           fontSize: 12,
           dy: 16,
         }),
+        // chord progression chord
+        Plot.text(limited, {
+          x: (d, i) => i,
+          y: 0,
+          // text: 'chordShort',
+          text: (d, i, array) => {
+            // only print name when it changed
+            if (i === 0) {
+              return d.chordShort;
+            }
+            if (d.chordShort !== array[i - 1].chordShort) {
+              return d.chordShort;
+            }
+          },
+          fontSize: 12,
+          dy: 36,
+        }),
       ],
     });
     container.appendChild(plot);
 
-    // chords
-    const chords = detectChords(notes, maxNoteDistance)
+    // chords as arrays of notes
+    const chords = detectChords(notes2, maxNoteDistance)
       .slice(-barCount)
       // sort notes in chord by pitch
-      .map((c) => c.sort((a, b) => a.number - b.number));
+      .map((notes) => notes.sort((a, b) => a.number - b.number));
+    // musical name of each chord (if found)
     const chordNames = chords.map((chord) =>
       Chord.detect(chord.map((d) => d.name)),
     );
@@ -224,6 +250,7 @@
       height: 300,
       marginLeft: 30,
       marginRight: 50,
+      marginTop: 60,
       marginBottom: 120,
       padding: 0,
       x: {
@@ -235,25 +262,20 @@
         labelAnchor: 'center',
       },
       color: {
-        domain: d3.range(-1, 7),
-        range: colorMap.colors,
+        domain: ['chord', 'scale', 'rest'],
+        range: [chordColor, scaleColor, restColor],
       },
       marks: [
-        Plot.ruleY([0], {
-          stroke: '#ddd',
-        }),
+        // chord notes
         Plot.rectY(chordNotes, {
-          // y: 'noteIndex',
-          // sort: { color: null, y: 'noteIndex' },
           y1: (d) => d.noteIndex,
           y2: (d) => d.noteIndex + 1,
           x: 'chordIndex',
-          fill: (d) => scaleNotes.indexOf(d.name),
-          stroke: (d) => scaleNotes.indexOf(d.name),
+          fill: 'colorType',
+          stroke: 'colorType',
           offset: 'normalize',
           rx: 4,
           inset: 1.5,
-          // fillOpacity: (d) => (d.duration === 0 ? 0 : 1),
         }),
         // chord note text labels
         Plot.text(chordNotes, {
@@ -263,17 +285,34 @@
           fontSize: 10,
           fill: 'black',
           stroke: '#eee',
-          strokeWidth: 2,
+          strokeWidth: 3,
           dy: -12,
+        }),
+        // chord progression chord
+        Plot.text(chords, {
+          x: (d, i) => i,
+          y: 0,
+          text: (d, i, array) => {
+            // only print name when it changed
+            if (i === 0) {
+              return d[0]?.chordShort;
+            }
+            if (d[0].chordShort !== array[i - 1][0].chordShort) {
+              return d[0]?.chordShort;
+            }
+          },
+          fontSize: 12,
+          dy: 8,
+          textAnchor: 'middle',
         }),
         // chord names, if detected
         Plot.text(chordNames, {
           x: (d, i) => i,
           y: 0,
           text: (d) => d.join('   '),
-          fontSize: 10,
-          dy: 8,
-          rotate: 45,
+          fontSize: 11,
+          dy: 28,
+          rotate: 90,
           textAnchor: 'start',
         }),
       ],
@@ -281,7 +320,110 @@
     container.appendChild(chordPlot);
   };
 
-  onMount(draw);
+  onMount(() => {
+    draw();
+    synth = new Tone.PolySynth().toDestination();
+    // see https://tonejs.github.io/docs/15.0.4/classes/Sampler.html#constructor
+    // TODO: does not work although samples are found
+    // synth = new Tone.Sampler({
+    //   urls: {
+    //     A0: 'A0.mp3',
+    //     A1: 'A1.mp3',
+    //     A2: 'A2.mp3',
+    //     A3: 'A3.mp3',
+    //     A4: 'A4.mp3',
+    //     A5: 'A5.mp3',
+    //     A6: 'A6.mp3',
+    //     A7: 'A7.mp3',
+    //     Ab1: 'Ab1.mp3',
+    //     Ab2: 'Ab2.mp3',
+    //     Ab3: 'Ab3.mp3',
+    //     Ab4: 'Ab4.mp3',
+    //     Ab5: 'Ab5.mp3',
+    //     Ab6: 'Ab6.mp3',
+    //     Ab7: 'Ab7.mp3',
+    //     B0: 'B0.mp3',
+    //     B1: 'B1.mp3',
+    //     B2: 'B2.mp3',
+    //     B3: 'B3.mp3',
+    //     B4: 'B4.mp3',
+    //     B5: 'B5.mp3',
+    //     B6: 'B6.mp3',
+    //     B7: 'B7.mp3',
+    //     Bb0: 'Bb0.mp3',
+    //     Bb1: 'Bb1.mp3',
+    //     Bb2: 'Bb2.mp3',
+    //     Bb3: 'Bb3.mp3',
+    //     Bb4: 'Bb4.mp3',
+    //     Bb5: 'Bb5.mp3',
+    //     Bb6: 'Bb6.mp3',
+    //     Bb7: 'Bb7.mp3',
+    //     C1: 'C1.mp3',
+    //     C2: 'C2.mp3',
+    //     C3: 'C3.mp3',
+    //     C4: 'C4.mp3',
+    //     C5: 'C5.mp3',
+    //     C6: 'C6.mp3',
+    //     C7: 'C7.mp3',
+    //     C8: 'C8.mp3',
+    //     D1: 'D1.mp3',
+    //     D2: 'D2.mp3',
+    //     D3: 'D3.mp3',
+    //     D4: 'D4.mp3',
+    //     D5: 'D5.mp3',
+    //     D6: 'D6.mp3',
+    //     D7: 'D7.mp3',
+    //     Db1: 'Db1.mp3',
+    //     Db2: 'Db2.mp3',
+    //     Db3: 'Db3.mp3',
+    //     Db4: 'Db4.mp3',
+    //     Db5: 'Db5.mp3',
+    //     Db6: 'Db6.mp3',
+    //     Db7: 'Db7.mp3',
+    //     E1: 'E1.mp3',
+    //     E2: 'E2.mp3',
+    //     E3: 'E3.mp3',
+    //     E4: 'E4.mp3',
+    //     E5: 'E5.mp3',
+    //     E6: 'E6.mp3',
+    //     E7: 'E7.mp3',
+    //     Eb1: 'Eb1.mp3',
+    //     Eb2: 'Eb2.mp3',
+    //     Eb3: 'Eb3.mp3',
+    //     Eb4: 'Eb4.mp3',
+    //     Eb5: 'Eb5.mp3',
+    //     Eb6: 'Eb6.mp3',
+    //     Eb7: 'Eb7.mp3',
+    //     F1: 'F1.mp3',
+    //     F2: 'F2.mp3',
+    //     F3: 'F3.mp3',
+    //     F4: 'F4.mp3',
+    //     F5: 'F5.mp3',
+    //     F6: 'F6.mp3',
+    //     F7: 'F7.mp3',
+    //     G1: 'G1.mp3',
+    //     G2: 'G2.mp3',
+    //     G3: 'G3.mp3',
+    //     G4: 'G4.mp3',
+    //     G5: 'G5.mp3',
+    //     G6: 'G6.mp3',
+    //     G7: 'G7.mp3',
+    //     Gb1: 'Gb1.mp3',
+    //     Gb2: 'Gb2.mp3',
+    //     Gb3: 'Gb3.mp3',
+    //     Gb4: 'Gb4.mp3',
+    //     Gb5: 'Gb5.mp3',
+    //     Gb6: 'Gb6.mp3',
+    //     Gb7: 'Gb7.mp3',
+    //   },
+    //   // baseUrl: `${location.origin}${location.pathname}/soundfonts/acoustic-grand-piano/`,
+    //   baseUrl: `soundfonts/acoustic-grand-piano/`,
+    //   onload: () => {
+    //     console.log('loaded');
+    //     synth.triggerAttackRelease(['C1', 'E1', 'G1', 'B1'], 0.5);
+    //   },
+    // }).toDestination();
+  });
 
   /**
    * Used for exporting and for automatics saving
@@ -290,8 +432,8 @@
     return {
       root,
       scaleType,
-      pastNoteCount: barCount,
-      showDuration,
+      chordProgLabel,
+      barCount,
       // data
       notes,
     };
@@ -303,9 +445,9 @@
   const loadData = (json) => {
     saveToStorage();
     root = json.root;
-    scaleType = json.scaleType;
-    barCount = json.pastNoteCount;
-    showDuration = json.showDuration;
+    scaleType = json.scaleType1;
+    chordProgLabel = json.chordProgLabel;
+    barCount = json.barCount;
     // data
     notes = json.notes;
     draw();
@@ -320,25 +462,87 @@
     }
   };
 
-  onDestroy(saveToStorage);
+  /**
+   * plays a synthesized backing track based on the chord progression and tempo settings
+   */
+  const toggleBackingTrack = () => {
+    if (player.isPlaying()) {
+      player.stop();
+      return;
+    }
+    const octave = 4;
+    const chords = chordProg.chordNotes;
+    const quarter = Utils.bpmToSecondsPerBeat(tempo);
+    const notes = chords.flatMap((cNotes, bar) => {
+      // each chord is one bar
+      return d3.range(4).flatMap((beat) => {
+        // ... with 4 beats
+        const time = quarter * (beat + 4 * bar);
+        return [...cNotes].map((note) => {
+          // ... and each beat has the notes of the current chord
+          const number = NOTE_TO_CHROMA_MAP.get(note) + octave * 12;
+          return Note2.from({
+            pitch: number,
+            start: time,
+            end: time + quarter,
+            duration: quarter,
+            velocity: beat === 0 ? 0.7 : 0.5,
+            channel: 0,
+          });
+        });
+      });
+    });
+    player.playNotes(notes, 'acoustic_grand_piano', 0, undefined, 1, true);
+  };
+
+  onDestroy(() => {
+    saveToStorage();
+    player.stop();
+  });
 </script>
 
 <FileDropTarget {loadData}>
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
-      This app helps practicing improvising in a scale by coloring the different
-      scale degrees to show you which you play when. Notes that you play are
-      shown as bars. Optionally, the bars' height encodes the notes' durations.
-      You can change the colors if you like.
+      This app helps practicing improvising in a scale over a chord progression.
+      Notes that you play are shown as bars. The color shows whether a note
+      belongs to the current chord, the scale, or neither. For example, when
+      improvising in C Major over ii-V-I, the notes that fit the currently
+      active chord will be dark green, notes that fit C Major will be light
+      green, and all others will be gray. The bars' height encodes the notes'
+      durations.
     </p>
     <div class="control">
-      <ScaleSelect
-        bind:scaleRoot="{root}"
-        bind:scaleType
+      <SelectScollable label="root note" bind:value="{root}" callback="{draw}">
+        {#each Midi.NOTE_NAMES as n}
+          <option value="{n}">{n}</option>
+        {/each}
+      </SelectScollable>
+      <SelectScollable
+        label="progression"
+        bind:value="{chordProgLabel}"
         callback="{draw}"
-        allowedScales="{['major', 'minor']}"
-      />
+        style="background-color: {chordColor};"
+      >
+        {#each chordProgressions as prog}
+          <option value="{prog.label}">{prog.label}</option>
+        {/each}
+      </SelectScollable>
+      <SelectScollable
+        label="scale type"
+        bind:value="{scaleType}"
+        callback="{draw}"
+        style="background-color: {scaleColor};"
+      >
+        {#each ['major', 'minor'] as s}
+          <option value="{s}">{s}</option>
+        {/each}
+      </SelectScollable>
+    </div>
+    <div class="control">
+      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <NoteCountInput bind:value="{barCount}" callback="{draw}" />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
         label="max. note distance"
@@ -348,103 +552,70 @@
         max="{2}"
         step="{0.05}"
       />
-      <NumberInput
-        title="The number of played chords that is displayed"
-        label="chord count"
-        bind:value="{barCount}"
-        callback="{draw}"
-        min="{10}"
-        max="{100}"
-        step="{10}"
-      />
       <ToggleButton
-        bind:checked="{showDuration}"
-        label="show duration"
-        title="Show duration in the bar's height?"
+        label="synth"
+        title="Use built-in synth while playing?"
+        bind:checked="{useSynth}"
         callback="{draw}"
       />
-      <SelectScollable
-        label="colors"
-        title="Choose a color map"
-        bind:value="{colorMapIndex}"
-        callback="{draw}"
-      >
-        {#each colorMaps as cm, index}
-          <option value="{index}">{cm.label}</option>
+    </div>
+    <div>
+      <!-- legend -->
+      <div class="legend">
+        {#each chordProg.chords as chord, index}
+          <div style="background: {chordColor};">
+            {chord}:<br />
+            {[...chordProg.chordNotes[index]].join(', ')}
+          </div>
         {/each}
-      </SelectScollable>
+        <div style="background: {scaleColor};">
+          {scaleType}:<br />
+          {[...scaleNotes].join(', ')}
+        </div>
+        <div style="background: {restColor};">
+          chromatic:<br />
+          {[...d3.difference(Midi.NOTE_NAMES, scaleNotes)].join(', ')}
+        </div>
+      </div>
+      <div class="visualization" bind:this="{container}"></div>
+      <div class="control">
+        <MetronomeButton
+          {tempo}
+          accent="{4}"
+          beepCount="{8}"
+          showBeepCountInput
+        />
+        <button on:click="{toggleBackingTrack}"> play backing track </button>
+        <ResetNotesButton
+          bind:notes
+          {saveToStorage}
+          callback="{() => {
+            openNoteMap = new Map();
+            draw();
+          }}"
+        />
+        <button on:click="{() => loadData(example)}"> example </button>
+        <HistoryButton appId="{appInfo.id}" {loadData} />
+        <MidiReplayButton bind:notes callback="{draw}" />
+        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      </div>
+      <ExerciseDrawer>
+        <p>
+          1) Improvise something only using the notes of the pentatonic scale.
+        </p>
+        <p>2) Improvise something only using the notes of the current chord.</p>
+      </ExerciseDrawer>
+      <MidiInput {noteOn} {noteOff} pcKeyAllowed />
+      <RatingButton appId="{appInfo.id}" />
     </div>
-    <div class="legend">
-      {#each scaleDegrees as degree, index}
-        <label title="change color">
-          <input
-            on:change="{(evt) => {
-              colorMap.colors[index + 1] = evt.target.value;
-              colorMap = {
-                ...colorMap,
-                colors: [...colorMap.colors],
-              };
-              draw();
-            }}"
-            type="color"
-            value="{colorMap.colors?.[index + 1]}"
-          />
-          {degree.name}
-        </label>
-      {/each}
-    </div>
-    <div class="visualization" bind:this="{container}"></div>
-    <div class="control">
-      <ResetNotesButton
-        bind:notes
-        {saveToStorage}
-        callback="{() => {
-          openNoteMap = new Map();
-          draw();
-        }}"
-      />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <MidiReplayButton bind:notes callback="{draw}" />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
-    </div>
-    <ExerciseDrawer>
-      <p>
-        1) Improvise something in the scale of C major pentatonic. Check if you
-        only used this scale's notes using the colors.
-      </p>
-      <p>
-        2) Improvise something in A minor pentatonic. Check if you only used
-        this scale's notes using the colors and how often and when you used the
-        tonic A.
-      </p>
-      <p>
-        3) Improvise in A minor blues, see how often and when you used the blue
-        note (D#).
-      </p>
-      <p>4) Improvise in a scale you do not know yet.</p>
-    </ExerciseDrawer>
-    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
-    <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>
 
 <style>
-  .legend label {
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    margin: 0 5px;
-    padding: 0 5px;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .legend input[type='color'] {
-    padding: 0;
-    width: 20px;
-    height: 22px;
-    border: none;
-    outline: none;
+  .legend div {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
   }
 </style>

@@ -5,7 +5,7 @@
     import { Utils } from 'musicvis-lib';
     import Metronome from '../lib/Metronome.js';
     import { delay } from '../lib/lib.js';
-    import { Note } from '@tonaljs/tonal';
+    import { Note } from 'tonal';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';

@@ -3,7 +3,7 @@
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Midi } from 'musicvis-lib';
-    import { Note } from '@tonaljs/tonal';
+    import { Note } from 'tonal';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
 
     export let toolInfo;
