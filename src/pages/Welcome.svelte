@@ -2,7 +2,7 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import { updSet } from '../lib/lib';
     import * as d3 from 'd3';
-    import { SKILL_TREE, SKILL_TREE_LEAFS } from '../lib/skills';
+    import { SKILL_TREE, SKILL_TREE_LEAFS } from '../skills';
 
     export let finishWelcome;
     export let allInstruments = new Set();

@@ -1,5 +1,5 @@
 <script>
-    import { SKILL_TREE } from '../lib/skills';
+    import { SKILL_TREE } from '../skills';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { onMount } from 'svelte';
@@ -27,8 +27,6 @@
     ];
 
     let matrixContainer;
-    let matrixRow = 'skills';
-    let matrixColumn = 'patterns';
 
     // print latex tables
     // TODO: remove
@@ -59,6 +57,25 @@
      * draws the tree of skills
      */
     const drawSkillPatternMatrix = () => {
+        console.log('test');
+
+        const dimensions = [
+            ['skills', 'patterns'],
+            ['data', 'skills'],
+            ['data', 'patterns'],
+            ['instruments', 'skills'],
+            ['instruments', 'patterns'],
+            ['instruments', 'data'],
+        ];
+        matrixContainer.textContent = '';
+        for (const [row, col] of dimensions) {
+            drawMatrix(row, col);
+        }
+    };
+
+    const drawMatrix = (matrixRow, matrixColumn) => {
+        console.log(matrixRow, matrixColumn);
+
         const data = new Map();
         for (const app of apps) {
             // add a datum for each combination of skill and pattern
@@ -86,11 +103,13 @@
                 });
             }
         }
-        const plot = Plot.plot({
+        const matrixPlot = Plot.plot({
             margin: 10,
             marginLeft: 150,
             marginRight: 50,
+            marginTop: 50,
             marginBottom: 100,
+            // width: Math.min(data2.length * 20, 1000),
             width: 1000,
             aspectRatio: 1.2,
             grid: true,
@@ -107,7 +126,7 @@
             },
             color: {
                 label: 'number of apps',
-                legend: true,
+                // legend: true,
                 scheme: 'blues',
                 // scheme: 'cividis',
                 // reverse: true,
@@ -130,9 +149,10 @@
                 }),
             ],
         });
-        matrixContainer.textContent = '';
-        matrixContainer.appendChild(plot);
+        matrixContainer.appendChild(matrixPlot);
     };
+
+    onMount(drawSkillPatternMatrix);
 </script>
 
 <main>
@@ -144,7 +164,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="min-width: 270px">app</th>
+                    <th style="min-width: 200px">app</th>
                     <th
                         colspan="2"
                         style="border-bottom: 4px solid {d3
@@ -274,7 +294,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="min-width: 270px">app</th>
+                    <th style="min-width: 200px">app</th>
                     <!-- skill -->
                     {#each SKILL_TREE as s, index}
                         <th
@@ -338,7 +358,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="min-width: 270px">app</th>
+                    <th style="min-width: 200px">app</th>
                     <!-- patterns -->
                     {#each [...allPatterns] as d}
                         <th class="small">{d}</th>
@@ -375,7 +395,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="min-width: 270px">app</th>
+                    <th style="min-width: 200px">app</th>
                     <!-- patterns -->
                     {#each ['beginner', 'intermediate', 'advanced'] as d}
                         <th class="small">{d}</th>
@@ -471,34 +491,8 @@
 
     <!-- matrix -->
     <HelpTextDrawer heading="App Meta Data Relations">
-        <div>
-            <label>
-                row
-                <select
-                    bind:value="{matrixRow}"
-                    on:change="{drawSkillPatternMatrix}"
-                >
-                    {#each ['skills', 'patterns', 'data', 'instruments'] as d}
-                        <option value="{d}">{d}</option>
-                    {/each}
-                </select>
-            </label>
-            <label>
-                column
-                <select
-                    bind:value="{matrixColumn}"
-                    on:change="{drawSkillPatternMatrix}"
-                >
-                    {#each ['skills', 'patterns', 'data', 'instruments'] as d}
-                        <option value="{d}">{d}</option>
-                    {/each}
-                </select>
-            </label>
-            <div
-                class="visualization"
-                bind:this="{matrixContainer}"
-                on:load="{() => drawSkillPatternMatrix()}"
-            ></div>
+        <div style="width: 1000px; margin: auto">
+            <div class="visualization" bind:this="{matrixContainer}"></div>
         </div>
     </HelpTextDrawer>
 
@@ -512,6 +506,11 @@
 </main>
 
 <style>
+    main {
+        width: 100%;
+        overflow: auto;
+    }
+
     table {
         margin: 10px auto;
         font-size: 12px;

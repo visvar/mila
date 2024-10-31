@@ -1,6 +1,6 @@
 <script>
     import { caretDownIcon, caretUpIcon } from '../lib/icons';
-    import { SKILL_TREE } from '../lib/skills';
+    import { SKILL_TREE } from '../skills';
 
     export let currentSkills = new Set();
 

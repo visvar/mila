@@ -16,6 +16,7 @@
   import AppTileTags from './common/app-tile-tags.svelte';
   import SelectScollable from './common/input-elements/select-scollable.svelte';
   import { upDownArrowIcon } from './lib/icons';
+  import { fade } from 'svelte/transition';
 
   let currentApp = null;
 
@@ -344,7 +345,7 @@
             </div>
           </div>
         {/if}
-        {#each sortedApps as app}
+        {#each sortedApps as app (app.id)}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
           <div
@@ -353,6 +354,7 @@
               currentApp = app;
               setUrlParam(window, 'd', app.id);
             }}"
+            transition:fade
           >
             <h2>
               {app.title}

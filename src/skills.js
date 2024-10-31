@@ -141,6 +141,11 @@ export const SKILL_TREE = [
         title: 'scale degrees',
         description: 'In improvisation, scale degrees should be used to appropriate amounts'
       },
+      {
+        id: 'chord-progression',
+        title: 'chord progression',
+        description: 'When improvising over a chord progression, notes should be picked appropriately'
+      },
     ]
   },
   {

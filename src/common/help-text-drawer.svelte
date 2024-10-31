@@ -10,9 +10,9 @@
             {heading}
         </h3>
     </button>
-    {#if shown}
+    <div style="display: {shown ? 'block' : 'none'};">
         <slot></slot>
-    {/if}
+    </div>
 </main>
 
 <style>

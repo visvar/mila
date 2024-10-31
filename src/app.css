@@ -280,6 +280,7 @@ div.grid.rows div.current-filters {
 
 .app {
   /* width: 940px; */
+  width: fit-content;
   margin: 10px auto;
 }
 

@@ -27,6 +27,7 @@ import PitchOffsetCentsNeedle from './apps/pitch-offset-cents-needle.svelte'
 import DurationPies from './apps/duration-pies.svelte'
 import TempoChange from './apps/tempo-change.svelte'
 import ImprovisationNoteColors2 from './apps/improvisation-note-colors2.svelte'
+import ImprovisationChordProgression from './apps/improvisation-chord-progression.svelte'
 
 /**
  * All apps defined here
@@ -54,7 +55,7 @@ export const APPS = [
       'See how spaced out the notes in a chord or arpeggio are, and how much time lies between these',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
-    data: ['order', 'onset/time', 'ioi', 'pitch'],
+    data: ['order', 'onset/time', 'ioi', 'pitch', 'chords'],
     skills: ['chord-timing', 'arpeggio-timing'],
     patterns: ['onset as tick', 'compressed pitches', 'chord detection', 'time is linear', 'time encoded linearly', 'update on note'],
     timeScale: ['a few bars'],
@@ -68,7 +69,7 @@ export const APPS = [
       'See what chords you play on a guitar/bass as chord diagrams',
     input: 'MIDI',
     instruments: ['guitar/bass'],
-    data: ['order', 'onset/time', 'pitch', 'dynamics', 'instrument'],
+    data: ['order', 'onset/time', 'pitch', 'dynamics', 'instrument', 'chords'],
     skills: ['chord-notes'],
     patterns: ['instrument layout', 'chord detection', 'time is linear', 'time is collapsed', 'update on note'],
     timeScale: ['a few notes'],
@@ -169,15 +170,29 @@ export const APPS = [
     component: ImprovisationIntervals
   },
   {
+    id: 'improvisation-chord-progression',
+    title: 'Improvisation Chord Progression',
+    description:
+      'See how much you stick to the notes of chords and scale while improvising over a chord progression',
+    input: 'MIDI',
+    instruments: ['guitar/bass', 'keyboard'],
+    data: ['order', 'duration/ioi', 'pitch', 'chords', 'exercise'],
+    skills: ['pitch-intervals', 'scale-degrees', 'scale-notes', 'chord-progression'],
+    patterns: ['note role as color', 'duration/ioi as bar', 'time is circular', 'time encoded non-linearly', 'update on note', 'chords as stacked bars'],
+    timeScale: ['a few bars'],
+    difficulty: ['intermediate', 'advanced'],
+    component: ImprovisationChordProgression
+  },
+  {
     id: 'improvisation-note-colors',
     title: 'Improvisation Note Colors',
     description:
       'See how often you use different kinds of notes in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
-    data: ['order', 'duration/ioi', 'pitch'],
+    data: ['order', 'duration/ioi', 'pitch', 'chords'],
     skills: ['pitch-intervals', 'scale-degrees', 'scale-notes'],
-    patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note'],
+    patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note', 'chords as stacked bars'],
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
     component: ImprovisationNoteColors
@@ -189,9 +204,9 @@ export const APPS = [
       'See how often you use different kinds of notes in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
-    data: ['order', 'duration/ioi', 'pitch'],
+    data: ['order', 'duration/ioi', 'pitch', 'chords'],
     skills: ['pitch-intervals', 'scale-degrees', 'scale-notes'],
-    patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note'],
+    patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note', 'chords as stacked bars'],
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
     component: ImprovisationNoteColors2
@@ -402,7 +417,7 @@ export const APPS = [
     description: 'Practice changing the tempo as intended',
     input: 'MIDI',
     instruments: ['drum', 'guitar/bass', 'keyboard', 'pc-key', 'touch'],
-    data: ['onset/time'],
+    data: ['onset/time', 'duration/ioi'],
     skills: ['tempo-changing', 'tempo-keeping'],
     patterns: ['baselines as grid', 'time is linear', 'time encoded linearly', 'update real-time'],
     timeScale: ['a few bars', 'a full song'],
