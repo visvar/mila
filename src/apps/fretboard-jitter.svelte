@@ -177,6 +177,8 @@
         container.textContent = '';
         container.appendChild(plot);
         container.appendChild(legend);
+
+        // TODO: small multiples
     };
 
     onMount(draw);

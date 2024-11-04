@@ -21,7 +21,6 @@
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
   import { detectChords } from '../lib/chords.js';
   import NumberInput from '../common/input-elements/number-input.svelte';
-  import MetronomeButton from '../common/input-elements/metronome-button.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';
   import Player from '../lib/Player';
   import * as Tone from 'tone';
@@ -31,6 +30,7 @@
    */
   export let appInfo;
 
+  $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
   let height = 250;
   let container;
   // colors
@@ -77,9 +77,9 @@
   let tempo = 90;
   let maxNoteDistance = 0.1;
   let barCount = 50;
-  let useSynth = false;
+  let useSynth = true;
   // data
-  let firstTimeStamp;
+  let firstTimeStamp = 0;
   let notes = [];
   let openNoteMap = new Map();
   $: scaleNotes = new Set(
@@ -87,11 +87,13 @@
       (d) => noteNames[NOTE_TO_CHROMA_MAP.get(d)],
     ),
   );
+  $: barDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
+  let currentChordIndex = 0;
 
   const noteOn = (e) => {
-    if (notes.length === 0) {
-      firstTimeStamp = e.timestamp;
-    }
+    // if (notes.length === 0) {
+    //   firstTimeStamp = e.timestamp;
+    // }
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
     const note = {
       name: e.note.name + (e.note.accidental ?? ''),
@@ -137,8 +139,6 @@
   };
 
   const draw = () => {
-    const width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
-    const barDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
     const notes2 = notes.map((note) => {
       // is this note in bar 1, 2, 3, 4?
       const currentBar = Math.floor(note.time / barDuration) % 4;
@@ -466,33 +466,42 @@
    * plays a synthesized backing track based on the chord progression and tempo settings
    */
   const toggleBackingTrack = () => {
-    if (player.isPlaying()) {
-      player.stop();
-      return;
-    }
-    const octave = 4;
-    const chords = chordProg.chordNotes;
-    const quarter = Utils.bpmToSecondsPerBeat(tempo);
-    const notes = chords.flatMap((cNotes, bar) => {
-      // each chord is one bar
-      return d3.range(4).flatMap((beat) => {
-        // ... with 4 beats
-        const time = quarter * (beat + 4 * bar);
-        return [...cNotes].map((note) => {
-          // ... and each beat has the notes of the current chord
-          const number = NOTE_TO_CHROMA_MAP.get(note) + octave * 12;
-          return Note2.from({
-            pitch: number,
-            start: time,
-            end: time + quarter,
-            duration: quarter,
-            velocity: beat === 0 ? 0.7 : 0.5,
-            channel: 0,
+    // if not started, start playing
+    if (!player.isPlaying()) {
+      firstTimeStamp = performance.now();
+      const octave = 4;
+      const chords = chordProg.chordNotes;
+      const quarter = Utils.bpmToSecondsPerBeat(tempo);
+      const notes = chords.flatMap((cNotes, bar) => {
+        // each chord is one bar
+        return d3.range(4).flatMap((beat) => {
+          // ... with 4 beats
+          const time = quarter * (beat + 4 * bar);
+          return [...cNotes].map((note) => {
+            // ... and each beat has the notes of the current chord
+            const number = NOTE_TO_CHROMA_MAP.get(note) + octave * 12;
+            return Note2.from({
+              pitch: number,
+              start: time,
+              end: time + quarter,
+              duration: quarter,
+              velocity: beat === 0 ? 0.7 : 0.5,
+              channel: 0,
+            });
           });
         });
       });
-    });
-    player.playNotes(notes, 'acoustic_grand_piano', 0, undefined, 1, true);
+      player.playNotes(notes, 'acoustic_grand_piano', 0, undefined, 1, true);
+      player.onTimeChange(() => {
+        currentChordIndex =
+          Math.floor(
+            (performance.now() - firstTimeStamp) / 1000 / barDuration,
+          ) % 4;
+      });
+    } else {
+      // otherwise just toggle mute
+      player.isMuted() ? player.unMute() : player.mute();
+    }
   };
 
   onDestroy(() => {
@@ -563,7 +572,12 @@
       <!-- legend -->
       <div class="legend">
         {#each chordProg.chords as chord, index}
-          <div style="background: {chordColor};">
+          <div
+            style="background: {chordColor}; border-color: {index ===
+            currentChordIndex
+              ? '#555'
+              : 'transparent'}"
+          >
             {chord}:<br />
             {[...chordProg.chordNotes[index]].join(', ')}
           </div>
@@ -579,12 +593,6 @@
       </div>
       <div class="visualization" bind:this="{container}"></div>
       <div class="control">
-        <MetronomeButton
-          {tempo}
-          accent="{4}"
-          beepCount="{8}"
-          showBeepCountInput
-        />
         <button on:click="{toggleBackingTrack}"> play backing track </button>
         <ResetNotesButton
           bind:notes
@@ -614,8 +622,9 @@
 <style>
   .legend div {
     display: inline-block;
-    margin: 5px;
+    margin: 3px;
     padding: 5px 10px;
     border-radius: 8px;
+    border: 4px solid transparent;
   }
 </style>

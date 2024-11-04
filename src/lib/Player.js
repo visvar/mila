@@ -43,6 +43,7 @@ class Player {
   #songDuration = null;
   #isPlaying = false;
   #isPaused = false;
+  #isMuted = false
   // Cache info
   #lastSoundName = null;
   // Valid instrument / sound names
@@ -103,6 +104,30 @@ class Player {
     this.#volume = volume
     return this
   };
+
+  /**
+ * Mute
+ *
+ * @returns {Player} itself
+ */
+  mute = () => {
+    console.log('[Player] muted')
+
+    this.#isMuted = true
+    return this
+  };
+
+  /**
+   * Un-mute
+  *
+  * @returns {Player} itself
+  */
+  unMute = () => {
+    console.log('[Player] un-muted')
+    this.#isMuted = false
+    return this
+  };
+  isMuted = () => this.#isMuted;
 
   /**
    * Changes the logging flag to enable or disable logging of note events.
@@ -296,7 +321,9 @@ class Player {
       }
       // Play note
       const note = this.#notesLeftToPlay.shift()
-      this._playNote(note, nextNotetime)
+      if (!this.#isMuted) {
+        this._playNote(note, nextNotetime)
+      }
     }
     const current = contextTime - this.#startTimeStamp + this.#startAt
     if (this.#endAt !== -1 && current >= endAt) {

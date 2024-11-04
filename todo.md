@@ -8,6 +8,8 @@
 
 - re-think auto-saving and how to handle examples
 - fix Tone.sampler not working in improvisation-chord-progression
+  - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
+  - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
 
 ## Refactoring
 
