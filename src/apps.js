@@ -137,7 +137,7 @@ export const APPS = [
     instruments: ['guitar/bass'],
     data: ['order', 'instrument'],
     skills: ['instrument-layout'],
-    patterns: ['distribution as jitter', 'instrument layout', 'time is linear', 'time encoded non-linearly', 'update on note'],
+    patterns: ['distribution as jitter', 'instrument layout', 'time is linear', 'time encoded non-linearly', 'update on note', 'facets'],
     timeScale: ['a full song'],
     difficulty: ['intermediate', 'advanced'],
     component: FretboardJitter

@@ -81,13 +81,13 @@
         if (notes.length === 0) {
             firstTimeStamp = e.timestamp;
         }
-        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const string = e.message.channel - 1;
         const fret = e.note.number - tuningPitches[string];
-        if (fret < 0) {
-            // happens when guitar is out of tune or not tuned to E standard
+        // filter noise
+        if (fret < 0 || fret > fretCount) {
             return;
         }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const note = {
             number: e.note.number,
             note: Midi.NOTE_NAMES[e.note.number % 12],

@@ -183,7 +183,7 @@
           setUrlParam(window, 'd', 'help');
         }}"
       >
-        ❓help
+        ❓ help
       </button>
       <!-- Welcome page button -->
       <!-- <button

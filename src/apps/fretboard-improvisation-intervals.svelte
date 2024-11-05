@@ -42,15 +42,20 @@
         if (notes.length === 0) {
             firstTimeStamp = e.timestamp;
         }
-        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const string = e.message.channel - 1;
+        const fret = e.note.number - tuningPitches[string];
+        // filter noise
+        if (fret < 0 || fret > fretCount) {
+            return;
+        }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const note = {
             number: e.note.number,
             velocity: e.rawVelocity,
             time: noteInSeconds,
             channel: e.message.channel,
             string,
-            fret: e.note.number - tuningPitches[string],
+            fret,
         };
         notes = [...notes, note];
         draw();

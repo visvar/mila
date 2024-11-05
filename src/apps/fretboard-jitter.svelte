@@ -16,6 +16,10 @@
     import { VELOCITIES_LOGIC } from '../lib/music';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import NumberInput from '../common/input-elements/number-input.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
+    import MetronomeButton from '../common/input-elements/metronome-button.svelte';
+    import { Utils } from 'musicvis-lib';
 
     /**
      * contains the app meta information defined in App.js
@@ -32,6 +36,8 @@
     let container;
     // settings
     let pastNoteCount = 200;
+    let tempo = 90;
+    let barsPerFacet = 1;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -40,9 +46,13 @@
         if (notes.length === 0) {
             firstTimeStamp = e.timestamp;
         }
-        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const string = e.message.channel - 1;
         const fret = e.note.number - tuningPitches[string];
+        // filter noise
+        if (fret < 0 || fret > fretCount) {
+            return;
+        }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const note = {
             number: e.note.number,
             velocity: e.rawVelocity,
@@ -142,7 +152,7 @@
                     opacity: 0.5,
                     tip: true,
                     title: (d) =>
-                        `string: ${tuningNotes[d.string]}\nfret: ${d.fret}\nloudness: ${(d.velocity / 127).toFixed(2)}\ntime:${d.time.toFixed(1)} s`,
+                        `string: ${tuningNotes[d.string]}\nfret: ${d.fret}\nloudness: ${(d.velocity / 127).toFixed(2)}\ntime: ${d.time.toFixed(1)} s`,
                 }),
             ],
         });
@@ -179,6 +189,89 @@
         container.appendChild(legend);
 
         // TODO: small multiples
+        const facetDuration =
+            Utils.bpmToSecondsPerBeat(tempo) * 4 * barsPerFacet;
+        const plotMultiples = Plot.plot({
+            width,
+            aspectRatio: 1,
+            // marginLeft: 50,
+            // marginBottom: 40,
+            // padding: 10,
+            x: {
+                domain: [-1, fretCount + 1.5],
+                // ticks: d3.range(0, fretCount + 1),
+                ticks: [0, 3, 5, 7, 9, 12, 15, 17, 19, 21],
+                tickSize: 0,
+                label: 'fret',
+            },
+            y: {
+                // domain: d3.range(0, stringCount),
+                domain: [stringCount - 0.5, -0.5],
+                ticks: d3.range(stringCount),
+                tickFormat: (d) => tuningNotes[d],
+                tickSize: 0,
+                label: 'string',
+            },
+            color: {
+                scheme: 'viridis',
+                reverse: true,
+                domain: [0, facetDuration],
+                label: 'note index: old (yellow) to new (purple)',
+            },
+            r: {
+                domain: [0, 127],
+                range: [0, 2.5],
+            },
+            fx: { ticks: [] },
+            fy: {
+                tickFormat: (d) =>
+                    `bar\n${d * 2 * barsPerFacet + 1} - ${(d + 1) * 2 * barsPerFacet}`,
+            },
+            marks: [
+                // frets
+                Plot.ruleX(d3.range(0, fretCount + 1), {
+                    stroke: '#ddd',
+                    dx: cellSize / 4,
+                }),
+                // strings
+                Plot.ruleY(d3.range(0, stringCount), {
+                    stroke: '#ddd',
+                }),
+                // inlay dots
+                Plot.dot([3, 5, 7, 9, 15, 17, 19, 21], {
+                    x: (d) => d,
+                    y: 2,
+                    dy: cellSize / 4,
+                    fill: '#ddd',
+                    r: 4,
+                }),
+                Plot.dot([12, 12, 24, 24], {
+                    x: (d) => d,
+                    y: (d, i) => (i % 2 === 0 ? 1 : 3),
+                    dy: cellSize / 4,
+                    fill: '#ddd',
+                    r: 4,
+                }),
+                // note scatterplot
+                Plot.dot(notes, {
+                    // 2xN grid, ie two-columns
+                    fy: (d) => Math.floor(d.time / facetDuration / 2),
+                    fx: (d) => Math.floor(d.time / facetDuration) % 2,
+                    x: 'fretJitter',
+                    y: 'stringJitter',
+                    fill: (d, i) => d.time % facetDuration,
+                    // fill: '#000000bb',
+                    stroke: '#888',
+                    strokeWidth: 0.5,
+                    r: 'velocity',
+                    opacity: 0.8,
+                    tip: true,
+                    title: (d) =>
+                        `string: ${tuningNotes[d.string]}\nfret: ${d.fret}\nloudness: ${(d.velocity / 127).toFixed(2)}\ntime: ${d.time.toFixed(1)} s`,
+                }),
+            ],
+        });
+        container.appendChild(plotMultiples);
     };
 
     onMount(draw);
@@ -189,6 +282,9 @@
     const getExportData = () => {
         return {
             pastNoteCount,
+            tempo,
+            barsPerFacet,
+            // data
             notes,
         };
     };
@@ -199,6 +295,8 @@
     const loadData = (json) => {
         saveToStorage();
         pastNoteCount = json.pastNoteCount;
+        tempo = json.tempo ?? 120;
+        barsPerFacet = json.barsPerFacet ?? 1;
         // data
         notes = json.notes;
         draw();
@@ -228,9 +326,39 @@
         </p>
         <div class="control">
             <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <TempoInput
+                label="tempo"
+                title="If you set the correct tempo, each facet of the lower chart will show N bars you played"
+                bind:value="{tempo}"
+                callback="{draw}"
+            />
+            <NumberInput
+                title="Set the number of bars contained within each facet of the lower chart"
+                label="bars per facet"
+                bind:value="{barsPerFacet}"
+                callback="{draw}"
+                min="{1}"
+                max="{20}"
+                step="{1}"
+            />
+            <button
+                on:click="{() =>
+                    noteOn({
+                        note: { number: 82 },
+                        timestamp: performance.now(),
+                        rawVelocity: 127,
+                        message: { channel: 1 },
+                    })}">add note</button
+            >
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
+            <MetronomeButton
+                {tempo}
+                accent="{4}"
+                beepCount="{8}"
+                showBeepCountInput
+            />
             <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
