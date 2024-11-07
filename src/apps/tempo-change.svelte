@@ -28,10 +28,10 @@
     let container;
     let firstTimeStamp;
     const minDist = 0.025;
+    const minTempo = 90;
     // settings
-    // let pastTime = 60;
     let timeBinSize = 5;
-    let tempoBinSize = 5;
+    let tempoBinSize = 10;
     // data
     let notes = [];
 
@@ -51,7 +51,7 @@
                 i === 0 ? 0 : d - timeBin[i - 1],
             );
             // filter IOIs
-            const filtered = iois.filter((d) => d > 0.0125 && d < 1.5);
+            const filtered = iois.filter((d) => d > minDist && d < 1.5);
             const bpms = filtered.map((d) => {
                 // convert to bpm
                 d = secondsPerBeatToBpm(d);
@@ -59,7 +59,7 @@
                 while (d > 180) {
                     d /= 2;
                 }
-                while (d < 60) {
+                while (d < minTempo) {
                     d *= 2;
                 }
                 d = Math.round(d);
@@ -68,13 +68,11 @@
             // bin into bins of 5 bpms
             const binBpms = d3
                 .bin()
-                .domain([60, 180])
-                .thresholds(d3.range(60, 181, tempoBinSize));
+                .domain([minTempo, 180])
+                .thresholds(d3.range(minTempo, 181, tempoBinSize));
             const binnedByBpm = binBpms(bpms);
             // mark maximum
             const maxIndex = d3.maxIndex(binnedByBpm, (d) => d.length);
-            console.log(maxIndex);
-
             for (const [index, bpm] of binnedByBpm.entries()) {
                 if (bpm.length > 0)
                     bpmValues.push({
@@ -152,7 +150,7 @@
                     rx: 3,
                     inset: 1,
                 }),
-                Plot.ruleY([60, 90, 120, 150, 180]),
+                Plot.ruleY(d3.range(minTempo, 185, 30)),
                 // workaround to have smoother time
                 Plot.ruleX([notes.at(-1)], { opacity: 0 }),
             ],
@@ -215,7 +213,7 @@
                 bind:value="{timeBinSize}"
                 callback="{draw}"
                 min="{1}"
-                max="{10}"
+                max="{30}"
                 step="{1}"
             />
             <NumberInput
@@ -223,9 +221,9 @@
                 label="tempo step"
                 bind:value="{tempoBinSize}"
                 callback="{draw}"
-                min="{2}"
+                min="{5}"
                 max="{20}"
-                step="{1}"
+                step="{5}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
@@ -259,7 +257,7 @@
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
+        <MidiInput {noteOn} pcKeyAllowed />
         <PcKeyboardInput
             key=" "
             keyDown="{() => noteOn({ timestamp: performance.now() })}"

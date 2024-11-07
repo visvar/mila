@@ -18,3 +18,8 @@
 - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
 - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
 - use an effect instead of calling draw()
+
+## App-specific
+
+- tempo change
+  - use softmax for values and then linear color map?

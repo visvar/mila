@@ -35,7 +35,7 @@
     let tempo = 120;
     let binNote = 0;
     let filterNote = 64;
-    let barLimit = 50;
+    let barLimit = 100;
     let showEighthLine = false;
     // data
     let firstTimeStamp = 0;
@@ -338,7 +338,7 @@
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
+        <MidiInput {noteOn} pcKeyAllowed />
         <PcKeyboardInput
             key=" "
             keyDown="{() => noteOn({ timestamp: performance.now() })}"

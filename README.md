@@ -36,3 +36,4 @@ If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 - [webmidi](https://github.com/djipco/webmidi) Web MIDI API wrapper
 - [fast-kde](https://github.com/uwdata/fast-kde) density estimation
 - [@fontsource](https://github.com/fontsource/fontsource) noto-music, noto-sans, noto-sans-symbols, noto-sans-symbols-2 for cross-plattform note symbols and icons
+- [https://github.com/danigb/soundfont-player](soundfont-player) and [midi-js-soundfonts](https://github.com/gleitz/midi-js-soundfonts) for playback

@@ -431,7 +431,7 @@
       </p>
     </ExerciseDrawer>
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} />
+    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
     <PcKeyboardInput
       key=" "
       keyDown="{() => {

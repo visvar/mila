@@ -1,6 +1,11 @@
 <script>
     export let checked = true;
-    export let callback = () => {};
+    /**
+     * Function that will be called with the updated state of checked
+     * @type {function}
+     * @param {boolean} checked
+     */
+    export let callback = (checked) => {};
     export let label = '';
     export let title = '';
 
@@ -14,7 +19,7 @@
     {title}
     on:click="{() => {
         checked = !checked;
-        callback();
+        callback(checked);
     }}"
 >
     <div>
