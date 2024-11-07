@@ -13,7 +13,7 @@
   import { Utils } from 'musicvis-lib';
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
-  import { NOTE_TO_CHROMA_MAP } from '../lib/music';
+  import { MIDI_SHARPS, NOTE_TO_CHROMA_MAP } from '../lib/music';
   import example from '../example-recordings/improvisation-chord-progression.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
@@ -22,7 +22,6 @@
   import NumberInput from '../common/input-elements/number-input.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';
   import Player from '../lib/Player';
-  import { log } from 'aframe';
 
   /**
    * contains the app meta information defined in App.js
@@ -125,6 +124,7 @@
   };
 
   const draw = () => {
+    const quarter = Utils.bpmToSecondsPerBeat(tempo);
     const notes2 = notes.map((note) => {
       // is this note in bar 1, 2, 3, 4?
       const currentBar = Math.floor(note.time / barDuration) % 4;
@@ -139,15 +139,16 @@
       } else if (scaleNotes.has(note.name)) colorType = 'scale';
       return {
         ...note,
+        time: note.time / quarter,
         colorType,
         chord: chordProg.chords[currentBar],
         chordShort: chordProg.chordsShort[currentBar],
       };
     });
 
-    container.textContent = '';
     const limited = notes2.slice(-barCount);
-    const plot = Plot.plot({
+    container.textContent = '';
+    const notePlot = Plot.plot({
       width,
       height,
       marginLeft: 50,
@@ -212,7 +213,7 @@
         }),
       ],
     });
-    container.appendChild(plot);
+    container.appendChild(notePlot);
 
     // chords as arrays of notes
     const chords = detectChords(notes2, maxNoteDistance)
@@ -302,6 +303,112 @@
       ],
     });
     container.appendChild(chordPlot);
+
+    if (chordNotes.length === 0) {
+      return;
+    }
+
+    const minBeat = Math.floor((chordNotes.at(0)?.time ?? 0) / 4) * 4;
+    const maxBeat = chordNotes.at(-1)?.time ?? 4;
+
+    // const yDomain = [...scaleNotes]
+    //   .map((d) => Midi.NOTE_NAMES.indexOf(d))
+    //   .sort();
+    // console.log(yDomain);
+    const yDomain = d3.range(12);
+
+    const rowPlot = Plot.plot({
+      width,
+      // height: 450,
+      marginLeft: 50,
+      marginRight: 50,
+      marginTop: 60,
+      marginBottom: 120,
+      padding: 0,
+      x: {
+        // axis: false,
+        label: 'time in beats',
+        // tick format as bar : beat
+        tickFormat: (d) => {
+          const beat = d - minBeat;
+          const bar = beat / 4;
+          return `${Math.floor(bar) + 1} : ${Math.floor(beat % 4) + 1}`;
+        },
+      },
+      y: {
+        domain: yDomain,
+        ticks: yDomain,
+        tickFormat: (d) => Midi.NOTE_NAMES[d],
+        label: 'notes',
+        labelAnchor: 'center',
+        reverse: true,
+      },
+      color: {
+        domain: ['chord', 'scale', 'rest'],
+        range: [chordColor, scaleColor, restColor],
+      },
+      fy: {
+        // padding: 5,
+      },
+      marks: [
+        // sharps
+        Plot.ruleY(MIDI_SHARPS, {
+          stroke: '#eee',
+          strokeWidth: 17,
+        }),
+        // beats
+        Plot.ruleX(d3.range(minBeat, maxBeat + 2, 1), {
+          stroke: '#eee',
+          strokeWidth: 1,
+        }),
+        // bars
+        Plot.ruleX(d3.range(minBeat, maxBeat + 5, 4), {
+          stroke: '#ccc',
+          strokeWidth: 2,
+        }),
+        // chord notes
+        Plot.rectX(chordNotes, {
+          // fy: (d) => Math.floor(d.time / 16),
+          // x1: (d) => d.time % 16,
+          // x2: (d) => (d.time + d.duration) % 16,
+          x1: (d) => Math.round(d.time * 2) / 2,
+          x2: (d) =>
+            Math.round(d.time * 2) / 2 + Math.floor(d.duration * 2) / 2 + 0.5,
+          y: (d) => d.number % 12,
+          fill: 'colorType',
+          stroke: '#eee',
+          rx: 4,
+        }),
+        // chord progression chord
+        Plot.text(chords, {
+          x: (d) => d[0]?.time ?? 0,
+          y: 0,
+          text: (d, i, array) => {
+            // only print name when it changed
+            if (i === 0) {
+              return d[0]?.chordShort;
+            }
+            if (d[0].chordShort !== array[i - 1][0].chordShort) {
+              return d[0]?.chordShort;
+            }
+          },
+          fontSize: 12,
+          dy: 50,
+          textAnchor: 'middle',
+        }),
+        // chord names, if detected
+        Plot.text(chordNames, {
+          x: (d, i) => chords[i][0]?.time ?? 0,
+          y: 0,
+          text: (d) => d.join('   '),
+          fontSize: 11,
+          dy: 70,
+          rotate: 90,
+          textAnchor: 'start',
+        }),
+      ],
+    });
+    container.appendChild(rowPlot);
   };
 
   onMount(() => {
@@ -349,8 +456,6 @@
    * plays a synthesized backing track based on the chord progression and tempo settings
    */
   const toggleBackingTrack = (speedFactor = 1) => {
-    console.log('toogle back');
-
     // if not started, start playing
     if (!player.isPlaying()) {
       firstTimeStamp = performance.now();
@@ -443,7 +548,7 @@
       <NoteCountInput bind:value="{barCount}" callback="{draw}" />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
-        label="max. note distance"
+        label="max. note distance (beats)"
         bind:value="{maxNoteDistance}"
         callback="{draw}"
         min="{0.05}"
@@ -452,7 +557,9 @@
       />
     </div>
     <div class="control">
-      <button on:click="{toggleBackingTrack}"> play/mute backing track </button>
+      <button on:click="{() => toggleBackingTrack()}">
+        play/mute backing track
+      </button>
       <NumberInput
         title="backing track volume"
         label="volume"

@@ -46,6 +46,11 @@ export const NOTE_TO_CHROMA_MAP = new Map([
   ['Gbb', 5]
 ])
 
+
+export const MIDI_SHARPS = [
+  1, 3, 6, 8, 10
+]
+
 /**
  * Musical grids for sub-division
  * TODO: move to mvlib

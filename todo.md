@@ -23,3 +23,8 @@
 
 - tempo change
   - use softmax for values and then linear color map?
+
+
+## Examples missing for
+
+- improvisation chord progression
