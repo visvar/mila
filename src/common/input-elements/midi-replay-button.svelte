@@ -9,6 +9,17 @@
 
     export let notes = [];
     export let speed = 1;
+    /**
+     * Called when the player starts
+     */
+    export let onStart = () => {};
+    /**
+     * Called when the player starts
+     */
+    export let onStop = () => {};
+    /**
+     * Called for each played note and when the player stops
+     */
     export let callback = () => {};
     // export let allowSound = false;
     export let allowSound = true;
@@ -35,6 +46,7 @@
      * plays notes
      */
     const replay = () => {
+        onStart();
         isPlaying = true;
         const timeFactor = 1000 / speed;
         oldNotes = [...notes];
@@ -98,6 +110,7 @@
         cancelAnimationFrame(circleRaf);
         timeouts = [];
         player.stop();
+        onStop();
     };
 
     /**

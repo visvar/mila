@@ -26,9 +26,11 @@
             The most tricky to use are the guitar (fretboard) apps, which
             require are MIDI guitar or a guitar with an added MIDI pickup.
         </p>
-        <h4>What if I only have a MIDI keyboard without synthesizer?</h4>
+        <h4>What if I only have a MIDI keyboard without sound/synthesizer?</h4>
         <p class="explanation">
-            You can simply open a web synth in another tab! For example,
+            You can use a built-in synth that needs to be turned on with a
+            toggle below each app. If you want better or different sounds, you
+            can also open a web synth in another tab! For example,
             <a
                 href="https://midi.city/"
                 target="_blank"
@@ -128,9 +130,24 @@
             >, such as other browsers that you have opened this website in. Some
             MIDI software requires a MIDI loopback that simulates a hardware
             MIDI device. We recommend
-            <a href="https://www.tobias-erichsen.de/software/loopmidi.html">
+            <a
+                href="https://www.tobias-erichsen.de/software/loopmidi.html"
+                target="_blank"
+                referrerpolicy="no-referrer"
+            >
                 loopMIDI
             </a> for Windows.
+        </p>
+
+        <h4>I still have issues!</h4>
+        <p class="explanation">
+            Please create a GitHub issue <a
+                href="https://github.com/visvar/mila/issues"
+                target="_blank"
+                referrerpolicy="no-referrer"
+            >
+                here
+            </a>.
         </p>
     </HelpTextDrawer>
 </main>

@@ -14,7 +14,7 @@
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
   import { NOTE_TO_CHROMA_MAP } from '../lib/music';
-  import example from '../example-recordings/improvisation-note-colors.json';
+  import example from '../example-recordings/improvisation-chord-progression.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
@@ -22,6 +22,7 @@
   import NumberInput from '../common/input-elements/number-input.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';
   import Player from '../lib/Player';
+  import { log } from 'aframe';
 
   /**
    * contains the app meta information defined in App.js
@@ -31,6 +32,7 @@
   $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
   let height = 250;
   let container;
+  let midiReplaySpeed;
   // colors
   const scaleColor = '#D4E157';
   const chordColor = '#689F38';
@@ -65,7 +67,9 @@
     (d) => d.label === chordProgLabel,
   )[0];
   // player for 'backing track'
-  const player = new Player().setVolume(3);
+  let backingTrackVolume = 1;
+  const player = new Player();
+  $: player?.setVolume(backingTrackVolume);
   player.preloadInstrument('acoustic_grand_piano');
   // settings
   let root = 'C';
@@ -324,7 +328,7 @@
   const loadData = (json) => {
     saveToStorage();
     root = json.root;
-    scaleType = json.scaleType1;
+    scaleType = json.scaleType;
     chordProgLabel = json.chordProgLabel;
     barCount = json.barCount;
     // data
@@ -344,13 +348,15 @@
   /**
    * plays a synthesized backing track based on the chord progression and tempo settings
    */
-  const toggleBackingTrack = () => {
+  const toggleBackingTrack = (speedFactor = 1) => {
+    console.log('toogle back');
+
     // if not started, start playing
     if (!player.isPlaying()) {
       firstTimeStamp = performance.now();
       const octave = 4;
       const chords = chordProg.chordNotes;
-      const quarter = Utils.bpmToSecondsPerBeat(tempo);
+      const quarter = Utils.bpmToSecondsPerBeat(tempo) / speedFactor;
       const notes = chords.flatMap((cNotes, bar) => {
         // each chord is one bar
         return d3.range(4).flatMap((beat) => {
@@ -381,6 +387,10 @@
       // otherwise just toggle mute
       player.isMuted() ? player.unMute() : player.mute();
     }
+  };
+
+  const killBackingtrack = () => {
+    player.stop();
   };
 
   onDestroy(() => {
@@ -441,6 +451,17 @@
         step="{0.05}"
       />
     </div>
+    <div class="control">
+      <button on:click="{toggleBackingTrack}"> play/mute backing track </button>
+      <NumberInput
+        title="backing track volume"
+        label="volume"
+        bind:value="{backingTrackVolume}"
+        min="{0.1}"
+        max="{3}"
+        step="{0.1}"
+      />
+    </div>
     <div>
       <!-- legend -->
       <div class="legend">
@@ -466,18 +487,24 @@
       </div>
       <div class="visualization" bind:this="{container}"></div>
       <div class="control">
-        <button on:click="{toggleBackingTrack}"> play backing track </button>
         <ResetNotesButton
           bind:notes
           {saveToStorage}
           callback="{() => {
             openNoteMap = new Map();
+            player.stop();
             draw();
           }}"
         />
         <button on:click="{() => loadData(example)}"> example </button>
         <HistoryButton appId="{appInfo.id}" {loadData} />
-        <MidiReplayButton bind:notes callback="{draw}" />
+        <MidiReplayButton
+          bind:notes
+          callback="{draw}"
+          bind:speed="{midiReplaySpeed}"
+          onStart="{() => toggleBackingTrack(midiReplaySpeed)}"
+          onStop="{killBackingtrack}"
+        />
         <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
       </div>
       <ExerciseDrawer>
@@ -505,5 +532,6 @@
     padding: 5px 10px;
     border-radius: 8px;
     border: 4px solid transparent;
+    user-select: none;
   }
 </style>
