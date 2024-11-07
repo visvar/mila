@@ -116,13 +116,14 @@ export function localStorageSetUsageData(usage) {
   try {
     localSt.setItem(USAGE_KEY, JSON.stringify(usage))
   } catch (e) {
-    window.alert('localStorage might be full: ' + e.toString())
+    window.alert('localStorage might be too full: ' + e.toString())
   }
 }
 
 export function localStorageGetSetting(key) {
   const item = localSt.getItem(SETTINGS_KEY)
   if (!item) {
+    console.warn('Cannot get setting ', key)
     return undefined
   } else {
     const obj = JSON.parse(item)

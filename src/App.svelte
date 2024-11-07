@@ -58,13 +58,14 @@
   let appUsageRecent = new Map();
   $: {
     let usage;
-    if (localStorage.getItem('usage') !== null) {
+    if (localStorage.getItem('usage')) {
       usage = localStorage.getItem('usage');
       usage = JSON.parse(usage);
     } else {
-      usage = {
-        appClicks: {},
-      };
+      usage = {};
+    }
+    if (!usage.appClicks) {
+      usage.appClicks = {};
     }
     const appClicks = usage.appClicks;
     if (currentApp && currentApp.id) {
