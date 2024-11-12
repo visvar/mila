@@ -21,6 +21,10 @@
      * Called for each played note and when the player stops
      */
     export let callback = () => {};
+    /**
+     * If true, all notes will be shifted such that the first starts at 0
+     */
+    export let startAtFirstNote = true;
     // export let allowSound = false;
     export let allowSound = true;
 
@@ -53,13 +57,18 @@
         notes = [];
         timeouts = [];
         let [minTime, maxTime] = d3.extent(oldNotes, (d) => d.time ?? d);
+        if (!startAtFirstNote) {
+            // optionally shift all notes so the first one starts at 0
+            // setting minTime to 0 prevents this
+            minTime = 0;
+        }
         maxTime = maxTime - minTime;
         // timeouts for notes
-        for (const note of oldNotes) {
-            const time = (note.time ?? note) - minTime;
+        for (const n of oldNotes) {
+            const time = (n.time ?? n) - minTime;
             timeouts.push(
                 setTimeout(() => {
-                    notes = [...notes, note];
+                    notes = [...notes, n];
                     // stop when finished
                     if (notes.length === oldNotes.length) {
                         stop();
@@ -79,15 +88,14 @@
         circleRaf = requestAnimationFrame(update);
         // start soundfont player
         if (sound !== 'silent') {
-            const firstTime = oldNotes.at(0).time;
-            const notes2 = oldNotes.map((d) => {
-                const time = d.time - firstTime;
-                const duration = d.duration ?? 0.2;
-                let velocity = d.velocityRaw ?? d.velocity ?? 1;
+            const notes2 = oldNotes.map((n) => {
+                const time = (n.time ?? n) - minTime;
+                const duration = n.duration ?? 0.2;
+                let velocity = n.velocityRaw ?? n.velocity ?? 1;
                 velocity = velocity <= 1 ? velocity : velocity / 127;
                 return Note.from({
                     // pitch: 31, // sticks
-                    pitch: d.number ?? 33, // metro click
+                    pitch: n.number ?? 33, // metro click
                     start: time,
                     end: time + duration,
                     duration,

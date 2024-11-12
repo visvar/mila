@@ -23,7 +23,7 @@
 
   let width = 900;
   // let height = 650;
-  let height = 400;
+  let height = 360;
   let container;
   // settings
   let showUnison = true;
@@ -81,6 +81,8 @@
       height,
       marginLeft: 125,
       marginRight: 10,
+      marginTop: 0,
+      marginBottom: 10,
       // make sure note symbols etc work
       style:
         'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
@@ -113,12 +115,14 @@
       ],
     });
     container.appendChild(plot);
+    const slicedIntervals = intervals.slice(-intervalLimit);
     const plot2 = Plot.plot({
       width,
       height,
       marginLeft: 125,
       marginRight: 10,
-      marginTop: 30,
+      marginTop: 0,
+      marginBottom: 10,
       color: {
         legend: true,
         domain: ['minor', 'major', 'perfect', 'tritone'],
@@ -141,13 +145,13 @@
           stroke: '#888',
           strokeWidth: 1.5,
         }),
-        Plot.rectY(intervals.slice(-intervalLimit), {
+        Plot.rectY(slicedIntervals, {
           x: (d, i) => i,
           fill: (d) => intervalNames[Math.abs(d)].type,
           rx: 4,
         }),
-        intervalLimit <= 40
-          ? Plot.textY(intervals.slice(-intervalLimit), {
+        slicedIntervals.length <= 40
+          ? Plot.textY(slicedIntervals, {
               x: (d, i) => i,
               y: (d) => (d > 0 ? d + 1 : d - 1),
               text: (d) => intervalNames[Math.abs(d)].short,

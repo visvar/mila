@@ -1,0 +1,417 @@
+{
+  "root": "D",
+  "scaleType": "minor",
+  "barCount": 100,
+  "showDuration": true,
+  "colorMapName": "1 4 5",
+  "notes": [
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.5354330708661418,
+      "time": 0,
+      "channel": 1,
+      "duration": 1.629,
+      "end": 1.629
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.4881889763779528,
+      "time": 1.55,
+      "channel": 1,
+      "duration": 2.9720000000000004,
+      "end": 4.522
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.4251968503937008,
+      "time": 4.48,
+      "channel": 1,
+      "duration": 0.4289999999999994,
+      "end": 4.909
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.5354330708661418,
+      "time": 4.755,
+      "channel": 1,
+      "duration": 2.3950000000000005,
+      "end": 7.15
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 0.5984251968503937,
+      "time": 7.105,
+      "channel": 1,
+      "duration": 3.530999999999999,
+      "end": 10.636
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 0.4881889763779528,
+      "time": 10.668,
+      "channel": 1,
+      "duration": 0.3490000000000002,
+      "end": 11.017
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 0.5433070866141733,
+      "time": 10.95,
+      "channel": 1,
+      "duration": 2.373900000095368,
+      "end": 13.323900000095367
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 0.6299212598425197,
+      "time": 13.292,
+      "channel": 1,
+      "duration": 0.33800000000000097,
+      "end": 13.63
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.7322834645669292,
+      "time": 13.572,
+      "channel": 1,
+      "duration": 2.817,
+      "end": 16.389
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.31496062992125984,
+      "time": 16.355,
+      "channel": 1,
+      "duration": 0.5560000000000009,
+      "end": 16.911
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6850393700787402,
+      "time": 16.859,
+      "channel": 1,
+      "duration": 3.4619999999999997,
+      "end": 20.321
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.3779527559055118,
+      "time": 21.237,
+      "channel": 1,
+      "duration": 2.759900000095371,
+      "end": 23.99690000009537
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.5196850393700787,
+      "time": 24.006,
+      "channel": 1,
+      "duration": 0.13700000000000045,
+      "end": 24.143
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.49606299212598426,
+      "time": 24.139,
+      "channel": 1,
+      "duration": 0.14700000000000202,
+      "end": 24.286
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.7007874015748031,
+      "time": 24.241,
+      "channel": 1,
+      "duration": 2.2029999999999994,
+      "end": 26.444
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.4015748031496063,
+      "time": 26.479,
+      "channel": 1,
+      "duration": 0.277000000000001,
+      "end": 26.756
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.8031496062992126,
+      "time": 26.706,
+      "channel": 1,
+      "duration": 3.649000000000001,
+      "end": 30.355
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.7165354330708661,
+      "time": 30.122900000095367,
+      "channel": 1,
+      "duration": 0.5470999999046349,
+      "end": 30.67
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 0.30708661417322836,
+      "time": 30.395,
+      "channel": 1,
+      "duration": 3.032,
+      "end": 33.427
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.6377952755905512,
+      "time": 33.351,
+      "channel": 1,
+      "duration": 0.37599999999999767,
+      "end": 33.727
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.8031496062992126,
+      "time": 33.663,
+      "channel": 1,
+      "duration": 3.436,
+      "end": 37.099
+    },
+    {
+      "name": "B",
+      "number": 71,
+      "velocity": 0.3464566929133858,
+      "time": 37.075,
+      "channel": 1,
+      "duration": 0.26200000000000045,
+      "end": 37.337
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 0.4094488188976378,
+      "time": 37.253,
+      "channel": 1,
+      "duration": 0.07590000009536624,
+      "end": 37.328900000095366
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 0.8740157480314961,
+      "time": 37.305,
+      "channel": 1,
+      "duration": 0.6509000000953691,
+      "end": 37.95590000009537
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.49606299212598426,
+      "time": 37.883,
+      "channel": 1,
+      "duration": 4.606999999999999,
+      "end": 42.49
+    },
+    {
+      "name": "F#",
+      "number": 66,
+      "velocity": 0.9763779527559056,
+      "time": 42.417,
+      "channel": 1,
+      "duration": 1.0379999999999967,
+      "end": 43.455
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.47244094488188976,
+      "time": 43.424,
+      "channel": 1,
+      "duration": 2.2310000000000016,
+      "end": 45.655
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6062992125984252,
+      "time": 45.6,
+      "channel": 1,
+      "duration": 3.9039999999999964,
+      "end": 49.504
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.7559055118110236,
+      "time": 49.5,
+      "channel": 1,
+      "duration": 0.11399999999999721,
+      "end": 49.614
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.5354330708661418,
+      "time": 49.644,
+      "channel": 1,
+      "duration": 0.142000000000003,
+      "end": 49.786
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.7637795275590551,
+      "time": 49.741,
+      "channel": 1,
+      "duration": 4.308,
+      "end": 54.049
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.5511811023622047,
+      "time": 54.021900000095364,
+      "channel": 1,
+      "duration": 0.2460999999046365,
+      "end": 54.268
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 0.7480314960629921,
+      "time": 54.214,
+      "channel": 1,
+      "duration": 3.301000000000002,
+      "end": 57.515
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.5748031496062992,
+      "time": 57.491,
+      "channel": 1,
+      "duration": 0.347999999999999,
+      "end": 57.839
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6141732283464567,
+      "time": 57.768,
+      "channel": 1,
+      "duration": 2.8569999999999993,
+      "end": 60.625
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.7716535433070866,
+      "time": 60.559,
+      "channel": 1,
+      "duration": 3.4399000000953706,
+      "end": 63.99890000009537
+    },
+    {
+      "name": "F",
+      "number": 53,
+      "velocity": 0.5748031496062992,
+      "time": 63.945,
+      "channel": 1,
+      "duration": 0.3309000000953617,
+      "end": 64.27590000009536
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.7795275590551181,
+      "time": 64.24290000009536,
+      "channel": 1,
+      "duration": 3.494099999904634,
+      "end": 67.737
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.6614173228346457,
+      "time": 67.747,
+      "channel": 1,
+      "duration": 0.3719999999999999,
+      "end": 68.119
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8582677165354331,
+      "time": 68.088,
+      "channel": 1,
+      "duration": 2.8290000000000077,
+      "end": 70.917
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.5669291338582677,
+      "time": 70.871,
+      "channel": 1,
+      "duration": 0.36299999999999955,
+      "end": 71.234
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 0.9606299212598425,
+      "time": 71.195,
+      "channel": 1,
+      "duration": 2.3940000000000055,
+      "end": 73.589
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.5196850393700787,
+      "time": 73.504,
+      "channel": 1,
+      "duration": 4.411999999999992,
+      "end": 77.916
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.4330708661417323,
+      "time": 77.835,
+      "channel": 1,
+      "duration": 0.3719999999999999,
+      "end": 78.207
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.4015748031496063,
+      "time": 78.11590000009537,
+      "channel": 1,
+      "duration": 2.52209999990464,
+      "end": 80.638
+    }
+  ],
+  "_appId": "improvisation-note-colors2",
+  "_softwareVersion": "0.22.0",
+  "_date": "2024-11-12T17:32:16.142Z"
+}

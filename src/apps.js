@@ -185,9 +185,9 @@ export const APPS = [
   },
   {
     id: 'improvisation-note-colors',
-    title: 'Improvisation Note Colors',
+    title: 'Improvisation Scale Subset Colors',
     description:
-      'See how often you use different kinds of notes in improvisation',
+      'See how you use notes in different scale subsets during improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'duration/ioi', 'pitch', 'chords'],
@@ -199,9 +199,9 @@ export const APPS = [
   },
   {
     id: 'improvisation-note-colors2',
-    title: 'Improvisation Note Colors 2',
+    title: 'Improvisation Scale Degree Colors',
     description:
-      'See how often you use different kinds of notes in improvisation',
+      'See how  you use different scale degrees in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'duration/ioi', 'pitch', 'chords'],

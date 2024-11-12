@@ -18,7 +18,7 @@
     SCALE_DEGREES_MAJOR,
     SCALE_DEGREES_MINOR,
   } from '../lib/music';
-  import example from '../example-recordings/improvisation-note-colors.json';
+  import example from '../example-recordings/improvisation-note-colors2.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
   import ScaleSelect from '../common/input-elements/scale-select.svelte';
@@ -54,7 +54,7 @@
       : SCALE_DEGREES_MINOR
     ).values(),
   ];
-  let colorMapIndex = 0;
+  let colorMapName = 'all';
   const colorMaps = [
     {
       label: 'all',
@@ -71,6 +71,19 @@
         '#dddddd',
         '#dddddd',
         d3.schemeTableau10[2],
+      ],
+    },
+    {
+      label: '1 4 5',
+      colors: [
+        '#eeeeee',
+        d3.schemeTableau10[0],
+        '#dddddd',
+        '#dddddd',
+        d3.schemeTableau10[1],
+        d3.schemeTableau10[2],
+        '#dddddd',
+        '#dddddd',
       ],
     },
     {
@@ -100,7 +113,7 @@
       ],
     },
   ];
-  $: colorMap = colorMaps[colorMapIndex];
+  $: colorMap = colorMaps.filter((d) => d.label === colorMapName)[0];
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -292,6 +305,7 @@
       scaleType,
       barCount,
       showDuration,
+      colorMapName,
       // data
       notes,
     };
@@ -306,6 +320,7 @@
     scaleType = json.scaleType;
     barCount = json.barCount ?? 50;
     showDuration = json.showDuration ?? false;
+    colorMapName = json.colorMapName ?? 'all';
     // data
     notes = json.notes;
     draw();
@@ -366,11 +381,11 @@
       <SelectScollable
         label="colors"
         title="Choose a color map"
-        bind:value="{colorMapIndex}"
+        bind:value="{colorMapName}"
         callback="{draw}"
       >
-        {#each colorMaps as cm, index}
-          <option value="{index}">{cm.label}</option>
+        {#each colorMaps as cm}
+          <option value="{cm.label}">{cm.label}</option>
         {/each}
       </SelectScollable>
     </div>

@@ -613,6 +613,7 @@
           bind:speed="{midiReplaySpeed}"
           onStart="{() => toggleBackingTrack(midiReplaySpeed)}"
           onStop="{killBackingtrack}"
+          startAtFirstNote="{false}"
         />
         <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
       </div>
