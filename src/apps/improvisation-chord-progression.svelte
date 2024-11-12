@@ -29,7 +29,6 @@
   export let appInfo;
 
   $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
-  let height = 250;
   let container;
   let midiReplaySpeed;
   // colors
@@ -89,9 +88,6 @@
   let currentChordIndex = 0;
 
   const noteOn = (e) => {
-    // if (notes.length === 0) {
-    //   firstTimeStamp = e.timestamp;
-    // }
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
     const note = {
       name: e.note.name + (e.note.accidental ?? ''),
@@ -131,9 +127,6 @@
       const currentChordNotes = chordProg.chordNotes[currentBar];
       // assign color
       let colorType = 'rest';
-      // if (note.name === root) {
-      //   colorType = 'root';
-      // } else
       if (currentChordNotes.has(note.name)) {
         colorType = 'chord';
       } else if (scaleNotes.has(note.name)) colorType = 'scale';
@@ -150,7 +143,7 @@
     container.textContent = '';
     const notePlot = Plot.plot({
       width,
-      height,
+      height: 200,
       marginLeft: 50,
       marginBottom: 50,
       padding: 0,
@@ -185,7 +178,6 @@
             d.duration === 0 ? 0 : 1,
           inset: 1.5,
           rx: 4,
-          // tip: true,
         }),
         Plot.text(limited, {
           x: (d, i) => i,
@@ -198,7 +190,6 @@
         Plot.text(limited, {
           x: (d, i) => i,
           y: 0,
-          // text: 'chordShort',
           text: (d, i, array) => {
             // only print name when it changed
             if (i === 0) {
@@ -217,7 +208,6 @@
 
     // chords as arrays of notes
     const chords = detectChords(notes2, maxNoteDistance)
-      .slice(-barCount)
       // sort notes in chord by pitch
       .map((notes) => notes.sort((a, b) => a.number - b.number));
     // musical name of each chord (if found)
@@ -240,6 +230,10 @@
       padding: 0,
       x: {
         axis: false,
+        domain: d3.range(
+          Math.max(chords.length - barCount, 0),
+          chords.length - 1,
+        ),
       },
       y: {
         ticks: [],
@@ -308,7 +302,7 @@
       return;
     }
 
-    const minBeat = Math.floor((chordNotes.at(0)?.time ?? 0) / 4) * 4;
+    const minBeat = Math.floor((chordNotes.at(0)?.time ?? 0) / 16) * 16;
     const maxBeat = chordNotes.at(-1)?.time ?? 4;
 
     // const yDomain = [...scaleNotes]
@@ -319,10 +313,10 @@
 
     const rowPlot = Plot.plot({
       width,
-      // height: 450,
+      height: 300,
       marginLeft: 50,
       marginRight: 50,
-      marginTop: 60,
+      marginTop: 30,
       marginBottom: 120,
       padding: 0,
       x: {
@@ -354,16 +348,41 @@
         // sharps
         Plot.ruleY(MIDI_SHARPS, {
           stroke: '#eee',
-          strokeWidth: 17,
+          strokeWidth: 10,
         }),
         // beats
         Plot.ruleX(d3.range(minBeat, maxBeat + 2, 1), {
-          stroke: '#eee',
+          stroke: '#e8e8e8',
           strokeWidth: 1,
         }),
         // bars
         Plot.ruleX(d3.range(minBeat, maxBeat + 5, 4), {
           stroke: '#ccc',
+          strokeWidth: 2,
+        }),
+        // chord repetitions
+        Plot.ruleX(d3.range(minBeat, maxBeat + 5, 16), {
+          stroke: '#666',
+          strokeWidth: 2,
+        }),
+        // chord progression chord
+        Plot.text(d3.range(minBeat, maxBeat, 4), {
+          x: (d) => d + 2,
+          y: 11,
+          text: (d) => chordProg.chordsShort[(d / 4) % chordProg.chords.length],
+          fontSize: 12,
+          dy: -30,
+          textAnchor: 'middle',
+        }),
+        // axis for bars
+        Plot.axisX({
+          ticks: d3.range(minBeat, maxBeat, 4),
+          // tickSize: 28,
+          tickSize: 16,
+          tickPadding: -11,
+          tickFormat: (d) => ` ${(d - minBeat) / 4 + 1}`,
+          textAnchor: 'start',
+          color: '#ccc',
           strokeWidth: 2,
         }),
         // chord notes
@@ -379,23 +398,6 @@
           stroke: '#eee',
           rx: 4,
         }),
-        // chord progression chord
-        Plot.text(chords, {
-          x: (d) => d[0]?.time ?? 0,
-          y: 0,
-          text: (d, i, array) => {
-            // only print name when it changed
-            if (i === 0) {
-              return d[0]?.chordShort;
-            }
-            if (d[0].chordShort !== array[i - 1][0].chordShort) {
-              return d[0]?.chordShort;
-            }
-          },
-          fontSize: 12,
-          dy: 50,
-          textAnchor: 'middle',
-        }),
         // chord names, if detected
         Plot.text(chordNames, {
           x: (d, i) => chords[i][0]?.time ?? 0,
@@ -406,7 +408,6 @@
           rotate: 90,
           textAnchor: 'start',
         }),
-        // TODO: separate x axes for bars and beats, hide beats when too small
       ],
     });
     container.appendChild(rowPlot);
