@@ -24,7 +24,7 @@
    */
   export let appInfo;
 
-  let width = 900;
+  $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
   let height = 350;
   let container;
   const rootColor = '#1B5E20';

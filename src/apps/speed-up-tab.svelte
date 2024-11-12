@@ -24,7 +24,7 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     let height = 150;
     let container;
     let metro = new Metronome();

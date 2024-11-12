@@ -406,6 +406,7 @@
           rotate: 90,
           textAnchor: 'start',
         }),
+        // TODO: separate x axes for bars and beats, hide beats when too small
       ],
     });
     container.appendChild(rowPlot);

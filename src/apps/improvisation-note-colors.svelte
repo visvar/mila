@@ -27,6 +27,7 @@
    */
   export let appInfo;
 
+  $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
   let height = 250;
   let container;
   // const noteNames = Midi.NOTE_NAMES_FLAT;
@@ -100,7 +101,6 @@
   };
 
   const draw = () => {
-    const width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     const colorMap = noteNames.map((note) => {
       if (note === root) {
         return rootColor;

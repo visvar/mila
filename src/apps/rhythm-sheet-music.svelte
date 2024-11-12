@@ -27,7 +27,7 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     let container;
     // settings
     let tempo = 90;
@@ -56,7 +56,7 @@
         if (notes.length > 0 && noteInSeconds - notes.at(-1) < minIOI) {
             return;
         }
-         notes = [...notes, noteInSeconds];
+        notes = [...notes, noteInSeconds];
         draw();
     };
 

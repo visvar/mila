@@ -29,7 +29,7 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     // let height = 600;
     let height = 300;
     let container;
