@@ -27,13 +27,15 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import Accents from './accents.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let container;
     // settings
     let tempo = 120;
@@ -104,7 +106,7 @@
         if (clamped.length > 0) {
             let bandwidth = 4 / binNote;
             let pad = 1;
-            let bins = width / 2;
+            let bins = Math.floor(width / 2);
             const density1d = kde.density1d(
                 clamped.map((d) => d.time),
                 {

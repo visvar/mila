@@ -111,7 +111,7 @@
         if (notesHand.length > 0) {
             let bandwidth = 4 / binNote;
             let pad = 1;
-            let bins = width / 2;
+            let bins = Math.floor(width / 2);
             const density1d = kde.density1d(notesHand, {
                 bandwidth,
                 pad,

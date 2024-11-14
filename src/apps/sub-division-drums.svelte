@@ -35,7 +35,8 @@
      */
     export let appInfo;
 
-    $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let container;
     // settings
     let tempo = 60;
@@ -108,7 +109,7 @@
         if (clamped.length > 0) {
             let bandwidth = 4 / binNote;
             let pad = 1;
-            let bins = width / 2;
+            let bins = Math.floor(width / 2);
             const density1d = kde.density1d(clamped, {
                 bandwidth,
                 pad,

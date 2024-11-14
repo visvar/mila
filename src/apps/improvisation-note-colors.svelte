@@ -27,7 +27,8 @@
    */
   export let appInfo;
 
-  $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
+  $: width =
+    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
   let height = 250;
   let container;
   // const noteNames = Midi.NOTE_NAMES_FLAT;

@@ -22,7 +22,8 @@
    */
   export let appInfo;
 
-  $: width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
+  $: width =
+    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
   // let height = 500;
   let height = 300;
   let container;

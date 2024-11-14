@@ -19,6 +19,7 @@
 - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
 - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
 - use an effect instead of calling draw()
+- remove fretboard-spacetime-cube and make it a separate repo
 
 ## App-specific
 
