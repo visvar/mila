@@ -99,6 +99,12 @@ select {
   transition: all 300ms;
 }
 
+button.primary,
+input.primary,
+select.primary {
+  background-color: var(--accent);
+}
+
 button:hover,
 input:hover,
 select:hover {

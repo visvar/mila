@@ -35,6 +35,10 @@
   const scaleColor = '#D4E157';
   const chordColor = '#689F38';
   const restColor = 'lightgray';
+  const color = {
+    domain: ['chord', 'scale', 'rest'],
+    range: [chordColor, scaleColor, restColor],
+  };
   const durationLimit = 1;
   // const noteNames = Midi.NOTE_NAMES_FLAT;
   const noteNames = Midi.NOTE_NAMES;
@@ -120,30 +124,78 @@
   };
 
   const draw = () => {
+    container.textContent = '';
     const quarter = Utils.bpmToSecondsPerBeat(tempo);
     const notes2 = notes.map((note) => {
       // is this note in bar 1, 2, 3, 4?
-      const currentBar = Math.floor(note.time / barDuration) % 4;
-      const currentChordNotes = chordProg.chordNotes[currentBar];
+      const bar = Math.floor(note.time / barDuration);
+      const chordIndex = bar % 4;
+      const currentChordNotes = chordProg.chordNotes[chordIndex];
       // assign color
       let colorType = 'rest';
       if (currentChordNotes.has(note.name)) {
         colorType = 'chord';
-      } else if (scaleNotes.has(note.name)) colorType = 'scale';
+      } else if (scaleNotes.has(note.name)) {
+        colorType = 'scale';
+      }
       return {
         ...note,
         time: note.time / quarter,
+        duration: note.duration / quarter,
         colorType,
-        chord: chordProg.chords[currentBar],
-        chordShort: chordProg.chordsShort[currentBar],
+        bar,
+        chordIndex,
+        chord: chordProg.chords[chordIndex],
+        chordShort: chordProg.chordsShort[chordIndex],
       };
     });
 
+    // plot that counts color types per bar as stacked bars
+    const colorRatioPerBar = d3
+      .groups(notes2, (d) => d.bar)
+      .flatMap(([bar, notes]) =>
+        d3
+          .groups(notes, (d) => d.colorType)
+          .map(([colorType, notes]) => {
+            return { bar, colorType, count: notes.length };
+          }),
+      );
+    const noteRatioPlot = Plot.plot({
+      width,
+      height: 150,
+      marginLeft: 20,
+      y: {
+        domain: d3.range(4),
+        tickFormat: (d) => chordProg.chordsShort[d],
+      },
+      fx: {
+        label: 'repetition',
+        tickFormat: (d) => d + 1,
+      },
+      color,
+      marks: [
+        Plot.frame({
+          stroke: '#eee',
+          rx: 3,
+        }),
+        Plot.rectX(colorRatioPerBar, {
+          y: (d) => d.bar % 4,
+          x: 'count',
+          fx: (d) => Math.floor(d.bar / 4),
+          fill: 'colorType',
+          rx: 4,
+          order: ['chord', 'scale', 'rest'],
+        }),
+        Plot.ruleX([0]),
+      ],
+    });
+    container.appendChild(noteRatioPlot);
+
+    // plot with notes sorted by time, bar height is note duration
     const limited = notes2.slice(-barCount);
-    container.textContent = '';
     const notePlot = Plot.plot({
       width,
-      height: 200,
+      height: 150,
       marginLeft: 50,
       marginBottom: 50,
       padding: 0,
@@ -156,10 +208,7 @@
         label: 'duration in seconds',
         labelAnchor: 'center',
       },
-      color: {
-        domain: ['chord', 'scale', 'rest'],
-        range: [chordColor, scaleColor, restColor],
-      },
+      color,
       marks: [
         Plot.ruleY([0], {
           stroke: '#ddd',
@@ -206,6 +255,9 @@
     });
     container.appendChild(notePlot);
 
+    /**
+     * Plot with chords as stacked bars
+     */
     // chords as arrays of notes
     const chords = detectChords(notes2, maxNoteDistance)
       // sort notes in chord by pitch
@@ -219,7 +271,6 @@
         return { ...n, chordIndex, noteIndex };
       }),
     );
-
     const chordPlot = Plot.plot({
       width,
       height: 300,
@@ -240,10 +291,7 @@
         label: 'chord notes sorted by pitch',
         labelAnchor: 'center',
       },
-      color: {
-        domain: ['chord', 'scale', 'rest'],
-        range: [chordColor, scaleColor, restColor],
-      },
+      color,
       marks: [
         // chord notes
         Plot.rectY(chordNotes, {
@@ -301,9 +349,9 @@
     if (chordNotes.length === 0) {
       return;
     }
-
     const minBeat = Math.floor((chordNotes.at(0)?.time ?? 0) / 16) * 16;
     const maxBeat = chordNotes.at(-1)?.time ?? 4;
+    const minBar = minBeat / 4;
 
     // const yDomain = [...scaleNotes]
     //   .map((d) => Midi.NOTE_NAMES.indexOf(d))
@@ -311,13 +359,55 @@
     // console.log(yDomain);
     const yDomain = d3.range(12);
 
-    const rowPlot = Plot.plot({
+    // quantized notes
+    // TODO: make a quantized function and move it to lib or mvlib
+    const notes3 = notes.map((note) => {
+      // convert to beats
+      let time = note.time / quarter;
+      let duration = note.duration / quarter;
+      //  quantize
+      time = Math.round(time * 2) / 2;
+      duration = Math.floor(duration * 2) / 2 + 0.5;
+      // is this note in bar 1, 2, 3, 4?
+      const bar = Math.floor(note.time / barDuration);
+      const chordIndex = bar % 4;
+      const currentChordNotes = chordProg.chordNotes[chordIndex];
+      // assign color
+      let colorType = 'rest';
+      if (currentChordNotes.has(note.name)) {
+        colorType = 'chord';
+      } else if (scaleNotes.has(note.name)) {
+        colorType = 'scale';
+      }
+      return {
+        ...note,
+        time,
+        duration,
+        colorType,
+        bar: bar - minBar,
+        chordIndex,
+        chord: chordProg.chords[chordIndex],
+        chordShort: chordProg.chordsShort[chordIndex],
+      };
+    });
+
+    // chords as arrays of notes
+    const chordsQuantized = detectChords(notes3, maxNoteDistance)
+      // sort notes in chord by pitch
+      .map((notes) => notes.sort((a, b) => a.number - b.number));
+    // musical name of each chord (if found)
+    const chordNotesQuantized = chordsQuantized.flatMap((chord, chordIndex) =>
+      chord.map((n, noteIndex) => {
+        return { ...n, chordIndex, noteIndex };
+      }),
+    );
+    const pianoRoll = Plot.plot({
       width,
-      height: 300,
+      height: 280,
       marginLeft: 50,
       marginRight: 50,
-      marginTop: 30,
-      marginBottom: 120,
+      marginTop: 20,
+      marginBottom: 100,
       padding: 0,
       x: {
         // axis: false,
@@ -337,10 +427,7 @@
         labelAnchor: 'center',
         reverse: true,
       },
-      color: {
-        domain: ['chord', 'scale', 'rest'],
-        range: [chordColor, scaleColor, restColor],
-      },
+      color,
       fy: {
         // padding: 5,
       },
@@ -371,7 +458,7 @@
           y: 11,
           text: (d) => chordProg.chordsShort[(d / 4) % chordProg.chords.length],
           fontSize: 12,
-          dy: -30,
+          dy: -20,
           textAnchor: 'middle',
         }),
         // axis for bars
@@ -386,13 +473,12 @@
           strokeWidth: 2,
         }),
         // chord notes
-        Plot.rectX(chordNotes, {
+        Plot.rectX(chordNotesQuantized, {
           // fy: (d) => Math.floor(d.time / 16),
           // x1: (d) => d.time % 16,
           // x2: (d) => (d.time + d.duration) % 16,
-          x1: (d) => Math.round(d.time * 2) / 2,
-          x2: (d) =>
-            Math.round(d.time * 2) / 2 + Math.floor(d.duration * 2) / 2 + 0.5,
+          x1: 'time',
+          x2: (d) => d.time + d.duration,
           y: (d) => d.number % 12,
           fill: 'colorType',
           stroke: '#eee',
@@ -404,18 +490,16 @@
           y: 0,
           text: (d) => d.join('   '),
           fontSize: 11,
-          dy: 70,
+          dy: 30,
           rotate: 90,
           textAnchor: 'start',
         }),
       ],
     });
-    container.appendChild(rowPlot);
+    container.appendChild(pianoRoll);
   };
 
-  onMount(() => {
-    draw();
-  });
+  onMount(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -460,11 +544,14 @@
   const toggleBackingTrack = (speedFactor = 1) => {
     // if not started, start playing
     if (!player.isPlaying()) {
+      // on first start, reset notes
+      notes = [];
+      draw();
       firstTimeStamp = performance.now();
       const octave = 4;
       const chords = chordProg.chordNotes;
       const quarter = Utils.bpmToSecondsPerBeat(tempo) / speedFactor;
-      const notes = chords.flatMap((cNotes, bar) => {
+      const backingNotes = chords.flatMap((cNotes, bar) => {
         // each chord is one bar
         return d3.range(4).flatMap((beat) => {
           // ... with 4 beats
@@ -483,7 +570,14 @@
           });
         });
       });
-      player.playNotes(notes, 'acoustic_grand_piano', 0, undefined, 1, true);
+      player.playNotes(
+        backingNotes,
+        'acoustic_grand_piano',
+        0,
+        undefined,
+        1,
+        true,
+      );
       player.onTimeChange(() => {
         currentChordIndex =
           Math.floor(
@@ -511,12 +605,22 @@
     <h2>{appInfo.title}</h2>
     <p class="explanation">
       This app helps practicing improvising in a scale over a chord progression.
-      Notes that you play are shown as bars. The color shows whether a note
-      belongs to the current chord, the scale, or neither. For example, when
-      improvising in C Major over ii-V-I, the notes that fit the currently
-      active chord will be dark green, notes that fit C Major will be light
-      green, and all others will be gray. The bars' height encodes the notes'
-      durations.
+      Notes that you play are colored to show whether a note belongs to the
+      current chord, the scale, or neither. For example, when improvising in C
+      Major over ii-V-I, the notes that fit the currently active chord will be
+      dark green, notes that fit C Major will be light green, and all others
+      will be gray. The bars' height encodes the notes' durations.
+    </p>
+    <p class="explanation">Start the backing track before you play!</p>
+    <p class="explanation">
+      <b>Note type summary:</b> This visualization shows how many notes of each
+      type (chord, scale, rest) you played in each bar.
+      <b>Note durations:</b> This bar chart displays notes sorted by time
+      (ignoring chords) and encodes the duration in the bar's height.
+      <b>Chords:</b> To see where you played chords, you can look at the chord
+      visualization that stacks the notes of each chord on top of each other.
+      <b>Piano roll:</b> This visualization shows quantized time on the X axis and
+      chroma (pitch without octave) on the Y axis for full detail.
     </p>
     <div class="control">
       <SelectScollable label="root note" bind:value="{root}" callback="{draw}">
@@ -559,7 +663,7 @@
       />
     </div>
     <div class="control">
-      <button on:click="{() => toggleBackingTrack()}">
+      <button on:click="{() => toggleBackingTrack()}" class="primary">
         play/mute backing track
       </button>
       <NumberInput
