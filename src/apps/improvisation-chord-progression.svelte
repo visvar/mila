@@ -168,23 +168,35 @@
           d3
             .groups(notes, (d) => d.colorType)
             .map(([colorType, notes]) => {
-              return { bar, colorType, count: notes.length };
+              return {
+                bar,
+                colorType,
+                count: notes.length,
+                notes: notes
+                  .sort((a, b) => (a.number % 12) - (b.number % 12))
+                  .map((d) => d.name)
+                  .join(' '),
+              };
             }),
         );
       const noteRatioPlot = Plot.plot({
         subtitle: 'Note Type Counts Per Bar',
         caption: `${upArrowIcon} See how many notes of each type (matching chord, scale, none) you played in each bar`,
         width,
-        height: 150,
-        marginLeft: 20,
-        marginBottom: 50,
+        height: 120,
+        marginLeft: 30,
+        marginTop: 30,
+        marginBottom: 0,
+        x: {
+          axis: false,
+        },
         y: {
           domain: d3.range(4),
           tickFormat: (d) => chordProg.chordsShort[d],
+          label: 'bar / chord',
         },
         fx: {
           label: 'repetition',
-          // tickFormat: (d) => d + 1,
         },
         color,
         marks: [
@@ -197,10 +209,11 @@
             x: 'count',
             fx: (d) => Math.floor(d.bar / 4),
             fill: 'colorType',
-            rx: 4,
+            rx: 3,
             order: ['chord', 'scale', 'rest'],
+            tip: true,
+            title: 'notes',
           }),
-          Plot.ruleX([0]),
         ],
       });
       container.appendChild(noteRatioPlot);
@@ -217,6 +230,7 @@
               return {
                 bar,
                 chroma,
+                note: notes[0].name,
                 count: notes.length,
                 colorType: notes[0].colorType,
               };
@@ -229,6 +243,7 @@
         height: 200,
         marginLeft: 50,
         marginRight: 50,
+        marginTop: 20,
         // make sure note symbols etc work
         color,
         x: {
@@ -237,13 +252,17 @@
         y: {
           domain: d3.range(0, 12, 1),
           reverse: true,
-          grid: true,
+          // grid: true,
         },
         fx: {
           label: null,
           tickFormat: (d) => chordProg.chordsShort[d % 4],
         },
         marks: [
+          Plot.ruleY(MIDI_SHARPS, {
+            stroke: '#eee',
+            strokeWidth: 10,
+          }),
           Plot.axisY({
             tickFormat: (d) => noteNames[d],
             anchor: 'left',
@@ -260,7 +279,9 @@
             fx: 'bar',
             fill: 'colorType',
             dx: 0.5,
-            rx: 4,
+            rx: 3,
+            tip: true,
+            title: 'note',
           }),
         ],
       });
@@ -365,7 +386,7 @@
         height: 300,
         marginLeft: 30,
         marginRight: 50,
-        marginTop: 60,
+        marginTop: 0,
         marginBottom: 120,
         padding: 0,
         x: {
@@ -392,6 +413,8 @@
             offset: 'normalize',
             rx: 4,
             inset: 1.5,
+            tip: true,
+            title: 'name',
           }),
           // chord note text labels
           Plot.text(chordNotes, {
@@ -403,6 +426,7 @@
             stroke: '#eee',
             strokeWidth: 3,
             dy: -12,
+            pointerEvents: 'none',
           }),
           // chord progression chord
           Plot.text(chords, {

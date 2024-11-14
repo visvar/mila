@@ -27,7 +27,8 @@
   }
 
   // access protection (not secure of course)
-  const usePw = true;
+  // TODO: remove completely?
+  const usePw = false;
   let corrP = 'milamila';
   let pwd = localStorage.getItem('pwd') ?? '';
   $: {

@@ -10,6 +10,7 @@
 - fix Tone.sampler not working in improvisation-chord-progression
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
+- use sample for metronome to make it sound less annoying, maybe allow choosing the sample and loudness
 
 ## Refactoring
 
@@ -30,3 +31,4 @@
 ## Examples missing for
 
 - improvisation chord progression
+- speed-up tab
