@@ -23,7 +23,9 @@
 
 - tempo change
   - use softmax for values and then linear color map?
-
+- pitch bend
+  - add version with indicator for allowed notes? (e.g., from chord progression)
+    -
 
 ## Examples missing for
 

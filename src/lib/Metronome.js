@@ -7,6 +7,8 @@
  */
 class Metronome {
   // Config
+  #frequency = 200
+  #accentFrequency = 300
   #beepDuration = 0.04
   #lookAheadTime = 0.1
   #scheduleTimeout = 50
@@ -147,7 +149,7 @@ class Metronome {
     }
     const osc = this.#audioCtx.createOscillator()
     osc.connect(this.#audioCtx.destination)
-    const frequency = isAccent ? 300 : 200
+    const frequency = isAccent ? this.#accentFrequency : this.#frequency
     osc.frequency.value = frequency
     osc.start(time)
     osc.stop(time + this.#beepDuration)
