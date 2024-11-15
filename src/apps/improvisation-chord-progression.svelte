@@ -22,16 +22,21 @@
   import NumberInput from '../common/input-elements/number-input.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';
   import Player from '../lib/Player';
-  import { upArrowIcon } from '../lib/icons';
+  import { noteEighth, noteHalf, noteQuarter, upArrowIcon } from '../lib/icons';
   import ToggleButton from '../common/input-elements/toggle-button.svelte';
+  import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
+  import {
+    noteDurationsNormal,
+    quantizeNoteDuration,
+  } from '../lib/note-durations';
 
   /**
    * contains the app meta information defined in App.js
    */
   export let appInfo;
 
-  $: width =
-    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
+  let windowWidth = 900;
+  $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
   let container;
   let midiReplaySpeed;
   // colors
@@ -42,8 +47,6 @@
     domain: ['chord', 'scale', 'rest'],
     range: [chordColor, scaleColor, restColor],
   };
-  const durationLimit = 1;
-  // const noteNames = Midi.NOTE_NAMES_FLAT;
   const noteNames = Midi.NOTE_NAMES;
   const chordProgressions = [
     {
@@ -83,6 +86,7 @@
   let maxNoteDistance = 0.1;
   let barCount = 50;
   let showNoteTypePlot = true;
+  let showRhythmPlot = true;
   let showChromaPlot = true;
   let showChordPlot = false;
   let showDurationPlot = false;
@@ -180,7 +184,7 @@
               };
             }),
         );
-      const noteRatioPlot = Plot.plot({
+      const noteTypePlot = Plot.plot({
         subtitle: 'Note Type Counts Per Bar',
         caption: `${upArrowIcon} See how many notes of each type (matching chord, scale, none) you played in each bar`,
         width,
@@ -213,11 +217,80 @@
             rx: 3,
             order: ['chord', 'scale', 'rest'],
             tip: true,
-            title: 'notes',
+            title: (d) => `${d.count} notes fit ${d.colorType}\n${d.notes}`,
           }),
         ],
       });
-      container.appendChild(noteRatioPlot);
+      container.appendChild(noteTypePlot);
+    }
+
+    if (showRhythmPlot) {
+      // plot that counts note durations
+      const useDotted = false;
+      const useTuplets = false;
+      // quantize notes, i.e., round to closest note duration (quarter, eighth, ...)
+      const notesQuantized = notes2.map((d) => {
+        return {
+          ...d,
+          duration: quantizeNoteDuration(d.duration, useDotted, useTuplets),
+        };
+      });
+      const durationsPerBar = d3
+        .groups(notesQuantized, (d) => d.bar)
+        .flatMap(([bar, notes]) =>
+          d3
+            .groups(notes, (d) => d.duration.name)
+            .map(([durationType, notes]) => {
+              return {
+                bar,
+                durationType,
+                count: notes.length,
+              };
+            }),
+        );
+      const colorDomain = noteDurationsNormal.map((d) => d.name);
+      // plot
+      const noteDurationPlot = Plot.plot({
+        subtitle: 'Note Durations Per Bar',
+        caption: `${upArrowIcon} See how many notes of each duration you played in each bar`,
+        width,
+        height: 120,
+        marginLeft: 30,
+        marginTop: 30,
+        marginBottom: 0,
+        x: {
+          axis: false,
+        },
+        y: {
+          domain: d3.range(4),
+          tickFormat: (d) => chordProg.chordsShort[d],
+          label: 'bar / chord',
+        },
+        fx: {
+          label: 'repetition',
+        },
+        color: {
+          legend: true,
+          domain: colorDomain,
+        },
+        marks: [
+          Plot.frame({
+            stroke: '#eee',
+            rx: 3,
+          }),
+          Plot.waffleX(durationsPerBar, {
+            y: (d) => d.bar % 4,
+            x: 'count',
+            fx: (d) => Math.floor(d.bar / 4),
+            fill: 'durationType',
+            rx: 3,
+            order: colorDomain,
+            tip: true,
+            title: (d) => `${d.durationType}\n${d.count} times`,
+          }),
+        ],
+      });
+      container.appendChild(noteDurationPlot);
     }
 
     if (showChromaPlot) {
@@ -282,7 +355,7 @@
             dx: 0.5,
             rx: 3,
             tip: true,
-            title: 'note',
+            title: (d) => `${d.note}\nfits ${d.colorType}`,
           }),
         ],
       });
@@ -292,6 +365,10 @@
     if (showDurationPlot) {
       // plot with notes sorted by time, bar height is note duration
       const limited = notes2.slice(-barCount);
+      // duration limit for the duration chart, in beats
+      const durationLimit = 2;
+      // plot
+      const yTicks = [0, 0.5, 1, 2];
       const notePlot = Plot.plot({
         subtitle: 'Note Durations',
         caption: `${upArrowIcon} this chart shows note durations, so you can see whether notes that do not fit chord or scale are shorter, which could mean quickly passing through, e.g., while bending or sliding`,
@@ -304,10 +381,14 @@
           axis: false,
         },
         y: {
+          label: 'duration in beats',
+          labelAnchor: 'center',
           axis: true,
           domain: [0, durationLimit],
-          label: 'duration in seconds',
-          labelAnchor: 'center',
+          ticks: yTicks,
+          tickFormat: (d) =>
+            [0, noteEighth, noteQuarter, noteHalf][yTicks.indexOf(d)],
+          grid: true,
         },
         color,
         marks: [
@@ -628,6 +709,7 @@
       chordProgLabel,
       barCount,
       showNoteTypePlot,
+      showRhythmPlot,
       showChromaPlot,
       showChordPlot,
       showDurationPlot,
@@ -647,6 +729,7 @@
     chordProgLabel = json.chordProgLabel;
     barCount = json.barCount ?? 50;
     showNoteTypePlot = json.showNoteTypePlot ?? true;
+    showRhythmPlot = json.showRhythmPlot ?? true;
     showChromaPlot = json.showChromaPlot ?? true;
     showChordPlot = json.showChordPlot ?? true;
     showDurationPlot = json.showDurationPlot ?? true;
@@ -798,6 +881,11 @@
         callback="{draw}"
       />
       <ToggleButton
+        label="rhythm"
+        bind:checked="{showRhythmPlot}"
+        callback="{draw}"
+      />
+      <ToggleButton
         label="note chroma chart"
         bind:checked="{showChromaPlot}"
         callback="{draw}"
@@ -894,6 +982,9 @@
     </div>
   </main>
 </FileDropTarget>
+
+<PageResizeHandler callback="{draw}" />
+<svelte:window bind:innerWidth="{windowWidth}" />
 
 <style>
   .legend div {

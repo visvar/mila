@@ -11,6 +11,7 @@
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
 - use sample for metronome to make it sound less annoying, maybe allow choosing the sample and loudness
+- rescale automatically, like in tempo-drift
 
 ## Refactoring
 
@@ -18,8 +19,9 @@
   - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
 - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
 - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
-- use an effect instead of calling draw()
+- use an effect instead of calling draw() from inputs and page-resize-handler
 - remove fretboard-spacetime-cube and make it a separate repo
+- replace note-count-input by a number input
 
 ## App-specific
 

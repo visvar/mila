@@ -1,3 +1,10 @@
+import * as d3 from 'd3'
+
+/**
+ * Note duration definitions with name, amount of beats (1 beat == 1 quarter), and symbol
+ *
+ * @type {object[]}
+ */
 export const noteDurations = [
   // normal
   {
@@ -80,3 +87,33 @@ export const noteDurations = [
     tuplet: true
   }
 ]
+
+// mostly as cache for quantizeNoteDuration() below
+export const noteDurationsNormal = noteDurations.filter((d) => !d.dotted && !d.tuplet)
+export const noteDurationsNormalAndDotted = noteDurations.filter((d) => !d.tuplet)
+export const noteDurationsNormalAndTuplet = noteDurations.filter((d) => !d.dotted)
+
+
+/**
+ * Determines the best fitting entry of noteDurations for a given duration in beats
+ * @param {number} durationInBeats duration as multiple of a quarter note, e.g., 1.5 for a dotted quarter
+ * @param {boolean} useDotted allow dotted notes in output
+ * @param {boolean} useTuplets allow tuplet notes in output
+ * @returns {object} entry of @link noteDurations
+ */
+export function quantizeNoteDuration(durationInBeats, useDotted, useTuplets) {
+  let possible = noteDurationsNormal
+  if (useDotted && useTuplets) {
+    possible = noteDurations
+  } else if (useDotted) {
+    possible = noteDurationsNormalAndDotted
+  } else if (useTuplets) {
+    possible = noteDurationsNormalAndTuplet
+  }
+  // best fitting duration
+  const bestDurIndex = d3.minIndex(possible, (d) =>
+    Math.abs(durationInBeats - d.beats),
+  )
+  const bestDur = possible[bestDurIndex]
+  return bestDur
+}

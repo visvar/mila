@@ -146,8 +146,8 @@
                 target="_blank"
                 referrerpolicy="no-referrer"
             >
-                here
-            </a>.
+                here</a
+            >.
         </p>
     </HelpTextDrawer>
 </main>

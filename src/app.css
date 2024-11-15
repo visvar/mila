@@ -129,6 +129,9 @@ label {
   user-select: none;
 }
 
+/* svg {
+  margin: 0 auto;
+} */
 
 svg text {
   user-select: none;

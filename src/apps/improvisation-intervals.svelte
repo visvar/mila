@@ -48,8 +48,6 @@
   };
 
   const draw = () => {
-    // TODO: filter notes which are too close together
-    // TODO: filter notes with low velocity
     let intervals = notes.map((d, i) =>
       i === 0 ? 0 : d.number - notes[i - 1].number,
     );
@@ -82,7 +80,7 @@
       marginLeft: 125,
       marginRight: 10,
       marginTop: 0,
-      marginBottom: 10,
+      marginBottom: 30,
       // make sure note symbols etc work
       style:
         'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
@@ -226,6 +224,7 @@
         title="The number of most recent notes that are shown as bars."
         label="bars"
         bind:value="{intervalLimit}"
+        defaultValue="{40}"
         callback="{draw}"
         step="{10}"
         min="{40}"

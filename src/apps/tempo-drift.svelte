@@ -21,15 +21,15 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import { noteEighth } from '../lib/icons';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    $: width =
-        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
-    // let height = 600;
+    let windowWidth = 900;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let height = 400;
     let container;
     // settings
@@ -156,31 +156,6 @@
         });
         container.textContent = '';
         container.appendChild(plot);
-
-        // tempo estimation
-        // const lastNotes = iois
-        //     .filter((d) => d > 0.8 * sixteenth && d < 1.25 * quarter)
-        //     .slice(-24)
-        //     .map((d) =>
-        //         d < 0.6 * quarter ? d * 2 : d > 1.5 * quarter ? d / 2 : d,
-        //     );
-        // estimatedTempo = secondsPerBeatToBpm(d3.mean(lastNotes));
-
-        // TODO: remove
-        // demo of how it would look with ticks
-        // const notesInBeats = notes.map((d) => d / quarter);
-        // const plot2 = Plot.plot({
-        //     width,
-        //     height: 100,
-        //     x: { label: 'time in beats (quarter notes)' },
-        //     marks: [
-        //         Plot.tickX(notesInBeats, {
-        //             x: (d) => d,
-        //             stroke: '#ddd',
-        //         }),
-        //     ],
-        // });
-        // container.appendChild(plot2);
     };
 
     /**
@@ -263,7 +238,7 @@
                 callback="{draw}"
             >
                 <option value="{0}">off</option>
-                {#each BIN_NOTES as g}
+                {#each [16, 32, 64] as g}
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
@@ -278,6 +253,8 @@
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
+        </div>
+        <div class="control">
             <NumberInput
                 title="The number of most recent notes that are shown as bars."
                 label="bars"
@@ -295,11 +272,6 @@
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
-        <!-- {#if estimatedTempo}
-            <div>
-                estimated: {estimatedTempo.toFixed()} bpm (assuming quarter notes)
-            </div>
-        {/if} -->
         <div class="control">
             <MetronomeButton
                 {tempo}
@@ -350,3 +322,6 @@
         />
     </main>
 </FileDropTarget>
+
+<PageResizeHandler callback="{draw}" />
+<svelte:window bind:innerWidth="{windowWidth}" />
