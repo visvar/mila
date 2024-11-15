@@ -167,7 +167,7 @@
 
     if (showNoteTypePlot) {
       // plot that counts color types per bar as stacked bars
-      const colorRatioPerBar = d3
+      const colorCountsPerBar = d3
         .groups(notes2, (d) => d.bar)
         .flatMap(([bar, notes]) =>
           d3
@@ -209,7 +209,7 @@
             stroke: '#eee',
             rx: 3,
           }),
-          Plot.waffleX(colorRatioPerBar, {
+          Plot.waffleX(colorCountsPerBar, {
             y: (d) => d.bar % 4,
             x: 'count',
             fx: (d) => Math.floor(d.bar / 4),
@@ -222,6 +222,87 @@
         ],
       });
       container.appendChild(noteTypePlot);
+
+      // const boxPlot = Plot.plot({
+      //   width: 500,
+      //   x: {
+      //     grid: true,
+      //     inset: 6,
+      //   },
+      //   y: {
+      //     domain: d3.range(4),
+      //     tickFormat: (d) => chordProg.chordsShort[d],
+      //   },
+      //   color,
+      //   marks: [
+      //     Plot.boxX(colorCountsPerBar, {
+      //       x: 'count',
+      //       y: (d) => d.bar % 4,
+      //       fx: 'colorType',
+      //       fill: 'colorType',
+      //     }),
+      //   ],
+      // });
+      // container.appendChild(boxPlot);
+
+      // const histoPlot = Plot.plot({
+      //   width: 500,
+      //   height: 200,
+      //   x: {
+      //     grid: true,
+      //     inset: 6,
+      //   },
+      //   y: {},
+      //   fy: {
+      //     domain: d3.range(4),
+      //     tickFormat: (d) => chordProg.chordsShort[d],
+      //   },
+      //   color,
+      //   marks: [
+      //     Plot.rectY(
+      //       colorCountsPerBar,
+      //       Plot.binX(
+      //         { y: 'sum' },
+      //         {
+      //           x: (d) => d.count,
+      //           fx: 'colorType',
+      //           fy: (d) => d.bar % 4,
+      //           fill: 'colorType',
+      //         },
+      //       ),
+      //     ),
+      //     Plot.ruleY([0]),
+      //   ],
+      // });
+      // container.appendChild(histoPlot);
+
+      // const barPlot = Plot.plot({
+      //   width: 500,
+      //   height: 200,
+      //   x: {
+      //     grid: true,
+      //     inset: 6,
+      //     label: 'repetition',
+      //   },
+      //   y: {},
+      //   fy: {
+      //     domain: d3.range(4),
+      //     tickFormat: (d) => chordProg.chordsShort[d],
+      //   },
+      //   color,
+      //   marks: [
+      //     Plot.rectY(colorCountsPerBar, {
+      //       x: (d) => Math.floor(d.bar / 4),
+      //       y: 'count',
+      //       // fx: 'colorType',
+      //       fy: (d) => d.bar % 4,
+      //       fill: 'colorType',
+      //       order: color.domain,
+      //     }),
+      //     Plot.ruleY([0]),
+      //   ],
+      // });
+      // container.appendChild(barPlot);
     }
 
     if (showRhythmPlot) {
@@ -962,6 +1043,7 @@
           onStart="{() => toggleBackingTrack(midiReplaySpeed)}"
           onStop="{killBackingtrack}"
           startAtFirstNote="{false}"
+          sound="acoustic_grand_piano"
         />
         <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
       </div>

@@ -295,6 +295,7 @@
     <ToggleButton
       bind:checked="{keyboardEnabled}"
       label="use keyboard"
+      title="When enabled, you can use a PC keyboard similar to a MIDI keyboard"
       callback="{(checked) => {
         if (!checked) {
           synth?.releaseAll();
