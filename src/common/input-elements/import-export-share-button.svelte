@@ -118,7 +118,7 @@
 
     // when destroyed, clear the current URL, so other apps do not get this data
     onDestroy(() => {
-        setUrlParam(window, 'json', '');
+        setUrlParam(window, 'json', undefined);
     });
 </script>
 

@@ -27,7 +27,6 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
-    import Accents from './accents.svelte';
     import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
 
     /**

@@ -39,6 +39,7 @@
   window.onpopstate = (e) => {
     if (currentApp !== null) {
       currentApp = null;
+      setUrlParam(window, 'd', undefined);
     }
   };
 
@@ -154,7 +155,7 @@
       <button
         on:click="{() => {
           currentApp = null;
-          setUrlParam(window, 'd', '');
+          setUrlParam(window, 'd', undefined);
         }}"
       >
         ☰ apps
