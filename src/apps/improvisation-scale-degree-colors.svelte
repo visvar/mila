@@ -36,7 +36,6 @@
   let container;
   const noteNames = Midi.NOTE_NAMES;
   // settings
-  // let root = 'A';
   let root = 'C';
   let scaleType = 'major';
   let barCount = 50;

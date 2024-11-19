@@ -1,6 +1,9 @@
 {
   "root": "D",
+  "scaleType1": "minor",
+  "scaleType2": "pentatonic",
   "pastNoteCount": 50,
+  "showDuration": true,
   "notes": [
     {
       "name": "D",
