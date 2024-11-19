@@ -84,6 +84,7 @@
   let scaleType = 'major';
   let tempo = 90;
   let maxNoteDistance = 0.1;
+  let minDuration = 0;
   let barCount = 50;
   let showNoteTypePlot = true;
   let showRhythmPlot = true;
@@ -141,29 +142,33 @@
       return;
     }
     const quarter = Utils.bpmToSecondsPerBeat(tempo);
-    const notes2 = notes.map((note) => {
-      // is this note in bar 1, 2, 3, 4?
-      const bar = Math.floor(note.time / barDuration);
-      const chordIndex = bar % 4;
-      const currentChordNotes = chordProg.chordNotes[chordIndex];
-      // assign color
-      let colorType = 'rest';
-      if (currentChordNotes.has(note.name)) {
-        colorType = 'chord';
-      } else if (scaleNotes.has(note.name)) {
-        colorType = 'scale';
-      }
-      return {
-        ...note,
-        time: note.time / quarter,
-        duration: note.duration / quarter,
-        colorType,
-        bar,
-        chordIndex,
-        chord: chordProg.chords[chordIndex],
-        chordShort: chordProg.chordsShort[chordIndex],
-      };
-    });
+    const notes2 = notes
+      .filter(
+        (note) => note.duration === 0 || note.duration / quarter >= minDuration,
+      )
+      .map((note) => {
+        // is this note in bar 1, 2, 3, 4?
+        const bar = Math.floor(note.time / barDuration);
+        const chordIndex = bar % 4;
+        const currentChordNotes = chordProg.chordNotes[chordIndex];
+        // assign color
+        let colorType = 'rest';
+        if (currentChordNotes.has(note.name)) {
+          colorType = 'chord';
+        } else if (scaleNotes.has(note.name)) {
+          colorType = 'scale';
+        }
+        return {
+          ...note,
+          time: note.time / quarter,
+          duration: note.duration / quarter,
+          colorType,
+          bar,
+          chordIndex,
+          chord: chordProg.chords[chordIndex],
+          chordShort: chordProg.chordsShort[chordIndex],
+        };
+      });
 
     if (showNoteTypePlot) {
       // plot that counts color types per bar as stacked bars
@@ -789,6 +794,8 @@
       scaleType,
       chordProgLabel,
       barCount,
+      maxNoteDistance,
+      minDuration,
       showNoteTypePlot,
       showRhythmPlot,
       showChromaPlot,
@@ -809,6 +816,8 @@
     scaleType = json.scaleType ?? 'major';
     chordProgLabel = json.chordProgLabel;
     barCount = json.barCount ?? 50;
+    maxNoteDistance = json.maxNoteDistance ?? 0.1;
+    minDuration = json.minDuration ?? 0;
     showNoteTypePlot = json.showNoteTypePlot ?? true;
     showRhythmPlot = json.showRhythmPlot ?? true;
     showChromaPlot = json.showChromaPlot ?? true;
@@ -946,13 +955,24 @@
       <TempoInput bind:value="{tempo}" callback="{draw}" />
       <NoteCountInput bind:value="{barCount}" callback="{draw}" />
       <NumberInput
-        title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
-        label="max. note distance (beats)"
+        title="Maximum time distance in beats between notes such that they still count as beloning to the same chord/arpeggio"
+        label="max. distance"
         bind:value="{maxNoteDistance}"
         callback="{draw}"
         min="{0.05}"
         max="{2}"
         step="{0.05}"
+        defaultValue="{0.1}"
+      />
+      <NumberInput
+        title="Minimum note duration in beats. Shorter notes will be filtered out to reduce noise"
+        label="min. duration"
+        bind:value="{minDuration}"
+        callback="{draw}"
+        min="{0}"
+        max="{0.5}"
+        step="{0.01}"
+        defaultValue="{0}"
       />
     </div>
     <div class="control">

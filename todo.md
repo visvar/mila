@@ -22,6 +22,8 @@
 - use an effect instead of calling draw() from inputs and page-resize-handler
 - remove fretboard-spacetime-cube and make it a separate repo
 - replace note-count-input by a number input
+- after upgrading to svelte 5
+  - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
 
 ## App-specific
 
@@ -33,5 +35,4 @@
 
 ## Examples missing for
 
-- improvisation chord progression
 - speed-up tab

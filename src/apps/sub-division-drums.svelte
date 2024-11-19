@@ -41,6 +41,7 @@
     // settings
     let tempo = 60;
     let grid = GRIDS[0].divisions;
+    let bars = 1;
     let binNote = 64;
     let adjustTime = 0;
     let showKde = true;
@@ -91,7 +92,8 @@
     };
 
     const drawDrum = (drum = 'KD', label = 'Kick Drum', xLabel = null) => {
-        const [grid1, grid2] = grid.split(':').map((d) => +d);
+        let [grid1, grid2] = grid.split(':').map((d) => +d);
+        const beats = grid1 * bars;
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
         // only look at one drum part
         let clamped = notes.filter((d) => d.drum === drum);
@@ -99,10 +101,10 @@
         clamped = clamped.map((d) => (d.time + adjustTime) / quarter);
         if (pastBars > 0 && clamped.length > 0) {
             // only show most recent bars
-            const maxBar = Math.floor(clamped.at(-1) / grid1);
-            clamped = clamped.filter((d) => d / grid1 >= maxBar - pastBars);
+            const maxBar = Math.floor(clamped.at(-1) / beats);
+            clamped = clamped.filter((d) => d / beats >= maxBar - pastBars);
         }
-        clamped = clamped.map((d) => d % grid1);
+        clamped = clamped.map((d) => d % beats);
 
         // KDE
         let kdePoints = [];
@@ -114,13 +116,13 @@
                 bandwidth,
                 pad,
                 bins,
-                extent: [0, grid1],
+                extent: [0, beats],
             });
             kdePoints = density1d.bandwidth(bandwidth);
         }
 
-        const coarseGrid = d3.range(0, grid1 + 1, 1);
-        const fineGrid = d3.range(0, grid1, 1 / grid2);
+        const coarseGrid = d3.range(0, beats + 1, 1);
+        const fineGrid = d3.range(0, beats, 1 / grid2);
 
         const plot = Plot.plot({
             width,
@@ -130,10 +132,10 @@
             padding: 0,
             x: {
                 label: xLabel,
-                domain: [0, 4],
-                ticks: coarseGrid.slice(0, -1),
+                domain: [0, beats],
+                ticks: coarseGrid,
                 round: true,
-                tickFormat: (d) => (d + 1).toFixed(),
+                tickFormat: (d) => (d % grid1) + 1,
             },
             y: {
                 axis: false,
@@ -155,7 +157,7 @@
                                   fill: '#ccc',
                                   thresholds: d3.range(
                                       0,
-                                      grid1 + 1,
+                                      beats + 1,
                                       4 / binNote,
                                   ),
                               },
@@ -197,6 +199,7 @@
         return {
             tempo,
             grid,
+            bars,
             binNote,
             adjustTime,
             pastBars,
@@ -210,10 +213,11 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        tempo = json.tempo;
-        grid = json.grid;
-        binNote = json.binNote;
-        adjustTime = json.adjustTime;
+        tempo = json.tempo ?? 120;
+        grid = json.grid ?? '4:4';
+        bars = json.bars ?? 1;
+        binNote = json.binNote ?? 96;
+        adjustTime = json.adjustTime ?? 0;
         pastBars = json.pastBars ?? 100;
         showKde = json.showKde ?? false;
         // data
@@ -262,6 +266,16 @@
                     <option value="{g.divisions}">{g.label}</option>
                 {/each}
             </SelectScollable>
+            <NumberInput
+                title="The number of bars in each repetition."
+                label="bars"
+                bind:value="{bars}"
+                callback="{draw}"
+                step="{1}"
+                min="{1}"
+                max="{4}"
+                defaultValue="{1}"
+            />
             <SelectScollable
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."

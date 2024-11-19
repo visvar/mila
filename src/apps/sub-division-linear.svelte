@@ -28,18 +28,20 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
     import Accents from './accents.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    $: width =
-        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
+    let windowWidth = 900;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let container;
     // settings
     let tempo = 120;
     let grid = GRIDS[0].divisions;
+    let bars = 1;
     let binNote = 64;
     let adjustTime = 0;
     let pastBars = 8;
@@ -90,15 +92,16 @@
     };
 
     const draw = () => {
-        const [grid1, grid2] = grid.split(':').map((d) => +d);
+        let [grid1, grid2] = grid.split(':').map((d) => +d);
+        const beats = grid1 * bars;
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
         const notesInBeats = notes.map((d) => {
             const time = (d.time + adjustTime) / quarter;
             return { ...d, time };
         });
-        const maxBar = Math.ceil((notesInBeats.at(-1)?.time ?? 0) / grid1);
+        const maxBar = Math.ceil((notesInBeats.at(-1)?.time ?? 0) / beats);
         const clamped = notesInBeats.map((d) => {
-            return { ...d, time: d.time % grid1 };
+            return { ...d, time: d.time % beats };
         });
 
         // KDE
@@ -113,14 +116,14 @@
                     bandwidth,
                     pad,
                     bins,
-                    extent: [0, grid1],
+                    extent: [0, beats],
                 },
             );
             kdePoints = density1d.bandwidth(bandwidth);
         }
 
-        const coarseGrid = d3.range(0, grid1 + 1, 1);
-        const fineGrid = d3.range(0, grid1, 1 / grid2);
+        const coarseGrid = d3.range(0, beats + 1, 1);
+        const fineGrid = d3.range(0, beats, 1 / grid2);
         const gridLines = [
             Plot.tickX(fineGrid, {
                 stroke: '#888',
@@ -136,16 +139,24 @@
             height: 100,
             marginTop: 0,
             marginLeft: 40,
+            marginRight: 10,
             marginBottom: 10,
             padding: 0,
             x: {
                 label: null,
-                domain: [0, grid1],
+                domain: [0, beats],
                 ticks: [],
             },
             y: {
                 axis: false,
             },
+        };
+
+        const x = {
+            label: 'time in beats',
+            domain: [0, beats],
+            ticks: [...coarseGrid, beats],
+            tickFormat: (d) => (d % grid1) + 1,
         };
 
         const histoPlot = Plot.plot({
@@ -158,7 +169,7 @@
                         {
                             x: 'time',
                             fill: '#ccc',
-                            thresholds: d3.range(0, grid1 + 1, 4 / binNote),
+                            thresholds: d3.range(0, beats + 1, 4 / binNote),
                         },
                     ),
                 ),
@@ -184,11 +195,7 @@
             ...plotOptions,
             height: 50,
             marginBottom: 30,
-            x: {
-                ticks: [...fineGrid, grid1],
-                label: 'time in beats',
-                domain: [0, grid1],
-            },
+            x,
             marks: [
                 // ticks
                 Plot.tickX(clamped, {
@@ -199,15 +206,13 @@
             ],
         });
 
+        const innerWidth =
+            width - plotOptions.marginLeft - plotOptions.marginRight;
         const tickPlotRows = Plot.plot({
             ...plotOptions,
             height: 180,
             marginBottom: 30,
-            x: {
-                ticks: [...fineGrid, grid1],
-                label: 'time in beats',
-                domain: [0, grid1],
-            },
+            x,
             y: {
                 domain: d3.range(maxBar - pastBars, maxBar),
                 tickFormat: (d) => d + 1,
@@ -216,19 +221,19 @@
             marks: [
                 // ticks
                 Plot.tickX(notesInBeats, {
-                    x: (d) => d.time % grid1,
-                    y: (d, i) => Math.floor(d.time / grid1),
+                    x: (d) => d.time % beats,
+                    y: (d, i) => Math.floor(d.time / beats),
                     // stroke: '#0002',
                     strokeWidth: showLoudness ? (d) => d.velocity * 4 : 1,
                     clip: true,
                 }),
                 // OK areas
-                Plot.tickX([...fineGrid, grid1], {
+                Plot.tickX([...fineGrid, beats], {
                     x: (d) => d,
                     stroke: '#ccc',
                     opacity: 0.7,
                     clip: true,
-                    strokeWidth: (width / binNote) * 2,
+                    strokeWidth: (innerWidth / binNote / (beats / 4)) * 2,
                 }),
             ],
         });
@@ -254,7 +259,7 @@
 
         // percentage over bars
         if (showBarScores) {
-            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
+            const byBar = d3.groups(notes, (d) => Math.floor(d.time / beats));
             const scores = byBar.map(([bar, barNotes]) => {
                 const score = computeSubdivisionOkScore(
                     barNotes.map((d) => d.time),
@@ -300,6 +305,7 @@
         return {
             tempo,
             grid,
+            bars,
             binNote,
             adjustTime,
             pastBars,
@@ -312,11 +318,12 @@
 
     const loadData = (json) => {
         saveToStorage();
-        tempo = json.tempo;
-        grid = json.grid;
-        binNote = json.binNote;
-        adjustTime = json.adjustTime;
-        pastBars = json.pastBars;
+        tempo = json.tempo ?? 120;
+        grid = json.grid ?? '4:4';
+        bars = json.bars ?? 1;
+        binNote = json.binNote ?? 96;
+        adjustTime = json.adjustTime ?? 0;
+        pastBars = json.pastBars ?? 8;
         showLoudness = json.showLoudness ?? false;
         showBarScores = json.showBarScores ?? false;
         // data
@@ -364,6 +371,16 @@
                     <option value="{g.divisions}">{g.label}</option>
                 {/each}
             </SelectScollable>
+            <NumberInput
+                title="The number of bars in each repetition."
+                label="bars"
+                bind:value="{bars}"
+                callback="{draw}"
+                step="{1}"
+                min="{1}"
+                max="{4}"
+                defaultValue="{1}"
+            />
             <SelectScollable
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
@@ -391,6 +408,7 @@
                 step="{1}"
                 min="{8}"
                 max="{32}"
+                defaultValue="{8}"
             />
             <ToggleButton
                 label="bar scores"
@@ -450,3 +468,6 @@
         <MidiInput {noteOn} {controlChange} />
     </main>
 </FileDropTarget>
+
+<PageResizeHandler callback="{draw}" />
+<svelte:window bind:innerWidth="{windowWidth}" />

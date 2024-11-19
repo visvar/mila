@@ -75,7 +75,7 @@ export const GRIDS = [
   { divisions: '2:3', label: '²⁄₄ triplets' },
   { divisions: '2:4', label: '²⁄₄ sixteenths' },
   { divisions: '2:5', label: '²⁄₄ quintuplets' },
-  { divisions: '2:6', label: '²⁄₄ sixtuplets' }
+  { divisions: '2:6', label: '²⁄₄ sixtuplets' },
 ]
 
 /**
