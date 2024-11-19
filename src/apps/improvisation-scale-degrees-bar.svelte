@@ -14,7 +14,7 @@
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
   import ScaleSelect from '../common/input-elements/scale-select.svelte';
-  import { NOTE_TO_CHROMA_MAP } from '../lib/music';
+  import { MIDI_SHARPS, NOTE_TO_CHROMA_MAP } from '../lib/music';
   import example from '../example-recordings/improvisation-scale-degrees-bar.json';
   import ToggleButton from '../common/input-elements/toggle-button.svelte';
   import FileDropTarget from '../common/file-drop-target.svelte';
@@ -128,7 +128,7 @@
         domain: showOutsideScale ? d3.range(0, 12, 1) : [...scaleOffsets],
         reverse: true,
         label: 'notes, increasing from tonic 🡺',
-        grid: true,
+        // grid: true,
       },
       fx: {
         label: null,
@@ -143,6 +143,13 @@
           anchor: 'right',
           tickFormat: (d) => noteNames[(d + rootNr) % 12],
         }),
+        Plot.ruleY(
+          MIDI_SHARPS.map((d) => (d - rootNr + 12) % 12),
+          {
+            stroke: '#eee',
+            strokeWidth: 20,
+          },
+        ),
         // bar line
         Plot.ruleX([0], { strokeWidth: 2, stroke: 'darkgray' }),
         Plot.waffleX(data, {
@@ -198,9 +205,9 @@
     saveToStorage();
     root = json.root;
     scale = json.scale;
-    useColors = json.useColors;
-    showOutsideScale = json.showOutsideScale;
-    tempo = json.tempo;
+    useColors = json.useColors ?? true;
+    showOutsideScale = json.showOutsideScale ?? true;
+    tempo = json.tempo ?? 120;
     // data
     notes = json.notes;
     draw();
@@ -246,17 +253,6 @@
         bind:checked="{showOutsideScale}"
         callback="{draw}"
       />
-      <!-- <label
-            title="You can filter out bars that are shorter than a given note duration."
-        >
-            filtering
-            <select bind:value="{filterNote}" on:change="{draw}">
-                <option value="{0}">off</option>
-                {#each [16, 32, 64, 128] as g}
-                    <option value="{g}">1/{g} note</option>
-                {/each}
-            </select>
-        </label> -->
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">

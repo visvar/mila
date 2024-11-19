@@ -1,6 +1,6 @@
 <script>
-    import { caretDownIcon, caretUpIcon } from '../lib/icons';
-    import { SKILL_TREE } from '../skills';
+    import { caretDownIcon, caretUpIcon } from './lib/icons';
+    import { SKILL_TREE } from './skills';
 
     export let currentSkills = new Set();
 
@@ -22,7 +22,7 @@
     <h2>skills</h2>
     {#each skillTree as node}
         <button class="node" on:click="{() => toggleNode(node)}">
-            📁
+            <span class="icon">📁</span>
             {node.shown ? caretUpIcon : caretDownIcon}
             {node.title}
         </button>
@@ -62,5 +62,9 @@
         display: block;
         width: 180px;
         text-align: left;
+    }
+
+    button.node .icon {
+        filter: saturate(0.7);
     }
 </style>

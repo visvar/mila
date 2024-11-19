@@ -98,7 +98,7 @@
                     y: 'id',
                     tip: true,
                     rx: 4,
-                    fill: (d) => COLORS.accent,
+                    fill: COLORS.accent,
                 }),
                 Plot.text(appUsage, {
                     x: 'useCount',

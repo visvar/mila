@@ -59,6 +59,11 @@ header nav {
   font-family: Inter, system-ui, Avenir, Arial, sans-serif;
 }
 
+header nav button {
+  /* make icon colors geay to be more subtle */
+  filter: grayscale();
+}
+
 h1,
 h2,
 h3,

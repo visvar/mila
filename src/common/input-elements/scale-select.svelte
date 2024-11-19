@@ -13,6 +13,8 @@
     export let allowedScales = null;
 
     const noteNames = Midi.NOTE_NAMES_FLAT;
+    // TODO: use sharps? but this will break apps and recorded data...
+    // const noteNames = Midi.NOTE_NAMES;
     $: scales = allowedScales ?? Scale.names().sort();
 
     const update = (r, t) => {

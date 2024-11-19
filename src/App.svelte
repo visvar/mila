@@ -3,7 +3,7 @@
   import { getUrlParam, setUrlParam } from './lib/url';
   import { getNumberOfDaysPassed, setHasAny, updSet } from './lib/lib';
   // side bar for skill filtering
-  import SkillTree from './pages/SkillTree.svelte';
+  import SkillTree from './SkillTree.svelte';
   // pages for tools etc
   import Tools from './tools/_tools.svelte';
   import Settings from './pages/Settings.svelte';

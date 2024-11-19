@@ -183,7 +183,7 @@
                 Plot.areaY(kdePoints, {
                     x: 'x',
                     y: 'y',
-                    fill: (d) => COLORS.accent,
+                    fill: COLORS.accent,
                     clip: true,
                 }),
                 Plot.ruleY([0]),

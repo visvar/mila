@@ -47,8 +47,22 @@ export const NOTE_TO_CHROMA_MAP = new Map([
 ])
 
 
+/**
+ * MIDI note number % 12 that represents a sharp/flat note
+ *
+ * @type {Array<1|3|6|8|10>}
+ */
 export const MIDI_SHARPS = [
   1, 3, 6, 8, 10
+]
+
+/**
+ * MIDI note number % 12 that represents a natural (not sharp/flat) note
+ *
+ * @type {Array<0|2|4|5|7|9|11>}
+ */
+export const MIDI_NATURALS = [
+  0, 2, 4, 5, 7, 9, 11
 ]
 
 /**

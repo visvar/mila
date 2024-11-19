@@ -54,9 +54,13 @@
 </div>
 
 <style>
-    /* .tags {
-        filter: grayscale();
-    } */
+    .tags span {
+        /* make colors pop less */
+        filter: saturate(0.75);
+    }
+    .tags span:hover {
+        filter: saturate(1);
+    }
 
     .data-type {
         font-size: small;

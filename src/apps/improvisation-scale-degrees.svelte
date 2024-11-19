@@ -162,8 +162,8 @@
     saveToStorage();
     root = json.root;
     scale = json.scale;
-    useColors = json.useColors;
-    showOutsideScale = json.showOutsideScale;
+    useColors = json.useColors ?? true;
+    showOutsideScale = json.showOutsideScale ?? true;
     // data
     notes = json.notes;
     draw();
@@ -220,7 +220,7 @@
       <p>1) Improvise in A minor pentatonic.</p>
       <p>2) Improvise in a scale you did not know before.</p>
     </ExerciseDrawer>
-    <RatingButton appId="{appInfo.id}" />
     <MidiInput {noteOn} pcKeyAllowed />
+    <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>
