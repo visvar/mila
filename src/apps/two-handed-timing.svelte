@@ -61,31 +61,6 @@
         draw();
     };
 
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 16) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        } else if (c === 17) {
-            pastBars = clamp(e.rawValue, 0, 99) + 1;
-        } else if (c === 18) {
-        }
-        draw();
-    };
-
     const drawHand = (left = true) => {
         const grid = left ? gridLeft : gridRight;
         const [grid1, grid2] = grid.split(':').map((d) => +d);
@@ -379,6 +354,6 @@
                     note: { number: 127 },
                 })}"
         />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

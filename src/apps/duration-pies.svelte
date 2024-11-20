@@ -82,12 +82,6 @@
     draw();
   };
 
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    pastNoteCount = clamped;
-    draw();
-  };
-
   /**
    * Pie-chart-like encoding
    */
@@ -431,7 +425,7 @@
       </p>
     </ExerciseDrawer>
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
+    <MidiInput {noteOn} {noteOff} pcKeyAllowed />
     <PcKeyboardInput
       key=" "
       keyDown="{() => {

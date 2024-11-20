@@ -58,36 +58,13 @@
         const note = {
             time: noteInSeconds,
             number: e.note.number,
+            // velocity is here for compatibility with other sub-division apps
+            velocity: e.velocity ?? 0.5,
             drum:
                 drumPitchReplacementMapMD90.get(e.note.number)?.label ??
                 e.note.number,
         };
         notes = [...notes, note];
-        draw();
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 16) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        } else if (c === 17) {
-            pastBars = clamp(e.rawValue, 0, 99) + 1;
-        } else if (c === 18) {
-        }
         draw();
     };
 
@@ -373,6 +350,6 @@
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 36 } })}"
         />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

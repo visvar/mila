@@ -64,32 +64,6 @@
         draw();
     };
 
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // grid
-            grid =
-                GRIDS[clamp(Math.floor(e.rawValue / 5), 0, GRIDS.length - 1)];
-        } else if (c === 16) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 17) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        }
-        draw();
-    };
-
     const draw = () => {
         let [grid1, grid2] = grid.split(':').map((d) => +d);
         const beats = grid1 * bars;
@@ -464,7 +438,7 @@
             touchStart="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>
 

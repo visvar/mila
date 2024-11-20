@@ -68,15 +68,6 @@
         draw();
     };
 
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        pastNoteCount = Math.round(clamp(e.rawValue * 2, 0, 200));
-        draw();
-    };
-
     const draw = () => {
         const data = notes.slice(-pastNoteCount);
         const cellSize = (width - 100) / 25;
@@ -382,6 +373,6 @@
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

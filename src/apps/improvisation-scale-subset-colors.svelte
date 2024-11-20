@@ -95,12 +95,6 @@
     draw();
   };
 
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    barCount = clamped;
-    draw();
-  };
-
   const draw = () => {
     const colorMap = noteNames.map((note) => {
       if (note === root) {
@@ -417,7 +411,7 @@
       </p>
       <p>4) Improvise in a scale you do not know yet.</p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
+    <MidiInput {noteOn} {noteOff} pcKeyAllowed />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

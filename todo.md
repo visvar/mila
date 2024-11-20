@@ -12,18 +12,20 @@
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
 - use sample for metronome to make it sound less annoying, maybe allow choosing the sample and loudness
 - rescale automatically, like in tempo-drift
+- allow/fix MIDI replay for all apps
 
 ## Refactoring
 
-- update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
-  - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
-- use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
 - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
+  - use afteUpdate() like in sub-division-circular
+- use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
 - use an effect instead of calling draw() from inputs and page-resize-handler
 - remove fretboard-spacetime-cube and make it a separate repo
 - replace note-count-input by a number input
-- after upgrading to svelte 5
-  - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
+- update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
+  - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
+  - after upgrading to svelte 5
+    - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
 
 ## App-specific
 

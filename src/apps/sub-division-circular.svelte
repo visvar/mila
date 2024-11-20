@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
@@ -60,33 +60,6 @@
             velocity: e.velocity,
         };
         notes = [...notes, note];
-        draw();
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // grid
-            grid =
-                GRIDS[clamp(Math.floor(e.rawValue / 5), 0, GRIDS.length - 1)];
-        } else if (c === 16) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 17) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        }
-        draw();
     };
 
     const draw = () => {
@@ -162,7 +135,6 @@
             ctx.fillStyle = 'transparent';
             for (let i = 0; i < layerCount; i++) {
                 const layerR = r + maxBinHeight + i * layerSize + 5;
-                // Canvas.drawCircle(ctx, cx, cy, layerR);
                 ctx.beginPath();
                 ctx.arc(cx, cy, layerR, 0, 2 * Math.PI);
                 ctx.closePath();
@@ -367,7 +339,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -400,7 +372,6 @@
         showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -435,12 +406,11 @@
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <SelectScollable
                 label="grid"
                 title="The whole circle is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{grid}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -450,7 +420,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -463,13 +432,11 @@
                 {tempo}
                 {grid}
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <button
                 title="Toggle between bars and area"
                 on:click="{() => {
                     showKde = !showKde;
-                    draw();
                 }}"
             >
                 {showKde ? 'area' : 'bars'}
@@ -478,13 +445,11 @@
                 label="bar scores"
                 title="Show scores (percentage of notes within gray areas) per bar"
                 bind:checked="{showBarScores}"
-                callback="{draw}"
             />
             <ToggleButton
                 label="loudness"
                 title="Show loudness in the note tick width, for example to see if you set accents correctly"
                 bind:checked="{showLoudness}"
-                callback="{draw}"
             />
         </div>
         <div class="visualization">
@@ -496,11 +461,11 @@
         <div bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <UndoRedoButton bind:data="{notes}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MidiReplayButton bind:notes />
             <ImportExportButton
                 {loadData}
                 {getExportData}
@@ -519,7 +484,7 @@
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} />
         <PcKeyboardInput
             key=" "
             keyDown="{() =>

@@ -101,25 +101,6 @@
         lastTimeSeconds = noteInSeconds;
     };
 
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // time scaling
-            timeFactor = e.value;
-        } else if (c === 15) {
-            // past seconds
-            pastSeconds = e.value * 120;
-        }
-    };
-
     onMount(() => {
         // https://github.com/aframevr/aframe/blob/master/docs/components/oculus-touch-controls.md#events
         // console.log(AFRAME);
@@ -275,5 +256,5 @@
             {/each}
         </a-box>
     </a-scene>
-    <MidiInput {noteOn} {controlChange} />
+    <MidiInput {noteOn} />
 </main>

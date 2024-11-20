@@ -59,12 +59,6 @@
     draw();
   };
 
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    pastNoteCount = clamped;
-    draw();
-  };
-
   const draw = () => {
     const limited = notes.slice(-pastNoteCount);
     const counts = d3.groups(limited, (d) => d.number);
@@ -249,6 +243,6 @@
       </p>
     </ExerciseDrawer>
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {controlChange} pcKeyAllowed />
+    <MidiInput {noteOn} pcKeyAllowed />
   </main>
 </FileDropTarget>
