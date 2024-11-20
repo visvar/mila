@@ -21,11 +21,14 @@
 - use an effect instead of calling draw() from inputs and page-resize-handler
 - remove fretboard-spacetime-cube and make it a separate repo
 - replace note-count-input by a number input
+
+### Svelte 5
+
 - update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
-  - issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
-  - after upgrading to svelte 5
-    - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
-  - use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
+- issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
+- after upgrading to svelte 5
+  - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
+- use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity
 
 ## App-specific
 

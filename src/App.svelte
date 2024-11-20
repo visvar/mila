@@ -291,7 +291,7 @@
       <div class="grid {rows ? 'rows' : ''}">
         <!-- current filters -->
         {#if currentSearch !== '' || currentSkills.size === 1 || currentInstruments.size < allInstruments.size || currentDifficulties.size < allDifficulties.size || currentInputs.size < allInputs.size}
-          <div class="current-filters">
+          <div class="current-filters" transition:fade>
             current filters:
             {#if currentSearch !== ''}
               <button

@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     import * as d3 from 'd3';
     import { starIcon } from '../../lib/icons.js';
     import {
@@ -9,6 +8,8 @@
 
     export let appId;
 
+    // TODO: disabled for now since not used, toggle this to enable
+    let showButton = false;
     let shown = false;
     let rating;
 
@@ -86,16 +87,18 @@
 </script>
 
 <main class="rating-button">
-    <button
-        on:click="{() => {
-            shown = !shown;
-            if (shown) {
-                getRating();
-            }
-        }}"
-    >
-        {starIcon} rate this app
-    </button>
+    {#if showButton}
+        <button
+            on:click="{() => {
+                shown = !shown;
+                if (shown) {
+                    getRating();
+                }
+            }}"
+        >
+            {starIcon} rate this app
+        </button>
+    {/if}
     {#if shown}
         <p>
             How much do you agree with these statements? 1 {starIcon}:

@@ -8,6 +8,7 @@
   import ToggleButton from '../input-elements/toggle-button.svelte';
   import * as Tone from 'tone';
   import { updSet } from '../../lib/lib';
+  import { fade } from 'svelte/transition';
 
   export let midiMessage = (message) => {};
   export let noteOn = (message) => {};
@@ -43,12 +44,10 @@
     midiDevices = [];
     if (WebMidi.inputs.length < 1) {
       console.warn('No MIDI device detected');
+      midiWorks = false;
     } else {
       WebMidi.inputs.forEach((device, index) => {
-        console.log(`MIDI device ${index}: ${device.name}`);
         device.removeListener();
-        console.log(disabledDevices, index);
-
         if (!disabledDevices.has(index)) {
           device.addListener('midimessage', midiMessage);
           device.addListener('noteon', noteOn);
@@ -61,7 +60,6 @@
         }
       });
       midiDevices = [...WebMidi.inputs];
-      console.log(midiDevices);
     }
   };
 
@@ -287,6 +285,7 @@
 <svelte:window on:keydown="{handleKeydown}" on:keyup="{handleKeyup}" />
 
 <main>
+  <h4>Input Settings</h4>
   {#if synthAllowed}
     <ToggleButton
       label="synth"
@@ -311,47 +310,51 @@
       }}"
     />
   {/if}
-  <div>
-    MIDI devices
-    {#each midiDevices as device, index}
-      <div>
-        {device.name}
-        <ToggleButton
-          callback="{() => {
-            disabledDevices = updSet(disabledDevices, index);
-            onMidiEnabled();
-          }}"
-        />
-      </div>
-    {/each}
-  </div>
   {#if keyboardEnabled}
-    <div>
-      If you have no MIDI device, you can use a PC keyboard as a MIDI keyboard:
-    </div>
-    <div>
-      octave {keyboardOctave}
-      <button
-        on:click="{() => (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
-        class="left">+</button
-      >
-      <button
-        on:click="{() => (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
-        class="right">-</button
-      >
-    </div>
-    <div>
-      Notes: <code>a</code> = C, <code>w</code> = C#, <code>s</code> = B, ...
+    <div transition:fade>
+      <div>
+        octave {keyboardOctave}
+        <button
+          on:click="{() => (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
+          class="left">+</button
+        >
+        <button
+          on:click="{() => (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
+          class="right">-</button
+        >
+      </div>
+      <div>
+        You can use a PC keyboard as a MIDI keyboard and play note with: <br
+        /><code>a</code> = C, <code>w</code> = C#,
+        <code>s</code> = B, ...
+      </div>
     </div>
   {/if}
+  <div>
+    <h5>MIDI devices</h5>
+    {#if !midiWorks}
+      You have no MIDI device connected or MIDI is not supported in your browser
+    {/if}
+    {#each midiDevices as device, index}
+      <ToggleButton
+        label="{device.name}"
+        callback="{() => {
+          disabledDevices = updSet(disabledDevices, index);
+          onMidiEnabled();
+        }}"
+      />
+    {/each}
+  </div>
 </main>
 
 <style>
   main {
-    width: fit-content;
     margin: 20px auto;
-    padding: 5px 20px;
+    width: 700px;
+    padding: 0 20px 15px 20px;
+    border: 3px solid #f4f4f4;
     border-radius: 8px;
+    transition: all 500ms;
   }
 
   button.left {
