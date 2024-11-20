@@ -15,7 +15,7 @@
         type="number"
         bind:value
         on:change="{callback}"
-        on:mousewheel="{(evt) => {
+        on:wheel="{(evt) => {
             evt.preventDefault();
             const add = evt.deltaY < 0 ? step : -step;
             value = Math.min(max, Math.max(min, value + add));

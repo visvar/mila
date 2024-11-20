@@ -69,7 +69,7 @@
     <select
         bind:value="{scaleRoot}"
         on:change="{callback}"
-        on:mousewheel="{scrollRoot}"
+        on:wheel="{scrollRoot}"
         class="select1"
         {disabled}
     >
@@ -80,7 +80,7 @@
     <select
         bind:value="{scaleType}"
         on:change="{callback}"
-        on:mousewheel="{scrollScale}"
+        on:wheel="{scrollScale}"
         class="select2"
         {disabled}
     >

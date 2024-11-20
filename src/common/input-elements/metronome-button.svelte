@@ -67,7 +67,7 @@
             step="1"
             min="0"
             bind:value="{beepCount}"
-            on:mousewheel="{(evt) => {
+            on:wheel="{(evt) => {
                 evt.preventDefault();
                 const add = evt.deltaY < 0 ? 1 : -1;
                 const clamped = Math.max(0, beepCount + add);

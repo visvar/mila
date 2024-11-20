@@ -39,7 +39,7 @@
         type="number"
         bind:value
         on:change="{callback}"
-        on:mousewheel="{(evt) => {
+        on:wheel="{(evt) => {
             // allow to scroll to change value
             evt.preventDefault();
             if (disabled) {
