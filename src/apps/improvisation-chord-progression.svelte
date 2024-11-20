@@ -39,6 +39,7 @@
   $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
   let container;
   let midiReplaySpeed;
+  const minIOI = 0.001;
   // colors
   const scaleColor = '#D4E157';
   const chordColor = '#689F38';
@@ -106,6 +107,10 @@
 
   const noteOn = (e) => {
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
+    // note too close to prior one?
+    if (notes.length > 0 && noteInSeconds - notes.at(-1) < minIOI) {
+      return;
+    }
     const note = {
       name: e.note.name + (e.note.accidental ?? ''),
       number: e.note.number,

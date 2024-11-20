@@ -7,6 +7,7 @@
   import { Midi } from 'musicvis-lib';
   import ToggleButton from '../input-elements/toggle-button.svelte';
   import * as Tone from 'tone';
+  import { updSet } from '../../lib/lib';
 
   export let midiMessage = (message) => {};
   export let noteOn = (message) => {};
@@ -32,6 +33,7 @@
 
   let midiDevices = [];
   let midiWorks = true;
+  let disabledDevices = new Set();
   let synth;
 
   /**
@@ -44,16 +46,22 @@
     } else {
       WebMidi.inputs.forEach((device, index) => {
         console.log(`MIDI device ${index}: ${device.name}`);
-        device.addListener('midimessage', midiMessage);
-        device.addListener('noteon', noteOn);
-        device.addListener('noteoff', noteOff);
-        device.addListener('controlchange', controlChange);
-        device.addListener('pitchbend', pitchBend);
-        // synth
-        device.addListener('noteon', playSynthNote);
-        device.addListener('noteoff', stopSynthNote);
+        device.removeListener();
+        console.log(disabledDevices, index);
+
+        if (!disabledDevices.has(index)) {
+          device.addListener('midimessage', midiMessage);
+          device.addListener('noteon', noteOn);
+          device.addListener('noteoff', noteOff);
+          device.addListener('controlchange', controlChange);
+          device.addListener('pitchbend', pitchBend);
+          // synth
+          device.addListener('noteon', playSynthNote);
+          device.addListener('noteoff', stopSynthNote);
+        }
       });
       midiDevices = [...WebMidi.inputs];
+      console.log(midiDevices);
     }
   };
 
@@ -303,6 +311,20 @@
       }}"
     />
   {/if}
+  <div>
+    MIDI devices
+    {#each midiDevices as device, index}
+      <div>
+        {device.name}
+        <ToggleButton
+          callback="{() => {
+            disabledDevices = updSet(disabledDevices, index);
+            onMidiEnabled();
+          }}"
+        />
+      </div>
+    {/each}
+  </div>
   {#if keyboardEnabled}
     <div>
       If you have no MIDI device, you can use a PC keyboard as a MIDI keyboard:
