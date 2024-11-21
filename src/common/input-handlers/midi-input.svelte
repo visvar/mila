@@ -9,6 +9,7 @@
   import * as Tone from 'tone';
   import { updSet } from '../../lib/lib';
   import { fade } from 'svelte/transition';
+  import NumberInput from '../input-elements/number-input.svelte';
 
   export let midiMessage = (message) => {};
   export let noteOn = (message) => {};
@@ -36,6 +37,7 @@
   let midiWorks = true;
   let disabledDevices = new Set();
   let synth;
+  let minVelocity = 0;
 
   /**
    * Set all required MIDI listeners
@@ -49,11 +51,15 @@
       WebMidi.inputs.forEach((device, index) => {
         device.removeListener();
         if (!disabledDevices.has(index)) {
-          device.addListener('midimessage', midiMessage);
-          device.addListener('noteon', noteOn);
+          device.addListener('noteon', (evt) => {
+            if (evt.velocity >= minVelocity) {
+              noteOn(evt);
+            }
+          });
           device.addListener('noteoff', noteOff);
           device.addListener('controlchange', controlChange);
           device.addListener('pitchbend', pitchBend);
+          device.addListener('midimessage', midiMessage);
           // synth
           device.addListener('noteon', playSynthNote);
           device.addListener('noteoff', stopSynthNote);
@@ -344,6 +350,18 @@
         }}"
       />
     {/each}
+  </div>
+  <div>
+    <h5>Filtering</h5>
+    <NumberInput
+      title="minimum loudness of a note, used to filter noise"
+      label="minimum velocity"
+      bind:value="{minVelocity}"
+      min="{0}"
+      max="{1}"
+      step="{0.01}"
+      defaultValue="{0}"
+    />
   </div>
 </main>
 
