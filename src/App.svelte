@@ -44,10 +44,7 @@
   };
 
   // allow to go back to main page with history
-  window.onpopstate = (e) => {
-    if (currentApp === 'tools') {
-      openPage('tools');
-    }
+  window.onpopstate = () => {
     openPage();
   };
 

@@ -35,6 +35,21 @@
     // data
     let notes = [];
 
+    const noteOn = (e) => {
+        if (notes.length === 0) {
+            firstTimeStamp = e.timestamp;
+        }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
+        // ignore note if it comes too early after the previous, as in a chord or due to noise
+        if (
+            notes.length === 0 ||
+            Math.abs(noteInSeconds - notes.at(-1)) > minDist
+        ) {
+            notes = [...notes, noteInSeconds];
+        }
+        draw();
+    };
+
     const estimateTempo = (onsets) => {
         const bpmValues = [];
 
@@ -87,21 +102,6 @@
             }
         }
         return bpmValues;
-    };
-
-    const noteOn = (e) => {
-        if (notes.length === 0) {
-            firstTimeStamp = e.timestamp;
-        }
-        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-        // ignore note if it comes too early after the previous, as in a chord or due to noise
-        if (
-            notes.length === 0 ||
-            Math.abs(noteInSeconds - notes.at(-1)) > minDist
-        ) {
-            notes = [...notes, noteInSeconds];
-        }
-        draw();
     };
 
     const draw = () => {

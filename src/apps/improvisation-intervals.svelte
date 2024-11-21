@@ -38,7 +38,7 @@
     }
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
     const note = {
-      // ...e.note,
+      name: e.note.name + (e.note.accidental ?? ''),
       number: e.note.number,
       velocity: e.rawVelocity,
       time: noteInSeconds,
