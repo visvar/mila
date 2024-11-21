@@ -1,9 +1,8 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Chord, Scale } from 'tonal';
-  import { clamp } from '../lib/lib';
   import { Midi } from 'musicvis-lib';
   import MidiInput from '../common/input-handlers/midi-input.svelte';
   import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
@@ -175,8 +174,7 @@
         range: colorMap.colors,
         legend: true,
         tickFormat: (d) => (d === -1 ? 'non-scale' : scaleNotes[d]),
-        width: 500,
-        marginLeft: width / 2 - 250,
+        marginLeft: width / 2 - 150,
       },
       marks: [
         Plot.ruleY([0], {
@@ -288,7 +286,7 @@
     container.appendChild(chordPlot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -317,7 +315,6 @@
     colorMapName = json.colorMapName ?? 'all';
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -345,14 +342,12 @@
       <ScaleSelect
         bind:scaleRoot="{root}"
         bind:scaleType
-        callback="{draw}"
         allowedScales="{['major', 'minor']}"
       />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
         label="max. note distance"
         bind:value="{maxNoteDistance}"
-        callback="{draw}"
         min="{0.05}"
         max="{2}"
         step="{0.05}"
@@ -361,7 +356,6 @@
         title="The number of played chords that is displayed"
         label="chord count"
         bind:value="{barCount}"
-        callback="{draw}"
         min="{10}"
         max="{100}"
         step="{10}"
@@ -370,13 +364,11 @@
         bind:checked="{showDuration}"
         label="show duration"
         title="Show duration in the bar's height?"
-        callback="{draw}"
       />
       <SelectScollable
         label="colors"
         title="Choose a color map"
         bind:value="{colorMapName}"
-        callback="{draw}"
       >
         {#each colorMaps as cm}
           <option value="{cm.label}">{cm.label}</option>
@@ -393,7 +385,6 @@
                 ...colorMap,
                 colors: [...colorMap.colors],
               };
-              draw();
             }}"
             type="color"
             value="{colorMap.colors?.[index + 1]}"
@@ -409,7 +400,6 @@
         {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
-          draw();
         }}"
       />
       <button on:click="{() => loadData(example)}"> example </button>

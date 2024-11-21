@@ -1,14 +1,31 @@
 <script>
     import HelpTextDrawer from '../common/help-text-drawer.svelte';
+
+    import saveAs from 'file-saver';
+    import { localStorageReport } from '../lib/localstorage';
+    const localStorageRep = localStorageReport();
+    let fileInput;
+    /**
+     * import previously exported JSON file
+     * @param {InputEvent} e file input event
+     */
+    const importData = async (e) => {
+        if (
+            confirm(
+                'Import and overwrite current usage statistics? Cannot be undone. Export current usage first!',
+            )
+        ) {
+            const text = await e.target.files[0].text();
+            localStorage.setItem('usage', text);
+        }
+    };
 </script>
 
 <main>
     <h2>Help</h2>
 
-    <p class="explanation">Click on a topic to show helpful information.</p>
-
     <HelpTextDrawer heading="What is this website?">
-        <p class="explanation">
+        <p>
             This website contains a collection of small apps for learning
             musical instruments. They are each tailored to specific musical
             skills and sometimes also specific kind of musical data or
@@ -17,7 +34,7 @@
     </HelpTextDrawer>
 
     <HelpTextDrawer heading="What do I need to use the apps?">
-        <p class="explanation">
+        <p>
             Many app require a MIDI instrument, such as a keyboard or electronic
             drum kit. Other MIDI instruments will work too, just try it! A few
             apps work with audio and should therefore supported any (pitched)
@@ -27,7 +44,7 @@
             require are MIDI guitar or a guitar with an added MIDI pickup.
         </p>
         <h4>What if I only have a MIDI keyboard without sound/synthesizer?</h4>
-        <p class="explanation">
+        <p>
             You can use a built-in synth that needs to be turned on with a
             toggle below each app. If you want better or different sounds, you
             can also open a web synth in another tab! For example,
@@ -40,7 +57,7 @@
     </HelpTextDrawer>
 
     <HelpTextDrawer heading="How do I use this website?">
-        <p class="explanation">
+        <p>
             <b>App Menu (☰).</b>
             The app menu lists all apps with a short description and icons that indicate
             the supported instruments. You can filter and sort apps by different
@@ -48,34 +65,34 @@
             are marked with a ✨.
         </p>
 
-        <p class="explanation">
+        <p>
             <b>Tools (🛠️).</b>
             The tools page contains smaller, but sometimes helpful tools. For example,
             you can see which MIDI messages your instrument sends.
         </p>
 
-        <p class="explanation">
+        <p>
             <b>Settings (⚙️).</b>
             Global settings that apply to multiple (but not all) apps. Here you can
             export and delete all locally stored data.
         </p>
 
-        <p class="explanation">
+        <p>
             <b>Data and Saving.</b>
             You can export and import a take in most apps. Whenever you leave an
             app, reset, or load from the history, your current take will be auto-saved
             and added to the history. Use the history button too see the modal with
             the auto-saved takes where you can load or delete them.
-            <i
-                >No data is sent anywhere, it all is saved in your browser. You
-                can export or reset it in the settings.</i
-            >
+            <i>
+                No data is sent anywhere, it all is saved in your browser. You
+                can export or reset it in the settings.
+            </i>
             <span class="warning">Warning:</span> Auto-save only works when you reset
             or exit the app by returning to the home screen. If you refresh the page
             or close the tab while in an app, its current data will be lost.
         </p>
 
-        <p class="explanation">
+        <p>
             <b>Importing.</b>
             Import a recorded take from a file through the import button or by dragging
             and dropping a file on the app (a blue background indicates that you
@@ -121,7 +138,7 @@
         </ul>
 
         <h4>Input Elements</h4>
-        <p class="explanation">
+        <p>
             Inputs such as number inputs and dropdowns allow you to scroll to
             change values. Some can be reset with a middle click.
         </p>
@@ -129,7 +146,7 @@
 
     <HelpTextDrawer heading="Troubleshooting">
         <h4>MIDI</h4>
-        <p class="explanation">
+        <p>
             If MIDI input does not work, make sure that the device is connected
             and works. The browser can also see MIDI devices that are <i
                 >not in use in other software</i
@@ -146,7 +163,7 @@
         </p>
 
         <h4>I still have issues!</h4>
-        <p class="explanation">
+        <p>
             Please create a GitHub issue <a
                 href="https://github.com/visvar/mila/issues"
                 target="_blank"
@@ -156,9 +173,67 @@
             >.
         </p>
     </HelpTextDrawer>
+
+    <HelpTextDrawer heading="Data Import/Export">
+        <h3>Usage Data</h3>
+        <p class="explanation">
+            The website tracks usage data locally in your browser, but does not
+            send it anywhere. You can import, export, or reset this data here.
+            <br />
+            <b>
+                Data currently uses {localStorageRep.percentFull.toFixed(1)}% of
+                the available space.
+            </b>
+        </p>
+        <button
+            title="Export usage statistics"
+            on:click="{() => {
+                const usage = localStorage.getItem('usage');
+                const blob = new Blob([usage], {
+                    type: 'text/plain;charset=utf-8',
+                });
+                saveAs(blob, 'usage.json');
+            }}"
+        >
+            export usage
+        </button>
+        <button
+            title="Import all data and settings"
+            on:click="{() => fileInput.click()}"
+        >
+            import usage
+        </button>
+        <input
+            bind:this="{fileInput}"
+            type="file"
+            on:input="{importData}"
+            id="file-input"
+            style="display: none"
+        />
+        <button
+            title="Reset usage statistics"
+            on:click="{() => {
+                if (
+                    confirm(
+                        'Please only do this after exporting usage data! Do you really want to delete now?',
+                    )
+                ) {
+                    localStorage.removeItem('usage');
+                }
+            }}"
+        >
+            delete usage
+        </button>
+    </HelpTextDrawer>
 </main>
 
 <style>
+    p {
+        width: 500px;
+        margin: 0 auto;
+        text-align: justify;
+    }
+
     ul {
         margin: auto;
         width: max-content;

@@ -5,7 +5,6 @@
     import { Note } from 'tonal';
     import NoteCountInput from '../common/input-elements/note-count-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { clamp } from '../lib/lib';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';

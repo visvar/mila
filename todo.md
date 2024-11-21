@@ -2,17 +2,19 @@
 
 ## New features
 
-- wide mode, allow to toggle to a 'full screen width' mode for some vis
 
 ## Fixes and improvements
 
 - re-think auto-saving and how to handle examples
+  - loading example should disable input until reset
 - fix Tone.sampler not working in improvisation-chord-progression
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
 - use sample for metronome to make it sound less annoying, maybe allow choosing the sample and loudness
 - rescale automatically, like in tempo-drift
 - allow/fix MIDI replay for all apps
+- give defaultValue to all number-input
+- cache localstorage data, write all changes but use cache for reading
 
 ## Refactoring
 

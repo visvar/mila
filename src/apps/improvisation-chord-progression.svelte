@@ -163,20 +163,22 @@
       duration: 0,
     };
     // fix old note if its end was missed
-    if (openNoteMap.has(e.note.number)) {
-      const oldNote = openNoteMap.get(e.note.number);
+    const key = `${e.note.number} ${e.message.channel}`;
+    if (openNoteMap.has(key)) {
+      const oldNote = openNoteMap.get(key);
       if (oldNote.end === undefined) {
         oldNote.end = noteInSeconds;
       }
     }
     notes = [...notes, note];
-    openNoteMap.set(e.note.number, note);
+    openNoteMap.set(key, note);
     draw();
   };
 
   const noteOff = (e) => {
-    if (openNoteMap.has(e.note.number)) {
-      const note = openNoteMap.get(e.note.number);
+    const key = `${e.note.number} ${e.message.channel}`;
+    if (openNoteMap.has(key)) {
+      const note = openNoteMap.get(key);
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
@@ -269,7 +271,7 @@
             fx: (d) => Math.floor(d.bar / barsPerRep),
             fill: 'colorType',
             rx: 3,
-            order: ['chord', 'scale', 'rest'],
+            // order: ['chord', 'scale', 'rest'],
             tip: true,
             title: (d) => `${d.count} notes fit ${d.colorType}\n${d.notes}`,
           }),
@@ -419,7 +421,7 @@
             fx: (d) => Math.floor(d.bar / barsPerRep),
             fill: 'durationType',
             rx: 3,
-            order: colorDomain,
+            // order: colorDomain,
             tip: true,
             title: (d) => `${d.durationType}\n${d.count} times`,
           }),

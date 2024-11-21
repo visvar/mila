@@ -84,7 +84,7 @@
         },
     ];
 
-    export let currentTool;
+    export let currentTool = null;
     export let rows;
 </script>
 
@@ -108,6 +108,11 @@
             {/each}
         </div>
     {:else}
+        <div>
+            <button on:click="{() => (currentTool = null)}">
+                back to tools
+            </button>
+        </div>
         <div>
             <svelte:component
                 this="{currentTool.component}"

@@ -31,7 +31,6 @@
     let pastChords = 5;
     let maxFretSpan = 5;
     let maxNoteDistance = 0.1;
-    const minVelo = localStorageGetSetting('guitarMidiMinVelocity') ?? 0;
     // domain knowledge
     let stringCount = 6;
     let fretCount = 24;
@@ -46,21 +45,19 @@
         if (notes.length === 0) {
             firstTimeStamp = e.timestamp;
         }
-        if (e.rawVelocity >= minVelo) {
-            const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-            const string = e.message.channel - 1;
-            const note = {
-                time: noteInSeconds,
-                number: e.note.number,
-                note: e.note.name + (e.note.accidental ?? ''),
-                velocity: e.rawVelocity,
-                string,
-                fret: e.note.number - tuningPitches[string],
-                channel: e.message.channel,
-            };
-            notes = [...notes, note];
-            draw();
-        }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
+        const string = e.message.channel - 1;
+        const note = {
+            time: noteInSeconds,
+            number: e.note.number,
+            note: e.note.name + (e.note.accidental ?? ''),
+            velocity: e.rawVelocity,
+            string,
+            fret: e.note.number - tuningPitches[string],
+            channel: e.message.channel,
+        };
+        notes = [...notes, note];
+        draw();
     };
 
     const draw = () => {

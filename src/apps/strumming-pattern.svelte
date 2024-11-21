@@ -4,10 +4,7 @@
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import {
-        localStorageAddRecording,
-        localStorageGetSetting,
-    } from '../lib/localstorage';
+    import { localStorageAddRecording } from '../lib/localstorage';
     import { detectChords } from '../lib/chords';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -31,10 +28,7 @@
     // settings
     let pastSeconds = 10;
     let maxNoteDistance = 0.05;
-    // global settings
-    const minVelo = localStorageGetSetting('guitarMidiMinVelocity') ?? 0;
-    const minDur = localStorageGetSetting('guitarMidiMinDuration') ?? 0;
-    console.log({ minVelo, minDur });
+    let minDuration = 0;
     // data
     let firstTimeStamp;
     let notes = [];
@@ -49,7 +43,7 @@
         const note = {
             // ...e.note,
             number: e.note.number,
-            velocity: e.rawVelocity,
+            velocity: e.velocity,
             time: noteInSeconds,
             channel: e.message.channel,
             string,
@@ -82,8 +76,7 @@
             // only handle recent notes
             return (
                 // filter noise
-                d.velocity >= minVelo &&
-                (d.duration === undefined || d.duration >= minDur)
+                d.duration === undefined || d.duration >= minDuration
             );
         });
         let maxTime = 0.5;
@@ -147,7 +140,7 @@
                 domain: d3.range(1, stringCount + 1),
             },
             opacity: {
-                domain: [0, 127],
+                domain: [0, 1],
             },
             marks: [
                 Plot.tickX(filtered, {
@@ -282,6 +275,16 @@
                 min="{0.01}"
                 max="{5}"
                 step="{0.01}"
+            />
+            <NumberInput
+                title="minimum duration of a note, used to filter noise"
+                label="min. duration"
+                bind:value="{minDuration}"
+                callback="{draw}"
+                min="{0}"
+                max="{1}"
+                step="{0.01}"
+                defaultValue="{0}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
