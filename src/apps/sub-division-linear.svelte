@@ -7,7 +7,7 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { clamp, computeSubdivisionOkScore } from '../lib/lib';
+    import { computeSubdivisionOkScore } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -28,6 +28,7 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
     import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
+    import SubDivisionSimulator from '../common/testing/sub-division-simulator.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -409,6 +410,14 @@
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+            />
+            <SubDivisionSimulator
+                bind:notes
+                {tempo}
+                bind:adjustTime
+                {grid}
+                {bars}
+                callback="{draw}"
             />
         </div>
         <ExerciseDrawer>
