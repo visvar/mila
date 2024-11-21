@@ -65,6 +65,41 @@
       chords: ['IMaj7', 'IIm7', 'V7', 'V7'],
       chordsShort: ['I', 'ii', 'V', 'V'],
     },
+    {
+      label: 'I V vi IV (1-5-6-4)',
+      chords: ['I', 'V', 'VIm', 'IV'],
+      chordsShort: ['I', 'V', 'vi', 'IV'],
+    },
+    {
+      label: 'V vi IV I (5-6-4-1)',
+      chords: ['V', 'VIm', 'IV', 'I'],
+      chordsShort: ['V', 'vi', 'IV', 'I'],
+    },
+    {
+      label: 'vi IV I V (6-4-1-5)',
+      chords: ['VIm', 'IV', 'I', 'V'],
+      chordsShort: ['vi', 'IV', 'I', 'V'],
+    },
+    {
+      label: 'V I V vi (4-1-5-6)',
+      chords: ['IV', 'I', 'V', 'VIm'],
+      chordsShort: ['IV', 'I', 'V', 'vi'],
+    },
+    {
+      label: 'vi ii V I (circle)',
+      chords: ['VIm', 'IIm', 'V', 'I'],
+      chordsShort: ['vi', 'ii', 'V', 'I'],
+    },
+    {
+      label: 'I V IV IV I V I V (8 bar blues)',
+      chords: ['I', 'V', 'IV', 'IV', 'I', 'V', 'I', 'V'],
+      chordsShort: ['I', 'V', 'IV', 'IV', 'I', 'V', 'I', 'V'],
+    },
+    {
+      label: 'I V vi iii IV I IV V (canon)',
+      chords: ['I', 'V', 'VIm', 'IIIm', 'IV', 'I', 'IV', 'V'],
+      chordsShort: ['I', 'V', 'vi', 'iii', 'IV', 'I', 'IV', 'V'],
+    },
   ];
   $: chordProgressionsNotes = chordProgressions.map((p) => {
     const chords = Progression.fromRomanNumerals(root, p.chords);
@@ -104,6 +139,14 @@
   );
   $: barDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
   let currentChordIndex = 0;
+  // stop backing track when settings change
+  $: {
+    tempo;
+    root;
+    chordProg;
+    scaleType;
+    stopBackingTrack();
+  }
 
   const noteOn = (e) => {
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
@@ -147,6 +190,7 @@
       return;
     }
     const quarter = Utils.bpmToSecondsPerBeat(tempo);
+    const barsPerRep = chordProg.chords.length;
     const notes2 = notes
       .filter(
         (note) => note.duration === 0 || note.duration / quarter >= minDuration,
@@ -154,7 +198,7 @@
       .map((note) => {
         // is this note in bar 1, 2, 3, 4?
         const bar = Math.floor(note.time / barDuration);
-        const chordIndex = bar % 4;
+        const chordIndex = bar % barsPerRep;
         const currentChordNotes = chordProg.chordNotes[chordIndex];
         // assign color
         let colorType = 'rest';
@@ -206,7 +250,7 @@
           axis: false,
         },
         y: {
-          domain: d3.range(4),
+          domain: d3.range(barsPerRep),
           tickFormat: (d) => chordProg.chordsShort[d],
           label: 'bar / chord',
         },
@@ -220,9 +264,9 @@
             rx: 3,
           }),
           Plot.waffleX(colorCountsPerBar, {
-            y: (d) => d.bar % 4,
+            y: (d) => d.bar % barsPerRep,
             x: 'count',
-            fx: (d) => Math.floor(d.bar / 4),
+            fx: (d) => Math.floor(d.bar / barsPerRep),
             fill: 'colorType',
             rx: 3,
             order: ['chord', 'scale', 'rest'],
@@ -353,7 +397,7 @@
           axis: false,
         },
         y: {
-          domain: d3.range(4),
+          domain: d3.range(barsPerRep),
           tickFormat: (d) => chordProg.chordsShort[d],
           label: 'bar / chord',
         },
@@ -370,9 +414,9 @@
             rx: 3,
           }),
           Plot.waffleX(durationsPerBar, {
-            y: (d) => d.bar % 4,
+            y: (d) => d.bar % barsPerRep,
             x: 'count',
-            fx: (d) => Math.floor(d.bar / 4),
+            fx: (d) => Math.floor(d.bar / barsPerRep),
             fill: 'durationType',
             rx: 3,
             order: colorDomain,
@@ -421,7 +465,7 @@
         },
         fx: {
           label: null,
-          tickFormat: (d) => chordProg.chordsShort[d % 4],
+          tickFormat: (d) => chordProg.chordsShort[d % barsPerRep],
         },
         marks: [
           Plot.ruleY(MIDI_SHARPS, {
@@ -646,46 +690,47 @@
 
       // quantized notes
       // TODO: make a quantized function and move it to lib or mvlib
-      const notes3 = notes.map((note) => {
-        // convert to beats
-        let time = note.time / quarter;
-        let duration = note.duration / quarter;
-        //  quantize
-        time = Math.round(time * 2) / 2;
-        duration = Math.floor(duration * 2) / 2 + 0.5;
-        // is this note in bar 1, 2, 3, 4?
-        const bar = Math.floor(note.time / barDuration);
-        const chordIndex = bar % 4;
-        const currentChordNotes = chordProg.chordNotes[chordIndex];
-        // assign color
-        let colorType = 'rest';
-        if (currentChordNotes.has(note.name)) {
-          colorType = 'chord';
-        } else if (scaleNotes.has(note.name)) {
-          colorType = 'scale';
-        }
-        return {
-          ...note,
-          time,
-          duration,
-          colorType,
-          bar: bar - minBar,
-          chordIndex,
-          chord: chordProg.chords[chordIndex],
-          chordShort: chordProg.chordsShort[chordIndex],
-        };
-      });
+      // const notes3 = notes.map((note) => {
+      //   // convert to beats
+      //   let time = note.time / quarter;
+      //   let duration = note.duration / quarter;
+      //   //  quantize
+      //   time = Math.round(time * 2) / 2;
+      //   duration = Math.floor(duration * 2) / 2 + 0.5;
+      //   // is this note in bar 1, 2, 3, 4?
+      //   const bar = Math.floor(note.time / barDuration);
+      //   const chordIndex = bar % barsPerRep;
+      //   const currentChordNotes = chordProg.chordNotes[chordIndex];
+      //   // assign color
+      //   let colorType = 'rest';
+      //   if (currentChordNotes.has(note.name)) {
+      //     colorType = 'chord';
+      //   } else if (scaleNotes.has(note.name)) {
+      //     colorType = 'scale';
+      //   }
+      //   return {
+      //     ...note,
+      //     time,
+      //     duration,
+      //     colorType,
+      //     bar: bar - minBar,
+      //     chordIndex,
+      //     chord: chordProg.chords[chordIndex],
+      //     chordShort: chordProg.chordsShort[chordIndex],
+      //   };
+      // });
 
-      // chords as arrays of notes
-      const chordsQuantized = detectChords(notes3, maxNoteDistance)
-        // sort notes in chord by pitch
-        .map((notes) => notes.sort((a, b) => a.number - b.number));
-      // musical name of each chord (if found)
-      const chordNotesQuantized = chordsQuantized.flatMap((chord, chordIndex) =>
-        chord.map((n, noteIndex) => {
-          return { ...n, chordIndex, noteIndex };
-        }),
-      );
+      // // chords as arrays of notes
+      // const chordsQuantized = detectChords(notes3, maxNoteDistance)
+      //   // sort notes in chord by pitch
+      //   .map((notes) => notes.sort((a, b) => a.number - b.number));
+      // // musical name of each chord (if found)
+      // const chordNotesQuantized = chordsQuantized.flatMap((chord, chordIndex) =>
+      //   chord.map((n, noteIndex) => {
+      //     return { ...n, chordIndex, noteIndex };
+      //   }),
+      // );
+      const chordNotesQuantized = chordNotes;
       const pianoRoll = Plot.plot({
         subtitle: 'Piano Roll',
         caption: `${upArrowIcon} See your playing in more detail with quantized notes`,
@@ -730,7 +775,7 @@
             strokeWidth: 1,
           }),
           // bars
-          Plot.ruleX(d3.range(minBeat, maxBeat + 5, 4), {
+          Plot.ruleX(d3.range(minBeat, maxBeat + 5, barsPerRep), {
             stroke: '#ccc',
             strokeWidth: 2,
           }),
@@ -740,11 +785,11 @@
             strokeWidth: 2,
           }),
           // chord progression chord
-          Plot.text(d3.range(minBeat, maxBeat, 4), {
+          Plot.text(d3.range(minBeat, maxBeat, barsPerRep), {
             x: (d) => d + 2,
             y: 11,
             text: (d) =>
-              chordProg.chordsShort[(d / 4) % chordProg.chords.length],
+              chordProg.chordsShort[(d / barsPerRep) % chordProg.chords.length],
             fontSize: 12,
             dy: -20,
             textAnchor: 'middle',
@@ -884,10 +929,9 @@
         true,
       );
       player.onTimeChange(() => {
+        const currentSecond = (performance.now() - firstTimeStamp) / 1000;
         currentChordIndex =
-          Math.floor(
-            (performance.now() - firstTimeStamp) / 1000 / barDuration,
-          ) % 4;
+          Math.floor(currentSecond / barDuration) % chordProg.chords.length;
       });
     } else {
       // otherwise just toggle mute
@@ -895,8 +939,9 @@
     }
   };
 
-  const killBackingtrack = () => {
+  const stopBackingTrack = () => {
     player.stop();
+    currentChordIndex = 0;
   };
 
   onDestroy(() => {
@@ -926,8 +971,8 @@
       (ignoring chords) and encodes the duration in the bar's height.
       <b>Chords:</b> To see where you played chords, you can look at the chord
       visualization that stacks the notes of each chord on top of each other.
-      <b>Piano roll:</b> This visualization shows quantized time on the X axis and
-      chroma (pitch without octave) on the Y axis for full detail.
+      <b>Piano roll:</b> This visualization shows time on the X axis and chroma (pitch
+      without octave) on the Y axis for full detail.
     </p>
     <div class="control">
       <SelectScollable label="root note" bind:value="{root}" callback="{draw}">
@@ -1028,14 +1073,14 @@
     <div>
       <!-- legend -->
       <div class="legend">
-        {#each chordProg.chords as chord, index}
+        {#each chordProg.chordsShort as chord, index}
           <div
             style="background: {chordColor}; border-color: {index ===
             currentChordIndex
               ? '#555'
               : 'transparent'}"
           >
-            {chord}:<br />
+            {chord}<br />
             {[...chordProg.chordNotes[index]].join(', ')}
           </div>
         {/each}
@@ -1055,7 +1100,7 @@
           {saveToStorage}
           callback="{() => {
             openNoteMap = new Map();
-            player.stop();
+            stopBackingTrack();
             draw();
           }}"
         />
@@ -1066,7 +1111,7 @@
           callback="{draw}"
           bind:speed="{midiReplaySpeed}"
           onStart="{() => toggleBackingTrack(midiReplaySpeed)}"
-          onStop="{killBackingtrack}"
+          onStop="{stopBackingTrack}"
           startAtFirstNote="{false}"
           sound="acoustic_grand_piano"
         />

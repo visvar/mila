@@ -119,6 +119,12 @@
                 note
             </li>
         </ul>
+
+        <h4>Input Elements</h4>
+        <p class="explanation">
+            Inputs such as number inputs and dropdowns allow you to scroll to
+            change values. Some can be reset with a middle click.
+        </p>
     </HelpTextDrawer>
 
     <HelpTextDrawer heading="Troubleshooting">

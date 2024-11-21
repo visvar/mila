@@ -64,6 +64,14 @@
             adjustTime = +clamped.toFixed(12);
             draw();
         }}"
+        on:mousedown="{(evt) => {
+            // allow to reset with middle click
+            if (evt.button === 1) {
+                evt.preventDefault();
+                adjustTime = 0;
+                draw();
+            }
+        }}"
         {step}
         {min}
         {max}

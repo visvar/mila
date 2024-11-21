@@ -4,8 +4,8 @@
      */
     import html2canvas from 'html2canvas';
     import saveAs from 'file-saver';
-    import { APPS } from '../apps.js';
-    import { delay } from '../lib/lib.js';
+    import { APPS } from '../../apps.js';
+    import { delay } from '../../lib/lib.js';
 
     /**
      * @type {string|object}
