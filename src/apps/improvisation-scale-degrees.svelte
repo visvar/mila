@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Scale } from 'tonal';
@@ -53,15 +53,12 @@
       time: noteInSeconds,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
     if (notes.length === 0) {
       return;
     }
-    // TODO: filter notes which are too close together
-    // TODO: filter notes with low velocity
     // MIDI nr (0 to 11) of the scale root
     const rootNr = noteNames.indexOf(root);
     const scaleInfo = Scale.get(`${root} ${scale}`);
@@ -140,7 +137,7 @@
     container.appendChild(plot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -167,7 +164,6 @@
     showOutsideScale = json.showOutsideScale ?? true;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -190,29 +186,23 @@
       bar chart below shows how often you played each scale degree.
     </p>
     <div class="control">
-      <ScaleSelect
-        bind:scaleRoot="{root}"
-        bind:scaleType="{scale}"
-        callback="{draw}"
-      />
+      <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
     </div>
     <div class="control">
       <ToggleButton
         label="colors"
         title="Use colors for root, in-scale, outside-scale"
         bind:checked="{useColors}"
-        callback="{draw}"
       />
       <ToggleButton
         label="non-scale notes"
         title="Show notes outside the scale"
         bind:checked="{showOutsideScale}"
-        callback="{draw}"
       />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+      <ResetNotesButton bind:notes {saveToStorage} />
       <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />

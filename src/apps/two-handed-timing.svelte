@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -58,7 +58,6 @@
             number: e.note.number,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const drawHand = (left = true) => {
@@ -178,6 +177,7 @@
             binNote,
             adjustTime,
             pastBars,
+            // data
             notes,
         };
     };
@@ -193,8 +193,8 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime ?? 0;
         pastBars = json.pastBars;
+        // data
         notes = json.notes;
-        draw();
     };
     const saveToStorage = () => {
         if (
@@ -205,7 +205,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 
@@ -248,7 +248,7 @@
             for left and <code>j</code> for right.
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <ToggleButton
                 bind:checked="{drumMode}"
                 label="drum mode"
@@ -258,7 +258,6 @@
                 label="grid left"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{gridLeft}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -268,7 +267,6 @@
                 label="right"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{gridRight}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -280,7 +278,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -291,13 +288,11 @@
                 {tempo}
                 grid="{gridLeft}"
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <NumberInput
                 title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
                 label="bars"
                 bind:value="{pastBars}"
-                callback="{draw}"
                 min="{1}"
                 max="{100}"
             />
@@ -305,7 +300,6 @@
                 title="Toggle between an area chart and a histogram of the note density"
                 on:click="{() => {
                     showKde = !showKde;
-                    draw();
                 }}"
                 style="width: 120px"
             >
@@ -319,10 +313,10 @@
             <RhythmPlayerButton
                 notes="{getRhythmNotes(gridLeft, gridRight, tempo)}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
-            <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
+            <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

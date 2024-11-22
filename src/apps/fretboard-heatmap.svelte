@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
@@ -71,12 +71,9 @@
             channel: e.message.channel,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
-        // TODO: filter notes which are too close together
-        // TODO: filter notes with low velocity
         const data = notes.slice(-pastNoteCount);
         const cellSize = (width - 100) / 25;
 
@@ -179,7 +176,7 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -203,8 +200,8 @@
         showScale = json.showScale;
         scaleRoot = json.scaleRoot;
         scaleType = json.scaleType;
+        // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -229,24 +226,22 @@
             played belongs to the scale or not.
         </p>
         <div class="control">
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <NoteCountInput bind:value="{pastNoteCount}" />
             <ToggleButton
                 bind:checked="{showScale}"
                 label="show scale"
                 title="If active, the color hue will show whether notes are in the selected scale or not"
-                callback="{draw}"
             />
             <ScaleSelect
                 bind:scaleRoot
                 bind:scaleType
-                callback="{draw}"
                 bind:scaleInfo
                 disabled="{!showScale}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />

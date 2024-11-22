@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Scale } from 'tonal';
@@ -56,7 +56,6 @@
       time: noteInSeconds,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -182,7 +181,7 @@
     container.appendChild(plot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -211,7 +210,6 @@
     tempo = json.tempo ?? 120;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -234,31 +232,25 @@
       bar chart below shows how often you played each scale degree.
     </p>
     <div class="control">
-      <ScaleSelect
-        bind:scaleRoot="{root}"
-        bind:scaleType="{scale}"
-        callback="{draw}"
-      />
+      <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
     </div>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" />
       <ToggleButton
         label="colors"
         title="Use colors for root, in-scale, outside-scale"
         bind:checked="{useColors}"
-        callback="{draw}"
       />
       <ToggleButton
         label="non-scale notes"
         title="Show notes outside the scale"
         bind:checked="{showOutsideScale}"
-        callback="{draw}"
       />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
       <MetronomeButton {tempo} accent="{4}" />
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+      <ResetNotesButton bind:notes {saveToStorage} />
       <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />

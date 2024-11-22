@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Midi } from 'musicvis-lib';
@@ -9,10 +9,7 @@
     import { detectChords } from '../lib/chords';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
-    import {
-        localStorageAddRecording,
-        localStorageGetSetting,
-    } from '../lib/localstorage';
+    import { localStorageAddRecording } from '../lib/localstorage';
     import example from '../example-recordings/chord-diagrams.json';
     import HistoryButton from '../common/input-elements/history-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
@@ -57,7 +54,6 @@
             channel: e.message.channel,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
@@ -85,8 +81,6 @@
             const maxFret = minFret + maxFretSpan;
             return cNotes.filter((d) => d.fret <= maxFret);
         });
-
-        // TODO: if multiple notes are one the same string, only keep the loudest
 
         // limit
         chords = chords
@@ -226,7 +220,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -250,7 +244,6 @@
         maxFretSpan = json.maxFretSpan;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -278,7 +271,6 @@
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
                 label="max. note distance"
                 bind:value="{maxNoteDistance}"
-                callback="{draw}"
                 min="{0.05}"
                 max="{5}"
                 step="{0.05}"
@@ -287,7 +279,6 @@
                 title="maximum distance between the lowest and highest fret"
                 label="max. fret span"
                 bind:value="{maxFretSpan}"
-                callback="{draw}"
                 min="{5}"
                 max="{25}"
                 step="{1}"
@@ -296,7 +287,6 @@
                 title="The number of played chords that is displayed"
                 label="chord count"
                 bind:value="{pastChords}"
-                callback="{draw}"
                 min="{10}"
                 max="{300}"
                 step="{10}"
@@ -304,7 +294,7 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton

@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Note } from 'tonal';
@@ -56,7 +56,6 @@
       channel: e.message.channel,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -159,7 +158,7 @@
     container.appendChild(plot2);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -184,7 +183,6 @@
     scaleType = json.scaleType;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -209,24 +207,22 @@
       you played one outside the scale (on purpose or by accident).
     </p>
     <div class="control">
-      <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+      <NoteCountInput bind:value="{pastNoteCount}" />
       <ToggleButton
         bind:checked="{showScale}"
         label="show scale"
         title="If active, the color hue will show whether notes are in the selected scale or not"
-        callback="{draw}"
       />
       <ScaleSelect
         bind:scaleInfo
         bind:scaleRoot
         bind:scaleType
         disabled="{!showScale}"
-        callback="{draw}"
       />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+      <ResetNotesButton bind:notes {saveToStorage} />
       <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <MidiReplayButton bind:notes callback="{draw}" />

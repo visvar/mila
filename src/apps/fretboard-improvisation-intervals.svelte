@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note, Scale } from 'tonal';
@@ -58,12 +58,10 @@
             fret,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
         const lastNote = notes.at(-1);
-
         const data = [];
         if (lastNote) {
             const lastNoteChroma = lastNote.number % 12;
@@ -205,7 +203,7 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -227,7 +225,6 @@
         scale = json.scale;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -251,27 +248,21 @@
             is away from the note you just played.
         </p>
         <div class="control">
-            <ScaleSelect
-                bind:scaleRoot="{root}"
-                bind:scaleType="{scale}"
-                callback="{draw}"
-            />
+            <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
             <ToggleButton
                 bind:checked="{showNames}"
                 title="Toggle between note names and scale steps"
                 label="note names"
-                callback="{draw}"
             />
             <ToggleButton
                 bind:checked="{limitFrets}"
                 title="Limit frets to those that are in reach"
                 label="limit frets"
-                callback="{draw}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton

@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
@@ -64,7 +64,6 @@
             fretJitter: fret + random(),
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
@@ -178,7 +177,7 @@
         container.appendChild(plot);
         container.appendChild(legend);
 
-        // TODO: small multiples
+        // small multiples
         const facetDuration =
             Utils.bpmToSecondsPerBeat(tempo) * 4 * barsPerFacet;
         const plotMultiples = Plot.plot({
@@ -264,7 +263,7 @@
         container.appendChild(plotMultiples);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -289,7 +288,6 @@
         barsPerFacet = json.barsPerFacet ?? 1;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -315,31 +313,20 @@
             how loud it was played.
         </p>
         <div class="control">
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <NoteCountInput bind:value="{pastNoteCount}" />
             <TempoInput
                 label="tempo"
                 title="If you set the correct tempo, each facet of the lower chart will show N bars you played"
                 bind:value="{tempo}"
-                callback="{draw}"
             />
             <NumberInput
                 title="Set the number of bars contained within each facet of the lower chart"
                 label="bars per facet"
                 bind:value="{barsPerFacet}"
-                callback="{draw}"
                 min="{1}"
                 max="{20}"
                 step="{1}"
             />
-            <button
-                on:click="{() =>
-                    noteOn({
-                        note: { number: 82 },
-                        timestamp: performance.now(),
-                        rawVelocity: 127,
-                        message: { channel: 1 },
-                    })}">add note</button
-            >
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
@@ -349,7 +336,7 @@
                 beepCount="{8}"
                 showBeepCountInput
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />

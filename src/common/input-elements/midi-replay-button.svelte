@@ -133,13 +133,6 @@
         !isPlaying ? replay() : stop();
     };
 
-    // react to user resetting notes by stopping
-    // TODO: needs to know whether notes changed from outside or inside this component...
-    // TODO: better to notify app that is playing and forbid reset etc
-    // $: if (isPlaying && notes.length === 0) {
-    //     stop();
-    // }
-
     onDestroy(reset);
 
     /**

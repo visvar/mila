@@ -62,7 +62,7 @@
                 ...document.querySelectorAll('.explanation'),
                 ...document.querySelectorAll('.rating-button'),
                 ...document.querySelectorAll('.exercise-grid'),
-                // TODO: hide lower controls?
+                // hide lower controls?
                 [...document.querySelectorAll('.control')].at(-1),
             ].forEach((d) => (d.style = 'display:none'));
 

@@ -1,7 +1,6 @@
 <script>
-  import { onDestroy } from 'svelte';
+  import { afterUpdate, onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { clamp } from '../lib/lib';
   import { Canvas, Utils } from 'musicvis-lib';
   import NoteCountInput from '../common/input-elements/note-count-input.svelte';
   import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -69,7 +68,6 @@
     }
     notes = [...notes, note];
     openNoteMap.set(e.note.number, note);
-    draw();
   };
 
   const noteOff = (e) => {
@@ -78,8 +76,8 @@
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
+      notes = [...notes];
     }
-    draw();
   };
 
   /**
@@ -322,6 +320,8 @@
     usePies ? drawPies() : drawBars();
   };
 
+  afterUpdate(draw);
+
   /**
    * Used for exporting and for automatics saving
    */
@@ -347,7 +347,6 @@
     showClosestDuration = json.showClosestDuration;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -362,6 +361,8 @@
   onDestroy(saveToStorage);
 </script>
 
+<PageResizeHandler callback="{draw}" />
+
 <FileDropTarget {loadData}>
   <main class="app">
     <h2>{appInfo.title}</h2>
@@ -375,23 +376,20 @@
       also switch to a bar ('test tube') encoding.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" />
       <NoteCountInput
         bind:value="{pastNoteCount}"
-        callback="{draw}"
         step="{1}"
         min="{1}"
         max="{12}"
       />
       <ToggleButton
         bind:checked="{usePies}"
-        callback="{draw}"
         label="pies"
         title="Toggles between pie and bar chart encoding"
       />
       <ToggleButton
         bind:checked="{showClosestDuration}"
-        callback="{draw}"
         label="show closest duration"
         title="Show the closest note duration as an inner piece"
       />
@@ -402,13 +400,12 @@
     </div>
     <div class="control">
       <MetronomeButton {tempo} accent="{4}" />
-      <UndoRedoButton bind:data="{notes}" callback="{draw}" />
+      <UndoRedoButton bind:data="{notes}" />
       <ResetNotesButton
         {saveToStorage}
         bind:notes
         callback="{() => {
           openNoteMap = new Map();
-          draw();
         }}"
       />
       <button on:click="{() => loadData(example)}"> example </button>
@@ -461,6 +458,5 @@
         });
       }}"
     />
-    <PageResizeHandler callback="{draw}" />
   </main>
 </FileDropTarget>

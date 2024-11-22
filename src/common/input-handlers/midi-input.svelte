@@ -38,6 +38,8 @@
   let disabledDevices = new Set();
   let synth;
   let minVelocity = 0;
+  let minIoi = 0;
+  let lastNoteTime = 0;
 
   /**
    * Set all required MIDI listeners
@@ -52,7 +54,12 @@
         device.removeListener();
         if (!disabledDevices.has(index)) {
           device.addListener('noteon', (evt) => {
-            if (evt.velocity >= minVelocity) {
+            // apply noise filters
+            if (
+              evt.velocity >= minVelocity &&
+              evt.timestamp - lastNoteTime > minIoi
+            ) {
+              lastNoteTime = evt.timestamp;
               noteOn(evt);
             }
           });
@@ -360,6 +367,15 @@
       min="{0}"
       max="{1}"
       step="{0.01}"
+      defaultValue="{0}"
+    />
+    <NumberInput
+      title="minimum distance in milliseconds of a note onset from the prior one"
+      label="minimum IOI"
+      bind:value="{minIoi}"
+      min="{0}"
+      max="{100}"
+      step="{1}"
       defaultValue="{0}"
     />
   </div>

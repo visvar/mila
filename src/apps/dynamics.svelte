@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -29,8 +29,8 @@
      */
     export let appInfo;
 
-    $: width =
-        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
+    let windowWidth = 900;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     // let height = 600;
     let height = 300;
     let container;
@@ -57,7 +57,6 @@
             channel: e.message.channel,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
@@ -154,7 +153,7 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -176,7 +175,6 @@
         barLimit = json.barLimit;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -195,6 +193,8 @@
     onDestroy(saveToStorage);
 </script>
 
+<svelte:window bind:innerWidth="{windowWidth}" />
+
 <FileDropTarget {loadData}>
     <main class="app">
         <h2>{appInfo.title}</h2>
@@ -208,30 +208,25 @@
                 target="_blank"
                 referrerpolicy="no-referrer"
             >
-                dynamics marking</a
-            > for a clearer overview.
+                dynamics marking
+            </a>
+            for a clearer overview.
         </p>
         <div class="control">
             <ToggleButton
                 label="rounding"
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
                 bind:checked="{isBinning}"
-                callback="{draw}"
             />
             <NumberInput
                 title="The number of most recent notes that are shown as bars."
                 label="bars"
                 bind:value="{barLimit}"
-                callback="{draw}"
                 step="{25}"
                 min="{25}"
                 max="{1000}"
             />
-            <SelectScollable
-                label="color"
-                bind:value="{coloring}"
-                callback="{draw}"
-            >
+            <SelectScollable label="color" bind:value="{coloring}">
                 {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
                     <option value="{opt}">{opt}</option>
                 {/each}
@@ -239,7 +234,7 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example4)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />
@@ -282,9 +277,3 @@
         <MidiInput {noteOn} />
     </main>
 </FileDropTarget>
-
-<style>
-    div :global(text) {
-        font-size: 12px;
-    }
-</style>

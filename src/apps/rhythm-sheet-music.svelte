@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
@@ -58,7 +58,6 @@
             return;
         }
         notes = [...notes, noteInSeconds];
-        draw();
     };
 
     /**
@@ -198,7 +197,7 @@
         container.appendChild(plot2);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -224,7 +223,6 @@
         useDotted = json.useDotted;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -255,13 +253,12 @@
             <span style="color:{orange}">orange for short (fast) ones</span>.
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
+            <NoteCountInput bind:value="{pastNoteCount}" />
             <ToggleButton
                 label="dotted notes"
                 title="Use dotted notes? If not, the closest non-dotted note will be taken."
                 bind:checked="{useDotted}"
-                callback="{draw}"
             />
         </div>
         <div class="control">
@@ -269,7 +266,6 @@
                 label="filtering"
                 title="You can filter out notes that are shorter than a given note duration."
                 bind:value="{filterNote}"
-                callback="{draw}"
             >
                 {#each FILTER_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -279,7 +275,6 @@
                 label="target"
                 title="You can choose a single duration you want to practice and turn of automaticly guessing the closest one."
                 bind:value="{targetDuration}"
-                callback="{draw}"
             >
                 <option value="auto">auto</option>
                 {#each noteDurations as d}
@@ -290,7 +285,7 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{4}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton

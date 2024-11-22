@@ -19,12 +19,11 @@ export const SKILL_TREE = [
         title: 'tempo keeping',
         description: 'The tempo should be kept constant over a longer stretch of time without the help of a metronome'
       },
-      // TODO: not supported for now
-      // {
-      //   id: 'tempo-changing',
-      //   title: 'tempo changing',
-      //   description: 'The tempo should be changed as intended'
-      // },
+      {
+        id: 'tempo-changing',
+        title: 'tempo changing',
+        description: 'The tempo should be changed as intended'
+      },
       {
         id: 'swing-feel',
         title: 'swing feel',

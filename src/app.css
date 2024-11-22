@@ -5,16 +5,16 @@
 
   color-scheme: light;
   color: #213547;
-  background-color: #ffffff;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* variables */
   --accent: #daecfb;
   --accentDark: #add2f1;
-
   --home-app-columns: 5
 }
 
@@ -39,7 +39,6 @@ body {
 
 #app {
   width: 100%;
-  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 0 repeat(3, 10px);
   text-align: center;
@@ -69,7 +68,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: #3c4c5a;
+  color: #465969;
   user-select: none;
 }
 
@@ -133,10 +132,6 @@ button,
 label {
   user-select: none;
 }
-
-/* svg {
-  margin: 0 auto;
-} */
 
 svg text {
   user-select: none;
@@ -237,13 +232,12 @@ div.card:hover {
 
 div.card h2 {
   margin-top: 0;
-  min-height: 50px;
-  font-size: 16px;
+  min-height: 55px;
+  font-size: 18px;
 }
 
 div.card .description {
   margin-bottom: 3px;
-  /* text-align: justify; */
   height: 80px;
 }
 
@@ -317,7 +311,6 @@ p.explanation {
   max-width: 850px;
   margin: auto;
   text-align: justify;
-  user-select: none;
 }
 
 

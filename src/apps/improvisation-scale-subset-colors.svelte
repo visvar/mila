@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Scale, Chord } from 'tonal';
@@ -82,7 +82,6 @@
     }
     notes = [...notes, note];
     openNoteMap.set(e.note.number, note);
-    draw();
   };
 
   const noteOff = (e) => {
@@ -91,8 +90,8 @@
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
+      notes = [...notes];
     }
-    draw();
   };
 
   const draw = () => {
@@ -248,7 +247,7 @@
     container.appendChild(chordPlot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -279,7 +278,6 @@
     showLoudness = json.showLoudness ?? false;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -310,7 +308,6 @@
       <SelectScollable
         label="scale type 1"
         bind:value="{scaleType1}"
-        callback="{draw}"
         style="background-color: {scale1Color};"
       >
         {#each ['major', 'minor'] as s}
@@ -320,7 +317,6 @@
       <SelectScollable
         label="scale type 2"
         bind:value="{scaleType2}"
-        callback="{draw}"
         style="background-color: {scale2Color};"
       >
         {#each ['pentatonic', 'blues'].map((d) => `${scaleType1} ${d}`) as s}
@@ -330,7 +326,6 @@
       <SelectScollable
         label="root note"
         bind:value="{root}"
-        callback="{draw}"
         style="background-color: {rootColor};"
       >
         {#each Midi.NOTE_NAMES as n}
@@ -344,7 +339,6 @@
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
         label="max. note distance"
         bind:value="{maxNoteDistance}"
-        callback="{draw}"
         min="{0.05}"
         max="{2}"
         step="{0.05}"
@@ -353,13 +347,11 @@
         bind:checked="{showDuration}"
         label="show duration"
         title="Show duration in the bar's height?"
-        callback="{draw}"
       />
       <ToggleButton
         bind:checked="{showLoudness}"
         label="show loudness"
         title="Show loudness in the bar's opacity?"
-        callback="{draw}"
       />
     </div>
     <div class="legend">
@@ -387,7 +379,6 @@
         {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
-          draw();
         }}"
       />
       <button on:click="{() => loadData(example)}"> example </button>

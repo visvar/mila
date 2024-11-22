@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -62,7 +62,6 @@
             velocity: e.velocity,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
@@ -270,7 +269,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -302,7 +301,6 @@
         showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -334,12 +332,11 @@
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <SelectScollable
                 label="grid"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{grid}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -349,7 +346,6 @@
                 title="The number of bars in each repetition."
                 label="bars"
                 bind:value="{bars}"
-                callback="{draw}"
                 step="{1}"
                 min="{1}"
                 max="{4}"
@@ -359,7 +355,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -372,13 +367,11 @@
                 {tempo}
                 {grid}
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <NumberInput
                 title="The number of most recent bars that are shown in the rows at the bottom."
                 label="past bars"
                 bind:value="{pastBars}"
-                callback="{draw}"
                 step="{1}"
                 min="{8}"
                 max="{32}"
@@ -388,13 +381,11 @@
                 label="bar scores"
                 title="Show scores (percentage of notes within gray areas) per bar"
                 bind:checked="{showBarScores}"
-                callback="{draw}"
             />
             <ToggleButton
                 label="loudness"
                 title="Show loudness in the note tick width, for example to see if you set accents correctly"
                 bind:checked="{showLoudness}"
-                callback="{draw}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
@@ -417,7 +408,6 @@
                 bind:adjustTime
                 {grid}
                 {bars}
-                callback="{draw}"
             />
         </div>
         <ExerciseDrawer>

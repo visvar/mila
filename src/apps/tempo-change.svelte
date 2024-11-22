@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
     import * as d3 from 'd3';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -47,7 +47,6 @@
         ) {
             notes = [...notes, noteInSeconds];
         }
-        draw();
     };
 
     const estimateTempo = (onsets) => {
@@ -178,7 +177,6 @@
         tempoBinSize = json.tempoBinSize;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -190,7 +188,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 </script>
@@ -211,7 +209,6 @@
                 title="Size of the time bins in seconds"
                 label="time step"
                 bind:value="{timeBinSize}"
-                callback="{draw}"
                 min="{1}"
                 max="{30}"
                 step="{1}"
@@ -220,7 +217,6 @@
                 title="Size of the tempo bins in BPM"
                 label="tempo step"
                 bind:value="{tempoBinSize}"
-                callback="{draw}"
                 min="{5}"
                 max="{20}"
                 step="{5}"
@@ -234,7 +230,7 @@
                 beepCount="{8}"
                 showBeepCountInput
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />

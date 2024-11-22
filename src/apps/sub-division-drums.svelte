@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -65,7 +65,6 @@
                 e.note.number,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const drawDrum = (drum = 'KD', label = 'Kick Drum', xLabel = null) => {
@@ -167,7 +166,7 @@
         drawDrum('KD', 'Kick Drum', 'beats');
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -199,7 +198,6 @@
         showKde = json.showKde ?? false;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -232,12 +230,11 @@
             <i> Try playing without looking, focus on the metronome. </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <SelectScollable
                 label="grid"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{grid}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -247,7 +244,6 @@
                 title="The number of bars in each repetition."
                 label="bars"
                 bind:value="{bars}"
-                callback="{draw}"
                 step="{1}"
                 min="{1}"
                 max="{4}"
@@ -257,7 +253,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -270,13 +265,11 @@
                 {tempo}
                 {grid}
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <NumberInput
                 title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
                 label="last bars"
                 bind:value="{pastBars}"
-                callback="{draw}"
                 min="{1}"
                 max="{100}"
                 step="{4}"
@@ -285,7 +278,6 @@
                 title="Toggle between an area chart and a histogram of the note density"
                 on:click="{() => {
                     showKde = !showKde;
-                    draw();
                 }}"
                 style="width: 120px"
             >
@@ -295,11 +287,11 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <UndoRedoButton bind:data="{notes}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MidiReplayButton bind:notes callback="{draw}" sound="percussion" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
@@ -314,9 +306,8 @@
                 </InsideTextButton>
             </p>
             <p>
-                2) Play 1) and add the hi-hat on beat 1, 2, 3, 4. <InsideTextButton
-                    onclick="{() => loadData(example2)}"
-                >
+                2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.
+                <InsideTextButton onclick="{() => loadData(example2)}">
                     example
                 </InsideTextButton>
             </p>

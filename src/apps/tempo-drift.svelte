@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -41,7 +41,6 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
-    // let estimatedTempo = 0;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -49,7 +48,6 @@
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         notes = [...notes, noteInSeconds];
-        draw();
     };
 
     const draw = () => {
@@ -95,10 +93,6 @@
             (d) => d.duration > 0.75 * eighth && d.duration < 1.25 * eighth,
         );
 
-        // TODO: color by distance to closest baseline
-        // const colorByError = (ioi) => {
-        //     return d3.min(rules, (r) => Math.abs((ioi - r) / r));
-        // };
         const plot = Plot.plot({
             width,
             height,
@@ -108,8 +102,6 @@
             style: 'font-size: 24px; font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
                 axis: false,
-                // ticks: [],
-                // label: 'inter-onset times between notes, sorted by time',
             },
             y: {
                 label: null,
@@ -121,19 +113,12 @@
                 domain: [0, half * 1.1],
                 tickSize: 0,
             },
-            // color: {
-            //     scheme: 'Greys',
-            //     legend: true,
-            //     range: [0.2, 1],
-            // },
             marks: [
                 // bars
                 Plot.barY(slicedIois, {
                     x: (d, i) => i,
                     y: (d) => d,
                     fill: '#ddd',
-                    // color by distance to closest baseline
-                    // fill: colorByError,
                     inset: 0,
                     dx: 0.5,
                     ry1: 4,
@@ -182,7 +167,6 @@
         showEighthLine = json.showEighthLine ?? false;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -194,10 +178,12 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 </script>
+
+<svelte:window bind:innerWidth="{windowWidth}" />
 
 <FileDropTarget {loadData}>
     <main class="app">
@@ -218,7 +204,7 @@
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" on:change="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <button
                 title="randomize tempo"
                 on:click="{() => {
@@ -235,7 +221,6 @@
                 label="rounding"
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 <option value="{0}">off</option>
                 {#each [16, 32, 64] as g}
@@ -246,7 +231,6 @@
                 label="filtering"
                 title="You can filter out notes that are shorter than a given note duration."
                 bind:value="{filterNote}"
-                callback="{draw}"
             >
                 <option value="{0}">off</option>
                 {#each BIN_NOTES as g}
@@ -259,7 +243,6 @@
                 title="The number of most recent notes that are shown as bars."
                 label="bars"
                 bind:value="{barLimit}"
-                callback="{draw}"
                 step="{25}"
                 min="{25}"
                 max="{1000}"
@@ -268,7 +251,6 @@
                 label="{noteEighth} line"
                 title="Show a line for the (likely) eighth notes' duration over time."
                 bind:checked="{showEighthLine}"
-                callback="{draw}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
@@ -279,7 +261,7 @@
                 beepCount="{8}"
                 showBeepCountInput
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+            <ResetNotesButton bind:notes {saveToStorage} />
             <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton
@@ -322,6 +304,3 @@
         />
     </main>
 </FileDropTarget>
-
-<PageResizeHandler callback="{draw}" />
-<svelte:window bind:innerWidth="{windowWidth}" />

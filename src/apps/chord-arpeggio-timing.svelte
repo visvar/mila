@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Midi, Utils } from 'musicvis-lib';
@@ -22,8 +22,8 @@
    */
   export let appInfo;
 
-  $: width =
-    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
+  let windowWidth = 900;
+  $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
   let height = 350;
   let container;
   // settings
@@ -47,7 +47,6 @@
       channel: e.message.channel,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -149,7 +148,6 @@
       width,
       height: 75,
       marginLeft: 60,
-      // marginRight: -10,
       marginTop: 0,
       marginBottom: 40,
       padding: 0,
@@ -190,7 +188,7 @@
     container.appendChild(plot3);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -215,7 +213,6 @@
     tempo = json.tempo;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -230,6 +227,8 @@
   onDestroy(saveToStorage);
 </script>
 
+<svelte:window bind:innerWidth="{windowWidth}" />
+
 <FileDropTarget {loadData}>
   <main class="app">
     <h2>{appInfo.title}</h2>
@@ -241,12 +240,11 @@
       consecutive chords/arpeggios.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
         label="max note distance"
         bind:value="{maxNoteDistance}"
-        callback="{draw}"
         min="{0.05}"
         max="{5}"
         step="{0.05}"
@@ -255,7 +253,6 @@
         title="The time in beats that is shown"
         label="beats shown"
         bind:value="{pastBeats}"
-        callback="{draw}"
         min="{10}"
         max="{300}"
         step="{10}"
@@ -264,7 +261,7 @@
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
       <MetronomeButton {tempo} accent="{4}" />
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+      <ResetNotesButton bind:notes {saveToStorage} />
       <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />

@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
@@ -58,7 +58,6 @@
         }
         notes = [...notes, note];
         openNoteMap.set(e.note.number, note);
-        draw();
     };
 
     const noteOff = (e) => {
@@ -67,8 +66,8 @@
             const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
             note.end = noteInSeconds;
             note.duration = note.end - note.time;
+            notes = [...notes];
         }
-        draw();
     };
 
     const draw = () => {
@@ -202,9 +201,7 @@
         container.appendChild(plot2);
     };
 
-    onMount(() => {
-        draw();
-    });
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -226,7 +223,6 @@
         maxNoteDistance = json.maxNoteDistance;
         // data
         notes = json.notes;
-        draw();
     };
 
     const saveToStorage = () => {
@@ -262,7 +258,6 @@
                 title="time in seconds for past notes to be shown"
                 label="time"
                 bind:value="{pastSeconds}"
-                callback="{draw}"
                 min="{10}"
                 max="{300}"
                 step="{10}"
@@ -271,7 +266,6 @@
                 title="maximum distance between notes such that they still count as beloning to the same chord"
                 label="max. note distance"
                 bind:value="{maxNoteDistance}"
-                callback="{draw}"
                 min="{0.01}"
                 max="{5}"
                 step="{0.01}"
@@ -280,7 +274,6 @@
                 title="minimum duration of a note, used to filter noise"
                 label="min. duration"
                 bind:value="{minDuration}"
-                callback="{draw}"
                 min="{0}"
                 max="{1}"
                 step="{0.01}"
@@ -295,7 +288,6 @@
                 callback="{() => {
                     openNoteMap = new Map();
                     firstTimeStamp = performance.now();
-                    draw();
                 }}"
             />
             <button on:click="{() => loadData(example)}"> example </button>

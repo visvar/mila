@@ -7,7 +7,7 @@
     import { COLORS } from '../lib/colors';
 
     /**
-     * TODO: show number of played notes
+     * TODO: show number of recordings and played notes
      */
 
     export let toolInfo;

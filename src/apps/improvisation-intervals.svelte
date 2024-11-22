@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -44,7 +44,6 @@
       time: noteInSeconds,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -163,7 +162,7 @@
     container.appendChild(plot2);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -184,7 +183,6 @@
     showUnison = json.showUnison;
     // data
     notes = json.notes;
-    draw();
   };
 
   const saveToStorage = () => {
@@ -218,21 +216,19 @@
         label="unison"
         title="Toggle filtering unison intervals"
         bind:checked="{showUnison}"
-        callback="{draw}"
       />
       <NumberInput
         title="The number of most recent notes that are shown as bars."
         label="bars"
         bind:value="{intervalLimit}"
         defaultValue="{40}"
-        callback="{draw}"
         step="{10}"
         min="{40}"
       />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
+      <ResetNotesButton bind:notes {saveToStorage} />
       <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <MidiReplayButton bind:notes callback="{draw}" />

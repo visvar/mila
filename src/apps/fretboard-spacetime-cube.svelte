@@ -20,8 +20,6 @@
      *      - https://aframe.io/docs/1.5.0/introduction/interactions-and-controllers.html
      * - support hand tracking?
      *      - https://github.com/aframevr/aframe/blob/master/docs/components/hand-tracking-controls.md
-     * - use custom geometry?
-     *  - https://aframe.io/docs/1.5.0/components/geometry.html
      */
 
     /**
