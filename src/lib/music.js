@@ -99,6 +99,20 @@ export const GRIDS = [
  */
 export const BIN_NOTES = [8, 16, 32, 64, 128, 24, 48, 96, 192]
 
+
+/**
+ * Note values to bin by. Divisible by 2, 3, 4, 5
+ *
+ * @type {number[]}
+*/
+export const BIN_NOTES2 = [60, 120, 180, 240]
+
+/**
+ * Note values to filter by
+*
+* @type { number[]}
+*/
+
 export const FILTER_NOTES = [4, 8, 16, 32, 64, 128]
 
 

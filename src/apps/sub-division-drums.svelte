@@ -35,8 +35,8 @@
      */
     export let appInfo;
 
-    $: width =
-        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
+    let windowWidth = 900;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let container;
     // settings
     let tempo = 60;
@@ -215,6 +215,8 @@
 
     onDestroy(saveToStorage);
 </script>
+
+<svelte:window bind:innerWidth="{windowWidth}" />
 
 <FileDropTarget {loadData}>
     <main class="app">

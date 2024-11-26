@@ -2,6 +2,8 @@
 
 ## New features
 
+- move app settings, metronome, player, etc to a sidebar?
+  - or floating button that can be collapsed?
 
 ## Fixes and improvements
 
@@ -53,12 +55,16 @@
 - improvisation scale degree
   - allow showing summed duration instead of count
 - sub-division
+  - combine histogram bars within the tolerance zone
+    - automatically choose a binning divisible by 3 when triplets, same for 5
+      - or just allow multiples of 60?
   - number of recent bars for all
   - forgetting for all
-  - automatically choose a binning divisible by 3 when triplets, same for 5
 - speed up
   - colors for drum, string, …
   - allow to reset current take
+- tempo change
+  - drum mode where only hi-hat notes are used, as they are more regular
 
 
 ## Examples missing for

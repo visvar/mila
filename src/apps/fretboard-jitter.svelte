@@ -19,6 +19,8 @@
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import { Utils } from 'musicvis-lib';
+    import { NOTE_COLORS } from '../lib/colors';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -37,6 +39,7 @@
     let pastNoteCount = 200;
     let tempo = 90;
     let barsPerFacet = 1;
+    let colorFacetsByFret = true;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -180,6 +183,24 @@
         // small multiples
         const facetDuration =
             Utils.bpmToSecondsPerBeat(tempo) * 4 * barsPerFacet;
+        let color;
+        if (colorFacetsByFret) {
+            // color encodes fret, repeats at 12
+            color = {
+                domain: d3.range(0, 25),
+                range: [
+                    ...NOTE_COLORS.noteColormap,
+                    ...NOTE_COLORS.noteColormap,
+                ],
+            };
+        } else {
+            // same as main plot
+            color = {
+                scheme: 'viridis',
+                reverse: true,
+                domain: [0, facetDuration],
+            };
+        }
         const plotMultiples = Plot.plot({
             width,
             aspectRatio: 1,
@@ -201,15 +222,11 @@
                 tickSize: 0,
                 label: 'string',
             },
-            color: {
-                scheme: 'viridis',
-                reverse: true,
-                domain: [0, facetDuration],
-                label: 'note index: old (yellow) to new (purple)',
-            },
+            color,
             r: {
                 domain: [0, 127],
-                range: [0, 2.5],
+                // range: [0, 2.5],
+                range: [0, 3],
             },
             fx: { ticks: [] },
             fy: {
@@ -248,7 +265,9 @@
                     fx: (d) => Math.floor(d.time / facetDuration) % 2,
                     x: 'fretJitter',
                     y: 'stringJitter',
-                    fill: (d, i) => d.time % facetDuration,
+                    fill: colorFacetsByFret
+                        ? (d) => d.fret
+                        : (d, i) => d.time % facetDuration,
                     // fill: '#000000bb',
                     stroke: '#888',
                     strokeWidth: 0.5,
@@ -326,6 +345,11 @@
                 min="{1}"
                 max="{20}"
                 step="{1}"
+            />
+            <ToggleButton
+                label="color by fret"
+                title="Color small multiples below by fret instead of time"
+                bind:checked="{colorFacetsByFret}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>

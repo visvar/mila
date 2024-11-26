@@ -47,6 +47,8 @@
     let pastBars = 8;
     let showLoudness = false;
     let showBarScores = false;
+    let combineBars = false;
+    let showTolerance = true;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -132,9 +134,19 @@
             tickFormat: (d) => (d % grid1) + 1,
         };
 
+        // histogram
+        const binSize = 4 / binNote;
+        let thresholds = d3.range(0, beats + 1, binSize);
+        if (combineBars) {
+            // combine the bars left and right of the perfect timing, to avoid showing notes as too early/late instead of the more meaningful 'good enough'
+            thresholds = thresholds.filter((d) =>
+                d3.min(fineGrid, (g) => Math.abs(d - g) >= binSize * 0.9),
+            );
+        }
         const histoPlot = Plot.plot({
             ...plotOptions,
             marks: [
+                ...gridLines,
                 Plot.rectY(
                     clamped,
                     Plot.binX(
@@ -142,12 +154,12 @@
                         {
                             x: 'time',
                             fill: '#ccc',
-                            thresholds: d3.range(0, beats + 1, 4 / binNote),
+                            thresholds,
+                            tip: true,
                         },
                     ),
                 ),
                 Plot.ruleY([0]),
-                ...gridLines,
             ],
         });
         const kdePlot = Plot.plot({
@@ -159,8 +171,8 @@
                     fill: COLORS.accent,
                     clip: true,
                 }),
-                Plot.ruleY([0]),
                 ...gridLines,
+                Plot.ruleY([0]),
             ],
         });
 
@@ -201,13 +213,15 @@
                     clip: true,
                 }),
                 // OK areas
-                Plot.tickX([...fineGrid, beats], {
-                    x: (d) => d,
-                    stroke: '#ccc',
-                    opacity: 0.7,
-                    clip: true,
-                    strokeWidth: (innerWidth / binNote / (beats / 4)) * 2,
-                }),
+                showTolerance
+                    ? Plot.tickX([...fineGrid, beats], {
+                          x: (d) => d,
+                          stroke: '#ccc',
+                          opacity: 0.7,
+                          clip: true,
+                          strokeWidth: (innerWidth / binNote / (beats / 4)) * 2,
+                      })
+                    : null,
             ],
         });
 
@@ -218,6 +232,7 @@
         container.appendChild(tickPlotRows);
 
         // show how many notes are within the OK areas
+        okScore = '';
         if (notes.length > 0) {
             const score = computeSubdivisionOkScore(
                 notes.map((d) => d.time),
@@ -248,7 +263,7 @@
                 height: 110,
                 x: {
                     label: 'bar',
-                    domain: d3.range(maxBar - pastBars, maxBar),
+                    // domain: d3.range(maxBar - pastBars, maxBar),
                     tickFormat: (d) => d + 1,
                 },
                 y: {
@@ -284,6 +299,7 @@
             pastBars,
             showLoudness,
             showBarScores,
+            combineBars,
             // data
             notes,
         };
@@ -299,6 +315,7 @@
         pastBars = json.pastBars ?? 8;
         showLoudness = json.showLoudness ?? false;
         showBarScores = json.showBarScores ?? false;
+        combineBars = json.combineBars ?? false;
         // data
         notes = json.notes;
     };
@@ -386,6 +403,16 @@
                 label="loudness"
                 title="Show loudness in the note tick width, for example to see if you set accents correctly"
                 bind:checked="{showLoudness}"
+            />
+            <ToggleButton
+                label="combine bars"
+                title="Instead of showing histogram bars as either early or late, combine the bars next to correct timing into one to ignore the impossible to avoid small deviations"
+                bind:checked="{combineBars}"
+            />
+            <ToggleButton
+                label="show tolerance"
+                title="Toggle for the tolerance zone indicators"
+                bind:checked="{showTolerance}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>

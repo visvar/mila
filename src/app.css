@@ -15,7 +15,7 @@
   /* variables */
   --accent: #daecfb;
   --accentDark: #add2f1;
-  --home-app-columns: 5
+  --home-app-columns: 6
 }
 
 a {
@@ -203,7 +203,7 @@ div.grid {
   padding: 0 10px;
   display: grid;
   grid-template-columns: repeat(var(--home-app-columns), auto);
-  gap: 18px;
+  gap: 20px;
   align-content: start;
   justify-content: start;
 }
@@ -213,9 +213,9 @@ div.current-filters {
 }
 
 div.card {
-  padding: 15px 20px;
-  width: 290px;
-  height: 185px;
+  padding: 15px 25px;
+  width: 280px;
+  height: 200px;
   background-color: #fefefe;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -231,20 +231,21 @@ div.card:hover {
 }
 
 div.card h2 {
-  margin-top: 0;
+  margin: 0;
   min-height: 55px;
   font-size: 18px;
 }
 
 div.card .description {
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   height: 80px;
 }
 
 div.card .usage {
-  margin-bottom: 3px;
-  font-size: 12px;
+  margin-bottom: 6px;
+  font-size: 14px;
   height: 18px;
+  color: #666;
 }
 
 div.card .tags {
@@ -324,6 +325,13 @@ code {
   user-select: none;
 }
 
+
+/* medium desktop style */
+@media only screen and (max-width: 2500px) {
+  :root {
+    --home-app-columns: 5
+  }
+}
 
 /* small desktop style */
 @media only screen and (max-width: 2100px) {

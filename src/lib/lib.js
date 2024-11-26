@@ -124,13 +124,15 @@ export function getNumberOfDaysPassed(someDate) {
  * @param {number} tempo in bpm
  * @param {number} binNote e.g., 16 for a sixteenth
  * @param {number} adjustTime time in seconds to add to each note
+ * @param {number} [bars=1] number of bars per repetition
  */
 export function computeSubdivisionOkScore(
   notes,
   grid,
   tempo,
   binNote,
-  adjustTime
+  adjustTime,
+  bars = 1
 ) {
   if (!notes || notes.length === 0) {
     return null
@@ -138,7 +140,7 @@ export function computeSubdivisionOkScore(
   let okCount = 0
   // get times of grid
   const [grid1, grid2] = grid.split(':').map((d) => +d)
-  const circleSeconds = Utils.bpmToSecondsPerBeat(tempo) * grid1
+  const circleSeconds = Utils.bpmToSecondsPerBeat(tempo) * grid1 * bars
   const step = circleSeconds / (grid1 * grid2)
   const gridTimes = d3.range(0, circleSeconds + step, step)
   // get allowed error
