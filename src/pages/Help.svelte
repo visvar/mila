@@ -2,7 +2,10 @@
     import HelpTextDrawer from '../common/help-text-drawer.svelte';
 
     import saveAs from 'file-saver';
-    import { localStorageReport } from '../lib/localstorage';
+    import {
+        localStorageDeleteAllRecordings,
+        localStorageReport,
+    } from '../lib/localstorage';
     const localStorageRep = localStorageReport();
     let fileInput;
     /**
@@ -223,6 +226,20 @@
             }}"
         >
             delete usage
+        </button>
+        <button
+            title="Reset usage statistics"
+            on:click="{() => {
+                if (
+                    confirm(
+                        'Please only do this after exporting usage data! Do you really want to delete now?',
+                    )
+                ) {
+                    localStorageDeleteAllRecordings();
+                }
+            }}"
+        >
+            delete only recordings
         </button>
     </HelpTextDrawer>
 </main>

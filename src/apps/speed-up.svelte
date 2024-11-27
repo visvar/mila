@@ -11,8 +11,8 @@
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example1 from '../example-recordings/speed-up-e1.json';
-    import example2 from '../example-recordings/speed-up-e2.json';
+    import example1 from '../example-recordings/speed-up/speed-up-e1.json';
+    import example2 from '../example-recordings/speed-up/speed-up-e2.json';
     import TouchInput from '../common/input-handlers/touch-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';

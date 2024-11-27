@@ -4,17 +4,22 @@
 
 - move app settings, metronome, player, etc to a sidebar?
   - or floating button that can be collapsed?
+  - would be easier to access then
 - backing track component/function/class
   - add to all improvisation apps
 
 ## Fixes and improvements
 
 - examples: re-think auto-saving and playing input
-  - loading example should disable input until reset
-  - importing should also disable input until reset
-  - also disable autosave
-  - reset before import?
-- playback: disable input during playback
+  - see fretboard-jitter
+  - when isPlaying
+    - disable all inputs for data loading, exporting
+    - disable MIDI input
+    - disable autosave
+  - when isData loaded
+    - disable input until reset
+    - disable autosave
+    - reset before import?
 - synth: fix Tone.sampler not working in improvisation-chord-progression
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
@@ -23,7 +28,10 @@
 - add default values to top of each app (for inputs)
   - give defaultValue to all number-input
 - cache localstorage data, write all changes but use cache for reading
-- data sharing: compress binary data
+- data size
+  - sharing: compress binary data, try base64
+  - use https://github.com/dexie/Dexie.js
+    - if no time, this could be a drop in solution https://www.npmjs.com/package/idb-keyval
 
 ## Refactoring
 
@@ -64,6 +72,7 @@
   - allow to reset current take
 - tempo change
   - drum mode where only hi-hat notes are used, as they are more regular
+  - record midi number, velocity, mayb duration, for playback
 
 
 ## Examples missing for

@@ -7,6 +7,7 @@
     export let accent = 4;
     export let beepCount = 0;
     export let showBeepCountInput = false;
+    export let disabled = false;
 
     const metro = new Metronome();
     let button;
@@ -38,6 +39,7 @@
         title="Toggle metronome (shortcut: m)"
         on:click="{toggle}"
         style="{showBeepCountInput ? 'border-radius: 8px 0 0 8px;' : ''}"
+        {disabled}
     >
         <div>
             <svg width="20" height="17">
@@ -66,6 +68,7 @@
             type="number"
             step="1"
             min="0"
+            {disabled}
             bind:value="{beepCount}"
             on:wheel="{(evt) => {
                 evt.preventDefault();

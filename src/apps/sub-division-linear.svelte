@@ -201,7 +201,7 @@
             y: {
                 domain: d3.range(maxBar - pastBars, maxBar),
                 tickFormat: (d) => d + 1,
-                label: 'recent bars',
+                label: 'recent repetitions',
             },
             marks: [
                 // ticks
@@ -267,7 +267,7 @@
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per bar',
+                    label: 'percent of notes in gray areas, per repetition',
                     domain: [0, 100],
                 },
                 marks: [
@@ -386,8 +386,8 @@
                 notes="{notes.map((d) => d.time)}"
             />
             <NumberInput
-                title="The number of most recent bars that are shown in the rows at the bottom."
-                label="past bars"
+                title="The number of most recent repetitions that are shown in the rows at the bottom."
+                label="repetitions"
                 bind:value="{pastBars}"
                 step="{1}"
                 min="{8}"

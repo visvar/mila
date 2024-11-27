@@ -82,9 +82,11 @@ class Metronome {
    * Stops the metronome
   */
   stop() {
-    console.log('[Metronome] stopped')
-    clearTimeout(this.#timerID)
-    this.#isPlaying = false
+    if (this.#isPlaying) {
+      console.log('[Metronome] stopped')
+      clearTimeout(this.#timerID)
+      this.#isPlaying = false
+    }
   }
 
   /**

@@ -15,6 +15,7 @@
     export let appId;
     export let loadData;
     export let getExportData;
+    export let disabled = false;
 
     let fileInput;
     // const lengthLimit = 2000  for older browsers
@@ -127,6 +128,7 @@
         title="Import current app data and settings"
         on:click="{() => fileInput.click()}"
         class="left"
+        {disabled}
     >
         import
     </button>
@@ -134,6 +136,7 @@
         title="Export current app data and settings"
         on:click="{exportData}"
         class="middle"
+        {disabled}
     >
         export
     </button>
@@ -142,6 +145,7 @@
         on:click="{shareLink}"
         bind:this="{button}"
         class="right"
+        {disabled}
     >
         share
     </button>

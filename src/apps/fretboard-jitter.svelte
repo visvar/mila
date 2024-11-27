@@ -11,7 +11,9 @@
     import HistoryButton from '../common/input-elements/history-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
-    import example from '../example-recordings/fretboard-jitter.json';
+    import exampleStaying from '../example-recordings/fretboard-jitter/fretboard-jitter-staying-in-default.json';
+    import exampleHopping from '../example-recordings/fretboard-jitter/fretboard-jitter-hopping-between-positions.json';
+    import exampleVaried from '../example-recordings/fretboard-jitter/fretboard-jitter-strongly-varied.json';
     import { VELOCITIES_LOGIC } from '../lib/music';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
@@ -21,6 +23,7 @@
     import { Utils } from 'musicvis-lib';
     import { NOTE_COLORS } from '../lib/colors';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -43,6 +46,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -307,13 +313,12 @@
         barsPerFacet = json.barsPerFacet ?? 1;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -321,7 +326,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -332,11 +337,12 @@
             how loud it was played.
         </p>
         <div class="control">
-            <NoteCountInput bind:value="{pastNoteCount}" />
+            <NoteCountInput bind:value="{pastNoteCount}" max="{1000}" />
             <TempoInput
                 label="tempo"
                 title="If you set the correct tempo, each facet of the lower chart will show N bars you played"
                 bind:value="{tempo}"
+                disabled="{isPlaying}"
             />
             <NumberInput
                 title="Set the number of bars contained within each facet of the lower chart"
@@ -345,6 +351,7 @@
                 min="{1}"
                 max="{20}"
                 step="{1}"
+                defaultValue="{1}"
             />
             <ToggleButton
                 label="color by fret"
@@ -359,30 +366,57 @@
                 accent="{4}"
                 beepCount="{8}"
                 showBeepCountInput
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                {saveToStorage}
+                disabled="{isPlaying}"
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes callback="{draw}" bind:isPlaying />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
-            <p>1) Play the note A over the whole fretboard.</p>
             <p>
-                2) Play the A minor pentatonic scale over the whole fretboard,
-                string by string. Check if you played wrong notes.
+                1) Improvise in one position (avoid this when more advanced).
+                <InsideTextButton
+                    onclick="{() => loadData(exampleStaying)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
-            <p>3) Improvise in A minor pentatonic over the whole fretboard.</p>
             <p>
-                4) Improvise in a scale you do not know yet over the whole
-                fretboard.
+                2) Change between positions.
+                <InsideTextButton
+                    onclick="{() => loadData(exampleHopping)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                3) Switch between more horizontal and vertical playing.
+                <InsideTextButton
+                    onclick="{() => loadData(exampleVaried)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
     </main>
 </FileDropTarget>

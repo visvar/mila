@@ -33,9 +33,19 @@
      */
     export let sound = 'silent';
 
+    /**
+     * @type {number} volume from 0 to ...
+     */
+    export let volume = 1;
+
+    /**
+     * Bin to this prop to react to the playing state
+     * @type {boolean}
+     */
+    export let isPlaying = false;
+
     let timeouts = [];
     let oldNotes;
-    let isPlaying = false;
     // progress indicator circle
     let circle;
     const iconSize = 24;
@@ -45,6 +55,7 @@
     const player = new Player();
     // player.preloadInstrument('acoustic_grand_piano')
     $: player.preloadInstrument(sound);
+    $: player.setVolume(volume);
 
     /**
      * plays notes
@@ -86,15 +97,20 @@
         };
         startTime = performance.now();
         circleRaf = requestAnimationFrame(update);
+        // determine whether velocity is 0...1 or 0...127
+        const maxVelocity = d3.max(
+            oldNotes,
+            (n) => n.velocityRaw ?? n.velocity ?? 1,
+        );
+        const scaleVelocity = maxVelocity > 1;
         // start soundfont player
         if (sound !== 'silent') {
             const notes2 = oldNotes.map((n) => {
                 const time = (n.time ?? n) - minTime;
                 const duration = n.duration ?? 0.2;
                 let velocity = n.velocityRaw ?? n.velocity ?? 1;
-                velocity = velocity <= 1 ? velocity : velocity / 127;
+                velocity = scaleVelocity ? velocity / 127 : velocity;
                 return Note.from({
-                    // pitch: 31, // sticks
                     pitch: n.number ?? 33, // metro click
                     start: time,
                     end: time + duration,
@@ -213,8 +229,20 @@
         min="{0.5}"
         max="{10}"
         step="{0.5}"
+        defaultValue="{1}"
         width="40px"
         disabled="{notes.length === 0 || isPlaying}"
+        style="border-radius: 0; margin: 0 -12px 0 0;"
+    />
+    <NumberInput
+        title="replay volume, 1 is normal"
+        bind:value="{volume}"
+        min="{0.2}"
+        max="{5}"
+        step="{0.2}"
+        defaultValue="{1}"
+        width="40px"
+        disabled="{notes.length === 0}"
         style="border-radius: 0 8px 8px 0; margin: 0;"
     />
 </main>

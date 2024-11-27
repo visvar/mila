@@ -6,6 +6,7 @@
     export let min = 30;
     export let max = 400;
     export let step = 5;
+    export let disabled = false;
 </script>
 
 <label {title}>
@@ -23,6 +24,7 @@
         {min}
         {max}
         {step}
+        {disabled}
         style="width: 53px"
     />
 </label>

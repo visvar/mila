@@ -12,9 +12,9 @@
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example from '../example-recordings/accents.json';
-    import example1 from '../example-recordings/accents-e1.json';
-    import example2 from '../example-recordings/accents-e2.json';
+    import example from '../example-recordings/accents/accents.json';
+    import example1 from '../example-recordings/accents/accents-e1.json';
+    import example2 from '../example-recordings/accents/accents-e2.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { FILTER_NOTES, VELOCITIES_LOGIC } from '../lib/music.js';
     import RatingButton from '../common/input-elements/rating-button.svelte';

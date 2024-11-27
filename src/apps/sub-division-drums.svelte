@@ -10,7 +10,6 @@
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import { clamp } from '../lib/lib';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -20,10 +19,10 @@
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
     import UndoRedoButton from '../common/input-elements/undo-redo-button.svelte';
-    import example from '../example-recordings/sub-division-drums.json';
-    import example1 from '../example-recordings/sub-division-drums-e1.json';
-    import example2 from '../example-recordings/sub-division-drums-e2.json';
-    import example4 from '../example-recordings/sub-division-drums-e4.json';
+    import example from '../example-recordings/sub-division-drums/sub-division-drums.json';
+    import example1 from '../example-recordings/sub-division-drums/sub-division-drums-e1.json';
+    import example2 from '../example-recordings/sub-division-drums/sub-division-drums-e2.json';
+    import example4 from '../example-recordings/sub-division-drums/sub-division-drums-e4.json';
     import NumberInput from '../common/input-elements/number-input.svelte';
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
@@ -46,7 +45,7 @@
     let binNote = 64;
     let adjustTime = 0;
     let showKde = true;
-    let pastBars = 4;
+    let pastBars = 100;
     let showCymbals = false;
     let showToms = false;
     // data

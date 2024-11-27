@@ -14,7 +14,9 @@
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
   import { MIDI_SHARPS, NOTE_TO_CHROMA_MAP } from '../lib/music';
-  import example from '../example-recordings/improvisation-chord-progression.json';
+  import exampleDurations from '../example-recordings/improvisation-chord-progression/improvisation-chord-progression.json';
+  import exampleSlow from '../example-recordings/improvisation-chord-progression/improvisation-chord-progression-playing-slow.json';
+  import exampleFast from '../example-recordings/improvisation-chord-progression/improvisation-chord-progression-playing-fast.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
@@ -30,6 +32,7 @@
     quantizeNoteDuration,
   } from '../lib/note-durations';
   import { chordProgressions } from '../lib/chord-progressions';
+  import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -461,6 +464,8 @@
         subtitle: 'Note Durations',
         caption: `${upArrowIcon} this chart shows note durations, so you can see whether notes that do not fit chord or scale are shorter, which could mean quickly passing through, e.g., while bending or sliding`,
         width,
+        style:
+          'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
         height: 150,
         marginLeft: 50,
         marginBottom: 50,
@@ -835,7 +840,7 @@
   const saveToStorage = () => {
     if (
       notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
+      JSON.stringify(notes) !== JSON.stringify(exampleDurations.notes)
     ) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
@@ -1074,7 +1079,6 @@
             draw();
           }}"
         />
-        <button on:click="{() => loadData(example)}"> example </button>
         <HistoryButton appId="{appInfo.id}" {loadData} />
         <MidiReplayButton
           bind:notes
@@ -1089,6 +1093,15 @@
         <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
       </div>
       <ExerciseDrawer>
+        <InsideTextButton onclick="{() => loadData(exampleSlow)}">
+          example slow
+        </InsideTextButton>
+        <InsideTextButton onclick="{() => loadData(exampleFast)}">
+          example fast
+        </InsideTextButton>
+        <InsideTextButton onclick="{() => loadData(exampleDurations)}">
+          example varying durations
+        </InsideTextButton>
         <p>
           1) Improvise using only the {root} pentatonic scale.
         </p>

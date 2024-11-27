@@ -1,8 +1,9 @@
 <script>
     export let onclick = () => {};
+    export let disabled = false;
 </script>
 
-<button on:click="{onclick}">
+<button on:click="{onclick}" {disabled}>
     <slot></slot>
 </button>
 

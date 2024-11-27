@@ -7,10 +7,10 @@
     import { localStorageAddRecording } from '../lib/localstorage';
     import { VELOCITIES_LOGIC, VELOCITIES_MEANING } from '../lib/music';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example1 from '../example-recordings/dynamics-e1.json';
-    import example2 from '../example-recordings/dynamics-e2.json';
-    import example3 from '../example-recordings/dynamics-e3.json';
-    import example4 from '../example-recordings/dynamics-e4.json';
+    import example1 from '../example-recordings/dynamics/dynamics-e1.json';
+    import example2 from '../example-recordings/dynamics/dynamics-e2.json';
+    import example3 from '../example-recordings/dynamics/dynamics-e3.json';
+    import example4 from '../example-recordings/dynamics/dynamics-e4.json';
     import * as d3 from 'd3';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -235,7 +235,6 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example4)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton

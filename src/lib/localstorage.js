@@ -208,6 +208,16 @@ export function localStorageDeleteRecording(appId, date) {
 }
 
 /**
+ * Deletes a recording from the usage data
+ */
+export function localStorageDeleteAllRecordings() {
+  console.log(`[STORE] deleting all recordings`)
+  const usage = localStorageGetUsageData()
+  usage.appRecordedData = {}
+  localStorageSetUsageData(usage)
+}
+
+/**
  * Returns all locally stored recordings for the given app
  * @param {string} appId app ID
  * @returns {object[]} recording objects

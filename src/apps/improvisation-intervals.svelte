@@ -1,5 +1,5 @@
 <script>
-  import { afterUpdate, onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -9,12 +9,14 @@
   import HistoryButton from '../common/input-elements/history-button.svelte';
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
-  import example from '../example-recordings/improvisation-intervals.json';
+  import example from '../example-recordings/improvisation-intervals/improvisation-intervals.json';
+  import exampleGuitar from '../example-recordings/improvisation-intervals/improvisation-intervals-guitar.json';
   import ToggleButton from '../common/input-elements/toggle-button.svelte';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import { INTERVALS as intervalNames } from '../lib/music';
   import NumberInput from '../common/input-elements/number-input.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+  import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -170,6 +172,7 @@
   const getExportData = () => {
     return {
       showUnison,
+      intervalLimit,
       // data
       notes,
     };
@@ -181,6 +184,7 @@
   const loadData = (json) => {
     saveToStorage();
     showUnison = json.showUnison;
+    intervalLimit = json.intervalLimit ?? 100;
     // data
     notes = json.notes;
   };
@@ -188,7 +192,8 @@
   const saveToStorage = () => {
     if (
       notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
+      JSON.stringify(notes) !== JSON.stringify(example.notes) &&
+      JSON.stringify(notes) !== JSON.stringify(exampleGuitar.notes)
     ) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
@@ -229,12 +234,17 @@
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
       <ResetNotesButton bind:notes {saveToStorage} />
-      <button on:click="{() => loadData(example)}"> example </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
       <MidiReplayButton bind:notes callback="{draw}" />
       <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
     </div>
     <ExerciseDrawer>
+      <InsideTextButton onclick="{() => loadData(example)}">
+        example
+      </InsideTextButton>
+      <InsideTextButton onclick="{() => loadData(exampleGuitar)}">
+        example guitar
+      </InsideTextButton>
       <p>1) Play different notes and see which intervals are between them.</p>
       <p>
         2) Try to play only perfect 5ths (for example, go through the circle of

@@ -16,8 +16,8 @@
   export let noteOff = (message) => {};
   export let controlChange = (message) => {};
   export let pitchBend = (message) => {};
-
   export let errorCallback = (err) => console.error(err);
+  export let disabled = false;
 
   export let synthAllowed = true;
   export let pcKeyAllowed = false;
@@ -299,86 +299,96 @@
 
 <main>
   <h4>Input Settings</h4>
-  {#if synthAllowed}
-    <ToggleButton
-      label="synth"
-      title="Use built-in synth while playing?"
-      bind:checked="{synthActive}"
-      callback="{(checked) => {
-        if (!checked) {
-          synth?.releaseAll();
-        }
-      }}"
-    />
-  {/if}
-  {#if pcKeyAllowed}
-    <ToggleButton
-      bind:checked="{keyboardEnabled}"
-      label="use keyboard"
-      title="When enabled, you can use a PC keyboard similar to a MIDI keyboard"
-      callback="{(checked) => {
-        if (!checked) {
-          synth?.releaseAll();
-        }
-      }}"
-    />
-  {/if}
-  {#if keyboardEnabled}
-    <div transition:fade>
-      <div>
-        octave {keyboardOctave}
-        <button
-          on:click="{() => (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
-          class="left">+</button
-        >
-        <button
-          on:click="{() => (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
-          class="right">-</button
-        >
-      </div>
-      <div>
-        You can use a PC keyboard as a MIDI keyboard and play note with: <br
-        /><code>a</code> = C, <code>w</code> = C#,
-        <code>s</code> = B, ...
-      </div>
+  {#if disabled}
+    <div>
+      MIDI input is disabled when data is loaded or played back. Reset or stop
+      playing to enable input.
     </div>
-  {/if}
-  <div>
-    <h5>MIDI devices</h5>
-    {#if !midiWorks}
-      You have no MIDI device connected or MIDI is not supported in your browser
-    {/if}
-    {#each midiDevices as device, index}
+  {:else}
+    {#if synthAllowed}
       <ToggleButton
-        label="{device.name}"
-        callback="{() => {
-          disabledDevices = updSet(disabledDevices, index);
-          onMidiEnabled();
+        label="synth"
+        title="Use built-in synth while playing?"
+        bind:checked="{synthActive}"
+        callback="{(checked) => {
+          if (!checked) {
+            synth?.releaseAll();
+          }
         }}"
       />
-    {/each}
-  </div>
-  <div>
-    <h5>Filtering</h5>
-    <NumberInput
-      title="minimum loudness of a note, used to filter noise"
-      label="minimum velocity"
-      bind:value="{minVelocity}"
-      min="{0}"
-      max="{1}"
-      step="{0.01}"
-      defaultValue="{0}"
-    />
-    <NumberInput
-      title="minimum distance in milliseconds of a note onset from the prior one"
-      label="minimum IOI"
-      bind:value="{minIoi}"
-      min="{0}"
-      max="{100}"
-      step="{1}"
-      defaultValue="{0}"
-    />
-  </div>
+    {/if}
+    {#if pcKeyAllowed}
+      <ToggleButton
+        bind:checked="{keyboardEnabled}"
+        label="use keyboard"
+        title="When enabled, you can use a PC keyboard similar to a MIDI keyboard"
+        callback="{(checked) => {
+          if (!checked) {
+            synth?.releaseAll();
+          }
+        }}"
+      />
+    {/if}
+    {#if keyboardEnabled}
+      <div transition:fade>
+        <div>
+          octave {keyboardOctave}
+          <button
+            on:click="{() =>
+              (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
+            class="left">+</button
+          >
+          <button
+            on:click="{() =>
+              (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
+            class="right">-</button
+          >
+        </div>
+        <div>
+          You can use a PC keyboard as a MIDI keyboard and play note with: <br
+          /><code>a</code> = C, <code>w</code> = C#,
+          <code>s</code> = B, ...
+        </div>
+      </div>
+    {/if}
+    <div>
+      <h5>MIDI devices</h5>
+      {#if !midiWorks}
+        You have no MIDI device connected or MIDI is not supported in your
+        browser
+      {/if}
+      {#each midiDevices as device, index}
+        <ToggleButton
+          label="{device.name}"
+          callback="{() => {
+            disabledDevices = updSet(disabledDevices, index);
+            onMidiEnabled();
+          }}"
+        />
+      {/each}
+    </div>
+    <div>
+      <h5>Filtering</h5>
+      <NumberInput
+        title="minimum loudness of a note, used to filter noise"
+        label="minimum velocity"
+        bind:value="{minVelocity}"
+        min="{0}"
+        max="{1}"
+        step="{0.01}"
+        defaultValue="{0}"
+      />
+      <NumberInput
+        title="minimum distance in milliseconds of a note onset from the prior one"
+        label="minimum IOI"
+        bind:value="{minIoi}"
+        min="{0}"
+        max="{100}"
+        step="{1}"
+        defaultValue="{0}"
+      />
+    </div>
+  {/if}
 </main>
 
 <style>

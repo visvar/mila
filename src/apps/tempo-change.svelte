@@ -13,10 +13,14 @@
     import { secondsPerBeatToBpm } from '../lib/lib';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example from '../example-recordings/tempo-change.json';
+    import example1 from '../example-recordings/tempo-change/tempo-change-e1.json';
+    import example2 from '../example-recordings/tempo-change/tempo-change-e2.json';
+    import example3 from '../example-recordings/tempo-change/tempo-change-e3.json';
+    import example4 from '../example-recordings/tempo-change/tempo-change-e4.json';
     import NumberInput from '../common/input-elements/number-input.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -180,9 +184,13 @@
     };
 
     const saveToStorage = () => {
+        const json = JSON.stringify(notes);
         if (
             notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
+            json !== JSON.stringify(example3.notes) &&
+            json !== JSON.stringify(example1.notes) &&
+            json !== JSON.stringify(example4.notes) &&
+            json !== JSON.stringify(example2.notes)
         ) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
@@ -212,6 +220,7 @@
                 min="{1}"
                 max="{30}"
                 step="{1}"
+                defaultValue="{5}"
             />
             <NumberInput
                 title="Size of the tempo bins in BPM"
@@ -220,6 +229,7 @@
                 min="{5}"
                 max="{20}"
                 step="{5}"
+                defaultValue="{10}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
@@ -231,7 +241,6 @@
                 showBeepCountInput
             />
             <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
@@ -241,15 +250,31 @@
             />
         </div>
         <ExerciseDrawer>
-            <p>1) Play at a contant tempo.</p>
             <p>
-                2) Start with tempo 90 and smoothly increase until you reach
-                150.
+                1) Play at a contant tempo.
+                <InsideTextButton onclick="{() => loadData(example1)}">
+                    example
+                </InsideTextButton>
             </p>
-            <p>3) Start with tempo 90 and suddenly jump to 150.</p>
+            <p>
+                2) Increase your tempo as linear as possible
+                <InsideTextButton onclick="{() => loadData(example2)}">
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
+                3) Start with tempo 110 and suddenly jump to 150.
+
+                <InsideTextButton onclick="{() => loadData(example3)}">
+                    example
+                </InsideTextButton>
+            </p>
             <p>
                 4) Switch back and forth between two tempi, try to always hit
                 the same two BPM values.
+                <InsideTextButton onclick="{() => loadData(example4)}">
+                    example
+                </InsideTextButton>
             </p>
         </ExerciseDrawer>
         <RatingButton appId="{appInfo.id}" />

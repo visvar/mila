@@ -144,17 +144,17 @@
                 Plot.cell(aggregated, {
                     x: 'fret',
                     y: 'string',
-                    fill: (d) =>
-                        showScale
-                            ? isInScale(
+                    fill: showScale
+                        ? (d) =>
+                              isInScale(
                                   d.string,
                                   d.fret,
                                   tuningPitches,
                                   scaleInfo,
                               )
-                                ? 'in scale'
-                                : 'not in scale'
-                            : '#222',
+                                  ? 'in scale'
+                                  : 'not in scale'
+                        : '#4e79a7',
                     opacity: 'count',
                     inset: 5,
                     rx: 10,
@@ -187,6 +187,7 @@
             showScale,
             scaleRoot,
             scaleType,
+            // data
             notes,
         };
     };
@@ -196,10 +197,10 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        pastNoteCount = json.pastNoteCount;
-        showScale = json.showScale;
-        scaleRoot = json.scaleRoot;
-        scaleType = json.scaleType;
+        pastNoteCount = json.pastNoteCount ?? 200;
+        showScale = json.showScale ?? false;
+        scaleRoot = json.scaleRoot ?? 'C';
+        scaleType = json.scaleType ?? 'major';
         // data
         notes = json.notes;
     };
