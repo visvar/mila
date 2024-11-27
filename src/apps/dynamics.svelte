@@ -29,7 +29,7 @@
      */
     export let appInfo;
 
-    let windowWidth = 900;
+    let windowWidth = window.innerWidth;
     $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     // let height = 600;
     let height = 300;

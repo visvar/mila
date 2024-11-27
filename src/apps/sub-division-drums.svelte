@@ -29,13 +29,14 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import ToggleButton from '../common/input-elements/toggle-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    let windowWidth = 900;
+    let windowWidth = window.innerWidth;
     $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let container;
     // settings
@@ -46,6 +47,8 @@
     let adjustTime = 0;
     let showKde = true;
     let pastBars = 4;
+    let showCymbals = false;
+    let showToms = false;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -102,7 +105,7 @@
 
         const plot = Plot.plot({
             width,
-            height: xLabel ? 120 : 110,
+            height: xLabel ? 100 : 90,
             marginLeft: 20,
             marginBottom: xLabel ? 30 : 20,
             padding: 0,
@@ -162,8 +165,14 @@
         container.textContent = '';
         drawDrum('HH', 'Hi-Hat');
         drawDrum('SN', 'Snare');
-        drawDrum('TO', 'Toms');
-        drawDrum('KD', 'Kick Drum', 'beats');
+        if (showToms) {
+            drawDrum('TO', 'Toms');
+        }
+        if (showCymbals) {
+            drawDrum('CC', 'Crash');
+            drawDrum('Rd', 'Ride');
+        }
+        drawDrum('KD', 'Kick Drum', 'time in beats');
     };
 
     afterUpdate(draw);
@@ -180,6 +189,9 @@
             adjustTime,
             pastBars,
             showKde,
+            showCymbals,
+            showToms,
+            // data
             notes,
         };
     };
@@ -196,6 +208,8 @@
         adjustTime = json.adjustTime ?? 0;
         pastBars = json.pastBars ?? 100;
         showKde = json.showKde ?? false;
+        showCymbals = json.showCymbals ?? false;
+        showToms = json.showToms ?? false;
         // data
         notes = json.notes;
     };
@@ -285,6 +299,16 @@
             >
                 {showKde ? 'density area' : 'histogram'}
             </button>
+            <ToggleButton
+                label="cymbals"
+                title="Show cymbals"
+                bind:checked="{showCymbals}"
+            />
+            <ToggleButton
+                label="toms"
+                title="Show toms"
+                bind:checked="{showToms}"
+            />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">

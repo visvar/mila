@@ -40,8 +40,10 @@
     let binNote = 96;
     let adjustTime = 0;
     let drumMode = false;
-    // keyboard: middle A, drum: snare is left, rest is right
-    let middleNote = drumMode ? 40 : 69;
+    // keyboard middle A
+    let middleNote = 69;
+    // snare is left
+    const leftDrumNumbers = new Set([38, 40]);
     let showKde = true;
     let pastBars = 4;
     // data
@@ -64,12 +66,23 @@
         const grid = left ? gridLeft : gridRight;
         const [grid1, grid2] = grid.split(':').map((d) => +d);
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
-        let notesHand = notes.filter(
-            (d) =>
-                // only look at left OR right hand
-                (left && d.number < middleNote) ||
-                (!left && d.number >= middleNote),
-        );
+        // only look at left OR right hand
+        let notesHand;
+        if (!drumMode) {
+            // keyboard mode: left is left of middle note
+            notesHand = notes.filter(
+                (d) =>
+                    (left && d.number < middleNote) ||
+                    (!left && d.number >= middleNote),
+            );
+        } else {
+            // drum mode: some drums are left, others are right
+            notesHand = notes.filter(
+                (d) =>
+                    (left && leftDrumNumbers.has(d.number)) ||
+                    (!left && !leftDrumNumbers.has(d.number)),
+            );
+        }
 
         notesHand = notesHand.map((d) => (d.time + adjustTime) / quarter);
         if (pastBars > 0 && notesHand.length > 0) {

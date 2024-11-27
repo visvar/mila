@@ -4,6 +4,8 @@
 
 - move app settings, metronome, player, etc to a sidebar?
   - or floating button that can be collapsed?
+- backing track component/function/class
+  - add to all improvisation apps
 
 ## Fixes and improvements
 
@@ -17,7 +19,6 @@
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
 - use sample for metronome to make it sound less annoying, maybe allow choosing the sample and loudness
-- rescale automatically, like in tempo-drift
 - allow/fix MIDI replay for all apps
 - add default values to top of each app (for inputs)
   - give defaultValue to all number-input
@@ -40,8 +41,6 @@
 
 ## App-specific
 
-- tempo change
-  - use softmax for values and then linear color map?
 - pitch bend
   - add version with indicator for allowed notes? (e.g., from chord progression)
 - dynamics
@@ -61,7 +60,7 @@
   - number of recent bars for all
   - forgetting for all
 - speed up
-  - colors for drum, string, …
+  - colors for drum, string, etc
   - allow to reset current take
 - tempo change
   - drum mode where only hi-hat notes are used, as they are more regular

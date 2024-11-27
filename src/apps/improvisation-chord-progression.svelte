@@ -29,13 +29,14 @@
     noteDurationsNormal,
     quantizeNoteDuration,
   } from '../lib/note-durations';
+  import { chordProgressions } from '../lib/chord-progressions';
 
   /**
    * contains the app meta information defined in App.js
    */
   export let appInfo;
 
-  let windowWidth = 900;
+  let windowWidth = window.innerWidth;
   $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
   let container;
   let midiReplaySpeed;
@@ -49,58 +50,6 @@
     range: [chordColor, scaleColor, restColor],
   };
   const noteNames = Midi.NOTE_NAMES;
-  const chordProgressions = [
-    {
-      label: 'ii V I (2-5-1) 7th',
-      chords: ['IIm7', 'V7', 'IMaj7', 'IMaj7'],
-      chordsShort: ['ii', 'V', 'I', 'I'],
-    },
-    {
-      label: 'ii V I (2-5-1)',
-      chords: ['IIm', 'V', 'I', 'I'],
-      chordsShort: ['ii', 'V', 'I', 'I'],
-    },
-    {
-      label: 'I ii V (1-2-7)',
-      chords: ['IMaj7', 'IIm7', 'V7', 'V7'],
-      chordsShort: ['I', 'ii', 'V', 'V'],
-    },
-    {
-      label: 'I V vi IV (1-5-6-4)',
-      chords: ['I', 'V', 'VIm', 'IV'],
-      chordsShort: ['I', 'V', 'vi', 'IV'],
-    },
-    {
-      label: 'V vi IV I (5-6-4-1)',
-      chords: ['V', 'VIm', 'IV', 'I'],
-      chordsShort: ['V', 'vi', 'IV', 'I'],
-    },
-    {
-      label: 'vi IV I V (6-4-1-5)',
-      chords: ['VIm', 'IV', 'I', 'V'],
-      chordsShort: ['vi', 'IV', 'I', 'V'],
-    },
-    {
-      label: 'V I V vi (4-1-5-6)',
-      chords: ['IV', 'I', 'V', 'VIm'],
-      chordsShort: ['IV', 'I', 'V', 'vi'],
-    },
-    {
-      label: 'vi ii V I (circle)',
-      chords: ['VIm', 'IIm', 'V', 'I'],
-      chordsShort: ['vi', 'ii', 'V', 'I'],
-    },
-    {
-      label: 'I V IV IV I V I V (8 bar blues)',
-      chords: ['I', 'V', 'IV', 'IV', 'I', 'V', 'I', 'V'],
-      chordsShort: ['I', 'V', 'IV', 'IV', 'I', 'V', 'I', 'V'],
-    },
-    {
-      label: 'I V vi iii IV I IV V (canon)',
-      chords: ['I', 'V', 'VIm', 'IIIm', 'IV', 'I', 'IV', 'V'],
-      chordsShort: ['I', 'V', 'vi', 'iii', 'IV', 'I', 'IV', 'V'],
-    },
-  ];
   $: chordProgressionsNotes = chordProgressions.map((p) => {
     const chords = Progression.fromRomanNumerals(root, p.chords);
     const chordNotes = chords.map((c) => new Set(Chord.get(c).notes));
@@ -112,6 +61,7 @@
   )[0];
   // player for 'backing track'
   let backingTrackVolume = 1;
+  let backingTrackMode = 'quarters';
   const player = new Player();
   $: player?.setVolume(backingTrackVolume);
   player.preloadInstrument('acoustic_grand_piano');
@@ -145,6 +95,7 @@
     root;
     chordProg;
     scaleType;
+    backingTrackMode;
     stopBackingTrack();
   }
 
@@ -890,10 +841,13 @@
     }
   };
 
-  /**
+  /***
    * plays a synthesized backing track based on the chord progression and tempo settings
+   *
+   * @param {number} speedFactor modifies speed, needed for playback
+   * @param {'quarters'|'whole'} [mode='quarter'] quarter: 4 quarter note chords, whole: one whole note chord
    */
-  const toggleBackingTrack = (speedFactor = 1) => {
+  const toggleBackingTrack = (speedFactor = 1, mode = 'quarters') => {
     // if not started, start playing
     if (!player.isPlaying()) {
       // on first start, reset notes
@@ -903,10 +857,11 @@
       const octave = 4;
       const chords = chordProg.chordNotes;
       const quarter = Utils.bpmToSecondsPerBeat(tempo) / speedFactor;
+      // each chord is played for one one bar, with 1 whole or 4 quarters
+      const beats = mode === 'quarters' ? 4 : 1;
+      const duration = mode === 'quarters' ? quarter : quarter * 4;
       const backingNotes = chords.flatMap((cNotes, bar) => {
-        // each chord is one bar
-        return d3.range(4).flatMap((beat) => {
-          // ... with 4 beats
+        return d3.range(beats).flatMap((beat) => {
           const time = quarter * (beat + 4 * bar);
           return [...cNotes].map((note) => {
             // ... and each beat has the notes of the current chord
@@ -914,8 +869,8 @@
             return Note2.from({
               pitch: number,
               start: time,
-              end: time + quarter,
-              duration: quarter,
+              end: time + duration,
+              duration,
               velocity: beat === 0 ? 0.7 : 0.5,
               channel: 0,
             });
@@ -977,34 +932,6 @@
       without octave) on the Y axis for full detail.
     </p>
     <div class="control">
-      <SelectScollable label="root note" bind:value="{root}" callback="{draw}">
-        {#each Midi.NOTE_NAMES as n}
-          <option value="{n}">{n}</option>
-        {/each}
-      </SelectScollable>
-      <SelectScollable
-        label="progression"
-        bind:value="{chordProgLabel}"
-        callback="{draw}"
-        style="background-color: {chordColor};"
-      >
-        {#each chordProgressions as prog}
-          <option value="{prog.label}">{prog.label}</option>
-        {/each}
-      </SelectScollable>
-      <SelectScollable
-        label="scale type"
-        bind:value="{scaleType}"
-        callback="{draw}"
-        style="background-color: {scaleColor};"
-      >
-        {#each ['major', 'minor'] as s}
-          <option value="{s}">{s}</option>
-        {/each}
-      </SelectScollable>
-    </div>
-    <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
       <NoteCountInput bind:value="{barCount}" callback="{draw}" />
       <NumberInput
         title="Maximum time distance in beats between notes such that they still count as beloning to the same chord/arpeggio"
@@ -1034,7 +961,7 @@
         callback="{draw}"
       />
       <ToggleButton
-        label="rhythm"
+        label="rhythm chart"
         bind:checked="{showRhythmPlot}"
         callback="{draw}"
       />
@@ -1060,9 +987,40 @@
       />
     </div>
     <div class="control">
-      <button on:click="{() => toggleBackingTrack()}" class="primary">
+      <SelectScollable
+        label="progression"
+        bind:value="{chordProgLabel}"
+        callback="{draw}"
+        style="background-color: {chordColor};"
+      >
+        {#each chordProgressions as prog}
+          <option value="{prog.label}">{prog.label}</option>
+        {/each}
+      </SelectScollable>
+      <SelectScollable label="root note" bind:value="{root}" callback="{draw}">
+        {#each Midi.NOTE_NAMES as n}
+          <option value="{n}">{n}</option>
+        {/each}
+      </SelectScollable>
+      <SelectScollable
+        label="scale type"
+        bind:value="{scaleType}"
+        callback="{draw}"
+        style="background-color: {scaleColor};"
+      >
+        {#each ['major', 'minor'] as s}
+          <option value="{s}">{s}</option>
+        {/each}
+      </SelectScollable>
+    </div>
+    <div class="control">
+      <button
+        on:click="{() => toggleBackingTrack(1, backingTrackMode)}"
+        class="primary"
+      >
         play/mute backing track
       </button>
+      <TempoInput bind:value="{tempo}" callback="{draw}" />
       <NumberInput
         title="backing track volume"
         label="volume"
@@ -1071,6 +1029,16 @@
         max="{3}"
         step="{0.1}"
       />
+      <button
+        title="Toggle whole notes and quarters for the backing track"
+        style="width: 100px"
+        on:click="{() => {
+          backingTrackMode =
+            backingTrackMode === 'quarters' ? 'whole' : 'quarters';
+        }}"
+      >
+        {backingTrackMode}
+      </button>
     </div>
     <div>
       <!-- legend -->
@@ -1112,7 +1080,8 @@
           bind:notes
           callback="{draw}"
           bind:speed="{midiReplaySpeed}"
-          onStart="{() => toggleBackingTrack(midiReplaySpeed)}"
+          onStart="{() =>
+            toggleBackingTrack(midiReplaySpeed, backingTrackMode)}"
           onStop="{stopBackingTrack}"
           startAtFirstNote="{false}"
           sound="acoustic_grand_piano"
