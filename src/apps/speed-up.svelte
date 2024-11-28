@@ -391,7 +391,7 @@
     });
 </script>
 
-<FileDropTarget {loadData} disabled="{isPlaying}">
+<FileDropTarget {loadData}>
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">

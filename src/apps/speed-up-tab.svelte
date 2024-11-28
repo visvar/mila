@@ -57,9 +57,10 @@
         const string = e.message.channel - 1;
         const note = {
             time: noteInSeconds,
+            number: e.note.number,
+            velocity: e.rawVelocity,
             string,
             fret: e.note.number - tuningPitches[string],
-            velocity: e.rawVelocity,
         };
         if (currentStep === 'input exercise') {
             // currently inputting the exercise
@@ -399,7 +400,7 @@
     });
 </script>
 
-<FileDropTarget {loadData} disabled="{isPlaying}">
+<FileDropTarget {loadData}>
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">

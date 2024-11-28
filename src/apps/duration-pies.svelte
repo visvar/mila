@@ -60,6 +60,7 @@
     const note = {
       number: e.note.number,
       time: noteInSeconds,
+      velocity: e.velocity,
       duration: 0,
     };
     // fix old note if its end was missed

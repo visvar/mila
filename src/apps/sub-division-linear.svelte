@@ -66,6 +66,7 @@
         const note = {
             time: noteInSeconds,
             velocity: e.velocity,
+            number: e.note.number,
         };
         notes = [...notes, note];
     };
