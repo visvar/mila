@@ -11,7 +11,8 @@
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import example from '../example-recordings/sub-division-linear.json';
+    import example from '../example-recordings/sub-division-linear/sub-division-linear.json';
+    import exampleFillImprecise from '../example-recordings/sub-division-linear/sub-division-linear-drums-fill-imprecise.json';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -53,6 +54,9 @@
     let firstTimeStamp = 0;
     let notes = [];
     let okScore = '';
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -241,7 +245,7 @@
                 binNote,
             );
             const percent = ((score / notesInBeats.length) * 100).toFixed();
-            okScore = `${percent}% of notes are within the gray areas`;
+            okScore = `${percent}% of notes are within tolerance`;
         }
 
         // percentage over bars
@@ -268,7 +272,7 @@
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per repetition',
+                    label: 'percent of notes in tolerance per repetition',
                     domain: [0, 100],
                 },
                 marks: [
@@ -304,6 +308,7 @@
             showLoudness,
             showBarScores,
             combineBars,
+            showTolerance,
             // data
             notes,
         };
@@ -320,15 +325,15 @@
         showLoudness = json.showLoudness ?? false;
         showBarScores = json.showBarScores ?? false;
         combineBars = json.combineBars ?? false;
+        showTolerance = json.showTolerance ?? true;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -336,7 +341,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -346,14 +351,15 @@
             notes. Use the integrated metronome. All notes will be timed
             relative to the first one, but you can adjust all notes to make them
             earlier or later in case you messed up the first. The last few bars
-            you play will be shown in a row below.<br />
+            you play will be shown in a row below. A percentage score tells you
+            how many notes were within a tolerance zone.<br />
             <i>
                 Try playing without looking and focus on the metronome. Try to
                 play all notes such that they are within a gray area!
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <SelectScollable
                 label="grid"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
@@ -399,8 +405,8 @@
                 defaultValue="{8}"
             />
             <ToggleButton
-                label="bar scores"
-                title="Show scores (percentage of notes within gray areas) per bar"
+                label="repetition scores"
+                title="Show scores (percentage of notes within gray tolerance areas) per repetition"
                 bind:checked="{showBarScores}"
             />
             <ToggleButton
@@ -422,16 +428,37 @@
         <div class="visualization" bind:this="{container}"></div>
         <div>{okScore}</div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MetronomeButton
+                {tempo}
+                accent="{+grid.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
+            <UndoRedoButton
+                bind:data="{notes}"
+                callback="{draw}"
+                disabled="{isPlaying}"
+            />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                {saveToStorage}
+                callback="{draw}"
+                disabled="{isPlaying}"
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <MidiReplayButton bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
             <SubDivisionSimulator
                 bind:notes
@@ -439,12 +466,22 @@
                 bind:adjustTime
                 {grid}
                 {bars}
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
+            <InsideTextButton
+                onclick="{() => loadData(exampleFillImprecise)}"
+                disabled="{isPlaying}"
+            >
+                drum example with fill
+            </InsideTextButton>
             <p>
                 1) Play triplets.
-                <InsideTextButton onclick="{() => loadData(example)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -462,13 +499,15 @@
             key=" "
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+            disabled="{isPlaying}"
         />
         <TouchInput
             element="{container}"
             touchStart="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+            disabled="{isPlaying}"
         />
-        <MidiInput {noteOn} />
+        <MidiInput {noteOn} disabled="{isPlaying}" />
     </main>
 </FileDropTarget>
 

@@ -9,12 +9,16 @@
     export let bars = 1;
     export let pastBars = 8;
     export let callback = () => {};
+    export let disabled = false;
 
     let seed = 0.4895640932857489;
     let deviation = 0;
     let bias = 0;
 
     const simulate = () => {
+        if (disabled) {
+            return;
+        }
         // see https://d3js.org/d3-random
         const rand = d3.randomNormal.source(d3.randomLcg(seed))(
             bias,

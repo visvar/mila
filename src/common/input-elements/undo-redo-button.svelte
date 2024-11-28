@@ -3,6 +3,7 @@
 
     export let data = [];
     export let callback = () => {};
+    export let disabled = false;
 
     let undone = [];
 
@@ -27,7 +28,7 @@
 
 <button
     title="undo the last note (shortcut: CTRL+Z)"
-    disabled="{!data || data.length === 0}"
+    disabled="{disabled || !data || data.length === 0}"
     on:click="{undo}"
     class="left"
 >
@@ -35,7 +36,7 @@
 </button>
 <button
     title="redo the last undone note (shortcut: CTRL+Y)"
-    disabled="{!data || undone.length === 0}"
+    disabled="{disabled || !data || undone.length === 0}"
     on:click="{redo}"
     class="right"
 >

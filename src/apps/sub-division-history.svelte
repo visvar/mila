@@ -42,6 +42,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -334,10 +337,7 @@
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0
-            // && JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };

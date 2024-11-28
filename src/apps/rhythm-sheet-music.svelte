@@ -47,6 +47,9 @@
     // 𝅝, 𝅗𝅥, 𝅘𝅥, 𝅘𝅥𝅮, 𝅘𝅥𝅯
     const possibilities = noteDurations;
     const possibilitiesNonDotted = possibilities.filter((d) => !d.dotted);
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         if (notes.length === 0) {
@@ -237,7 +240,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -246,11 +249,12 @@
             note symbols, so you can see whether you play, for example, correct
             quarter notes. Bars and numbers show you how many percent of the
             detected note duration you played, for example a -5 means your note
-            was 5% too short. <span style="color:{blue}"
-                >Blue stands for notes that were too long (playing too slow)</span
-            >
+            was 5% too short.
+            <span style="color:{blue}">
+                Blue stands for notes that were too long (playing too slow)
+            </span>
             and
-            <span style="color:{orange}">orange for short (fast) ones</span>.
+            <span style="color:{orange}"> orange for short (fast) ones </span>.
         </p>
         <div class="control">
             <TempoInput bind:value="{tempo}" />

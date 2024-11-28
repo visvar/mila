@@ -15,7 +15,7 @@
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import example from '../example-recordings/sub-division-linear.json';
+    import example from '../example-recordings/sub-division-linear/sub-division-linear.json';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -53,6 +53,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -325,7 +328,7 @@
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per repetition',
+                    label: 'percent of notes in tolerance per repetition',
                     domain: [0, 100],
                 },
                 marks: [
@@ -393,7 +396,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -403,10 +406,10 @@
             Use the integrated metronome. All notes will be timed relative to
             the first one, but you can adjust all notes to make them earlier or
             later in case you messed up the first. Each bar you play will be
-            shown its own layer around the circle. The lightgray areas show
-            where a note would have to be to be timed well (depending on the
-            binning setting), the score in the center shows the percentage of
-            notes that are inside these areas.<br />
+            shown its own layer around the circle. The lightgray areas show th
+            tolerance zone where a note is considered to be timed well
+            (depending on the binning setting), the score in the center shows
+            the percentage of notes that are inside these areas.<br />
             <i>
                 Try playing without looking and focus on the metronome. Try to
                 play all notes such that they are within a gray area!

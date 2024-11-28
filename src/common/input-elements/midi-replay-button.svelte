@@ -222,6 +222,17 @@
             <option value="percussion">{drumIcon}</option>
             <option value="acoustic_guitar_nylon">{guitarIcon}</option>
         </SelectScollable>
+        <NumberInput
+            title="replay volume, 1 is normal"
+            bind:value="{volume}"
+            min="{0.2}"
+            max="{5}"
+            step="{0.2}"
+            defaultValue="{1}"
+            width="40px"
+            disabled="{notes.length === 0 || sound === 'silent'}"
+            style="border-radius: 0 8px 8px 0; margin: 0;"
+        />
     {/if}
     <NumberInput
         title="replay speed (2 means twice as fast, 0.5 half as fast)"
@@ -233,17 +244,6 @@
         width="40px"
         disabled="{notes.length === 0 || isPlaying}"
         style="border-radius: 0; margin: 0 -12px 0 0;"
-    />
-    <NumberInput
-        title="replay volume, 1 is normal"
-        bind:value="{volume}"
-        min="{0.2}"
-        max="{5}"
-        step="{0.2}"
-        defaultValue="{1}"
-        width="40px"
-        disabled="{notes.length === 0}"
-        style="border-radius: 0 8px 8px 0; margin: 0;"
     />
 </main>
 

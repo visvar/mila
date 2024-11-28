@@ -8,9 +8,12 @@
     export let keyDown = () => {};
     export let keyUp = () => {};
     export let ctrlKey = false;
+    export let disabled = false;
 
     const keyDownFn = (e) => {
-        // console.log(e);
+        if (disabled) {
+            return;
+        }
         if (e.key === key && (!ctrlKey || e.ctrlKey)) {
             e.preventDefault();
             keyDown();
@@ -18,6 +21,9 @@
     };
 
     const keyUpFn = (e) => {
+        if (disabled) {
+            return;
+        }
         if (e.key === key) {
             e.preventDefault();
             keyUp();

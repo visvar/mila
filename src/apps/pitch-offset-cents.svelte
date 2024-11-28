@@ -36,6 +36,8 @@
     let colorArea = false;
     // data
     let bendValues = [];
+    // app state
+    let isDataLoaded = false;
 
     function updatePitch(input, sampleRate) {
         analyserNode.getFloatTimeDomainData(input);

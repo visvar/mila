@@ -48,6 +48,9 @@
   let firstTimeStamp;
   let notes = [];
   let openNoteMap = new Map();
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -363,7 +366,7 @@
 
 <PageResizeHandler callback="{draw}" />
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">

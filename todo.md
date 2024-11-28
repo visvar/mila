@@ -32,6 +32,7 @@
   - sharing: compress binary data, try base64
   - use https://github.com/dexie/Dexie.js
     - if no time, this could be a drop in solution https://www.npmjs.com/package/idb-keyval
+- all apps: record midi number, velocity, for playback
 
 ## Refactoring
 
@@ -72,7 +73,6 @@
   - allow to reset current take
 - tempo change
   - drum mode where only hi-hat notes are used, as they are more regular
-  - record midi number, velocity, mayb duration, for playback
 
 
 ## Examples missing for

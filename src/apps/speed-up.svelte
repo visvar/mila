@@ -47,6 +47,8 @@
     let practiceRecordings = new Map();
     let ready = true;
     let tempoStepWatcher;
+    // app state
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
@@ -389,7 +391,7 @@
     });
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">

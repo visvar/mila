@@ -113,6 +113,9 @@
     },
   ];
   $: colorMap = colorMaps.filter((d) => d.label === colorMapName)[0];
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -328,7 +331,7 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">

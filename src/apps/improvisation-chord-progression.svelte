@@ -101,6 +101,9 @@
     backingTrackMode;
     stopBackingTrack();
   }
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
@@ -912,7 +915,7 @@
   });
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">

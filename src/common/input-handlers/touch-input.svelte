@@ -8,13 +8,18 @@
     export let element;
     export let touchStart = () => {};
     export let touchEnd = () => {};
+    export let disabled = false;
 
     const touchStartFn = (e) => {
-        touchStart();
+        if (!disabled) {
+            touchStart();
+        }
     };
 
     const touchEndFn = (e) => {
-        touchEnd();
+        if (!disabled) {
+            touchEnd();
+        }
     };
 
     const attach = () => {
