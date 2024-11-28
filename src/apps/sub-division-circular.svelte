@@ -7,7 +7,11 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { clamp, computeSubdivisionOkScore } from '../lib/lib';
+    import {
+        clamp,
+        computeSubdivisionOkScore,
+        computeSubdivisionOkScoreBeats,
+    } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -280,61 +284,64 @@
         }
         ctx.stroke();
 
-        // score of how many notes are in the OK area
+        // show how many notes are within the OK areas
+        const quarter = Utils.bpmToSecondsPerBeat(tempo);
+        const notesInBeats = notes.map((d) => {
+            const time = (d.time + adjustTime) / quarter;
+            return { ...d, time };
+        });
         if (notes.length > 0) {
-            const ok = computeSubdivisionOkScore(
-                notes.map((d) => d.time),
-                grid,
-                tempo,
+            const score = computeSubdivisionOkScoreBeats(
+                notesInBeats.map((d) => d.time),
+                grid1,
+                grid2,
                 binNote,
-                adjustTime,
             );
-            ctx.fillText(
-                ((ok / notes.length) * 100).toFixed() + '%',
-                cx,
-                cy + 7,
-            );
+            const percent = ((score / notesInBeats.length) * 100).toFixed();
+            ctx.fillText(`${percent} %`, cx, cy + 7);
         }
 
         // percentage over bars
-        container.innerText = '';
         if (showBarScores) {
-            const maxBar = Math.ceil((notes.at(-1)?.time ?? 0) / grid1);
-            const pastBars = maxBar; // TODO: change once pastBars option is there
-            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
-            const scores = byBar.map(([bar, barNotes]) => {
-                const score = computeSubdivisionOkScore(
-                    barNotes.map((d) => d.time),
-                    grid,
-                    tempo,
+            const byRepetition = d3.groups(notesInBeats, (d) =>
+                Math.floor(d.time / grid1),
+            );
+            const scores = byRepetition.map(([rep, repNotes]) => {
+                const score = computeSubdivisionOkScoreBeats(
+                    repNotes.map((d) => d.time),
+                    grid1,
+                    grid2,
                     binNote,
-                    adjustTime,
                 );
-                return (score / barNotes.length) * 100;
+                return {
+                    repetition: Math.floor(repNotes[0].time / grid1),
+                    score: (score / repNotes.length) * 100,
+                };
             });
             const scorePlot = Plot.plot({
                 width,
                 height: 110,
                 x: {
-                    label: 'bar',
-                    domain: d3.range(maxBar - pastBars, maxBar),
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per bar',
+                    label: 'percent of notes in gray areas, per repetition',
                     domain: [0, 100],
                 },
                 marks: [
                     Plot.rectY(scores, {
-                        y: Plot.identity,
-                        x: (d, i) => i,
+                        y: 'score',
+                        x: 'repetition',
                         fill: 'var(--accent)',
                         tip: true,
+                        title: (d) =>
+                            `rep: ${d.repetition + 1}\nscore: ${d.score.toFixed()} %`,
                     }),
                     Plot.ruleY([0]),
                     Plot.ruleY([100]),
                 ],
             });
+            container.textContent = '';
             container.appendChild(scorePlot);
         }
     };

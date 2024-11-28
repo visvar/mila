@@ -1,5 +1,5 @@
 <script>
-    import { afterUpdate, onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -7,7 +7,7 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { computeSubdivisionOkScore } from '../lib/lib';
+    import { computeSubdivisionOkScoreBeats } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -46,7 +46,7 @@
     let adjustTime = 0;
     let pastBars = 8;
     let showLoudness = false;
-    let showBarScores = false;
+    let showBarScores = true;
     let combineBars = false;
     let showTolerance = true;
     // data
@@ -234,36 +234,37 @@
         // show how many notes are within the OK areas
         okScore = '';
         if (notes.length > 0) {
-            const score = computeSubdivisionOkScore(
-                notes.map((d) => d.time),
-                grid,
-                tempo,
+            const score = computeSubdivisionOkScoreBeats(
+                notesInBeats.map((d) => d.time),
+                grid1,
+                grid2,
                 binNote,
-                adjustTime,
             );
-            const percent = ((score / notes.length) * 100).toFixed();
+            const percent = ((score / notesInBeats.length) * 100).toFixed();
             okScore = `${percent}% of notes are within the gray areas`;
         }
 
         // percentage over bars
         if (showBarScores) {
-            const byBar = d3.groups(notes, (d) => Math.floor(d.time / beats));
-            const scores = byBar.map(([bar, barNotes]) => {
-                const score = computeSubdivisionOkScore(
-                    barNotes.map((d) => d.time),
-                    grid,
-                    tempo,
+            const byRepetition = d3.groups(notesInBeats, (d) =>
+                Math.floor(d.time / beats),
+            );
+            const scores = byRepetition.map(([rep, repNotes]) => {
+                const score = computeSubdivisionOkScoreBeats(
+                    repNotes.map((d) => d.time),
+                    grid1,
+                    grid2,
                     binNote,
-                    adjustTime,
                 );
-                return (score / barNotes.length) * 100;
+                return {
+                    repetition: Math.floor(repNotes[0].time / beats),
+                    score: (score / repNotes.length) * 100,
+                };
             });
             const scorePlot = Plot.plot({
                 width,
                 height: 110,
                 x: {
-                    label: 'bar',
-                    // domain: d3.range(maxBar - pastBars, maxBar),
                     tickFormat: (d) => d + 1,
                 },
                 y: {
@@ -272,9 +273,12 @@
                 },
                 marks: [
                     Plot.rectY(scores, {
-                        y: Plot.identity,
-                        x: (d, i) => i,
+                        y: 'score',
+                        x: 'repetition',
                         fill: 'var(--accent)',
+                        tip: true,
+                        title: (d) =>
+                            `rep: ${d.repetition + 1}\nscore: ${d.score.toFixed()} %`,
                     }),
                     Plot.ruleY([0]),
                     Plot.ruleY([100]),
@@ -389,9 +393,9 @@
                 title="The number of most recent repetitions that are shown in the rows at the bottom."
                 label="repetitions"
                 bind:value="{pastBars}"
-                step="{1}"
-                min="{8}"
-                max="{32}"
+                step="{2}"
+                min="{4}"
+                max="{64}"
                 defaultValue="{8}"
             />
             <ToggleButton
