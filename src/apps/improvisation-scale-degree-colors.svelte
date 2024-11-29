@@ -317,13 +317,12 @@
     colorMapName = json.colorMapName ?? 'all';
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -399,15 +398,24 @@
     <div class="control">
       <ResetNotesButton
         bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
         {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
         }}"
       />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <MidiReplayButton bind:notes callback="{draw}" />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -425,7 +433,12 @@
       </p>
       <p>4) Improvise in a scale you do not know yet.</p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} {noteOff} pcKeyAllowed />
+    <MidiInput
+      {noteOn}
+      {noteOff}
+      pcKeyAllowed
+      disabled="{isDataLoaded || isPlaying}"
+    />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

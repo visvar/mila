@@ -170,13 +170,12 @@
         showEighthLine = json.showEighthLine ?? false;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -263,12 +262,21 @@
                 accent="{4}"
                 beepCount="{8}"
                 showBeepCountInput
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton
                 bind:notes
+                bind:isPlaying
                 callback="{draw}"
                 allowSound="{false}"
             />
@@ -276,6 +284,7 @@
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -295,14 +304,20 @@
                 randomize tempo button (⚂) to get challenged for a random tempo.
             </p>
         </ExerciseDrawer>
+        <MidiInput
+            {noteOn}
+            pcKeyAllowed
+            disabled="{isDataLoaded || isPlaying}"
+        />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} pcKeyAllowed />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>

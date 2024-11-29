@@ -214,17 +214,12 @@
         showToms = json.showToms ?? false;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example.notes) &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example2.notes) &&
-            json !== JSON.stringify(example4.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -248,7 +243,7 @@
             <i> Try playing without looking, focus on the metronome. </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <SelectScollable
                 label="grid"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
@@ -314,28 +309,55 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" sound="percussion" />
+            <MetronomeButton
+                {tempo}
+                accent="{+grid.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
+            <UndoRedoButton bind:data="{notes}" disabled="{isPlaying}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton
+                bind:notes
+                bind:isPlaying
+                callback="{draw}"
+                sound="percussion"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play the kick on beat 1 and 3 and the snare on 2 and 4.
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Play 1) and add the hi-hat on beat 1, 2, 3, 4.
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -343,32 +365,39 @@
             <p>
                 4) Play a swing feel, where you shift every second note a bit
                 late. Try to do this consistently!
-                <InsideTextButton onclick="{() => loadData(example4)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key="s"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 38 } })}"
         />
         <PcKeyboardInput
             key="h"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 46 } })}"
         />
         <PcKeyboardInput
             key="t"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 48 } })}"
         />
         <PcKeyboardInput
             key="k"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 36 } })}"
         />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

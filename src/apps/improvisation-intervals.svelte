@@ -190,14 +190,12 @@
     intervalLimit = json.intervalLimit ?? 100;
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes) &&
-      JSON.stringify(notes) !== JSON.stringify(exampleGuitar.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -236,16 +234,32 @@
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} />
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <MidiReplayButton bind:notes callback="{draw}" />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
-      <InsideTextButton onclick="{() => loadData(example)}">
+      <InsideTextButton
+        onclick="{() => loadData(example)}"
+        disabled="{isPlaying}"
+      >
         example
       </InsideTextButton>
-      <InsideTextButton onclick="{() => loadData(exampleGuitar)}">
+      <InsideTextButton
+        onclick="{() => loadData(exampleGuitar)}"
+        disabled="{isPlaying}"
+      >
         example guitar
       </InsideTextButton>
       <p>1) Play different notes and see which intervals are between them.</p>
@@ -256,7 +270,7 @@
       <p>3) Try to play only perfect 5ths and major intervals.</p>
       <p>4) Try to play only perfect 5ths and minor intervals.</p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} pcKeyAllowed />
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

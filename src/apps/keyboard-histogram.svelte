@@ -186,13 +186,12 @@
     scaleType = json.scaleType;
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -225,11 +224,23 @@
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <MidiReplayButton bind:notes callback="{draw}" />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -241,7 +252,7 @@
         for the same amount of notes.
       </p>
     </ExerciseDrawer>
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} pcKeyAllowed />
   </main>
 </FileDropTarget>

@@ -371,15 +371,15 @@
             <ResetNotesButton
                 bind:notes
                 bind:isDataLoaded
-                {saveToStorage}
                 disabled="{isPlaying}"
+                {saveToStorage}
             />
             <HistoryButton
                 appId="{appInfo.id}"
                 {loadData}
                 disabled="{isPlaying}"
             />
-            <MidiReplayButton bind:notes callback="{draw}" bind:isPlaying />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

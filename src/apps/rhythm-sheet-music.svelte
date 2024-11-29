@@ -222,17 +222,16 @@
     const loadData = (json) => {
         saveToStorage();
         tempo = json.tempo;
-        pastNoteCount = json.pastNoteCount;
-        useDotted = json.useDotted;
+        pastNoteCount = json.pastNoteCount ?? 10;
+        useDotted = json.useDotted ?? false;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -289,13 +288,25 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{4}" />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -306,14 +317,16 @@
                 accurately.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>

@@ -31,6 +31,13 @@
         evenBeep = !evenBeep;
     };
     metro.onClick(indicateBeep);
+
+    // if metronome is running while being diabled, stop it
+    $: {
+        if (disabled) {
+            metro.stop();
+        }
+    }
 </script>
 
 <main>
@@ -80,7 +87,7 @@
         />
     {/if}
 </main>
-<PcKeyboardInput key="m" keyDown="{toggle}" />
+<PcKeyboardInput key="m" keyDown="{toggle}" {disabled} />
 
 <style>
     main {

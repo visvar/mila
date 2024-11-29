@@ -37,8 +37,6 @@
     // data
     let bendValues = [];
     let lastValidPitch = 0;
-    // app state
-    let isDataLoaded = false;
 
     function updatePitch(input, sampleRate) {
         analyserNode.getFloatTimeDomainData(input);
@@ -190,6 +188,7 @@
         firstTimeStamp = json.firstTimeStamp;
         minVolumeDecibels = json.minVolumeDecibels;
         ignoreOctave = json.ignoreOctave ?? false;
+        // data
         bendValues = json.bendValues;
         draw();
     };

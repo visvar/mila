@@ -24,6 +24,7 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -212,12 +213,12 @@
         pastBars = json.pastBars;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
+
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -265,7 +266,7 @@
             for left and <code>j</code> for right.
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <ToggleButton
                 bind:checked="{drumMode}"
                 label="drum mode"
@@ -326,45 +327,67 @@
         <div class="visualization" bind:this="{containerRight}"></div>
         <div class="visualization" bind:this="{containerLeft}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+gridLeft.split(':')[0]}" />
+            <MetronomeButton
+                {tempo}
+                accent="{+gridLeft.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
             <RhythmPlayerButton
                 notes="{getRhythmNotes(gridLeft, gridRight, tempo)}"
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
-                1) Only single notes. Play triplets with your right and eighths
-                with your left hand.
+                1) Only single notes. Play triplets with your left and eighths
+                with your right hand.
                 <i> Try playing without looking, focus on the metronome. </i>
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
             <p>
                 2) Play the same rhythm as in 1) but using different notes, to
                 form a melody.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key="f"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 0 } })}"
         />
         <PcKeyboardInput
             key="j"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({
                     timestamp: performance.now(),
                     note: { number: 127 },
                 })}"
         />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

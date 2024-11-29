@@ -206,16 +206,12 @@
         filterNote = json.filterNote ?? 32;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example.notes) &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example2.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -241,7 +237,7 @@
             <i>Note: the display is always one note behind.</i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <NoteCountInput bind:value="{pastNoteCount}" max="{70}" />
             <ToggleButton
                 label="dotted notes"
@@ -279,27 +275,45 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{4}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play quarter notes and accent the first one in each group of
                 4.
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Play triplets and accent the first note in each triplet.
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -327,8 +341,8 @@
                 </span>
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>
 

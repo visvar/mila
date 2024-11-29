@@ -178,17 +178,12 @@
         barLimit = json.barLimit;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example2.notes) &&
-            json !== JSON.stringify(example3.notes) &&
-            json !== JSON.stringify(example4.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -237,32 +232,51 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play all notes between a mezzo-piano (mp) and a forte (f).
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Play a crescendo, starting at below pp and rising until above
                 ff smoothly.
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 3) Play a descrescendo from above ff to below pp.
-                <InsideTextButton onclick="{() => loadData(example3)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example3)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -270,12 +284,15 @@
                 4) Play accents, for example on each 4th note. They should be
                 loud enough to be easily distinguishable from the non-accented
                 notes.
-                <InsideTextButton onclick="{() => loadData(example4)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

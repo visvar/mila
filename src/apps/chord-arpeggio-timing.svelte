@@ -216,13 +216,12 @@
     tempo = json.tempo;
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -243,7 +242,7 @@
       consecutive chords/arpeggios.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" />
+      <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
         label="max note distance"
@@ -263,11 +262,23 @@
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <MetronomeButton {tempo} accent="{4}" />
-      <ResetNotesButton bind:notes {saveToStorage} />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -278,7 +289,7 @@
         2) Play an arpeggio of this chord progression (with a pause after each).
       </p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} pcKeyAllowed />
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

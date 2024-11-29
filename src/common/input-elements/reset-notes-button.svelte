@@ -22,4 +22,4 @@
 </script>
 
 <button {title} {disabled} on:click="{reset}"> reset </button>
-<PcKeyboardInput key="r" keyDown="{reset}" />
+<PcKeyboardInput key="r" keyDown="{reset}" {disabled} />

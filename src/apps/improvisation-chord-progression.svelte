@@ -837,14 +837,13 @@
     showPianoRoll = json.showPianoRoll ?? true;
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
     draw();
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(exampleDurations.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -1075,6 +1074,8 @@
       <div class="control">
         <ResetNotesButton
           bind:notes
+          bind:isDataLoaded
+          disabled="{isPlaying}"
           {saveToStorage}
           callback="{() => {
             openNoteMap = new Map();
@@ -1082,9 +1083,10 @@
             draw();
           }}"
         />
-        <HistoryButton appId="{appInfo.id}" {loadData} />
+        <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
         <MidiReplayButton
           bind:notes
+          bind:isPlaying
           callback="{draw}"
           bind:speed="{midiReplaySpeed}"
           onStart="{() =>
@@ -1093,16 +1095,30 @@
           startAtFirstNote="{false}"
           sound="acoustic_grand_piano"
         />
-        <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+        <ImportExportButton
+          {loadData}
+          {getExportData}
+          appId="{appInfo.id}"
+          disabled="{isPlaying}"
+        />
       </div>
       <ExerciseDrawer>
-        <InsideTextButton onclick="{() => loadData(exampleSlow)}">
+        <InsideTextButton
+          onclick="{() => loadData(exampleSlow)}"
+          disabled="{isPlaying}"
+        >
           example slow
         </InsideTextButton>
-        <InsideTextButton onclick="{() => loadData(exampleFast)}">
+        <InsideTextButton
+          onclick="{() => loadData(exampleFast)}"
+          disabled="{isPlaying}"
+        >
           example fast
         </InsideTextButton>
-        <InsideTextButton onclick="{() => loadData(exampleDurations)}">
+        <InsideTextButton
+          onclick="{() => loadData(exampleDurations)}"
+          disabled="{isPlaying}"
+        >
           example varying durations
         </InsideTextButton>
         <p>
@@ -1116,7 +1132,12 @@
           arpeggio.
         </p>
       </ExerciseDrawer>
-      <MidiInput {noteOn} {noteOff} pcKeyAllowed />
+      <MidiInput
+        {noteOn}
+        {noteOff}
+        pcKeyAllowed
+        disabled="{isDataLoaded || isPlaying}"
+      />
       <RatingButton appId="{appInfo.id}" />
     </div>
   </main>

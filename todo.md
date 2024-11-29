@@ -2,24 +2,15 @@
 
 ## High priority
 
-- auto-saving and playback
-  - see fretboard-jitter
-  - when isPlaying
-    - disable all inputs for data loading, exporting
-    - disable MIDI input
-    - disable autosave
-  - when isData loaded
-    - disable input until reset
-    - disable autosave
-    - reset before import?
-
 - allow/fix MIDI replay for all apps
+  - also with sound
 
 - data size
-  - sharing: compress binary data, try base64
   - use https://github.com/dexie/Dexie.js
     - if no time, this could be a drop in solution https://www.npmjs.com/package/idb-keyval
+  - sharing: compress binary data, try base64
 
+- move example buttons into exercise box
 
 
 ## New features
@@ -31,6 +22,7 @@
 - backing track component/function/class
   - add to all improvisation apps
 
+
 ## Fixes and improvements
 
 - allow changing metronome volume
@@ -40,12 +32,10 @@
 
 - all apps: record midi number, velocity, for playback
   - rhythm-sheet-music (currently only time)
-  - speed-up (currently only time)
-  - sub-division-history
   - tempo-change (currently only time)
   - tempo-drift (currently only time)
 
-- synth: fix Tone.sampler not working in improvisation-chord-progression
+- synth: fix Tone.sampler not working in midi-input
   - see http://sites.music.columbia.edu/cmc/courses/g6611/spring2018/week6/index.html
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
   - use sample for metronome to make it sound less annoying, maybe allow choosing the sample
@@ -55,6 +45,13 @@
   - remove fretboard-spacetime-cube and make it a separate repo
   - replace note-count-input by a number input
 
+
+## Examples missing for
+
+- provide one for each exercise as well
+- for freatboard, provide one for boring and one for interesting
+- speed-up tab
+- two handed timing (replace)
 
 
 ## App-specific
@@ -84,14 +81,6 @@
   - drum mode where only hi-hat notes are used, as they are more regular
 
 
-## Examples missing for
-
-- provide one for each exercise as well
-- for freatboard, provide one for boring and one for interesting
-- speed-up tab
-- two handed timing (replace)
-
-
 ## Ideas for new apps
 
 - Staccato and legato app
@@ -102,6 +91,7 @@
 ## musicvis-lib
 
 - copy/move data and algorithms to lib
+
 
 ### Svelte 5
 

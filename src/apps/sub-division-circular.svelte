@@ -383,13 +383,12 @@
         showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -471,16 +470,32 @@
         </div>
         <div bind:this="{container}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes />
+            <MetronomeButton
+                {tempo}
+                accent="{+grid.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
+            <UndoRedoButton bind:data="{notes}" disabled="{isPlaying}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:isPlaying bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -494,15 +509,17 @@
                 late. Try to do this consistently!
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />
         <TouchInput
             element="{canvas}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />

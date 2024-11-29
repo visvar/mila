@@ -381,14 +381,13 @@
         if (practiceRecordings.dataType) {
             practiceRecordings = new Map(practiceRecordings.value);
         }
+        // app state
+        isDataLoaded = true;
         draw();
     };
 
     const saveToStorage = () => {
-        if (
-            exerciseNotes.length > 0
-            // && JSON.stringify(practiceRecordings, replacer) !== JSON.stringify(example.practiceRecordings, replacer)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -492,6 +491,7 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
+                bind:isDataLoaded
                 {saveToStorage}
                 title="Clear practice but not exercise"
                 disabled="{currentStep !== ''}"
@@ -515,7 +515,7 @@
                 it.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

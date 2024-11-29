@@ -42,9 +42,6 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
-    // app state
-    let isPlaying;
-    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -332,6 +329,7 @@
             binNote,
             adjustTime,
             showKde,
+            // data
             notes,
         };
     };

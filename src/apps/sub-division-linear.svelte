@@ -454,7 +454,7 @@
                 {loadData}
                 disabled="{isPlaying}"
             />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}

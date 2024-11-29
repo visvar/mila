@@ -213,6 +213,7 @@
         return {
             pastSeconds,
             maxNoteDistance,
+            // data
             notes,
         };
     };
@@ -226,13 +227,12 @@
         maxNoteDistance = json.maxNoteDistance;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -286,20 +286,29 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
-                {saveToStorage}
                 bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
                 callback="{() => {
                     openNoteMap = new Map();
                     firstTimeStamp = performance.now();
                 }}"
             />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:isPlaying bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -315,7 +324,7 @@
                 the strings you intend.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} {noteOff} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} {noteOff} />
     </main>
 </FileDropTarget>

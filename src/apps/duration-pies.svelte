@@ -351,13 +351,12 @@
     showClosestDuration = json.showClosestDuration;
     // data
     notes = json.notes;
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -380,7 +379,7 @@
       also switch to a bar ('test tube') encoding.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" />
+      <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
       <NoteCountInput
         bind:value="{pastNoteCount}"
         step="{1}"
@@ -403,18 +402,27 @@
       ></canvas>
     </div>
     <div class="control">
-      <MetronomeButton {tempo} accent="{4}" />
+      <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
       <UndoRedoButton bind:data="{notes}" />
       <ResetNotesButton
-        {saveToStorage}
         bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
         }}"
       />
-      <button on:click="{() => loadData(example)}"> example </button>
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -425,10 +433,16 @@
         <span class="icon" style="font-size: 14px">⬤</span>.
       </p>
     </ExerciseDrawer>
+    <MidiInput
+      {noteOn}
+      {noteOff}
+      pcKeyAllowed
+      disabled="{isDataLoaded || isPlaying}"
+    />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} pcKeyAllowed />
     <PcKeyboardInput
       key=" "
+      disabled="{isDataLoaded || isPlaying}"
       keyDown="{() => {
         if (isKeyDown) {
           return;
@@ -449,6 +463,7 @@
     />
     <TouchInput
       element="{canvas}"
+      disabled="{isDataLoaded || isPlaying}"
       touchStart="{() => {
         noteOn({
           note: { number: 0 },

@@ -184,17 +184,12 @@
         tempoBinSize = json.tempoBinSize;
         // data
         notes = json.notes;
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example3.notes) &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example4.notes) &&
-            json !== JSON.stringify(example2.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -242,52 +237,81 @@
                 accent="{4}"
                 beepCount="{8}"
                 showBeepCountInput
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} />
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play at a contant tempo.
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Increase your tempo as linear as possible
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 3) Start with tempo 110 and suddenly jump to 150.
 
-                <InsideTextButton onclick="{() => loadData(example3)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example3)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 4) Switch back and forth between two tempi, try to always hit
                 the same two BPM values.
-                <InsideTextButton onclick="{() => loadData(example4)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
         </ExerciseDrawer>
+        <MidiInput
+            {noteOn}
+            pcKeyAllowed
+            disabled="{isDataLoaded || isPlaying}"
+        />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} pcKeyAllowed />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>
