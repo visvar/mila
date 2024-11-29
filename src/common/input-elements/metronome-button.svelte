@@ -2,12 +2,16 @@
     import { onDestroy } from 'svelte';
     import Metronome from '../../lib/Metronome.js';
     import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
+    import NumberInput from './number-input.svelte';
 
     export let tempo = 120;
     export let accent = 4;
     export let beepCount = 0;
+    export let volume = 1;
     export let showBeepCountInput = false;
+    export let showVolumeInput = false;
     export let disabled = false;
+    export let isBeeping = false;
 
     const metro = new Metronome();
     let button;
@@ -15,6 +19,7 @@
 
     const toggle = () => {
         metro.toggle(tempo, accent, beepCount > 0 ? beepCount : Infinity);
+        isBeeping = metro.isPlaying;
         // animate button to show toggle
         button.style = 'background: var(--accent)';
         setTimeout(() => (button.style = ''), 500);
@@ -38,6 +43,8 @@
             metro.stop();
         }
     }
+
+    $: metro.setVolume(volume);
 </script>
 
 <main>
@@ -45,7 +52,9 @@
         bind:this="{button}"
         title="Toggle metronome (shortcut: m)"
         on:click="{toggle}"
-        style="{showBeepCountInput ? 'border-radius: 8px 0 0 8px;' : ''}"
+        style="{showBeepCountInput || showVolumeInput
+            ? 'border-radius: 8px 0 0 8px;'
+            : ''}"
         {disabled}
     >
         <div>
@@ -69,21 +78,30 @@
         </div>
         <div>metronome</div>
     </button>
-    {#if showBeepCountInput}
-        <input
-            title="The number of beeps for count-in, set to 0 for infinite beeps"
-            type="number"
-            step="1"
-            min="0"
+    {#if showVolumeInput}
+        <NumberInput
+            title="Volume, 1 is normal"
+            bind:value="{volume}"
+            step="{0.1}"
+            min="{0}"
+            defaultValue="{1}"
             {disabled}
+            style="{`width: 34px;
+                    margin-left: -23px;
+                    border-radius: ${showBeepCountInput ? '0' : '0 8px 8px 0'};`}"
+        />
+    {/if}
+    {#if showBeepCountInput}
+        <NumberInput
+            title="The number of beeps for count-in, set to 0 for infinite beeps"
             bind:value="{beepCount}"
-            on:wheel="{(evt) => {
-                evt.preventDefault();
-                const add = evt.deltaY < 0 ? 1 : -1;
-                const clamped = Math.max(0, beepCount + add);
-                // round to step
-                beepCount = +clamped.toFixed();
-            }}"
+            step="{1}"
+            min="{0}"
+            defaultValue="{0}"
+            disabled="{disabled || isBeeping}"
+            style="{`width: 34px;
+                    margin-left: -23px;
+                    border-radius: 0 8px 8px 0;`}"
         />
     {/if}
 </main>
@@ -99,11 +117,5 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
-    }
-
-    input {
-        width: 34px;
-        margin-left: -8px;
-        border-radius: 0 8px 8px 0;
     }
 </style>

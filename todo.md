@@ -25,8 +25,6 @@
 
 ## Fixes and improvements
 
-- allow changing metronome volume
-
 - add default values to top of each app (for inputs)
   - give defaultValue to all number-input
 
@@ -43,7 +41,7 @@
 - refactor
   - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
   - remove fretboard-spacetime-cube and make it a separate repo
-  - replace note-count-input by a number input
+  - replace note-count-input, and tempo-input by a number input
 
 
 ## Examples missing for

@@ -7,9 +7,10 @@
  */
 class Metronome {
   // Config
+  #volume = 1
   #frequency = 200
   #accentFrequency = 300
-  #beepDuration = 0.04
+  #beepDuration = 0.05
   #lookAheadTime = 0.1
   #scheduleTimeout = 50
   // State
@@ -35,6 +36,17 @@ class Metronome {
    * @returns {number} beat count
    */
   get beatCount() { return this.#beatCount }
+
+  /**
+   * @returns {number} volume
+   */
+  get beatVolume() { return this.#volume }
+
+  /**
+   * @returns {boolean} is playing
+   */
+  get isPlaying() { return this.#isPlaying }
+
 
   /**
    * @param {function} callback callback
@@ -108,6 +120,15 @@ class Metronome {
   }
 
   /**
+ * Changes the volume (loudness)
+ *
+ * @param {number} volume volume in [0, 1]
+ */
+  setVolume = (volume) => {
+    this.#volume = volume
+  };
+
+  /**
    * Scheduler runs every scheduleTimeout milliseconds to schedule notes
    * for the coming lookahead time in seconds.
    *
@@ -150,7 +171,14 @@ class Metronome {
       this.#onClick(time, globalBeepTime, isAccent)
     }
     const osc = this.#audioCtx.createOscillator()
-    osc.connect(this.#audioCtx.destination)
+    // osc.connect(this.#audioCtx.destination)
+    // apply volume gain
+    const gain = this.#audioCtx.createGain()
+    osc.connect(gain)
+    gain.gain.value = this.#volume
+    // gainNodes.id.gain.setValueAtTime(0, audioCtx.currentTime + 1)
+    gain.connect(this.#audioCtx.destination)
+    // start osc with frequency depending on whether this beep is accented
     const frequency = isAccent ? this.#accentFrequency : this.#frequency
     osc.frequency.value = frequency
     osc.start(time)
