@@ -1,9 +1,8 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Chord, Scale } from 'tonal';
-  import { clamp } from '../lib/lib';
   import { Midi } from 'musicvis-lib';
   import MidiInput from '../common/input-handlers/midi-input.svelte';
   import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
@@ -18,7 +17,7 @@
     SCALE_DEGREES_MAJOR,
     SCALE_DEGREES_MINOR,
   } from '../lib/music';
-  import example from '../example-recordings/improvisation-note-colors.json';
+  import example from '../example-recordings/improvisation-note-colors2.json';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
   import ScaleSelect from '../common/input-elements/scale-select.svelte';
@@ -31,10 +30,11 @@
    */
   export let appInfo;
 
+  $: width =
+    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
   let container;
   const noteNames = Midi.NOTE_NAMES;
   // settings
-  // let root = 'A';
   let root = 'C';
   let scaleType = 'major';
   let barCount = 50;
@@ -53,7 +53,7 @@
       : SCALE_DEGREES_MINOR
     ).values(),
   ];
-  let colorMapIndex = 0;
+  let colorMapName = 'all';
   const colorMaps = [
     {
       label: 'all',
@@ -70,6 +70,19 @@
         '#dddddd',
         '#dddddd',
         d3.schemeTableau10[2],
+      ],
+    },
+    {
+      label: '1 4 5',
+      colors: [
+        '#eeeeee',
+        d3.schemeTableau10[0],
+        '#dddddd',
+        '#dddddd',
+        d3.schemeTableau10[1],
+        d3.schemeTableau10[2],
+        '#dddddd',
+        '#dddddd',
       ],
     },
     {
@@ -99,7 +112,10 @@
       ],
     },
   ];
-  $: colorMap = colorMaps[colorMapIndex];
+  $: colorMap = colorMaps.filter((d) => d.label === colorMapName)[0];
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -123,7 +139,6 @@
     }
     notes = [...notes, note];
     openNoteMap.set(e.note.number, note);
-    draw();
   };
 
   const noteOff = (e) => {
@@ -132,18 +147,11 @@
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
+      notes = [...notes];
     }
-    draw();
-  };
-
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    barCount = clamped;
-    draw();
   };
 
   const draw = () => {
-    const width = window.innerWidth < 1200 ? 900 : window.innerWidth - 200;
     const limited = notes.slice(-barCount);
     const durationLimit = 1;
     container.textContent = '';
@@ -168,8 +176,7 @@
         range: colorMap.colors,
         legend: true,
         tickFormat: (d) => (d === -1 ? 'non-scale' : scaleNotes[d]),
-        width: 500,
-        marginLeft: width / 2 - 250,
+        marginLeft: width / 2 - 150,
       },
       marks: [
         Plot.ruleY([0], {
@@ -281,7 +288,7 @@
     container.appendChild(chordPlot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -292,6 +299,7 @@
       scaleType,
       barCount,
       showDuration,
+      colorMapName,
       // data
       notes,
     };
@@ -306,16 +314,15 @@
     scaleType = json.scaleType;
     barCount = json.barCount ?? 50;
     showDuration = json.showDuration ?? false;
+    colorMapName = json.colorMapName ?? 'all';
     // data
     notes = json.notes;
-    draw();
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -323,7 +330,7 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
@@ -336,14 +343,12 @@
       <ScaleSelect
         bind:scaleRoot="{root}"
         bind:scaleType
-        callback="{draw}"
         allowedScales="{['major', 'minor']}"
       />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
         label="max. note distance"
         bind:value="{maxNoteDistance}"
-        callback="{draw}"
         min="{0.05}"
         max="{2}"
         step="{0.05}"
@@ -352,7 +357,6 @@
         title="The number of played chords that is displayed"
         label="chord count"
         bind:value="{barCount}"
-        callback="{draw}"
         min="{10}"
         max="{100}"
         step="{10}"
@@ -361,16 +365,14 @@
         bind:checked="{showDuration}"
         label="show duration"
         title="Show duration in the bar's height?"
-        callback="{draw}"
       />
       <SelectScollable
         label="colors"
         title="Choose a color map"
-        bind:value="{colorMapIndex}"
-        callback="{draw}"
+        bind:value="{colorMapName}"
       >
-        {#each colorMaps as cm, index}
-          <option value="{index}">{cm.label}</option>
+        {#each colorMaps as cm}
+          <option value="{cm.label}">{cm.label}</option>
         {/each}
       </SelectScollable>
     </div>
@@ -384,7 +386,6 @@
                 ...colorMap,
                 colors: [...colorMap.colors],
               };
-              draw();
             }}"
             type="color"
             value="{colorMap.colors?.[index + 1]}"
@@ -397,16 +398,24 @@
     <div class="control">
       <ResetNotesButton
         bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
         {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
-          draw();
         }}"
       />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <MidiReplayButton bind:notes callback="{draw}" />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -424,7 +433,12 @@
       </p>
       <p>4) Improvise in a scale you do not know yet.</p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
+    <MidiInput
+      {noteOn}
+      {noteOff}
+      pcKeyAllowed
+      disabled="{isDataLoaded || isPlaying}"
+    />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
@@ -12,9 +12,9 @@
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example from '../example-recordings/accents.json';
-    import example1 from '../example-recordings/accents-e1.json';
-    import example2 from '../example-recordings/accents-e2.json';
+    import example from '../example-recordings/accents/accents.json';
+    import example1 from '../example-recordings/accents/accents-e1.json';
+    import example2 from '../example-recordings/accents/accents-e2.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { FILTER_NOTES, VELOCITIES_LOGIC } from '../lib/music.js';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -28,7 +28,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    let windowWidth = window.innerWidth;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let container;
     // settings
     let tempo = 90;
@@ -41,6 +42,9 @@
     $: minIOI = (Utils.bpmToSecondsPerBeat(tempo) * 4) / filterNote;
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         if (notes.length === 0) {
@@ -54,9 +58,9 @@
         const note = {
             time: noteInSeconds,
             velocity: e.velocity,
+            number: e.note.number,
         };
         notes = [...notes, note];
-        draw();
     };
 
     /**
@@ -68,16 +72,17 @@
         const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
         const legend = Plot.plot({
             // subtitle: 'loudness',
-            width: width,
+            width,
             height: 100,
             marginTop: 30,
-            marginLeft: width * 0.35,
-            marginRight: width * 0.35,
-            marginBottom: 35,
+            marginLeft: (width - 400) / 2,
+            marginRight: (width - 400) / 2,
+            marginBottom: 37,
             // make sure note symbols etc work
             style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
-                label: 'loudness',
+                label: 'loudness legend',
+                labelArrow: 'none',
                 labelAnchor: 'center',
                 ticks: legendTicks,
                 tickSize: 0,
@@ -201,57 +206,48 @@
         filterNote = json.filterNote ?? 32;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example.notes) &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example2.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<svelte:window bind:innerWidth="{windowWidth}" />
+
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
-            This app helps practicing accents, that is, playing some notes
-            louder then others to highlight them. Set a tempo and start playing.
-            The time between the notes you play will be displayed as note
-            symbols, so you can see whether you play, for example, correct
+            This app helps practicing dynamic accents, that is, playing some
+            notes louder then others to highlight them. Set a tempo and start
+            playing. The time between the notes you play will be displayed as
+            note symbols, so you can see whether you play, for example, correct
             quarter notes. The note's velocity is encoded as font size, so you
             can see whether you accent the correct notes, for example the first
             note in each triplet, or the the first in each group of 4.
             <i>Note: the display is always one note behind.</i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
-            <NoteCountInput
-                bind:value="{pastNoteCount}"
-                callback="{draw}"
-                max="{70}"
-            />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
+            <NoteCountInput bind:value="{pastNoteCount}" max="{70}" />
             <ToggleButton
                 label="dotted notes"
                 title="Use dotted notes? If not, the closest non-dotted note will be taken."
                 bind:checked="{useDotted}"
-                callback="{draw}"
             />
             <ToggleButton
                 label="tuplets"
                 title="Use tuplets? If not, the closest non-tuplet note will be taken."
                 bind:checked="{useTuplets}"
-                callback="{draw}"
             />
         </div>
         <div class="control">
@@ -259,7 +255,6 @@
                 title="You can filter out notes that are shorter than a given note duration."
                 label="filtering"
                 bind:value="{filterNote}"
-                callback="{draw}"
             >
                 {#each FILTER_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -269,7 +264,6 @@
                 title="You can choose a value for loudness to only show loud and quiet notes in two different sizes instead of exactly sizing notes by loudness. Set to 0 to use smooth sizing."
                 label="loudness threshold"
                 bind:value="{velocityThreshold}"
-                callback="{draw}"
             >
                 {#each VELOCITIES_LOGIC.entries() as [velocity, label]}
                     <option value="{velocity / 127}">
@@ -281,27 +275,45 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{4}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play quarter notes and accent the first one in each group of
                 4.
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Play triplets and accent the first note in each triplet.
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -329,8 +341,8 @@
                 </span>
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>
 

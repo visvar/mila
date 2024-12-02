@@ -21,6 +21,10 @@
      * Called for each played note and when the player stops
      */
     export let callback = () => {};
+    /**
+     * If true, all notes will be shifted such that the first starts at 0
+     */
+    export let startAtFirstNote = true;
     // export let allowSound = false;
     export let allowSound = true;
 
@@ -29,9 +33,19 @@
      */
     export let sound = 'silent';
 
+    /**
+     * @type {number} volume from 0 to ...
+     */
+    export let volume = 1;
+
+    /**
+     * Bin to this prop to react to the playing state
+     * @type {boolean}
+     */
+    export let isPlaying = false;
+
     let timeouts = [];
     let oldNotes;
-    let isPlaying = false;
     // progress indicator circle
     let circle;
     const iconSize = 24;
@@ -41,6 +55,7 @@
     const player = new Player();
     // player.preloadInstrument('acoustic_grand_piano')
     $: player.preloadInstrument(sound);
+    $: player.setVolume(volume);
 
     /**
      * plays notes
@@ -53,13 +68,18 @@
         notes = [];
         timeouts = [];
         let [minTime, maxTime] = d3.extent(oldNotes, (d) => d.time ?? d);
+        if (!startAtFirstNote) {
+            // optionally shift all notes so the first one starts at 0
+            // setting minTime to 0 prevents this
+            minTime = 0;
+        }
         maxTime = maxTime - minTime;
         // timeouts for notes
-        for (const note of oldNotes) {
-            const time = (note.time ?? note) - minTime;
+        for (const n of oldNotes) {
+            const time = (n.time ?? n) - minTime;
             timeouts.push(
                 setTimeout(() => {
-                    notes = [...notes, note];
+                    notes = [...notes, n];
                     // stop when finished
                     if (notes.length === oldNotes.length) {
                         stop();
@@ -77,17 +97,21 @@
         };
         startTime = performance.now();
         circleRaf = requestAnimationFrame(update);
+        // determine whether velocity is 0...1 or 0...127
+        const maxVelocity = d3.max(
+            oldNotes,
+            (n) => n.velocityRaw ?? n.velocity ?? 1,
+        );
+        const scaleVelocity = maxVelocity > 1;
         // start soundfont player
         if (sound !== 'silent') {
-            const firstTime = oldNotes.at(0).time;
-            const notes2 = oldNotes.map((d) => {
-                const time = d.time - firstTime;
-                const duration = d.duration ?? 0.2;
-                let velocity = d.velocityRaw ?? d.velocity ?? 1;
-                velocity = velocity <= 1 ? velocity : velocity / 127;
+            const notes2 = oldNotes.map((n) => {
+                const time = (n.time ?? n) - minTime;
+                const duration = n.duration ?? 0.2;
+                let velocity = n.velocityRaw ?? n.velocity ?? 1;
+                velocity = scaleVelocity ? velocity / 127 : velocity;
                 return Note.from({
-                    // pitch: 31, // sticks
-                    pitch: d.number ?? 33, // metro click
+                    pitch: n.number ?? 33, // metro click
                     start: time,
                     end: time + duration,
                     duration,
@@ -124,13 +148,6 @@
     const handleClick = () => {
         !isPlaying ? replay() : stop();
     };
-
-    // react to user resetting notes by stopping
-    // TODO: needs to know whether notes changed from outside or inside this component...
-    // TODO: better to notify app that is playing and forbid reset etc
-    // $: if (isPlaying && notes.length === 0) {
-    //     stop();
-    // }
 
     onDestroy(reset);
 
@@ -205,6 +222,17 @@
             <option value="percussion">{drumIcon}</option>
             <option value="acoustic_guitar_nylon">{guitarIcon}</option>
         </SelectScollable>
+        <NumberInput
+            title="replay volume, 1 is normal"
+            bind:value="{volume}"
+            min="{0.2}"
+            max="{5}"
+            step="{0.2}"
+            defaultValue="{1}"
+            width="40px"
+            disabled="{notes.length === 0 || sound === 'silent'}"
+            style="border-radius: 0 8px 8px 0; margin: 0;"
+        />
     {/if}
     <NumberInput
         title="replay speed (2 means twice as fast, 0.5 half as fast)"
@@ -212,9 +240,10 @@
         min="{0.5}"
         max="{10}"
         step="{0.5}"
+        defaultValue="{1}"
         width="40px"
         disabled="{notes.length === 0 || isPlaying}"
-        style="border-radius: 0 8px 8px 0; margin: 0;"
+        style="border-radius: 0; margin: 0 -12px 0 0;"
     />
 </main>
 

@@ -20,8 +20,6 @@
      *      - https://aframe.io/docs/1.5.0/introduction/interactions-and-controllers.html
      * - support hand tracking?
      *      - https://github.com/aframevr/aframe/blob/master/docs/components/hand-tracking-controls.md
-     * - use custom geometry?
-     *  - https://aframe.io/docs/1.5.0/components/geometry.html
      */
 
     /**
@@ -99,25 +97,6 @@
         };
         notes = [...notes, note];
         lastTimeSeconds = noteInSeconds;
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // time scaling
-            timeFactor = e.value;
-        } else if (c === 15) {
-            // past seconds
-            pastSeconds = e.value * 120;
-        }
     };
 
     onMount(() => {
@@ -275,5 +254,5 @@
             {/each}
         </a-box>
     </a-scene>
-    <MidiInput {noteOn} {controlChange} />
+    <MidiInput {noteOn} />
 </main>

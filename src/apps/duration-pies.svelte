@@ -1,7 +1,6 @@
 <script>
-  import { onDestroy } from 'svelte';
+  import { afterUpdate, onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { clamp } from '../lib/lib';
   import { Canvas, Utils } from 'musicvis-lib';
   import NoteCountInput from '../common/input-elements/note-count-input.svelte';
   import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -49,6 +48,9 @@
   let firstTimeStamp;
   let notes = [];
   let openNoteMap = new Map();
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -58,6 +60,7 @@
     const note = {
       number: e.note.number,
       time: noteInSeconds,
+      velocity: e.velocity,
       duration: 0,
     };
     // fix old note if its end was missed
@@ -69,7 +72,6 @@
     }
     notes = [...notes, note];
     openNoteMap.set(e.note.number, note);
-    draw();
   };
 
   const noteOff = (e) => {
@@ -78,14 +80,8 @@
       const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
       note.end = noteInSeconds;
       note.duration = note.end - note.time;
+      notes = [...notes];
     }
-    draw();
-  };
-
-  const controlChange = (e) => {
-    const clamped = clamp(e.rawValue * 2, 20, 250);
-    pastNoteCount = clamped;
-    draw();
   };
 
   /**
@@ -328,6 +324,8 @@
     usePies ? drawPies() : drawBars();
   };
 
+  afterUpdate(draw);
+
   /**
    * Used for exporting and for automatics saving
    */
@@ -353,14 +351,12 @@
     showClosestDuration = json.showClosestDuration;
     // data
     notes = json.notes;
-    draw();
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -368,7 +364,9 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<PageResizeHandler callback="{draw}" />
+
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
@@ -381,23 +379,20 @@
       also switch to a bar ('test tube') encoding.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
       <NoteCountInput
         bind:value="{pastNoteCount}"
-        callback="{draw}"
         step="{1}"
         min="{1}"
         max="{12}"
       />
       <ToggleButton
         bind:checked="{usePies}"
-        callback="{draw}"
         label="pies"
         title="Toggles between pie and bar chart encoding"
       />
       <ToggleButton
         bind:checked="{showClosestDuration}"
-        callback="{draw}"
         label="show closest duration"
         title="Show the closest note duration as an inner piece"
       />
@@ -407,19 +402,27 @@
       ></canvas>
     </div>
     <div class="control">
-      <MetronomeButton {tempo} accent="{4}" />
-      <UndoRedoButton bind:data="{notes}" callback="{draw}" />
+      <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+      <UndoRedoButton bind:data="{notes}" />
       <ResetNotesButton
-        {saveToStorage}
         bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
         callback="{() => {
           openNoteMap = new Map();
-          draw();
         }}"
       />
-      <button on:click="{() => loadData(example)}"> example </button>
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
       <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -430,10 +433,16 @@
         <span class="icon" style="font-size: 14px">⬤</span>.
       </p>
     </ExerciseDrawer>
+    <MidiInput
+      {noteOn}
+      {noteOff}
+      pcKeyAllowed
+      disabled="{isDataLoaded || isPlaying}"
+    />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} {noteOff} {controlChange} pcKeyAllowed />
     <PcKeyboardInput
       key=" "
+      disabled="{isDataLoaded || isPlaying}"
       keyDown="{() => {
         if (isKeyDown) {
           return;
@@ -454,6 +463,7 @@
     />
     <TouchInput
       element="{canvas}"
+      disabled="{isDataLoaded || isPlaying}"
       touchStart="{() => {
         noteOn({
           note: { number: 0 },
@@ -467,6 +477,5 @@
         });
       }}"
     />
-    <PageResizeHandler callback="{draw}" />
   </main>
 </FileDropTarget>

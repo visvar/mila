@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Utils } from 'musicvis-lib';
@@ -27,7 +27,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let container;
     // settings
     let tempo = 90;
@@ -46,6 +47,9 @@
     // 𝅝, 𝅗𝅥, 𝅘𝅥, 𝅘𝅥𝅮, 𝅘𝅥𝅯
     const possibilities = noteDurations;
     const possibilitiesNonDotted = possibilities.filter((d) => !d.dotted);
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         if (notes.length === 0) {
@@ -56,8 +60,7 @@
         if (notes.length > 0 && noteInSeconds - notes.at(-1) < minIOI) {
             return;
         }
-         notes = [...notes, noteInSeconds];
-        draw();
+        notes = [...notes, noteInSeconds];
     };
 
     /**
@@ -197,7 +200,7 @@
         container.appendChild(plot2);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -219,18 +222,16 @@
     const loadData = (json) => {
         saveToStorage();
         tempo = json.tempo;
-        pastNoteCount = json.pastNoteCount;
-        useDotted = json.useDotted;
+        pastNoteCount = json.pastNoteCount ?? 10;
+        useDotted = json.useDotted ?? false;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -238,7 +239,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -247,20 +248,20 @@
             note symbols, so you can see whether you play, for example, correct
             quarter notes. Bars and numbers show you how many percent of the
             detected note duration you played, for example a -5 means your note
-            was 5% too short. <span style="color:{blue}"
-                >Blue stands for notes that were too long (playing too slow)</span
-            >
+            was 5% too short.
+            <span style="color:{blue}">
+                Blue stands for notes that were too long (playing too slow)
+            </span>
             and
-            <span style="color:{orange}">orange for short (fast) ones</span>.
+            <span style="color:{orange}"> orange for short (fast) ones </span>.
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
+            <NoteCountInput bind:value="{pastNoteCount}" />
             <ToggleButton
                 label="dotted notes"
                 title="Use dotted notes? If not, the closest non-dotted note will be taken."
                 bind:checked="{useDotted}"
-                callback="{draw}"
             />
         </div>
         <div class="control">
@@ -268,7 +269,6 @@
                 label="filtering"
                 title="You can filter out notes that are shorter than a given note duration."
                 bind:value="{filterNote}"
-                callback="{draw}"
             >
                 {#each FILTER_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -278,7 +278,6 @@
                 label="target"
                 title="You can choose a single duration you want to practice and turn of automaticly guessing the closest one."
                 bind:value="{targetDuration}"
-                callback="{draw}"
             >
                 <option value="auto">auto</option>
                 {#each noteDurations as d}
@@ -289,13 +288,25 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton {tempo} accent="{4}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -306,14 +317,16 @@
                 accurately.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>

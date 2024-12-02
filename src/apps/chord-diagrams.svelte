@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Midi } from 'musicvis-lib';
@@ -9,10 +9,7 @@
     import { detectChords } from '../lib/chords';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
-    import {
-        localStorageAddRecording,
-        localStorageGetSetting,
-    } from '../lib/localstorage';
+    import { localStorageAddRecording } from '../lib/localstorage';
     import example from '../example-recordings/chord-diagrams.json';
     import HistoryButton from '../common/input-elements/history-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
@@ -31,7 +28,6 @@
     let pastChords = 5;
     let maxFretSpan = 5;
     let maxNoteDistance = 0.1;
-    const minVelo = localStorageGetSetting('guitarMidiMinVelocity') ?? 0;
     // domain knowledge
     let stringCount = 6;
     let fretCount = 24;
@@ -41,26 +37,26 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
             firstTimeStamp = e.timestamp;
         }
-        if (e.rawVelocity >= minVelo) {
-            const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
-            const string = e.message.channel - 1;
-            const note = {
-                time: noteInSeconds,
-                number: e.note.number,
-                note: e.note.name + (e.note.accidental ?? ''),
-                velocity: e.rawVelocity,
-                string,
-                fret: e.note.number - tuningPitches[string],
-                channel: e.message.channel,
-            };
-            notes = [...notes, note];
-            draw();
-        }
+        const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
+        const string = e.message.channel - 1;
+        const note = {
+            time: noteInSeconds,
+            number: e.note.number,
+            note: e.note.name + (e.note.accidental ?? ''),
+            velocity: e.rawVelocity,
+            string,
+            fret: e.note.number - tuningPitches[string],
+            channel: e.message.channel,
+        };
+        notes = [...notes, note];
     };
 
     const draw = () => {
@@ -88,8 +84,6 @@
             const maxFret = minFret + maxFretSpan;
             return cNotes.filter((d) => d.fret <= maxFret);
         });
-
-        // TODO: if multiple notes are one the same string, only keep the loudest
 
         // limit
         chords = chords
@@ -229,7 +223,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -253,14 +247,12 @@
         maxFretSpan = json.maxFretSpan;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -268,7 +260,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -281,7 +273,6 @@
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
                 label="max. note distance"
                 bind:value="{maxNoteDistance}"
-                callback="{draw}"
                 min="{0.05}"
                 max="{5}"
                 step="{0.05}"
@@ -290,7 +281,6 @@
                 title="maximum distance between the lowest and highest fret"
                 label="max. fret span"
                 bind:value="{maxFretSpan}"
-                callback="{draw}"
                 min="{5}"
                 max="{25}"
                 step="{1}"
@@ -299,7 +289,6 @@
                 title="The number of played chords that is displayed"
                 label="chord count"
                 bind:value="{pastChords}"
-                callback="{draw}"
                 min="{10}"
                 max="{300}"
                 step="{10}"
@@ -307,13 +296,25 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -325,7 +326,7 @@
             </p>
             <p>3) Play an A minor chord in three different positions.</p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

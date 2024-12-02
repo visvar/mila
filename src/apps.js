@@ -1,33 +1,33 @@
 import Accents from './apps/accents.svelte'
 import ChordArpeggioTiming from './apps/chord-arpeggio-timing.svelte'
 import ChordDiagrams from './apps/chord-diagrams.svelte'
+import DurationPies from './apps/duration-pies.svelte'
 import Dynamics from './apps/dynamics.svelte'
 import FretboardHeatmap from './apps/fretboard-heatmap.svelte'
 import FretboardImprovisationIntervals from './apps/fretboard-improvisation-intervals.svelte'
 import FretboardJitter from './apps/fretboard-jitter.svelte'
 import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte'
+import ImprovisationChordProgression from './apps/improvisation-chord-progression.svelte'
 import ImprovisationIntervals from './apps/improvisation-intervals.svelte'
-import ImprovisationNoteColors from './apps/improvisation-note-colors.svelte'
+import ImprovisationScaleDegreeColors from './apps/improvisation-scale-degree-colors.svelte'
 import ImprovisationScaleDegrees from './apps/improvisation-scale-degrees.svelte'
 import ImprovisationScaleDegreesBar from './apps/improvisation-scale-degrees-bar.svelte'
+import ImprovisationScaleSubsetColors from './apps/improvisation-scale-subset-colors.svelte'
 import KeyboardHistogram from './apps/keyboard-histogram.svelte'
 import PitchBendAudio from './apps/pitch-bend-audio.svelte'
 import PitchOffsetCents from './apps/pitch-offset-cents.svelte'
+import PitchOffsetCentsNeedle from './apps/pitch-offset-cents-needle.svelte'
 import RhythmSheetMusic from './apps/rhythm-sheet-music.svelte'
 import SpeedUp from './apps/speed-up.svelte'
 import SpeedUpTab from './apps/speed-up-tab.svelte'
 import StrummingPattern from './apps/strumming-pattern.svelte'
-import SubDivision from './apps/sub-division.svelte'
-import SubDivisionLinear from './apps/sub-division-linear.svelte'
-import TempoDrift from './apps/tempo-drift.svelte'
-import TwoHandedTiming from './apps/two-handed-timing.svelte'
+import SubDivision from './apps/sub-division-circular.svelte'
 import SubDivisionDrums from './apps/sub-division-drums.svelte'
 import SubDivisionHistory from './apps/sub-division-history.svelte'
-import PitchOffsetCentsNeedle from './apps/pitch-offset-cents-needle.svelte'
-import DurationPies from './apps/duration-pies.svelte'
+import SubDivisionLinear from './apps/sub-division-linear.svelte'
 import TempoChange from './apps/tempo-change.svelte'
-import ImprovisationNoteColors2 from './apps/improvisation-note-colors2.svelte'
-import ImprovisationChordProgression from './apps/improvisation-chord-progression.svelte'
+import TempoDrift from './apps/tempo-drift.svelte'
+import TwoHandedTiming from './apps/two-handed-timing.svelte'
 
 /**
  * All apps defined here
@@ -185,9 +185,9 @@ export const APPS = [
   },
   {
     id: 'improvisation-note-colors',
-    title: 'Improvisation Note Colors',
+    title: 'Improvisation Scale Subset Colors',
     description:
-      'See how often you use different kinds of notes in improvisation',
+      'See how you use notes in different scale subsets during improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'duration/ioi', 'pitch', 'chords'],
@@ -195,13 +195,13 @@ export const APPS = [
     patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note', 'chords as stacked bars'],
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
-    component: ImprovisationNoteColors
+    component: ImprovisationScaleSubsetColors
   },
   {
     id: 'improvisation-note-colors2',
-    title: 'Improvisation Note Colors 2',
+    title: 'Improvisation Scale Degree Colors',
     description:
-      'See how often you use different kinds of notes in improvisation',
+      'See how  you use different scale degrees in improvisation',
     input: 'MIDI',
     instruments: ['guitar/bass', 'keyboard'],
     data: ['order', 'duration/ioi', 'pitch', 'chords'],
@@ -209,7 +209,7 @@ export const APPS = [
     patterns: ['note role as color', 'duration/ioi as bar', 'time is linear', 'time encoded non-linearly', 'update on note', 'chords as stacked bars'],
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
-    component: ImprovisationNoteColors2
+    component: ImprovisationScaleDegreeColors
   },
   {
     id: 'improvisation-scale-degrees',

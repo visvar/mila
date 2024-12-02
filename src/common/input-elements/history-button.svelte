@@ -11,6 +11,7 @@
 
     export let appId;
     export let loadData = (e) => {};
+    export let disabled = false;
 
     let recordings = [];
     let modalShown = false;
@@ -28,6 +29,7 @@
 
 <button
     title="Load a previously auto-saved take"
+    {disabled}
     on:click="{() => {
         loadRecordings();
         toggleModal();

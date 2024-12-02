@@ -2,21 +2,28 @@
     import { parseJsonFile } from '../lib/json';
 
     export let loadData = (json) => {};
+    export let disabled = false;
 
     let container;
 
     const dropped = async (evt) => {
         evt.preventDefault();
+        container.style = 'background: none';
+        if (disabled) {
+            return;
+        }
         const file = evt.dataTransfer.files[0];
         const json = await parseJsonFile(file);
         console.log('dropped json', json);
-
         loadData(json);
-        container.style = 'background: none';
     };
     const dragOver = (evt) => {
         evt.preventDefault();
-        container.style = 'background: var(--accent)';
+        if (!disabled) {
+            container.style = 'background: var(--accent)';
+        } else {
+            container.style = 'background: var(--error)';
+        }
     };
 
     const mouseLeave = () => {

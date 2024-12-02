@@ -49,14 +49,6 @@
         }
     };
 
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        pastSeconds = e.value * 55 + 5;
-    };
-
     const draw = () => {
         const maxTime = (performance.now() - firstTimeStamp) / 1000;
         const minTime = maxTime - pastSeconds;
@@ -204,5 +196,5 @@
             reset
         </button>
     </div>
-    <MidiInput {noteOn} {noteOff} {controlChange} />
+    <MidiInput {noteOn} {noteOff} />
 </main>

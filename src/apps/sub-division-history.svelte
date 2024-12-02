@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
@@ -29,9 +29,9 @@
 
     const TWO_PI = Math.PI * 2;
 
+    let width = 850;
     let canvas;
     let canvas2;
-    let width = 850;
     let height = width;
     // settings
     let tempo = 120;
@@ -49,7 +49,6 @@
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         notes = [...notes, noteInSeconds];
-        draw();
     };
 
     const drawOne = (
@@ -313,10 +312,12 @@
         }
     };
 
-    onMount(() => {
+    const drawAll = () => {
         draw();
         drawLoaded();
-    });
+    };
+
+    afterUpdate(drawAll);
 
     /**
      * Used for exporting and for automatics saving
@@ -328,15 +329,13 @@
             binNote,
             adjustTime,
             showKde,
+            // data
             notes,
         };
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0
-            // && JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -358,12 +357,11 @@
         <i> Try playing without looking and focus on the metronome. </i>
     </p>
     <div class="control">
-        <TempoInput bind:value="{tempo}" callback="{draw}" />
+        <TempoInput bind:value="{tempo}" />
         <SelectScollable
             label="grid"
             title="The whole circle is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
             bind:value="{grid}"
-            callback="{draw}"
         >
             {#each GRIDS as g}
                 <option value="{g.divisions}">{g.label}</option>
@@ -373,10 +371,6 @@
             label="binning"
             title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
             bind:value="{binNote}"
-            callback="{() => {
-                draw();
-                drawLoaded();
-            }}"
         >
             {#each BIN_NOTES as g}
                 <option value="{g}">1/{g} note</option>
@@ -393,8 +387,6 @@
             title="Toggle between bars and area"
             on:click="{() => {
                 showKde = !showKde;
-                draw();
-                drawLoaded();
             }}"
         >
             {showKde ? 'area' : 'bars'}
@@ -408,15 +400,7 @@
     </div>
     <div class="control">
         <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-        <ResetNotesButton
-            bind:notes
-            {saveToStorage}
-            callback="{() => {
-                draw();
-                drawLoaded();
-            }}"
-        />
-        <!-- <ExportButton2 {getExportData} appId="{appInfo.id}" /> -->
+        <ResetNotesButton bind:notes {saveToStorage} />
         <HistoryButton appId="{appInfo.id}" loadData="{() => {}}" />
     </div>
     <div class="visualization">

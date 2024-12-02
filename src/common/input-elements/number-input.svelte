@@ -3,6 +3,7 @@
      * value
      */
     export let value;
+    export let defaultValue = undefined;
     /**
      * callback on change
      */
@@ -38,7 +39,8 @@
         type="number"
         bind:value
         on:change="{callback}"
-        on:mousewheel="{(evt) => {
+        on:wheel="{(evt) => {
+            // allow to scroll to change value
             evt.preventDefault();
             if (disabled) {
                 return;
@@ -48,6 +50,14 @@
             // round to step
             value = +clamped.toFixed(12);
             callback();
+        }}"
+        on:mousedown="{(evt) => {
+            // allow to reset with middle click
+            if (evt.button === 1 && defaultValue !== undefined) {
+                evt.preventDefault();
+                value = defaultValue;
+                callback();
+            }
         }}"
         {step}
         {min}

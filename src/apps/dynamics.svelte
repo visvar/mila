@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as Plot from '@observablehq/plot';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -7,10 +7,10 @@
     import { localStorageAddRecording } from '../lib/localstorage';
     import { VELOCITIES_LOGIC, VELOCITIES_MEANING } from '../lib/music';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example1 from '../example-recordings/dynamics-e1.json';
-    import example2 from '../example-recordings/dynamics-e2.json';
-    import example3 from '../example-recordings/dynamics-e3.json';
-    import example4 from '../example-recordings/dynamics-e4.json';
+    import example1 from '../example-recordings/dynamics/dynamics-e1.json';
+    import example2 from '../example-recordings/dynamics/dynamics-e2.json';
+    import example3 from '../example-recordings/dynamics/dynamics-e3.json';
+    import example4 from '../example-recordings/dynamics/dynamics-e4.json';
     import * as d3 from 'd3';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -29,7 +29,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    let windowWidth = window.innerWidth;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     // let height = 600;
     let height = 300;
     let container;
@@ -41,6 +42,9 @@
     // data
     let firstTimeStamp;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -56,7 +60,6 @@
             channel: e.message.channel,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
@@ -153,7 +156,7 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -175,18 +178,12 @@
         barLimit = json.barLimit;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(notes);
-        if (
-            notes.length > 0 &&
-            json !== JSON.stringify(example1.notes) &&
-            json !== JSON.stringify(example2.notes) &&
-            json !== JSON.stringify(example3.notes) &&
-            json !== JSON.stringify(example4.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -194,7 +191,9 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<svelte:window bind:innerWidth="{windowWidth}" />
+
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -207,30 +206,25 @@
                 target="_blank"
                 referrerpolicy="no-referrer"
             >
-                dynamics marking</a
-            > for a clearer overview.
+                dynamics marking
+            </a>
+            for a clearer overview.
         </p>
         <div class="control">
             <ToggleButton
                 label="rounding"
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
                 bind:checked="{isBinning}"
-                callback="{draw}"
             />
             <NumberInput
                 title="The number of most recent notes that are shown as bars."
                 label="bars"
                 bind:value="{barLimit}"
-                callback="{draw}"
                 step="{25}"
                 min="{25}"
                 max="{1000}"
             />
-            <SelectScollable
-                label="color"
-                bind:value="{coloring}"
-                callback="{draw}"
-            >
+            <SelectScollable label="color" bind:value="{coloring}">
                 {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
                     <option value="{opt}">{opt}</option>
                 {/each}
@@ -238,33 +232,51 @@
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example4)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
                 1) Play all notes between a mezzo-piano (mp) and a forte (f).
-                <InsideTextButton onclick="{() => loadData(example1)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 2) Play a crescendo, starting at below pp and rising until above
                 ff smoothly.
-                <InsideTextButton onclick="{() => loadData(example2)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
             <p>
                 3) Play a descrescendo from above ff to below pp.
-                <InsideTextButton onclick="{() => loadData(example3)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example3)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -272,18 +284,15 @@
                 4) Play accents, for example on each 4th note. They should be
                 loud enough to be easily distinguishable from the non-accented
                 notes.
-                <InsideTextButton onclick="{() => loadData(example4)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>
-
-<style>
-    div :global(text) {
-        font-size: 12px;
-    }
-</style>

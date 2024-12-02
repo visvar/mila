@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -21,14 +21,15 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import { noteEighth } from '../lib/icons';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    let width = 900;
-    // let height = 600;
+    let windowWidth = window.innerWidth;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let height = 400;
     let container;
     // settings
@@ -40,7 +41,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
-    // let estimatedTempo = 0;
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -48,7 +51,6 @@
         }
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         notes = [...notes, noteInSeconds];
-        draw();
     };
 
     const draw = () => {
@@ -94,10 +96,6 @@
             (d) => d.duration > 0.75 * eighth && d.duration < 1.25 * eighth,
         );
 
-        // TODO: color by distance to closest baseline
-        // const colorByError = (ioi) => {
-        //     return d3.min(rules, (r) => Math.abs((ioi - r) / r));
-        // };
         const plot = Plot.plot({
             width,
             height,
@@ -107,8 +105,6 @@
             style: 'font-size: 24px; font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
                 axis: false,
-                // ticks: [],
-                // label: 'inter-onset times between notes, sorted by time',
             },
             y: {
                 label: null,
@@ -120,19 +116,12 @@
                 domain: [0, half * 1.1],
                 tickSize: 0,
             },
-            // color: {
-            //     scheme: 'Greys',
-            //     legend: true,
-            //     range: [0.2, 1],
-            // },
             marks: [
                 // bars
                 Plot.barY(slicedIois, {
                     x: (d, i) => i,
                     y: (d) => d,
                     fill: '#ddd',
-                    // color by distance to closest baseline
-                    // fill: colorByError,
                     inset: 0,
                     dx: 0.5,
                     ry1: 4,
@@ -155,31 +144,6 @@
         });
         container.textContent = '';
         container.appendChild(plot);
-
-        // tempo estimation
-        // const lastNotes = iois
-        //     .filter((d) => d > 0.8 * sixteenth && d < 1.25 * quarter)
-        //     .slice(-24)
-        //     .map((d) =>
-        //         d < 0.6 * quarter ? d * 2 : d > 1.5 * quarter ? d / 2 : d,
-        //     );
-        // estimatedTempo = secondsPerBeatToBpm(d3.mean(lastNotes));
-
-        // TODO: remove
-        // demo of how it would look with ticks
-        // const notesInBeats = notes.map((d) => d / quarter);
-        // const plot2 = Plot.plot({
-        //     width,
-        //     height: 100,
-        //     x: { label: 'time in beats (quarter notes)' },
-        //     marks: [
-        //         Plot.tickX(notesInBeats, {
-        //             x: (d) => d,
-        //             stroke: '#ddd',
-        //         }),
-        //     ],
-        // });
-        // container.appendChild(plot2);
     };
 
     /**
@@ -206,24 +170,24 @@
         showEighthLine = json.showEighthLine ?? false;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<svelte:window bind:innerWidth="{windowWidth}" />
+
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -242,7 +206,7 @@
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" on:change="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <button
                 title="randomize tempo"
                 on:click="{() => {
@@ -259,10 +223,9 @@
                 label="rounding"
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 <option value="{0}">off</option>
-                {#each BIN_NOTES as g}
+                {#each [16, 32, 64] as g}
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
@@ -270,18 +233,18 @@
                 label="filtering"
                 title="You can filter out notes that are shorter than a given note duration."
                 bind:value="{filterNote}"
-                callback="{draw}"
             >
                 <option value="{0}">off</option>
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
+        </div>
+        <div class="control">
             <NumberInput
                 title="The number of most recent notes that are shown as bars."
                 label="bars"
                 bind:value="{barLimit}"
-                callback="{draw}"
                 step="{25}"
                 min="{25}"
                 max="{1000}"
@@ -290,27 +253,30 @@
                 label="{noteEighth} line"
                 title="Show a line for the (likely) eighth notes' duration over time."
                 bind:checked="{showEighthLine}"
-                callback="{draw}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
-        <!-- {#if estimatedTempo}
-            <div>
-                estimated: {estimatedTempo.toFixed()} bpm (assuming quarter notes)
-            </div>
-        {/if} -->
         <div class="control">
             <MetronomeButton
                 {tempo}
                 accent="{4}"
                 beepCount="{8}"
                 showBeepCountInput
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton
                 bind:notes
+                bind:isPlaying
                 callback="{draw}"
                 allowSound="{false}"
             />
@@ -318,6 +284,7 @@
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -337,14 +304,20 @@
                 randomize tempo button (⚂) to get challenged for a random tempo.
             </p>
         </ExerciseDrawer>
+        <MidiInput
+            {noteOn}
+            pcKeyAllowed
+            disabled="{isDataLoaded || isPlaying}"
+        />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} pcKeyAllowed />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>

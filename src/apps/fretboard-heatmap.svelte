@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
@@ -42,6 +42,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const isInScale = (string, fret, tuningPitches, scaleInfo) => {
         if (!scaleInfo) {
@@ -71,12 +74,9 @@
             channel: e.message.channel,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
-        // TODO: filter notes which are too close together
-        // TODO: filter notes with low velocity
         const data = notes.slice(-pastNoteCount);
         const cellSize = (width - 100) / 25;
 
@@ -147,17 +147,17 @@
                 Plot.cell(aggregated, {
                     x: 'fret',
                     y: 'string',
-                    fill: (d) =>
-                        showScale
-                            ? isInScale(
+                    fill: showScale
+                        ? (d) =>
+                              isInScale(
                                   d.string,
                                   d.fret,
                                   tuningPitches,
                                   scaleInfo,
                               )
-                                ? 'in scale'
-                                : 'not in scale'
-                            : '#222',
+                                  ? 'in scale'
+                                  : 'not in scale'
+                        : '#4e79a7',
                     opacity: 'count',
                     inset: 5,
                     rx: 10,
@@ -179,7 +179,7 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -190,6 +190,7 @@
             showScale,
             scaleRoot,
             scaleType,
+            // data
             notes,
         };
     };
@@ -199,19 +200,18 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        pastNoteCount = json.pastNoteCount;
-        showScale = json.showScale;
-        scaleRoot = json.scaleRoot;
-        scaleType = json.scaleType;
+        pastNoteCount = json.pastNoteCount ?? 200;
+        showScale = json.showScale ?? false;
+        scaleRoot = json.scaleRoot ?? 'C';
+        scaleType = json.scaleType ?? 'major';
+        // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -219,7 +219,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -229,31 +229,41 @@
             played belongs to the scale or not.
         </p>
         <div class="control">
-            <NoteCountInput bind:value="{pastNoteCount}" callback="{draw}" />
+            <NoteCountInput bind:value="{pastNoteCount}" />
             <ToggleButton
                 bind:checked="{showScale}"
                 label="show scale"
                 title="If active, the color hue will show whether notes are in the selected scale or not"
-                callback="{draw}"
             />
             <ScaleSelect
                 bind:scaleRoot
                 bind:scaleType
-                callback="{draw}"
                 bind:scaleInfo
                 disabled="{!showScale}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -268,7 +278,7 @@
                 fretboard.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

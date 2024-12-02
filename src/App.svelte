@@ -3,10 +3,9 @@
   import { getUrlParam, setUrlParam } from './lib/url';
   import { getNumberOfDaysPassed, setHasAny, updSet } from './lib/lib';
   // side bar for skill filtering
-  import SkillTree from './pages/SkillTree.svelte';
+  import SkillTree from './SkillTree.svelte';
   // pages for tools etc
   import Tools from './tools/_tools.svelte';
-  import Settings from './pages/Settings.svelte';
   import Overview from './pages/Overview.svelte';
   import Help from './pages/Help.svelte';
   import Welcome from './pages/Welcome.svelte';
@@ -26,31 +25,27 @@
     currentApp = APPS.filter((d) => d.id === param)[0];
   }
 
-  // access protection (not secure of course)
-  const usePw = true;
-  let corrP = 'milamila';
-  let pwd = localStorage.getItem('pwd') ?? '';
-  $: {
-    localStorage.setItem('pwd', pwd);
-  }
-
-  // allow to go back to main page with history
-  window.onpopstate = (e) => {
-    if (currentApp !== null) {
-      currentApp = null;
+  /**
+   * Opens app/page and updates URL
+   * @param {null|string|object} app
+   */
+  const openPage = (app) => {
+    currentApp = app;
+    if (app) {
+      if (app.id) {
+        setUrlParam(window, 'd', app.id);
+      } else {
+        setUrlParam(window, 'd', app);
+      }
+    } else {
+      setUrlParam(window, 'd', undefined);
     }
+    window.scrollTo({ top: 0 });
   };
 
-  // warn user to not quit window before leaving app
-  window.onbeforeunload = function () {
-    if (
-      currentApp &&
-      !['tools', 'settings', 'overview', 'help', 'welcome'].includes(currentApp)
-    ) {
-      // alert('Please go back to the main page first to prevent data loss');
-      // TODO: warning that data might be lost? now only mentioned in help
-      // return true;
-    }
+  // allow to go back to main page with history
+  window.onpopstate = () => {
+    openPage();
   };
 
   // track how often and when each app is used
@@ -138,9 +133,6 @@
     }
   });
 
-  // allow to reset current tool with tools button
-  let currentTool = null;
-
   // row layout?
   let rows = localStorage.getItem('display-app-rows') === 'true' || false;
 </script>
@@ -149,58 +141,14 @@
   <header>
     <h1>Musical Instrument Learning Apps</h1>
     <nav>
-      <!-- main page button -->
-      <button
-        on:click="{() => {
-          currentApp = null;
-          setUrlParam(window, 'd', '');
-        }}"
-      >
-        ☰ apps
-      </button>
-      <!-- Tools page button -->
-      <button
-        on:click="{() => {
-          currentApp = 'tools';
-          currentTool = null;
-          setUrlParam(window, 'd', 'tools');
-        }}"
-      >
-        🛠️ tools
-      </button>
-      <!-- Settings page button -->
-      <button
-        on:click="{() => {
-          currentApp = 'settings';
-          setUrlParam(window, 'd', 'settings');
-        }}"
-      >
-        ⚙️ settings
-      </button>
-      <!-- Help page button -->
-      <button
-        on:click="{() => {
-          currentApp = 'help';
-          setUrlParam(window, 'd', 'help');
-        }}"
-      >
-        ❓ help
-      </button>
-      <!-- Welcome page button -->
-      <!-- <button
-        on:click="{() => {
-          currentApp = 'welcome';
-          setUrlParam(window, 'd', 'welcome');
-        }}"
-      >
-        👋 welcome
-      </button> -->
+      <button on:click="{() => openPage()}"> ☰ apps </button>
+      <button on:click="{() => openPage('tools')}"> 🛠️ tools </button>
+      <button on:click="{() => openPage('help')}"> ❓ help </button>
+      <!-- <button on:click="{openPage('welcome')}"> 👋 welcome </button> -->
     </nav>
   </header>
 
-  {#if usePw && pwd !== corrP}
-    <input type="password" placeholder="password" bind:value="{pwd}" />
-  {:else if !currentApp}
+  {#if !currentApp}
     <div class="grid-filter-app">
       <!-- filter -->
       <div class="filter">
@@ -289,7 +237,7 @@
       <div class="grid {rows ? 'rows' : ''}">
         <!-- current filters -->
         {#if currentSearch !== '' || currentSkills.size === 1 || currentInstruments.size < allInstruments.size || currentDifficulties.size < allDifficulties.size || currentInputs.size < allInputs.size}
-          <div class="current-filters">
+          <div class="current-filters" transition:fade>
             current filters:
             {#if currentSearch !== ''}
               <button
@@ -349,14 +297,7 @@
         {#each sortedApps as app (app.id)}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div
-            class="card"
-            on:click="{() => {
-              currentApp = app;
-              setUrlParam(window, 'd', app.id);
-            }}"
-            transition:fade
-          >
+          <div class="card" on:click="{() => openPage(app)}" transition:fade>
             <h2>
               {app.title}
               {#if !appUsageCount.get(app.id)}
@@ -382,9 +323,7 @@
       </div>
     </div>
   {:else if currentApp === 'tools'}
-    <Tools bind:currentTool {rows} />
-  {:else if currentApp === 'settings'}
-    <Settings />
+    <Tools {rows} />
   {:else if currentApp === 'overview'}
     <Overview apps="{APPS}" {allData} {allPatterns} />
   {:else if currentApp === 'help'}
@@ -412,10 +351,7 @@
     <span>version {version}</span>
     <!-- appOverview page button -->
     <button
-      on:click="{() => {
-        currentApp = 'overview';
-        setUrlParam(window, 'd', 'overview');
-      }}"
+      on:click="{() => openPage('overview')}"
       style="background: none; color: #aaa; font-weight: normal"
     >
       app overview

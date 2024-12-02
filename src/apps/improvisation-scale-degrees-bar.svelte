@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Scale } from 'tonal';
@@ -14,7 +14,7 @@
   import ExerciseDrawer from '../common/exercise-drawer.svelte';
   import RatingButton from '../common/input-elements/rating-button.svelte';
   import ScaleSelect from '../common/input-elements/scale-select.svelte';
-  import { NOTE_TO_CHROMA_MAP } from '../lib/music';
+  import { MIDI_SHARPS, NOTE_TO_CHROMA_MAP } from '../lib/music';
   import example from '../example-recordings/improvisation-scale-degrees-bar.json';
   import ToggleButton from '../common/input-elements/toggle-button.svelte';
   import FileDropTarget from '../common/file-drop-target.svelte';
@@ -24,7 +24,8 @@
    */
   export let appInfo;
 
-  let width = 900;
+  $: width =
+    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
   let height = 350;
   let container;
   const rootColor = '#1B5E20';
@@ -42,6 +43,9 @@
   // domain knowledge
   // const noteNames = Midi.NOTE_NAMES_FLAT;
   const noteNames = Midi.NOTE_NAMES;
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -49,12 +53,12 @@
     }
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
     const note = {
+      name: e.note.name + (e.note.accidental ?? ''),
       number: e.note.number,
       velocity: e.rawVelocity,
       time: noteInSeconds,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -127,7 +131,7 @@
         domain: showOutsideScale ? d3.range(0, 12, 1) : [...scaleOffsets],
         reverse: true,
         label: 'notes, increasing from tonic 🡺',
-        grid: true,
+        // grid: true,
       },
       fx: {
         label: null,
@@ -142,6 +146,13 @@
           anchor: 'right',
           tickFormat: (d) => noteNames[(d + rootNr) % 12],
         }),
+        Plot.ruleY(
+          MIDI_SHARPS.map((d) => (d - rootNr + 12) % 12),
+          {
+            stroke: '#eee',
+            strokeWidth: 20,
+          },
+        ),
         // bar line
         Plot.ruleX([0], { strokeWidth: 2, stroke: 'darkgray' }),
         Plot.waffleX(data, {
@@ -173,7 +184,7 @@
     container.appendChild(plot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -197,19 +208,17 @@
     saveToStorage();
     root = json.root;
     scale = json.scale;
-    useColors = json.useColors;
-    showOutsideScale = json.showOutsideScale;
-    tempo = json.tempo;
+    useColors = json.useColors ?? true;
+    showOutsideScale = json.showOutsideScale ?? true;
+    tempo = json.tempo ?? 120;
     // data
     notes = json.notes;
-    draw();
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -217,7 +226,7 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
@@ -225,52 +234,47 @@
       bar chart below shows how often you played each scale degree.
     </p>
     <div class="control">
-      <ScaleSelect
-        bind:scaleRoot="{root}"
-        bind:scaleType="{scale}"
-        callback="{draw}"
-      />
+      <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
     </div>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" />
       <ToggleButton
         label="colors"
         title="Use colors for root, in-scale, outside-scale"
         bind:checked="{useColors}"
-        callback="{draw}"
       />
       <ToggleButton
         label="non-scale notes"
         title="Show notes outside the scale"
         bind:checked="{showOutsideScale}"
-        callback="{draw}"
       />
-      <!-- <label
-            title="You can filter out bars that are shorter than a given note duration."
-        >
-            filtering
-            <select bind:value="{filterNote}" on:change="{draw}">
-                <option value="{0}">off</option>
-                {#each [16, 32, 64, 128] as g}
-                    <option value="{g}">1/{g} note</option>
-                {/each}
-            </select>
-        </label> -->
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <MetronomeButton {tempo} accent="{4}" />
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>1) Improvise in A minor pentatonic.</p>
       <p>2) Improvise in a scale you did not know before.</p>
       <p>3) Try to change the key, for example in every fourth bar.</p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} pcKeyAllowed />
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

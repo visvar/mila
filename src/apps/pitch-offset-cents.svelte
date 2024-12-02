@@ -19,7 +19,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let height = 500;
     let container;
     let analyserNode;
@@ -156,6 +157,7 @@
         firstTimeStamp = json.firstTimeStamp;
         minVolumeDecibels = json.minVolumeDecibels;
         colorArea = json.colorArea ?? false;
+        // data
         bendValues = json.bendValues;
         draw();
     };

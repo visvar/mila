@@ -5,17 +5,18 @@
 
   color-scheme: light;
   color: #213547;
-  background-color: #ffffff;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* variables */
   --accent: #daecfb;
   --accentDark: #add2f1;
-
-  --home-app-columns: 5
+  --error: #e3bca2;
+  --home-app-columns: 6
 }
 
 a {
@@ -39,7 +40,6 @@ body {
 
 #app {
   width: 100%;
-  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 0 repeat(3, 10px);
   text-align: center;
@@ -59,12 +59,17 @@ header nav {
   font-family: Inter, system-ui, Avenir, Arial, sans-serif;
 }
 
+header nav button {
+  /* make icon colors geay to be more subtle */
+  filter: grayscale();
+}
+
 h1,
 h2,
 h3,
 h4,
 h5 {
-  color: #3c4c5a;
+  color: #465969;
   user-select: none;
 }
 
@@ -99,6 +104,12 @@ select {
   transition: all 300ms;
 }
 
+button.primary,
+input.primary,
+select.primary {
+  background-color: var(--accent);
+}
+
 button:hover,
 input:hover,
 select:hover {
@@ -122,7 +133,6 @@ button,
 label {
   user-select: none;
 }
-
 
 svg text {
   user-select: none;
@@ -194,7 +204,7 @@ div.grid {
   padding: 0 10px;
   display: grid;
   grid-template-columns: repeat(var(--home-app-columns), auto);
-  gap: 18px;
+  gap: 20px;
   align-content: start;
   justify-content: start;
 }
@@ -204,9 +214,9 @@ div.current-filters {
 }
 
 div.card {
-  padding: 15px 20px;
-  width: 290px;
-  height: 185px;
+  padding: 15px 25px;
+  width: 280px;
+  height: 200px;
   background-color: #fefefe;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -222,21 +232,21 @@ div.card:hover {
 }
 
 div.card h2 {
-  margin-top: 0;
-  min-height: 50px;
-  font-size: 16px;
+  margin: 0;
+  min-height: 55px;
+  font-size: 18px;
 }
 
 div.card .description {
-  margin-bottom: 3px;
-  /* text-align: justify; */
+  margin-bottom: 4px;
   height: 80px;
 }
 
 div.card .usage {
-  margin-bottom: 3px;
-  font-size: 12px;
+  margin-bottom: 6px;
+  font-size: 14px;
   height: 18px;
+  color: #666;
 }
 
 div.card .tags {
@@ -303,7 +313,6 @@ p.explanation {
   max-width: 850px;
   margin: auto;
   text-align: justify;
-  user-select: none;
 }
 
 
@@ -317,6 +326,13 @@ code {
   user-select: none;
 }
 
+
+/* medium desktop style */
+@media only screen and (max-width: 2500px) {
+  :root {
+    --home-app-columns: 5
+  }
+}
 
 /* small desktop style */
 @media only screen and (max-width: 2100px) {

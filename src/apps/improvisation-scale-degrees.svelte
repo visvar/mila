@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Scale } from 'tonal';
@@ -22,7 +22,8 @@
    */
   export let appInfo;
 
-  let width = 900;
+  $: width =
+    window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
   // let height = 500;
   let height = 300;
   let container;
@@ -46,20 +47,21 @@
     }
     const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
     const note = {
+      name: e.note.name + (e.note.accidental ?? ''),
       number: e.note.number,
       velocity: e.rawVelocity,
       time: noteInSeconds,
     };
     notes = [...notes, note];
-    draw();
   };
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const draw = () => {
     if (notes.length === 0) {
       return;
     }
-    // TODO: filter notes which are too close together
-    // TODO: filter notes with low velocity
     // MIDI nr (0 to 11) of the scale root
     const rootNr = noteNames.indexOf(root);
     const scaleInfo = Scale.get(`${root} ${scale}`);
@@ -138,7 +140,7 @@
     container.appendChild(plot);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -161,18 +163,16 @@
     saveToStorage();
     root = json.root;
     scale = json.scale;
-    useColors = json.useColors;
-    showOutsideScale = json.showOutsideScale;
+    useColors = json.useColors ?? true;
+    showOutsideScale = json.showOutsideScale ?? true;
     // data
     notes = json.notes;
-    draw();
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -180,7 +180,7 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
@@ -188,38 +188,44 @@
       bar chart below shows how often you played each scale degree.
     </p>
     <div class="control">
-      <ScaleSelect
-        bind:scaleRoot="{root}"
-        bind:scaleType="{scale}"
-        callback="{draw}"
-      />
+      <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
     </div>
     <div class="control">
       <ToggleButton
         label="colors"
         title="Use colors for root, in-scale, outside-scale"
         bind:checked="{useColors}"
-        callback="{draw}"
       />
       <ToggleButton
         label="non-scale notes"
         title="Show notes outside the scale"
         bind:checked="{showOutsideScale}"
-        callback="{draw}"
       />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>1) Improvise in A minor pentatonic.</p>
       <p>2) Improvise in a scale you did not know before.</p>
     </ExerciseDrawer>
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
-    <MidiInput {noteOn} pcKeyAllowed />
   </main>
 </FileDropTarget>

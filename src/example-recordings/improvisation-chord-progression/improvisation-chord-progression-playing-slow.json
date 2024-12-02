@@ -1,0 +1,1900 @@
+{
+  "root": "C",
+  "scaleType": "major",
+  "chordProgLabel": "ii V I (2-5-1) 7th",
+  "barCount": 50,
+  "maxNoteDistance": 0.1,
+  "minDuration": 0.2,
+  "showNoteTypePlot": true,
+  "showRhythmPlot": true,
+  "showChromaPlot": true,
+  "showChordPlot": false,
+  "showDurationPlot": false,
+  "showPianoRoll": false,
+  "notes": [
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 1.458,
+      "channel": 4,
+      "duration": 0.3660000000000001,
+      "end": 1.824
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 2.18,
+      "channel": 3,
+      "duration": 0.020099999964236837,
+      "end": 2.200099999964237
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.9921259842519685,
+      "time": 2.198,
+      "channel": 3,
+      "duration": 0.30699999999999994,
+      "end": 2.505
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 2.518099999964237,
+      "channel": 3,
+      "duration": 0.015000000000000124,
+      "end": 2.533099999964237
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.9921259842519685,
+      "time": 2.530099999964237,
+      "channel": 3,
+      "duration": 1.597900000035763,
+      "end": 4.128
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.984251968503937,
+      "time": 4.153099999964237,
+      "channel": 3,
+      "duration": 1.2530000000000001,
+      "end": 5.406099999964237
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 5.442099999964237,
+      "channel": 4,
+      "duration": 1.6319000000357624,
+      "end": 7.074
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 7.0910999999642375,
+      "channel": 4,
+      "duration": 0.011900000035762304,
+      "end": 7.103
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 7.102099999964238,
+      "channel": 4,
+      "duration": 0.2909000000357622,
+      "end": 7.393
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.7401574803149606,
+      "time": 7.432,
+      "channel": 4,
+      "duration": 0.3260999999642369,
+      "end": 7.758099999964237
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.07874015748031496,
+      "time": 7.771,
+      "channel": 2,
+      "duration": 0.20199999999999996,
+      "end": 7.973
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 7.779099999964237,
+      "channel": 3,
+      "duration": 1.6469999999999994,
+      "end": 9.426099999964237
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 9.439,
+      "channel": 4,
+      "duration": 0.641,
+      "end": 10.08
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 10.103,
+      "channel": 3,
+      "duration": 0.021000000000000796,
+      "end": 10.124
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 10.121099999964237,
+      "channel": 3,
+      "duration": 0.6319999999999997,
+      "end": 10.753099999964236
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 10.758099999964237,
+      "channel": 3,
+      "duration": 0.016900000035763085,
+      "end": 10.775
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 10.772,
+      "channel": 3,
+      "duration": 1.3559999999999999,
+      "end": 12.128
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 12.132099999964238,
+      "channel": 3,
+      "duration": 0.00890000003576219,
+      "end": 12.141
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 12.139,
+      "channel": 3,
+      "duration": 1.3210000000000015,
+      "end": 13.46
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.18110236220472442,
+      "time": 13.423099999964236,
+      "channel": 4,
+      "duration": 0.057900000035763455,
+      "end": 13.481
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 1,
+      "time": 13.485099999964238,
+      "channel": 4,
+      "duration": 0.018900000035761977,
+      "end": 13.504
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 13.502,
+      "channel": 4,
+      "duration": 1.2630999999642363,
+      "end": 14.765099999964237
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 14.786099999964238,
+      "channel": 4,
+      "duration": 0.02190000003576209,
+      "end": 14.808
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 14.806,
+      "channel": 4,
+      "duration": 0.3230000000000004,
+      "end": 15.129
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 1,
+      "time": 15.140099999964237,
+      "channel": 4,
+      "duration": 0.018900000035763753,
+      "end": 15.159
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 15.155,
+      "channel": 4,
+      "duration": 0.27800000000000047,
+      "end": 15.433
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 15.49,
+      "channel": 3,
+      "duration": 0.016000000000000014,
+      "end": 15.506
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 15.504099999964238,
+      "channel": 3,
+      "duration": 0.23690000003576195,
+      "end": 15.741
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.9763779527559056,
+      "time": 15.734099999964236,
+      "channel": 3,
+      "duration": 0.03300000000000125,
+      "end": 15.767099999964238
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.905511811023622,
+      "time": 15.764,
+      "channel": 3,
+      "duration": 0.018000000000000682,
+      "end": 15.782
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 15.807099999964237,
+      "channel": 3,
+      "duration": 0.32290000003576225,
+      "end": 16.13
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 16.149099999964236,
+      "channel": 3,
+      "duration": 0.010000000000001563,
+      "end": 16.159099999964237
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 16.154099999964238,
+      "channel": 3,
+      "duration": 1.6159999999999997,
+      "end": 17.770099999964238
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 17.773099999964238,
+      "channel": 3,
+      "duration": 0.03999999999999915,
+      "end": 17.813099999964237
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.952755905511811,
+      "time": 17.81,
+      "channel": 3,
+      "duration": 0.31009999996423687,
+      "end": 18.120099999964236
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 18.133099999964237,
+      "channel": 3,
+      "duration": 0.014900000035762417,
+      "end": 18.148
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 18.143,
+      "channel": 3,
+      "duration": 0.2950999999642363,
+      "end": 18.438099999964237
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.937007874015748,
+      "time": 18.452,
+      "channel": 3,
+      "duration": 1.6429999999999971,
+      "end": 20.095
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 20.1,
+      "channel": 3,
+      "duration": 0.007099999964236048,
+      "end": 20.107099999964237
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 20.104,
+      "channel": 3,
+      "duration": 0.2789999999999999,
+      "end": 20.383
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 1,
+      "time": 20.452,
+      "channel": 2,
+      "duration": 0.01709999996423406,
+      "end": 20.469099999964236
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 1,
+      "time": 20.466099999964236,
+      "channel": 2,
+      "duration": 0.2789999999999999,
+      "end": 20.745099999964236
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 1,
+      "time": 20.789099999964236,
+      "channel": 2,
+      "duration": 0.015000000000000568,
+      "end": 20.804099999964237
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 1,
+      "time": 20.801099999964237,
+      "channel": 2,
+      "duration": 0.26200000000000045,
+      "end": 21.063099999964237
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 1,
+      "time": 21.12,
+      "channel": 2,
+      "duration": 0.018000000000000682,
+      "end": 21.138
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 1,
+      "time": 21.133099999964237,
+      "channel": 2,
+      "duration": 0.29299999999999926,
+      "end": 21.426099999964237
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 1,
+      "time": 21.462,
+      "channel": 2,
+      "duration": 0.00809999996423727,
+      "end": 21.470099999964237
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 1,
+      "time": 21.466099999964236,
+      "channel": 2,
+      "duration": 0.2789000000357653,
+      "end": 21.745
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 1,
+      "time": 21.803,
+      "channel": 1,
+      "duration": 0.34809999996423713,
+      "end": 22.151099999964238
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 1,
+      "time": 22.135,
+      "channel": 2,
+      "duration": 0.27809999996423684,
+      "end": 22.41309999996424
+    },
+    {
+      "name": "C",
+      "number": 72,
+      "velocity": 0.7637795275590551,
+      "time": 22.148,
+      "channel": 1,
+      "duration": 0.07700000000000173,
+      "end": 22.225
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.7716535433070866,
+      "time": 22.446099999964236,
+      "channel": 2,
+      "duration": 0.3429000000357654,
+      "end": 22.789
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 1,
+      "time": 22.798,
+      "channel": 2,
+      "duration": 0.00809999996423727,
+      "end": 22.806099999964236
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 1,
+      "time": 22.802099999964238,
+      "channel": 2,
+      "duration": 0.6419000000357613,
+      "end": 23.444
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 1,
+      "time": 23.452099999964236,
+      "channel": 2,
+      "duration": 0.019999999999999574,
+      "end": 23.472099999964236
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 1,
+      "time": 23.468099999964238,
+      "channel": 2,
+      "duration": 0.27890000003576176,
+      "end": 23.747
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.84251968503937,
+      "time": 23.81,
+      "channel": 2,
+      "duration": 0.3160000000000025,
+      "end": 24.126
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.33858267716535434,
+      "time": 24.092,
+      "channel": 3,
+      "duration": 0.046099999964237526,
+      "end": 24.138099999964236
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7401574803149606,
+      "time": 24.14,
+      "channel": 3,
+      "duration": 0.6840999999642356,
+      "end": 24.824099999964236
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.9606299212598425,
+      "time": 24.826,
+      "channel": 3,
+      "duration": 0.995000000000001,
+      "end": 25.821
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 1,
+      "time": 25.825099999964237,
+      "channel": 3,
+      "duration": 0.012999999999998124,
+      "end": 25.838099999964236
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 1,
+      "time": 25.834099999964238,
+      "channel": 3,
+      "duration": 0.2339000000357636,
+      "end": 26.068
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.889763779527559,
+      "time": 26.066099999964237,
+      "channel": 3,
+      "duration": 0.045900000035761224,
+      "end": 26.112
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8582677165354331,
+      "time": 26.110099999964238,
+      "channel": 3,
+      "duration": 0.0329000000357631,
+      "end": 26.143
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 26.149,
+      "channel": 3,
+      "duration": 0.00999999999999801,
+      "end": 26.159
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 26.153099999964237,
+      "channel": 3,
+      "duration": 0.279900000035763,
+      "end": 26.433
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.905511811023622,
+      "time": 26.479099999964237,
+      "channel": 3,
+      "duration": 0.2589000000357622,
+      "end": 26.738
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7952755905511811,
+      "time": 26.734,
+      "channel": 3,
+      "duration": 0.01809999996423528,
+      "end": 26.752099999964237
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 26.79109999996424,
+      "channel": 3,
+      "duration": 0.09090000003576293,
+      "end": 26.882
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 26.880099999964237,
+      "channel": 3,
+      "duration": 0.17800000000000082,
+      "end": 27.058099999964238
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.9763779527559056,
+      "time": 27.053,
+      "channel": 3,
+      "duration": 0.047999999999998266,
+      "end": 27.101
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 27.127,
+      "channel": 3,
+      "duration": 0.01699999999999946,
+      "end": 27.144
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 27.142,
+      "channel": 3,
+      "duration": 0.24909999996423693,
+      "end": 27.391099999964236
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.8582677165354331,
+      "time": 27.38709999996424,
+      "channel": 3,
+      "duration": 0.0329999999999977,
+      "end": 27.420099999964236
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.937007874015748,
+      "time": 27.483,
+      "channel": 3,
+      "duration": 0.3710999999642368,
+      "end": 27.854099999964237
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.18110236220472442,
+      "time": 27.813,
+      "channel": 4,
+      "duration": 0.05209999996423775,
+      "end": 27.865099999964237
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 27.87,
+      "channel": 4,
+      "duration": 4.630099999964234,
+      "end": 32.500099999964235
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.889763779527559,
+      "time": 32.122,
+      "channel": 5,
+      "duration": 2.658999999999999,
+      "end": 34.781
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.9133858267716536,
+      "time": 34.78409999996424,
+      "channel": 5,
+      "duration": 0.1389999999999958,
+      "end": 34.923099999964236
+    },
+    {
+      "name": "C#",
+      "number": 49,
+      "velocity": 0.8110236220472441,
+      "time": 34.919,
+      "channel": 5,
+      "duration": 0.029099999964238066,
+      "end": 34.948099999964235
+    },
+    {
+      "name": "C",
+      "number": 48,
+      "velocity": 0.7952755905511811,
+      "time": 34.94609999996424,
+      "channel": 5,
+      "duration": 1.1809000000357628,
+      "end": 36.127
+    },
+    {
+      "name": "F",
+      "number": 77,
+      "velocity": 0.07874015748031496,
+      "time": 36.095,
+      "channel": 4,
+      "duration": 0.01709999996423761,
+      "end": 36.11209999996424
+    },
+    {
+      "name": "E",
+      "number": 76,
+      "velocity": 0.07874015748031496,
+      "time": 36.109099999964236,
+      "channel": 4,
+      "duration": 0.03390000003576432,
+      "end": 36.143
+    },
+    {
+      "name": "D#",
+      "number": 75,
+      "velocity": 0.07874015748031496,
+      "time": 36.140099999964235,
+      "channel": 4,
+      "duration": 0.0039000000357631848,
+      "end": 36.144
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 36.146,
+      "channel": 4,
+      "duration": 0.08099999999999596,
+      "end": 36.227
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 36.22409999996424,
+      "channel": 4,
+      "duration": 0.16390000003575977,
+      "end": 36.388
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 36.385,
+      "channel": 4,
+      "duration": 1.0030000000000001,
+      "end": 37.388
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 0.952755905511811,
+      "time": 37.38609999996424,
+      "channel": 4,
+      "duration": 0.04390000003576233,
+      "end": 37.43
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 37.451,
+      "channel": 4,
+      "duration": 0.027000000000001023,
+      "end": 37.478
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 37.473,
+      "channel": 4,
+      "duration": 3.0000999999642417,
+      "end": 40.47309999996424
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 40.476099999964234,
+      "channel": 4,
+      "duration": 0.018900000035763753,
+      "end": 40.495
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 40.492,
+      "channel": 4,
+      "duration": 0.2950000000000017,
+      "end": 40.787
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.6929133858267716,
+      "time": 40.833,
+      "channel": 4,
+      "duration": 0.2839999999999989,
+      "end": 41.117
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.7165354330708661,
+      "time": 41.16909999996424,
+      "channel": 3,
+      "duration": 0.6589999999999989,
+      "end": 41.82809999996424
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7401574803149606,
+      "time": 41.831,
+      "channel": 3,
+      "duration": 0.6219999999999999,
+      "end": 42.453
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.6456692913385826,
+      "time": 42.475099999964236,
+      "channel": 3,
+      "duration": 0.2679000000357661,
+      "end": 42.743
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6220472440944882,
+      "time": 42.741,
+      "channel": 3,
+      "duration": 0.05100000000000193,
+      "end": 42.792
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7401574803149606,
+      "time": 42.794,
+      "channel": 3,
+      "duration": 0.3410999999642428,
+      "end": 43.13509999996424
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6929133858267716,
+      "time": 43.138,
+      "channel": 3,
+      "duration": 0.142000000000003,
+      "end": 43.28
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.6456692913385826,
+      "time": 43.27609999996424,
+      "channel": 3,
+      "duration": 0.14990000003576398,
+      "end": 43.426
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6062992125984252,
+      "time": 43.421099999964234,
+      "channel": 3,
+      "duration": 0.061900000035763014,
+      "end": 43.483
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7401574803149606,
+      "time": 43.49309999996424,
+      "channel": 3,
+      "duration": 0.27990000003576654,
+      "end": 43.773
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.5905511811023622,
+      "time": 43.771099999964235,
+      "channel": 3,
+      "duration": 0.030000000000001137,
+      "end": 43.80109999996424
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.905511811023622,
+      "time": 43.829099999964235,
+      "channel": 3,
+      "duration": 0.017900000035766084,
+      "end": 43.847
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.905511811023622,
+      "time": 43.843,
+      "channel": 3,
+      "duration": 1.0050999999642372,
+      "end": 44.84809999996424
+    },
+    {
+      "name": "F#",
+      "number": 66,
+      "velocity": 0.07874015748031496,
+      "time": 44.792099999964236,
+      "channel": 2,
+      "duration": 0.054999999999999716,
+      "end": 44.847099999964236
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 0.937007874015748,
+      "time": 44.88009999996424,
+      "channel": 2,
+      "duration": 0.33200000000000074,
+      "end": 45.21209999996424
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8976377952755905,
+      "time": 45.201099999964235,
+      "channel": 3,
+      "duration": 1.9389000000357655,
+      "end": 47.14
+    },
+    {
+      "name": "C",
+      "number": 72,
+      "velocity": 0.905511811023622,
+      "time": 47.168099999964234,
+      "channel": 1,
+      "duration": 0.6110000000000042,
+      "end": 47.77909999996424
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 0.9921259842519685,
+      "time": 47.79109999996424,
+      "channel": 2,
+      "duration": 0.01690000003576131,
+      "end": 47.808
+    },
+    {
+      "name": "G",
+      "number": 67,
+      "velocity": 0.9763779527559056,
+      "time": 47.808,
+      "channel": 2,
+      "duration": 0.6250999999642346,
+      "end": 48.433099999964234
+    },
+    {
+      "name": "F#",
+      "number": 66,
+      "velocity": 0.7559055118110236,
+      "time": 48.43109999996424,
+      "channel": 2,
+      "duration": 0.028999999999996362,
+      "end": 48.460099999964235
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.7480314960629921,
+      "time": 48.457099999964235,
+      "channel": 2,
+      "duration": 0.018900000035763753,
+      "end": 48.476
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.7322834645669292,
+      "time": 48.501,
+      "channel": 2,
+      "duration": 0.35200000000000387,
+      "end": 48.853
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7086614173228346,
+      "time": 48.831,
+      "channel": 3,
+      "duration": 0.2990999999642341,
+      "end": 49.13009999996424
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.5433070866141733,
+      "time": 49.12709999996424,
+      "channel": 3,
+      "duration": 0.04390000003576233,
+      "end": 49.171
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.6614173228346457,
+      "time": 49.17809999996424,
+      "channel": 3,
+      "duration": 0.35600000000000165,
+      "end": 49.53409999996424
+    },
+    {
+      "name": "A#",
+      "number": 82,
+      "velocity": 0.47244094488188976,
+      "time": 49.53209999996424,
+      "channel": 3,
+      "duration": 0.007900000035760968,
+      "end": 49.54
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.889763779527559,
+      "time": 49.547,
+      "channel": 3,
+      "duration": 0.6830999999642415,
+      "end": 50.23009999996424
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 1,
+      "time": 50.21709999996424,
+      "channel": 4,
+      "duration": 0.013900000035761195,
+      "end": 50.231
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 50.228,
+      "channel": 4,
+      "duration": 0.28000000000000114,
+      "end": 50.508
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.9133858267716536,
+      "time": 50.53409999996424,
+      "channel": 3,
+      "duration": 0.017999999999993577,
+      "end": 50.552099999964234
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.952755905511811,
+      "time": 50.549,
+      "channel": 3,
+      "duration": 1.8610999999642388,
+      "end": 52.41009999996424
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 52.472,
+      "channel": 4,
+      "duration": 0.12299999999999756,
+      "end": 52.595
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.9212598425196851,
+      "time": 52.593,
+      "channel": 4,
+      "duration": 0.1489999999999938,
+      "end": 52.742
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.7086614173228346,
+      "time": 52.78109999996424,
+      "channel": 3,
+      "duration": 0.134999999999998,
+      "end": 52.91609999996424
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.6850393700787402,
+      "time": 52.914,
+      "channel": 3,
+      "duration": 0.015999999999998238,
+      "end": 52.93
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.984251968503937,
+      "time": 53.082,
+      "channel": 3,
+      "duration": 0.009000000000000341,
+      "end": 53.091
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 1,
+      "time": 53.087,
+      "channel": 3,
+      "duration": 0.08899999999999864,
+      "end": 53.176
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.9448818897637795,
+      "time": 53.173099999964236,
+      "channel": 3,
+      "duration": 0.03399999999999892,
+      "end": 53.207099999964235
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.9133858267716536,
+      "time": 53.20309999996424,
+      "channel": 3,
+      "duration": 1.6649999999999991,
+      "end": 54.86809999996424
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.9133858267716536,
+      "time": 54.872,
+      "channel": 3,
+      "duration": 0.32200000000000273,
+      "end": 55.194
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.7716535433070866,
+      "time": 55.191,
+      "channel": 3,
+      "duration": 0.030999999999998806,
+      "end": 55.222
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.7559055118110236,
+      "time": 55.22,
+      "channel": 3,
+      "duration": 0.23709999996423647,
+      "end": 55.457099999964235
+    },
+    {
+      "name": "F#",
+      "number": 66,
+      "velocity": 0.18110236220472442,
+      "time": 55.43809999996424,
+      "channel": 2,
+      "duration": 0.09390000003575949,
+      "end": 55.532
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.6692913385826772,
+      "time": 55.45209999996424,
+      "channel": 3,
+      "duration": 0.03399999999999892,
+      "end": 55.48609999996424
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.6456692913385826,
+      "time": 55.48009999996424,
+      "channel": 3,
+      "duration": 0.03390000003576432,
+      "end": 55.514
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8031496062992126,
+      "time": 55.511,
+      "channel": 3,
+      "duration": 0.0030000000000001137,
+      "end": 55.514
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8188976377952756,
+      "time": 55.52,
+      "channel": 3,
+      "duration": 0.2979999999999947,
+      "end": 55.818
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.5905511811023622,
+      "time": 55.815,
+      "channel": 3,
+      "duration": 0.019000000000005457,
+      "end": 55.834
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.6299212598425197,
+      "time": 55.846,
+      "channel": 3,
+      "duration": 2.962099999964238,
+      "end": 58.808099999964234
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.18110236220472442,
+      "time": 58.76009999996424,
+      "channel": 4,
+      "duration": 0.06690000003575847,
+      "end": 58.827
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.6771653543307087,
+      "time": 58.83109999996424,
+      "channel": 4,
+      "duration": 1.0799000000357637,
+      "end": 59.911
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.07874015748031496,
+      "time": 59.902,
+      "channel": 3,
+      "duration": 0.1109999999999971,
+      "end": 60.013
+    },
+    {
+      "name": "F",
+      "number": 65,
+      "velocity": 0.07874015748031496,
+      "time": 59.906,
+      "channel": 2,
+      "duration": 0.020000000000003126,
+      "end": 59.926
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.5905511811023622,
+      "time": 59.90909999996424,
+      "channel": 4,
+      "duration": 3.193900000035761,
+      "end": 63.103
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.07874015748031496,
+      "time": 59.92209999996424,
+      "channel": 2,
+      "duration": 0.03499999999999659,
+      "end": 59.957099999964235
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.44881889763779526,
+      "time": 63.219,
+      "channel": 5,
+      "duration": 0.11509999996423659,
+      "end": 63.33409999996424
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.41732283464566927,
+      "time": 63.33109999996424,
+      "channel": 5,
+      "duration": 0.1489000000357592,
+      "end": 63.48
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.07874015748031496,
+      "time": 63.42609999996424,
+      "channel": 4,
+      "duration": 0.09100000000000108,
+      "end": 63.51709999996424
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.7322834645669292,
+      "time": 63.522,
+      "channel": 4,
+      "duration": 0.30700000000000216,
+      "end": 63.829
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.18110236220472442,
+      "time": 63.732,
+      "channel": 5,
+      "duration": 0.06509999996423943,
+      "end": 63.79709999996424
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.6062992125984252,
+      "time": 63.818,
+      "channel": 5,
+      "duration": 0.3440999999642429,
+      "end": 64.16209999996424
+    },
+    {
+      "name": "F",
+      "number": 53,
+      "velocity": 0.07874015748031496,
+      "time": 64.12209999996423,
+      "channel": 6,
+      "duration": 0.026900000035766425,
+      "end": 64.149
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.07874015748031496,
+      "time": 64.14609999996424,
+      "channel": 6,
+      "duration": 0.00390000003577029,
+      "end": 64.15
+    },
+    {
+      "name": "C",
+      "number": 48,
+      "velocity": 0.905511811023622,
+      "time": 64.156,
+      "channel": 6,
+      "duration": 1.6460000000000008,
+      "end": 65.802
+    },
+    {
+      "name": "C#",
+      "number": 49,
+      "velocity": 0.6929133858267716,
+      "time": 65.798,
+      "channel": 6,
+      "duration": 0.06199999999999761,
+      "end": 65.86
+    },
+    {
+      "name": "C",
+      "number": 48,
+      "velocity": 0.6850393700787402,
+      "time": 65.856,
+      "channel": 6,
+      "duration": 0.33809999996424267,
+      "end": 66.19409999996424
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.07874015748031496,
+      "time": 66.13409999996423,
+      "channel": 5,
+      "duration": 0.05290000003576267,
+      "end": 66.187
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.5984251968503937,
+      "time": 66.19009999996423,
+      "channel": 5,
+      "duration": 0.3230000000000075,
+      "end": 66.51309999996424
+    },
+    {
+      "name": "D#",
+      "number": 51,
+      "velocity": 0.48031496062992124,
+      "time": 66.51,
+      "channel": 5,
+      "duration": 0.028999999999996362,
+      "end": 66.539
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.47244094488188976,
+      "time": 66.536,
+      "channel": 5,
+      "duration": 1.9519999999999982,
+      "end": 68.488
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.6062992125984252,
+      "time": 68.502,
+      "channel": 5,
+      "duration": 0.30400000000000205,
+      "end": 68.806
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.6614173228346457,
+      "time": 68.82609999996424,
+      "channel": 5,
+      "duration": 0.2849999999999966,
+      "end": 69.11109999996424
+    },
+    {
+      "name": "D",
+      "number": 74,
+      "velocity": 0.07874015748031496,
+      "time": 69.08009999996423,
+      "channel": 4,
+      "duration": 0.055999999999997385,
+      "end": 69.13609999996423
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 69.14,
+      "channel": 4,
+      "duration": 1.0140999999642304,
+      "end": 70.15409999996423
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.07874015748031496,
+      "time": 70.155,
+      "channel": 3,
+      "duration": 0.17399999999999238,
+      "end": 70.329
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.7165354330708661,
+      "time": 70.156,
+      "channel": 4,
+      "duration": 0.015999999999991132,
+      "end": 70.172
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.7007874015748031,
+      "time": 70.16909999996423,
+      "channel": 4,
+      "duration": 0.060000000000002274,
+      "end": 70.22909999996423
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 72.50109999996424,
+      "channel": 4,
+      "duration": 0.3100000000000023,
+      "end": 72.81109999996424
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.8503937007874016,
+      "time": 72.808,
+      "channel": 4,
+      "duration": 0.01809999996423528,
+      "end": 72.82609999996424
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 1,
+      "time": 72.847,
+      "channel": 4,
+      "duration": 0.007000000000005002,
+      "end": 72.854
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 72.85009999996424,
+      "channel": 4,
+      "duration": 0.26490000003575176,
+      "end": 73.115
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.905511811023622,
+      "time": 73.149,
+      "channel": 3,
+      "duration": 0.008099999964230165,
+      "end": 73.15709999996423
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.8976377952755905,
+      "time": 73.15509999996424,
+      "channel": 3,
+      "duration": 0.26500000000000057,
+      "end": 73.42009999996424
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7637795275590551,
+      "time": 73.416,
+      "channel": 3,
+      "duration": 0.04600000000000648,
+      "end": 73.462
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 1,
+      "time": 73.482,
+      "channel": 3,
+      "duration": 0.010000000000005116,
+      "end": 73.492
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.937007874015748,
+      "time": 73.49009999996424,
+      "channel": 3,
+      "duration": 0.3219999999999885,
+      "end": 73.81209999996423
+    },
+    {
+      "name": "E",
+      "number": 64,
+      "velocity": 0.905511811023622,
+      "time": 73.834,
+      "channel": 3,
+      "duration": 0.32509999996423744,
+      "end": 74.15909999996424
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.8818897637795275,
+      "time": 74.182,
+      "channel": 3,
+      "duration": 0.008099999964230165,
+      "end": 74.19009999996423
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.8110236220472441,
+      "time": 74.18709999996423,
+      "channel": 3,
+      "duration": 0.3229000000357729,
+      "end": 74.51
+    },
+    {
+      "name": "C#",
+      "number": 61,
+      "velocity": 0.9448818897637795,
+      "time": 74.538,
+      "channel": 3,
+      "duration": 0.015000000000000568,
+      "end": 74.553
+    },
+    {
+      "name": "C",
+      "number": 60,
+      "velocity": 0.905511811023622,
+      "time": 74.55,
+      "channel": 3,
+      "duration": 0.2920000000000016,
+      "end": 74.842
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.7480314960629921,
+      "time": 74.838,
+      "channel": 3,
+      "duration": 0.036000000000001364,
+      "end": 74.874
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.937007874015748,
+      "time": 74.89,
+      "channel": 3,
+      "duration": 0.010000000000005116,
+      "end": 74.9
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.937007874015748,
+      "time": 74.897,
+      "channel": 3,
+      "duration": 1.9700999999642335,
+      "end": 76.86709999996424
+    },
+    {
+      "name": "D#",
+      "number": 63,
+      "velocity": 0.968503937007874,
+      "time": 76.87109999996424,
+      "channel": 3,
+      "duration": 0.017900000035751873,
+      "end": 76.889
+    },
+    {
+      "name": "D",
+      "number": 62,
+      "velocity": 0.937007874015748,
+      "time": 76.88609999996423,
+      "channel": 3,
+      "duration": 0.33490000003577336,
+      "end": 77.221
+    },
+    {
+      "name": "D#",
+      "number": 75,
+      "velocity": 0.07874015748031496,
+      "time": 77.18209999996424,
+      "channel": 4,
+      "duration": 0.028000000000005798,
+      "end": 77.21009999996424
+    },
+    {
+      "name": "E",
+      "number": 76,
+      "velocity": 0.07874015748031496,
+      "time": 77.20709999996424,
+      "channel": 4,
+      "duration": 0.013900000035761195,
+      "end": 77.221
+    },
+    {
+      "name": "A#",
+      "number": 58,
+      "velocity": 1,
+      "time": 77.22709999996424,
+      "channel": 4,
+      "duration": 0.006900000035756193,
+      "end": 77.234
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 1,
+      "time": 77.234,
+      "channel": 4,
+      "duration": 2.3170000000000073,
+      "end": 79.551
+    },
+    {
+      "name": "G#",
+      "number": 56,
+      "velocity": 1,
+      "time": 79.554,
+      "channel": 4,
+      "duration": 0.01999999999999602,
+      "end": 79.574
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 1,
+      "time": 79.57209999996424,
+      "channel": 4,
+      "duration": 0.33499999999999375,
+      "end": 79.90709999996423
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.937007874015748,
+      "time": 79.91109999996424,
+      "channel": 4,
+      "duration": 0.30100000000000193,
+      "end": 80.21209999996424
+    },
+    {
+      "name": "G#",
+      "number": 68,
+      "velocity": 0.07874015748031496,
+      "time": 80.19609999996423,
+      "channel": 3,
+      "duration": 0.07500000000000284,
+      "end": 80.27109999996424
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.8740157480314961,
+      "time": 80.209,
+      "channel": 4,
+      "duration": 0.29299999999999216,
+      "end": 80.502
+    },
+    {
+      "name": "A",
+      "number": 69,
+      "velocity": 0.07874015748031496,
+      "time": 80.268,
+      "channel": 3,
+      "duration": 0.2469999999999999,
+      "end": 80.515
+    },
+    {
+      "name": "G",
+      "number": 55,
+      "velocity": 0.07874015748031496,
+      "time": 80.513,
+      "channel": 3,
+      "duration": 0.7740000000000009,
+      "end": 81.287
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.6062992125984252,
+      "time": 80.52109999996424,
+      "channel": 5,
+      "duration": 1.2569000000357704,
+      "end": 81.778
+    },
+    {
+      "name": "D#",
+      "number": 51,
+      "velocity": 0.4251968503937008,
+      "time": 81.777,
+      "channel": 5,
+      "duration": 0.03109999996424051,
+      "end": 81.80809999996424
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.4094488188976378,
+      "time": 81.806,
+      "channel": 5,
+      "duration": 0.030000000000001137,
+      "end": 81.836
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.29133858267716534,
+      "time": 81.87509999996423,
+      "channel": 5,
+      "duration": 0.3369000000357687,
+      "end": 82.212
+    },
+    {
+      "name": "A",
+      "number": 57,
+      "velocity": 0.4330708661417323,
+      "time": 82.17609999996424,
+      "channel": 4,
+      "duration": 0.18190000003576756,
+      "end": 82.358
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.6771653543307087,
+      "time": 82.215,
+      "channel": 5,
+      "duration": 0.27609999996423085,
+      "end": 82.49109999996423
+    },
+    {
+      "name": "D",
+      "number": 50,
+      "velocity": 0.5984251968503937,
+      "time": 82.543,
+      "channel": 5,
+      "duration": 2.2400999999642295,
+      "end": 84.78309999996424
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.4015748031496063,
+      "time": 84.78009999996424,
+      "channel": 5,
+      "duration": 0.07090000003576336,
+      "end": 84.851
+    },
+    {
+      "name": "E",
+      "number": 52,
+      "velocity": 0.5196850393700787,
+      "time": 84.853,
+      "channel": 5,
+      "duration": 0.7270000000000039,
+      "end": 85.58
+    },
+    {
+      "name": "C",
+      "number": 48,
+      "velocity": 0.6614173228346457,
+      "time": 85.547,
+      "channel": 6,
+      "duration": 6.000099999964235,
+      "end": 91.54709999996423
+    }
+  ],
+  "_appId": "improvisation-chord-progression",
+  "_softwareVersion": "0.23.3",
+  "_date": "2024-11-26T15:25:22.972Z"
+}

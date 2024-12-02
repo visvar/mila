@@ -11,8 +11,8 @@
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage.js';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example1 from '../example-recordings/speed-up-e1.json';
-    import example2 from '../example-recordings/speed-up-e2.json';
+    import example1 from '../example-recordings/speed-up/speed-up-e1.json';
+    import example2 from '../example-recordings/speed-up/speed-up-e2.json';
     import TouchInput from '../common/input-handlers/touch-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
@@ -28,7 +28,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let container;
     let metro = new Metronome();
     // settings
@@ -46,6 +47,8 @@
     let practiceRecordings = new Map();
     let ready = true;
     let tempoStepWatcher;
+    // app state
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
@@ -367,16 +370,13 @@
         if (practiceRecordings.dataType) {
             practiceRecordings = new Map(practiceRecordings.value);
         }
+        // app state
+        isDataLoaded = true;
         draw();
     };
 
     const saveToStorage = () => {
-        const json = JSON.stringify(practiceRecordings, replacer);
-        if (
-            exerciseNotes.length > 0 &&
-            json !== JSON.stringify(example1.practiceRecordings, replacer) &&
-            json !== JSON.stringify(example2.practiceRecordings, replacer)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -476,6 +476,7 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
+                bind:isDataLoaded
                 {saveToStorage}
                 title="Clear practice but not exercise"
                 disabled="{currentStep !== ''}"
@@ -510,14 +511,16 @@
                 it.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded}"
             keyDown="{() => noteOn({ timestamp: performance.now() })}"
         />
         <TouchInput
             element="{container}"
+            disabled="{isDataLoaded}"
             touchStart="{() => noteOn({ timestamp: performance.now() })}"
         />
     </main>

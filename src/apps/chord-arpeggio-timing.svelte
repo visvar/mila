@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { afterUpdate, onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
   import * as Plot from '@observablehq/plot';
   import { Midi, Utils } from 'musicvis-lib';
@@ -22,7 +22,8 @@
    */
   export let appInfo;
 
-  let width = 900;
+  let windowWidth = window.innerWidth;
+  $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
   let height = 350;
   let container;
   // settings
@@ -32,6 +33,9 @@
   // data
   let firstTimeStamp = 0;
   let notes = [];
+  // app state
+  let isPlaying;
+  let isDataLoaded = false;
 
   const noteOn = (e) => {
     if (notes.length === 0) {
@@ -46,7 +50,6 @@
       channel: e.message.channel,
     };
     notes = [...notes, note];
-    draw();
   };
 
   const draw = () => {
@@ -148,7 +151,6 @@
       width,
       height: 75,
       marginLeft: 60,
-      // marginRight: -10,
       marginTop: 0,
       marginBottom: 40,
       padding: 0,
@@ -189,7 +191,7 @@
     container.appendChild(plot3);
   };
 
-  onMount(draw);
+  afterUpdate(draw);
 
   /**
    * Used for exporting and for automatics saving
@@ -214,14 +216,12 @@
     tempo = json.tempo;
     // data
     notes = json.notes;
-    draw();
+    // app state
+    isDataLoaded = true;
   };
 
   const saveToStorage = () => {
-    if (
-      notes.length > 0 &&
-      JSON.stringify(notes) !== JSON.stringify(example.notes)
-    ) {
+    if (!isDataLoaded && !isPlaying && notes.length > 0) {
       localStorageAddRecording(appInfo.id, getExportData());
     }
   };
@@ -229,7 +229,9 @@
   onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<svelte:window bind:innerWidth="{windowWidth}" />
+
+<FileDropTarget {loadData} disabled="{isPlaying}">
   <main class="app">
     <h2>{appInfo.title}</h2>
     <p class="explanation">
@@ -240,12 +242,11 @@
       consecutive chords/arpeggios.
     </p>
     <div class="control">
-      <TempoInput bind:value="{tempo}" callback="{draw}" />
+      <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
       <NumberInput
         title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio (in beats)"
         label="max note distance"
         bind:value="{maxNoteDistance}"
-        callback="{draw}"
         min="{0.05}"
         max="{5}"
         step="{0.05}"
@@ -254,7 +255,6 @@
         title="The time in beats that is shown"
         label="beats shown"
         bind:value="{pastBeats}"
-        callback="{draw}"
         min="{10}"
         max="{300}"
         step="{10}"
@@ -262,11 +262,23 @@
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-      <MetronomeButton {tempo} accent="{4}" />
-      <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-      <button on:click="{() => loadData(example)}"> example </button>
-      <HistoryButton appId="{appInfo.id}" {loadData} />
-      <ImportExportButton {loadData} {getExportData} appId="{appInfo.id}" />
+      <MetronomeButton {tempo} accent="{4}" disabled="{isPlaying}" />
+      <ResetNotesButton
+        bind:notes
+        bind:isDataLoaded
+        disabled="{isPlaying}"
+        {saveToStorage}
+      />
+      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+        example
+      </button>
+      <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
+      <ImportExportButton
+        {loadData}
+        {getExportData}
+        appId="{appInfo.id}"
+        disabled="{isPlaying}"
+      />
     </div>
     <ExerciseDrawer>
       <p>
@@ -277,7 +289,7 @@
         2) Play an arpeggio of this chord progression (with a pause after each).
       </p>
     </ExerciseDrawer>
-    <MidiInput {noteOn} pcKeyAllowed />
+    <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />
     <RatingButton appId="{appInfo.id}" />
   </main>
 </FileDropTarget>

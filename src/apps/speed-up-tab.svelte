@@ -24,7 +24,8 @@
      */
     export let appInfo;
 
-    let width = 900;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let height = 150;
     let container;
     let metro = new Metronome();
@@ -48,15 +49,18 @@
     // E standard tuning, strings start at high E
     let tuningPitches = [64, 59, 55, 50, 45, 40];
     const tuningNotes = tuningPitches.map(Note.fromMidiSharps);
+    // app state
+    let isDataLoaded = false;
 
     const noteOn = async (e) => {
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
         const string = e.message.channel - 1;
         const note = {
             time: noteInSeconds,
+            number: e.note.number,
+            velocity: e.rawVelocity,
             string,
             fret: e.note.number - tuningPitches[string],
-            velocity: e.rawVelocity,
         };
         if (currentStep === 'input exercise') {
             // currently inputting the exercise
@@ -377,14 +381,13 @@
         if (practiceRecordings.dataType) {
             practiceRecordings = new Map(practiceRecordings.value);
         }
+        // app state
+        isDataLoaded = true;
         draw();
     };
 
     const saveToStorage = () => {
-        if (
-            exerciseNotes.length > 0
-            // && JSON.stringify(practiceRecordings, replacer) !== JSON.stringify(example.practiceRecordings, replacer)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -488,6 +491,7 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
+                bind:isDataLoaded
                 {saveToStorage}
                 title="Clear practice but not exercise"
                 disabled="{currentStep !== ''}"
@@ -511,7 +515,7 @@
                 it.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
     </main>
 </FileDropTarget>

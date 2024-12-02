@@ -1,7 +1,6 @@
 <script>
     import { onDestroy } from 'svelte';
     import RhythmPlayer from '../../lib/RhythmPlayer.js';
-    import { Note } from 'musicvis-lib';
 
     /**
      * notes: object with {number, time, [duration]}
@@ -11,6 +10,7 @@
     export let endAt = -1;
     export let speed = 1;
     export let loop = false;
+    export let disabled = false;
 
     const player = new RhythmPlayer();
 
@@ -35,6 +35,7 @@
         // console.log(noteObjs);
         player.toggle(noteObjs, startAt, endAt, speed, loop);
     }}"
+    {disabled}
 >
     play rhythm
 </button>

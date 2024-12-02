@@ -4,8 +4,8 @@
      */
     import html2canvas from 'html2canvas';
     import saveAs from 'file-saver';
-    import { APPS } from '../apps.js';
-    import { delay } from '../lib/lib.js';
+    import { APPS } from '../../apps.js';
+    import { delay } from '../../lib/lib.js';
 
     /**
      * @type {string|object}
@@ -62,7 +62,7 @@
                 ...document.querySelectorAll('.explanation'),
                 ...document.querySelectorAll('.rating-button'),
                 ...document.querySelectorAll('.exercise-grid'),
-                // TODO: hide lower controls?
+                // hide lower controls?
                 [...document.querySelectorAll('.control')].at(-1),
             ].forEach((d) => (d.style = 'display:none'));
 

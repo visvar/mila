@@ -6,6 +6,7 @@
     export let min = 30;
     export let max = 400;
     export let step = 5;
+    export let disabled = false;
 </script>
 
 <label {title}>
@@ -13,8 +14,8 @@
     <input
         type="number"
         bind:value
-        on:change="{callback}"
-        on:mousewheel="{(evt) => {
+        on:input="{callback}"
+        on:wheel="{(evt) => {
             evt.preventDefault();
             const add = evt.deltaY < 0 ? step : -step;
             value = Math.min(max, Math.max(min, value + add));
@@ -23,6 +24,7 @@
         {min}
         {max}
         {step}
+        {disabled}
         style="width: 53px"
     />
 </label>

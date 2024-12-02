@@ -1,0 +1,7650 @@
+{
+  "pastNoteCount": 200,
+  "tempo": 120,
+  "barsPerFacet": 1,
+  "notes": [
+    {
+      "number": 72,
+      "velocity": 69,
+      "time": 0,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.07865584116110576,
+      "fretJitter": 7.922149924906547
+    },
+    {
+      "number": 71,
+      "velocity": 67,
+      "time": 0.05090000003576279,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.057070176488140945,
+      "fretJitter": 7.051891388673529
+    },
+    {
+      "number": 69,
+      "velocity": 63,
+      "time": 0.13890000003576278,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": 0.1111624126492453,
+      "fretJitter": 4.831233141929411
+    },
+    {
+      "number": 70,
+      "velocity": 64,
+      "time": 0.16790000003576278,
+      "channel": 1,
+      "string": 0,
+      "fret": 6,
+      "stringJitter": 0.01513683151682619,
+      "fretJitter": 5.998398585004118
+    },
+    {
+      "number": 71,
+      "velocity": 64,
+      "time": 0.20790000003576278,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.15220642501981524,
+      "fretJitter": 6.800916653689999
+    },
+    {
+      "number": 72,
+      "velocity": 58,
+      "time": 0.28290000003576277,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.08108975032401214,
+      "fretJitter": 8.017932949967447
+    },
+    {
+      "number": 74,
+      "velocity": 58,
+      "time": 0.34090000003576276,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.19917072204962435,
+      "fretJitter": 9.81776139724261
+    },
+    {
+      "number": 72,
+      "velocity": 56,
+      "time": 0.4149000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.10173884429584934,
+      "fretJitter": 8.18367432359388
+    },
+    {
+      "number": 71,
+      "velocity": 52,
+      "time": 0.4859000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.07327725394567129,
+      "fretJitter": 7.189351779647239
+    },
+    {
+      "number": 71,
+      "velocity": 93,
+      "time": 0.5359000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.14834592514239162,
+      "fretJitter": 7.06672208559191
+    },
+    {
+      "number": 74,
+      "velocity": 78,
+      "time": 0.5849000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": -0.15819118348695485,
+      "fretJitter": 9.863280753801497
+    },
+    {
+      "number": 72,
+      "velocity": 74,
+      "time": 0.6439000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.13527917343464377,
+      "fretJitter": 8.106732188657565
+    },
+    {
+      "number": 71,
+      "velocity": 66,
+      "time": 0.7189000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.18647536738077744,
+      "fretJitter": 7.054712173328554
+    },
+    {
+      "number": 72,
+      "velocity": 72,
+      "time": 0.7479000000357627,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.134677052045856,
+      "fretJitter": 7.80810887515964
+    },
+    {
+      "number": 75,
+      "velocity": 58,
+      "time": 0.8639000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.04252821360007904,
+      "fretJitter": 10.827210828768635
+    },
+    {
+      "number": 76,
+      "velocity": 58,
+      "time": 0.8939000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.034885496635651506,
+      "fretJitter": 12.013541701357067
+    },
+    {
+      "number": 74,
+      "velocity": 62,
+      "time": 0.9369000000357628,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": -0.05058716509462329,
+      "fretJitter": 10.106843904280883
+    },
+    {
+      "number": 71,
+      "velocity": 10,
+      "time": 1.0809000000357627,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.8351941372216812,
+      "fretJitter": 11.91747725490162
+    },
+    {
+      "number": 64,
+      "velocity": 47,
+      "time": 1.3419000000357628,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1483026272155425,
+      "fretJitter": 5.158261081680877
+    },
+    {
+      "number": 69,
+      "velocity": 11,
+      "time": 1.3709000000357627,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1868440531572662,
+      "fretJitter": 10.187883087040394
+    },
+    {
+      "number": 71,
+      "velocity": 10,
+      "time": 1.5609000000357627,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.19206995764324777,
+      "fretJitter": 7.075303282795584
+    },
+    {
+      "number": 55,
+      "velocity": 10,
+      "time": 1.5629000000357627,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 2.138620683100603,
+      "fretJitter": 0.06765054535191464
+    },
+    {
+      "number": 66,
+      "velocity": 10,
+      "time": 1.5879000000357628,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9141132464546244,
+      "fretJitter": 6.842191599544706
+    },
+    {
+      "number": 70,
+      "velocity": 10,
+      "time": 1.6459000000357629,
+      "channel": 1,
+      "string": 0,
+      "fret": 6,
+      "stringJitter": 0.17547972840715076,
+      "fretJitter": 5.887277310450567
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 1.6469000000357628,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.0350603256179556,
+      "fretJitter": 5.822399076818166
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 1.6879000000357627,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.0072612338702807,
+      "fretJitter": 4.8996367792048074
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 1.7769000000357629,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.1263581953470072,
+      "fretJitter": 6.093708006458162
+    },
+    {
+      "number": 55,
+      "velocity": 54,
+      "time": 1.8359000000357628,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 2.136684647813563,
+      "fretJitter": 0.06605670742460168
+    },
+    {
+      "number": 62,
+      "velocity": 54,
+      "time": 1.8649000000357627,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.1314609365758863,
+      "fretJitter": 7.095611704016525
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 1.9209000000357628,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 1.0018077806071735,
+      "fretJitter": 15.816962824530503
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 1.9529000000357628,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.0651990954366795,
+      "fretJitter": 5.0229054536274305
+    },
+    {
+      "number": 61,
+      "velocity": 10,
+      "time": 2.041900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 2.1872629077725607,
+      "fretJitter": 6.050461618831056
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 2.054900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.02124528177846,
+      "fretJitter": 6.05575783522525
+    },
+    {
+      "number": 67,
+      "velocity": 13,
+      "time": 2.099900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0001011695996873,
+      "fretJitter": 8.064859416007899
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 2.1019000000357626,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.1238011789810213,
+      "fretJitter": 8.125483192696711
+    },
+    {
+      "number": 63,
+      "velocity": 34,
+      "time": 2.110900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.1102661203776294,
+      "fretJitter": 7.880292804118692
+    },
+    {
+      "number": 84,
+      "velocity": 10,
+      "time": 2.1259000000357626,
+      "channel": 1,
+      "string": 0,
+      "fret": 20,
+      "stringJitter": 0.007561943150096973,
+      "fretJitter": 20.00931640607588
+    },
+    {
+      "number": 85,
+      "velocity": 10,
+      "time": 2.196900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 21,
+      "stringJitter": -0.17354540493195697,
+      "fretJitter": 21.053768215969548
+    },
+    {
+      "number": 65,
+      "velocity": 21,
+      "time": 2.2149000000357626,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.0369206974562968,
+      "fretJitter": 5.967351311226026
+    },
+    {
+      "number": 64,
+      "velocity": 13,
+      "time": 2.2579000000357627,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.9178775652855218,
+      "fretJitter": 4.92321388399038
+    },
+    {
+      "number": 57,
+      "velocity": 20,
+      "time": 2.2829000000357627,
+      "channel": 3,
+      "string": 2,
+      "fret": 2,
+      "stringJitter": 2.0071015121661344,
+      "fretJitter": 2.1841474651431856
+    },
+    {
+      "number": 62,
+      "velocity": 10,
+      "time": 2.300900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.989643813680044,
+      "fretJitter": 7.067700679566646
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 2.3639000000357626,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.183846767178486,
+      "fretJitter": 14.998552376392482
+    },
+    {
+      "number": 64,
+      "velocity": 43,
+      "time": 2.380900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1056930678191856,
+      "fretJitter": 5.105383419947089
+    },
+    {
+      "number": 57,
+      "velocity": 46,
+      "time": 2.4799000000357627,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.94018942591385,
+      "fretJitter": 7.011746936534806
+    },
+    {
+      "number": 62,
+      "velocity": 10,
+      "time": 2.481900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.136386062476361,
+      "fretJitter": 7.082041210736798
+    },
+    {
+      "number": 61,
+      "velocity": 45,
+      "time": 2.513900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 1.8393789997289471,
+      "fretJitter": 5.84983795626858
+    },
+    {
+      "number": 62,
+      "velocity": 40,
+      "time": 2.533900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.1013431917954093,
+      "fretJitter": 6.848518264331661
+    },
+    {
+      "number": 60,
+      "velocity": 34,
+      "time": 2.546900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.87351588920979,
+      "fretJitter": 4.908230994133477
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 2.547900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 3.177474050943542,
+      "fretJitter": -0.16852976661937538
+    },
+    {
+      "number": 60,
+      "velocity": 73,
+      "time": 2.638900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.994380073591326,
+      "fretJitter": 5.124047405855501
+    },
+    {
+      "number": 62,
+      "velocity": 69,
+      "time": 2.6939000000357627,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.9046536419533258,
+      "fretJitter": 6.8500580157272255
+    },
+    {
+      "number": 63,
+      "velocity": 64,
+      "time": 2.820900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.8853997387604278,
+      "fretJitter": 7.824667506181801
+    },
+    {
+      "number": 62,
+      "velocity": 64,
+      "time": 2.880900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.9584795646392779,
+      "fretJitter": 6.841653367886116
+    },
+    {
+      "number": 63,
+      "velocity": 64,
+      "time": 2.9969000000357626,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.878551306855528,
+      "fretJitter": 8.01355665330825
+    },
+    {
+      "number": 62,
+      "velocity": 58,
+      "time": 3.215900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.012085830668181,
+      "fretJitter": 7.0772754070159465
+    },
+    {
+      "number": 63,
+      "velocity": 58,
+      "time": 3.360900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.004058633057881,
+      "fretJitter": 8.042509301164394
+    },
+    {
+      "number": 62,
+      "velocity": 57,
+      "time": 3.4029000000357628,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8205244102624274,
+      "fretJitter": 6.820380430503733
+    },
+    {
+      "number": 69,
+      "velocity": 23,
+      "time": 3.525900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": -0.07305339256456689,
+      "fretJitter": 4.937629843526996
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 3.6869000000357626,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.8170201811148647,
+      "fretJitter": 5.898003048036857
+    },
+    {
+      "number": 71,
+      "velocity": 32,
+      "time": 3.7059000000357627,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.09412086166020926,
+      "fretJitter": 7.172074536114367
+    },
+    {
+      "number": 72,
+      "velocity": 33,
+      "time": 3.8669000000357627,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.011424597105421165,
+      "fretJitter": 7.883116071740345
+    },
+    {
+      "number": 71,
+      "velocity": 29,
+      "time": 3.9679000000357627,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.04309669321727814,
+      "fretJitter": 7.032563818535607
+    },
+    {
+      "number": 70,
+      "velocity": 28,
+      "time": 4.0259000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 6,
+      "stringJitter": -0.03493077287511879,
+      "fretJitter": 5.833552832909134
+    },
+    {
+      "number": 71,
+      "velocity": 30,
+      "time": 4.056900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.15056789452250907,
+      "fretJitter": 6.89053653717691
+    },
+    {
+      "number": 74,
+      "velocity": 32,
+      "time": 4.141900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.14651022039532346,
+      "fretJitter": 10.078395239654881
+    },
+    {
+      "number": 72,
+      "velocity": 26,
+      "time": 4.215900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.004248281812956023,
+      "fretJitter": 7.9920889993165805
+    },
+    {
+      "number": 71,
+      "velocity": 25,
+      "time": 4.301900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.005314563809285922,
+      "fretJitter": 7.086071667333749
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 4.379900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 0.9866992825526352,
+      "fretJitter": 17.18406344459336
+    },
+    {
+      "number": 72,
+      "velocity": 20,
+      "time": 4.389900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.06973849200989601,
+      "fretJitter": 7.878867177091314
+    },
+    {
+      "number": 66,
+      "velocity": 20,
+      "time": 4.4299000000357625,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9591327676549158,
+      "fretJitter": 7.109433487366527
+    },
+    {
+      "number": 71,
+      "velocity": 18,
+      "time": 4.487900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.1502449162258599,
+      "fretJitter": 6.850509976139924
+    },
+    {
+      "number": 71,
+      "velocity": 94,
+      "time": 4.515900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.19813050055672302,
+      "fretJitter": 7.046494995919364
+    },
+    {
+      "number": 66,
+      "velocity": 10,
+      "time": 4.545900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.8182141109104476,
+      "fretJitter": 6.878524667799315
+    },
+    {
+      "number": 67,
+      "velocity": 16,
+      "time": 4.579,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 0.886339905608277,
+      "fretJitter": 7.923401465262985
+    },
+    {
+      "number": 68,
+      "velocity": 13,
+      "time": 4.6509000000357625,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 1.0675013934325075,
+      "fretJitter": 8.806074471429913
+    },
+    {
+      "number": 69,
+      "velocity": 15,
+      "time": 4.680900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.0683410174074937,
+      "fretJitter": 9.901570029811898
+    },
+    {
+      "number": 72,
+      "velocity": 79,
+      "time": 4.780900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.08707944695390823,
+      "fretJitter": 7.989973232302097
+    },
+    {
+      "number": 59,
+      "velocity": 32,
+      "time": 4.821900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8507736715830431,
+      "fretJitter": -0.0529576763622055
+    },
+    {
+      "number": 69,
+      "velocity": 34,
+      "time": 4.913900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1071762433176175,
+      "fretJitter": 9.811530905576271
+    },
+    {
+      "number": 72,
+      "velocity": 83,
+      "time": 4.983900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.0908270585987431,
+      "fretJitter": 7.927478500611638
+    },
+    {
+      "number": 74,
+      "velocity": 58,
+      "time": 5.0789000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.18115945314518403,
+      "fretJitter": 10.041110526055048
+    },
+    {
+      "number": 75,
+      "velocity": 65,
+      "time": 5.286900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": 0.18040617011369459,
+      "fretJitter": 10.959533694223524
+    },
+    {
+      "number": 76,
+      "velocity": 62,
+      "time": 5.318900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.13823544030859436,
+      "fretJitter": 12.013517819115725
+    },
+    {
+      "number": 75,
+      "velocity": 59,
+      "time": 5.4779000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.18209508142090833,
+      "fretJitter": 10.976713797970845
+    },
+    {
+      "number": 86,
+      "velocity": 46,
+      "time": 5.522900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 22,
+      "stringJitter": 0.08124636589935195,
+      "fretJitter": 22.00933343304714
+    },
+    {
+      "number": 74,
+      "velocity": 50,
+      "time": 5.537900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.17375344507567983,
+      "fretJitter": 9.867056810879378
+    },
+    {
+      "number": 76,
+      "velocity": 41,
+      "time": 5.608900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.022950377205436558,
+      "fretJitter": 11.952616416297566
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 5.660900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.010253981957363136,
+      "fretJitter": 11.906688434533889
+    },
+    {
+      "number": 77,
+      "velocity": 13,
+      "time": 5.840900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.18968449750854965,
+      "fretJitter": 12.914561078781698
+    },
+    {
+      "number": 76,
+      "velocity": 15,
+      "time": 5.943900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.18529731158851945,
+      "fretJitter": 12.179166760560662
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 6.058900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.17799546941357686,
+      "fretJitter": 10.93353672654415
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 6.0869000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.08398761425867979,
+      "fretJitter": 10.154089451238075
+    },
+    {
+      "number": 59,
+      "velocity": 30,
+      "time": 6.097900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9805288860279291,
+      "fretJitter": 0.18697325712865923
+    },
+    {
+      "number": 74,
+      "velocity": 45,
+      "time": 6.198900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.1275627295514198,
+      "fretJitter": 9.96808182254374
+    },
+    {
+      "number": 71,
+      "velocity": 113,
+      "time": 6.316900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.1567743954050955,
+      "fretJitter": 11.93262175827373
+    },
+    {
+      "number": 72,
+      "velocity": 96,
+      "time": 6.406900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.0696628146110114,
+      "fretJitter": 13.09785491355415
+    },
+    {
+      "number": 73,
+      "velocity": 95,
+      "time": 6.436900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 0.8840787962038683,
+      "fretJitter": 14.106060470744898
+    },
+    {
+      "number": 72,
+      "velocity": 83,
+      "time": 6.552900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8218010417855568,
+      "fretJitter": 13.038340775408656
+    },
+    {
+      "number": 75,
+      "velocity": 48,
+      "time": 6.584900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.13166180871854546,
+      "fretJitter": 11.101895305889482
+    },
+    {
+      "number": 76,
+      "velocity": 40,
+      "time": 6.681900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.04771015420747071,
+      "fretJitter": 11.876032570173859
+    },
+    {
+      "number": 77,
+      "velocity": 61,
+      "time": 6.721900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 1.1051494871423526,
+      "fretJitter": 17.857947866424208
+    },
+    {
+      "number": 74,
+      "velocity": 67,
+      "time": 6.725900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1146627037318295,
+      "fretJitter": 15.102688797898388
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 6.859900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.032910948580670764,
+      "fretJitter": 12.023696844933871
+    },
+    {
+      "number": 72,
+      "velocity": 107,
+      "time": 7.0019000000357625,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.0820600358295647,
+      "fretJitter": 13.157344764306284
+    },
+    {
+      "number": 72,
+      "velocity": 103,
+      "time": 7.444900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.1921826680721765,
+      "fretJitter": 12.917713944074169
+    },
+    {
+      "number": 76,
+      "velocity": 69,
+      "time": 7.5869000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.003657636790311969,
+      "fretJitter": 11.849605234201368
+    },
+    {
+      "number": 77,
+      "velocity": 70,
+      "time": 7.6109000000357625,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.057251919564439736,
+      "fretJitter": 12.876473977400995
+    },
+    {
+      "number": 79,
+      "velocity": 61,
+      "time": 7.756900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.06302477046913495,
+      "fretJitter": 15.031460859724225
+    },
+    {
+      "number": 77,
+      "velocity": 58,
+      "time": 7.799900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.1270525897206529,
+      "fretJitter": 13.110552049371643
+    },
+    {
+      "number": 76,
+      "velocity": 52,
+      "time": 7.883900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.010735586528932207,
+      "fretJitter": 12.051426988659927
+    },
+    {
+      "number": 72,
+      "velocity": 121,
+      "time": 7.968900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8348241238863059,
+      "fretJitter": 13.138180228846204
+    },
+    {
+      "number": 76,
+      "velocity": 78,
+      "time": 8.076900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.1569467146565506,
+      "fretJitter": 12.142036242592797
+    },
+    {
+      "number": 72,
+      "velocity": 116,
+      "time": 8.185900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8946321968029363,
+      "fretJitter": 12.934702143121353
+    },
+    {
+      "number": 73,
+      "velocity": 112,
+      "time": 8.246900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 0.8519015929797453,
+      "fretJitter": 14.166891413517673
+    },
+    {
+      "number": 74,
+      "velocity": 113,
+      "time": 8.260900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.0459692639437344,
+      "fretJitter": 14.9449213585083
+    },
+    {
+      "number": 75,
+      "velocity": 95,
+      "time": 8.598900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 1.1378087568842778,
+      "fretJitter": 15.900379026811537
+    },
+    {
+      "number": 76,
+      "velocity": 96,
+      "time": 8.623900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.041603327295552,
+      "fretJitter": 17.05586778994138
+    },
+    {
+      "number": 79,
+      "velocity": 10,
+      "time": 8.768900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": -0.1261606652050425,
+      "fretJitter": 14.856999619487128
+    },
+    {
+      "number": 76,
+      "velocity": 66,
+      "time": 8.882900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.0192269100728535,
+      "fretJitter": 16.97746419192344
+    },
+    {
+      "number": 81,
+      "velocity": 10,
+      "time": 8.975900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.047550935242431175,
+      "fretJitter": 16.942007718444785
+    },
+    {
+      "number": 79,
+      "velocity": 73,
+      "time": 9.000900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.02847348874588338,
+      "fretJitter": 14.816857946304633
+    },
+    {
+      "number": 81,
+      "velocity": 106,
+      "time": 9.100900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.12326337510034469,
+      "fretJitter": 17.133719924416592
+    },
+    {
+      "number": 82,
+      "velocity": 97,
+      "time": 9.235900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 18,
+      "stringJitter": 0.0298983679344496,
+      "fretJitter": 17.804955389223693
+    },
+    {
+      "number": 81,
+      "velocity": 88,
+      "time": 9.321900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.18617760672820696,
+      "fretJitter": 17.145827825618216
+    },
+    {
+      "number": 84,
+      "velocity": 10,
+      "time": 9.757900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 20,
+      "stringJitter": -0.07856395695473184,
+      "fretJitter": 19.94389690402032
+    },
+    {
+      "number": 82,
+      "velocity": 10,
+      "time": 9.836900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 18,
+      "stringJitter": 0.17714199442342624,
+      "fretJitter": 18.064674521263033
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 9.907900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.9462501536379817,
+      "fretJitter": 15.814443826259154
+    },
+    {
+      "number": 81,
+      "velocity": 10,
+      "time": 10.004900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": -0.188712819736449,
+      "fretJitter": 16.84594931964485
+    },
+    {
+      "number": 84,
+      "velocity": 21,
+      "time": 10.017,
+      "channel": 1,
+      "string": 0,
+      "fret": 20,
+      "stringJitter": 0.1347147845479247,
+      "fretJitter": 20.12161550643715
+    },
+    {
+      "number": 81,
+      "velocity": 20,
+      "time": 10.080900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": -0.18892063555111804,
+      "fretJitter": 16.859291598049783
+    },
+    {
+      "number": 71,
+      "velocity": 10,
+      "time": 10.116900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 2.1160705999794893,
+      "fretJitter": 16.160024692456734
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 10.255900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.19601124847622,
+      "fretJitter": 16.884628399683788
+    },
+    {
+      "number": 69,
+      "velocity": 10,
+      "time": 10.257900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": 0.09115073402479289,
+      "fretJitter": 5.056574781293486
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 10.267900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": 0.12216476505591922,
+      "fretJitter": -0.10979417196856388
+    },
+    {
+      "number": 57,
+      "velocity": 48,
+      "time": 10.36,
+      "channel": 3,
+      "string": 2,
+      "fret": 2,
+      "stringJitter": 2.1970565813663168,
+      "fretJitter": 1.8557519860628149
+    },
+    {
+      "number": 57,
+      "velocity": 41,
+      "time": 10.368900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.9086792275759086,
+      "fretJitter": 7.188541918721514
+    },
+    {
+      "number": 74,
+      "velocity": 33,
+      "time": 10.381900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 19,
+      "stringJitter": 2.161674420975277,
+      "fretJitter": 19.098363906356074
+    },
+    {
+      "number": 55,
+      "velocity": 10,
+      "time": 10.407900000035763,
+      "channel": 6,
+      "string": 5,
+      "fret": 15,
+      "stringJitter": 5.141306901703388,
+      "fretJitter": 15.124840863696294
+    },
+    {
+      "number": 76,
+      "velocity": 71,
+      "time": 10.455900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.135872018988525,
+      "fretJitter": 17.17289495313871
+    },
+    {
+      "number": 74,
+      "velocity": 57,
+      "time": 10.582900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 19,
+      "stringJitter": 2.0153433653552186,
+      "fretJitter": 19.090696233043378
+    },
+    {
+      "number": 73,
+      "velocity": 46,
+      "time": 10.643900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 18,
+      "stringJitter": 2.0373801060415255,
+      "fretJitter": 17.959619488532123
+    },
+    {
+      "number": 76,
+      "velocity": 41,
+      "time": 10.700900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 0.9874862444074612,
+      "fretJitter": 17.004871729536962
+    },
+    {
+      "number": 77,
+      "velocity": 49,
+      "time": 10.775900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 0.8260022588597158,
+      "fretJitter": 17.866788135658688
+    },
+    {
+      "number": 71,
+      "velocity": 42,
+      "time": 10.988900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 2.0594534211023543,
+      "fretJitter": 15.887364040940676
+    },
+    {
+      "number": 74,
+      "velocity": 43,
+      "time": 11.036,
+      "channel": 3,
+      "string": 2,
+      "fret": 19,
+      "stringJitter": 2.006838325694334,
+      "fretJitter": 18.91645579207805
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 11.061900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.9293573193499285,
+      "fretJitter": 16.080029805652078
+    },
+    {
+      "number": 75,
+      "velocity": 13,
+      "time": 11.069900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 1.0650525227798147,
+      "fretJitter": 16.161295127426808
+    },
+    {
+      "number": 78,
+      "velocity": 49,
+      "time": 11.084900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 0.9179099093997822,
+      "fretJitter": 19.063957310586083
+    },
+    {
+      "number": 71,
+      "velocity": 10,
+      "time": 11.143900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 1.8622164138195343,
+      "fretJitter": 15.887506280698329
+    },
+    {
+      "number": 66,
+      "velocity": 42,
+      "time": 11.153900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9850390631212969,
+      "fretJitter": 6.92553291883868
+    },
+    {
+      "number": 59,
+      "velocity": 40,
+      "time": 11.163900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.077433328276046,
+      "fretJitter": 0.04439361052427318
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 11.166900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 1.9690474155995261,
+      "fretJitter": 17.114532290600824
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 11.268900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 19,
+      "stringJitter": 1.9881525928321815,
+      "fretJitter": 19.178851044795554
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 11.290900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.8013413210920395,
+      "fretJitter": -0.008174870831181203
+    },
+    {
+      "number": 72,
+      "velocity": 13,
+      "time": 11.328900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 2.0912633207602935,
+      "fretJitter": 16.96121878065225
+    },
+    {
+      "number": 69,
+      "velocity": 26,
+      "time": 11.336900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1276278519831138,
+      "fretJitter": 10.198050655471423
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 11.354900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.9432367542336064,
+      "fretJitter": 16.150279963999477
+    },
+    {
+      "number": 51,
+      "velocity": 18,
+      "time": 11.381900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 1,
+      "stringJitter": 2.906908464418332,
+      "fretJitter": 1.1701122419161885
+    },
+    {
+      "number": 69,
+      "velocity": 43,
+      "time": 11.440900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.820512182559612,
+      "fretJitter": 18.841086005364517
+    },
+    {
+      "number": 72,
+      "velocity": 41,
+      "time": 11.485900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 1.9202913931743346,
+      "fretJitter": 16.925123311325347
+    },
+    {
+      "number": 69,
+      "velocity": 18,
+      "time": 11.595900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 3.064481435282561,
+      "fretJitter": 18.951194934840295
+    },
+    {
+      "number": 69,
+      "velocity": 77,
+      "time": 11.609900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.8776590332771987,
+      "fretJitter": 18.861426804610808
+    },
+    {
+      "number": 67,
+      "velocity": 82,
+      "time": 11.688900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 17,
+      "stringJitter": 3.1900321929696296,
+      "fretJitter": 17.181581886666375
+    },
+    {
+      "number": 69,
+      "velocity": 33,
+      "time": 11.785900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.8762073154426364,
+      "fretJitter": 19.10444445724998
+    },
+    {
+      "number": 70,
+      "velocity": 11,
+      "time": 11.835900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 20,
+      "stringJitter": 2.8238654131735608,
+      "fretJitter": 20.147410539498324
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 11.885900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.848967304504916,
+      "fretJitter": 0.1992105600422157
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 11.929900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 1.8648516076917883,
+      "fretJitter": 17.124907736677713
+    },
+    {
+      "number": 72,
+      "velocity": 126,
+      "time": 11.940900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 2.055559409781569,
+      "fretJitter": 16.83690998477494
+    },
+    {
+      "number": 70,
+      "velocity": 127,
+      "time": 12.115900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 20,
+      "stringJitter": 3.1405073847602996,
+      "fretJitter": 20.19289327655
+    },
+    {
+      "number": 69,
+      "velocity": 127,
+      "time": 12.123900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.8024904316342187,
+      "fretJitter": 19.008790087568915
+    },
+    {
+      "number": 68,
+      "velocity": 124,
+      "time": 12.222900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 18,
+      "stringJitter": 3.1029035698417604,
+      "fretJitter": 17.893571400567488
+    },
+    {
+      "number": 72,
+      "velocity": 103,
+      "time": 12.246900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 1.831649109436042,
+      "fretJitter": 17.028030764744674
+    },
+    {
+      "number": 71,
+      "velocity": 91,
+      "time": 12.473900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 1.9427457270989972,
+      "fretJitter": 15.86305574829499
+    },
+    {
+      "number": 70,
+      "velocity": 91,
+      "time": 12.485900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 15,
+      "stringJitter": 2.1083714824838027,
+      "fretJitter": 15.133615790403162
+    },
+    {
+      "number": 69,
+      "velocity": 89,
+      "time": 12.500900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 2.0318574198954713,
+      "fretJitter": 13.992364989777837
+    },
+    {
+      "number": 68,
+      "velocity": 88,
+      "time": 12.516900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 2.0672247537360713,
+      "fretJitter": 13.04395910729155
+    },
+    {
+      "number": 67,
+      "velocity": 86,
+      "time": 12.544900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 12,
+      "stringJitter": 1.9793562542515961,
+      "fretJitter": 11.835206507218903
+    },
+    {
+      "number": 68,
+      "velocity": 77,
+      "time": 12.938,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 1.9666759041935542,
+      "fretJitter": 12.899501002494132
+    },
+    {
+      "number": 67,
+      "velocity": 76,
+      "time": 13.038900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 12,
+      "stringJitter": 1.851321051614863,
+      "fretJitter": 12.1097803043581
+    },
+    {
+      "number": 66,
+      "velocity": 76,
+      "time": 13.081900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 11,
+      "stringJitter": 1.9654300003271863,
+      "fretJitter": 11.04042917312897
+    },
+    {
+      "number": 65,
+      "velocity": 75,
+      "time": 13.096900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 10,
+      "stringJitter": 2.0461566652562895,
+      "fretJitter": 10.095538507670158
+    },
+    {
+      "number": 63,
+      "velocity": 74,
+      "time": 13.125900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.0981566724357577,
+      "fretJitter": 8.18407993134705
+    },
+    {
+      "number": 62,
+      "velocity": 74,
+      "time": 13.141900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.0270960737551516,
+      "fretJitter": 7.022704120375539
+    },
+    {
+      "number": 50,
+      "velocity": 94,
+      "time": 13.260900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.9076224973777616,
+      "fretJitter": -0.03813087083413196
+    },
+    {
+      "number": 57,
+      "velocity": 97,
+      "time": 13.283900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.887529187553913,
+      "fretJitter": 7.043920076550856
+    },
+    {
+      "number": 68,
+      "velocity": 74,
+      "time": 13.384900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 1.8763696471222848,
+      "fretJitter": 13.042730294100338
+    },
+    {
+      "number": 69,
+      "velocity": 74,
+      "time": 13.458900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 1.9624261731823234,
+      "fretJitter": 14.05247041389021
+    },
+    {
+      "number": 72,
+      "velocity": 97,
+      "time": 13.489900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.050910396677807,
+      "fretJitter": 13.103368843188296
+    },
+    {
+      "number": 69,
+      "velocity": 88,
+      "time": 13.834900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 2.060322082818134,
+      "fretJitter": 14.063266267768181
+    },
+    {
+      "number": 63,
+      "velocity": 28,
+      "time": 13.841900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 13,
+      "stringJitter": 2.8588143429271526,
+      "fretJitter": 12.977517842551915
+    },
+    {
+      "number": 71,
+      "velocity": 52,
+      "time": 13.959900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.198484023520055,
+      "fretJitter": 11.831150084260289
+    },
+    {
+      "number": 72,
+      "velocity": 57,
+      "time": 14.039900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.9866490177088825,
+      "fretJitter": 12.87192007500881
+    },
+    {
+      "number": 68,
+      "velocity": 10,
+      "time": 14.135900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 1.806549375739137,
+      "fretJitter": 12.993558612808464
+    },
+    {
+      "number": 67,
+      "velocity": 10,
+      "time": 14.156900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 12,
+      "stringJitter": 1.8991925836847299,
+      "fretJitter": 11.985953531339737
+    },
+    {
+      "number": 69,
+      "velocity": 10,
+      "time": 14.169900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 1.9978616339799051,
+      "fretJitter": 14.12312020201862
+    },
+    {
+      "number": 74,
+      "velocity": 35,
+      "time": 14.183900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.9245548724858398,
+      "fretJitter": 15.095365392501096
+    },
+    {
+      "number": 72,
+      "velocity": 32,
+      "time": 14.213900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.0246703858416255,
+      "fretJitter": 12.905127117323932
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 14.235900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.12880564312079762,
+      "fretJitter": 11.967240763793917
+    },
+    {
+      "number": 71,
+      "velocity": 37,
+      "time": 14.301900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.0697008091979265,
+      "fretJitter": 12.01083823470154
+    },
+    {
+      "number": 80,
+      "velocity": 26,
+      "time": 14.303900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 16,
+      "stringJitter": 0.026530777394245943,
+      "fretJitter": 15.90429736763867
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 14.314900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.0005810891085402226,
+      "fretJitter": -0.009587990354441979
+    },
+    {
+      "number": 72,
+      "velocity": 102,
+      "time": 14.732900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.054188091462128,
+      "fretJitter": 12.868487164500191
+    },
+    {
+      "number": 71,
+      "velocity": 114,
+      "time": 15.102900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.0357701837303925,
+      "fretJitter": 12.144429224985242
+    },
+    {
+      "number": 70,
+      "velocity": 99,
+      "time": 15.302900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 11,
+      "stringJitter": 0.8703967764087487,
+      "fretJitter": 11.110944758055709
+    },
+    {
+      "number": 69,
+      "velocity": 100,
+      "time": 15.315900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.9542553679477137,
+      "fretJitter": 9.9035304978448
+    },
+    {
+      "number": 70,
+      "velocity": 90,
+      "time": 15.521900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 11,
+      "stringJitter": 1.0141886550816022,
+      "fretJitter": 11.038099113703748
+    },
+    {
+      "number": 69,
+      "velocity": 87,
+      "time": 15.576900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.8430250665170702,
+      "fretJitter": 10.197316669977635
+    },
+    {
+      "number": 71,
+      "velocity": 125,
+      "time": 15.703900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.9590586900807272,
+      "fretJitter": 11.838498092285395
+    },
+    {
+      "number": 69,
+      "velocity": 125,
+      "time": 15.941900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.0683947486179906,
+      "fretJitter": 10.128964347007837
+    },
+    {
+      "number": 68,
+      "velocity": 113,
+      "time": 15.984900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 0.8946774136009521,
+      "fretJitter": 8.863091982620963
+    },
+    {
+      "number": 66,
+      "velocity": 97,
+      "time": 16.055900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9825499236845635,
+      "fretJitter": 7.098594469517135
+    },
+    {
+      "number": 69,
+      "velocity": 87,
+      "time": 16.171900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.056917115976387,
+      "fretJitter": 10.029138352316618
+    },
+    {
+      "number": 75,
+      "velocity": 13,
+      "time": 16.27590000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 20,
+      "stringJitter": 1.989788213323999,
+      "fretJitter": 19.85509075086049
+    },
+    {
+      "number": 55,
+      "velocity": 13,
+      "time": 16.288900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.8712107881263107,
+      "fretJitter": 0.1760264393823089
+    },
+    {
+      "number": 67,
+      "velocity": 41,
+      "time": 16.303900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 0.985747703138301,
+      "fretJitter": 8.173913021575865
+    },
+    {
+      "number": 66,
+      "velocity": 34,
+      "time": 16.448900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9681384537765966,
+      "fretJitter": 7.164164134445859
+    },
+    {
+      "number": 65,
+      "velocity": 32,
+      "time": 16.463900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.9020958311596011,
+      "fretJitter": 6.148614095031728
+    },
+    {
+      "number": 64,
+      "velocity": 32,
+      "time": 16.49090000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.8176892558301612,
+      "fretJitter": 4.898864932923397
+    },
+    {
+      "number": 65,
+      "velocity": 25,
+      "time": 16.636900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.1672220137507938,
+      "fretJitter": 6.116098053812521
+    },
+    {
+      "number": 64,
+      "velocity": 28,
+      "time": 16.710900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.8419417492343488,
+      "fretJitter": 5.168903981989885
+    },
+    {
+      "number": 55,
+      "velocity": 80,
+      "time": 16.745900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.8689127852822562,
+      "fretJitter": 0.06719314661103529
+    },
+    {
+      "number": 62,
+      "velocity": 89,
+      "time": 16.810900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.9469368862105723,
+      "fretJitter": 7.140003737167364
+    },
+    {
+      "number": 65,
+      "velocity": 116,
+      "time": 16.845900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.8718029339597002,
+      "fretJitter": 5.893077555298574
+    },
+    {
+      "number": 64,
+      "velocity": 112,
+      "time": 16.85390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1109537037841117,
+      "fretJitter": 4.986443688675278
+    },
+    {
+      "number": 62,
+      "velocity": 103,
+      "time": 16.971900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.026332241397423,
+      "fretJitter": 7.113788136720424
+    },
+    {
+      "number": 65,
+      "velocity": 127,
+      "time": 17.07490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.0891940536187914,
+      "fretJitter": 6.085033453940812
+    },
+    {
+      "number": 64,
+      "velocity": 127,
+      "time": 17.08690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.0422596731148386,
+      "fretJitter": 4.899308446595813
+    },
+    {
+      "number": 65,
+      "velocity": 127,
+      "time": 17.143900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.948006342767919,
+      "fretJitter": 6.043988704134797
+    },
+    {
+      "number": 66,
+      "velocity": 122,
+      "time": 17.20290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.8248119737014832,
+      "fretJitter": 6.957983206001212
+    },
+    {
+      "number": 65,
+      "velocity": 113,
+      "time": 17.274900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.0911761672474276,
+      "fretJitter": 6.142340231751461
+    },
+    {
+      "number": 64,
+      "velocity": 111,
+      "time": 17.30490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1811231886329612,
+      "fretJitter": 5.161895933641918
+    },
+    {
+      "number": 62,
+      "velocity": 45,
+      "time": 17.369900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.9654286618649173,
+      "fretJitter": 6.95449194547064
+    },
+    {
+      "number": 60,
+      "velocity": 42,
+      "time": 17.477900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.076104485188858,
+      "fretJitter": 5.004294839656185
+    },
+    {
+      "number": 61,
+      "velocity": 39,
+      "time": 17.581900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 2.183608187648575,
+      "fretJitter": 5.993168547119014
+    },
+    {
+      "number": 60,
+      "velocity": 34,
+      "time": 17.63890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.108416666696104,
+      "fretJitter": 4.863222436365512
+    },
+    {
+      "number": 57,
+      "velocity": 90,
+      "time": 17.729900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.0734453801222963,
+      "fretJitter": 7.075045309856228
+    },
+    {
+      "number": 50,
+      "velocity": 70,
+      "time": 17.87190000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.8828075490841716,
+      "fretJitter": -0.1950085863865148
+    },
+    {
+      "number": 57,
+      "velocity": 83,
+      "time": 17.918900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.8150465604731685,
+      "fretJitter": 6.938098589135116
+    },
+    {
+      "number": 61,
+      "velocity": 44,
+      "time": 18.023900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 2.0364117992217574,
+      "fretJitter": 5.84439095617764
+    },
+    {
+      "number": 55,
+      "velocity": 79,
+      "time": 18.031900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 3.1994570472306614,
+      "fretJitter": 5.138812409918679
+    },
+    {
+      "number": 79,
+      "velocity": 10,
+      "time": 18.04590000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 24,
+      "stringJitter": 1.8784224549778719,
+      "fretJitter": 23.874724138752942
+    },
+    {
+      "number": 52,
+      "velocity": 79,
+      "time": 18.129900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 4.158211182176588,
+      "fretJitter": 6.851934762985198
+    },
+    {
+      "number": 78,
+      "velocity": 10,
+      "time": 18.217900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 23,
+      "stringJitter": 1.8945327745735594,
+      "fretJitter": 23.193626494396494
+    },
+    {
+      "number": 79,
+      "velocity": 10,
+      "time": 18.232900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 24,
+      "stringJitter": 2.002398408742315,
+      "fretJitter": 23.817913171851202
+    },
+    {
+      "number": 45,
+      "velocity": 10,
+      "time": 18.234,
+      "channel": 5,
+      "string": 4,
+      "fret": 0,
+      "stringJitter": 4.115768635443139,
+      "fretJitter": 0.03482491209341072
+    },
+    {
+      "number": 51,
+      "velocity": 47,
+      "time": 18.268900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.9641649345509684,
+      "fretJitter": 6.002996229883796
+    },
+    {
+      "number": 47,
+      "velocity": 75,
+      "time": 18.387900000035764,
+      "channel": 6,
+      "string": 5,
+      "fret": 7,
+      "stringJitter": 4.937083709101403,
+      "fretJitter": 7.184993892946025
+    },
+    {
+      "number": 48,
+      "velocity": 82,
+      "time": 18.466900000035764,
+      "channel": 6,
+      "string": 5,
+      "fret": 8,
+      "stringJitter": 4.836232648590995,
+      "fretJitter": 8.179030612810442
+    },
+    {
+      "number": 45,
+      "velocity": 108,
+      "time": 18.55490000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 5,
+      "stringJitter": 4.8940347599876475,
+      "fretJitter": 5.134662012864757
+    },
+    {
+      "number": 53,
+      "velocity": 28,
+      "time": 18.67,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.9145237273145708,
+      "fretJitter": 8.031167509516413
+    },
+    {
+      "number": 40,
+      "velocity": 10,
+      "time": 18.697900000035762,
+      "channel": 6,
+      "string": 5,
+      "fret": 0,
+      "stringJitter": 4.937864520175126,
+      "fretJitter": -0.1576142712417779
+    },
+    {
+      "number": 50,
+      "velocity": 96,
+      "time": 18.785900000035763,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 3.8560484589580257,
+      "fretJitter": 5.193808878393046
+    },
+    {
+      "number": 52,
+      "velocity": 60,
+      "time": 18.988900000035763,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 4.160185300061093,
+      "fretJitter": 6.882016572159008
+    },
+    {
+      "number": 55,
+      "velocity": 10,
+      "time": 19.075900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 2.893240924428132,
+      "fretJitter": 4.912824024239759
+    },
+    {
+      "number": 55,
+      "velocity": 105,
+      "time": 19.124900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 2.8401428420392913,
+      "fretJitter": 5.085907740797214
+    },
+    {
+      "number": 57,
+      "velocity": 102,
+      "time": 19.221900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.1491414755998406,
+      "fretJitter": 7.133356463316439
+    },
+    {
+      "number": 61,
+      "velocity": 115,
+      "time": 19.22890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 2.1972289540016883,
+      "fretJitter": 5.9225943753649855
+    },
+    {
+      "number": 57,
+      "velocity": 110,
+      "time": 19.262900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.900484415891074,
+      "fretJitter": 7.096726498727495
+    },
+    {
+      "number": 62,
+      "velocity": 103,
+      "time": 19.26390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8970530397648986,
+      "fretJitter": 7.065398748614959
+    },
+    {
+      "number": 50,
+      "velocity": 127,
+      "time": 19.383900000035762,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.9786444137939494,
+      "fretJitter": 0.06468088383174582
+    },
+    {
+      "number": 60,
+      "velocity": 124,
+      "time": 19.483900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.081928750755515,
+      "fretJitter": 4.800120216068059
+    },
+    {
+      "number": 57,
+      "velocity": 91,
+      "time": 19.52890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.131200142119656,
+      "fretJitter": 6.8550837011345
+    },
+    {
+      "number": 50,
+      "velocity": 127,
+      "time": 19.596900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.834655232467539,
+      "fretJitter": -0.11240210281898584
+    },
+    {
+      "number": 60,
+      "velocity": 71,
+      "time": 19.608900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.8264021036857592,
+      "fretJitter": 5.013116723404293
+    },
+    {
+      "number": 62,
+      "velocity": 69,
+      "time": 19.67090000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.068827257407495,
+      "fretJitter": 7.179629985731397
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 19.724900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.903668647378091,
+      "fretJitter": 6.815453611556002
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 19.843900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.8520199021209358,
+      "fretJitter": 8.146625945995215
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 19.85690000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.099394858443264,
+      "fretJitter": 7.123761066327896
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 19.92990000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.048273178618508,
+      "fretJitter": 8.146038129302074
+    },
+    {
+      "number": 64,
+      "velocity": 127,
+      "time": 19.962900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 9,
+      "stringJitter": 1.8381998710112257,
+      "fretJitter": 9.109200000931375
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 20.063900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.8472285635132657,
+      "fretJitter": 8.117246630941658
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 20.073900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8349539643960626,
+      "fretJitter": 7.074797556277058
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 20.207900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.00410057215451,
+      "fretJitter": 7.866612197435945
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 20.221900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8102630463772675,
+      "fretJitter": 7.000996478754371
+    },
+    {
+      "number": 60,
+      "velocity": 94,
+      "time": 20.258900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.8273166461454369,
+      "fretJitter": 5.1393323557369115
+    },
+    {
+      "number": 61,
+      "velocity": 72,
+      "time": 20.351900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 1.8579342330370663,
+      "fretJitter": 6.117659340696239
+    },
+    {
+      "number": 62,
+      "velocity": 71,
+      "time": 20.366900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.1041874015593547,
+      "fretJitter": 6.93552119123674
+    },
+    {
+      "number": 63,
+      "velocity": 72,
+      "time": 20.393900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.8396613861372768,
+      "fretJitter": 8.030947821604467
+    },
+    {
+      "number": 64,
+      "velocity": 69,
+      "time": 20.435900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 9,
+      "stringJitter": 2.0862601394946854,
+      "fretJitter": 8.983099189741402
+    },
+    {
+      "number": 67,
+      "velocity": 28,
+      "time": 20.488900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.1996465798208127,
+      "fretJitter": 8.18019916894514
+    },
+    {
+      "number": 55,
+      "velocity": 63,
+      "time": 20.552900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 2.0170021784407535,
+      "fretJitter": -0.19619658070337798
+    },
+    {
+      "number": 67,
+      "velocity": 85,
+      "time": 20.608900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0692691394795928,
+      "fretJitter": 8.014217336315147
+    },
+    {
+      "number": 69,
+      "velocity": 96,
+      "time": 20.643900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.9725346731148229,
+      "fretJitter": 9.885295542377227
+    },
+    {
+      "number": 67,
+      "velocity": 127,
+      "time": 21.26690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0577715389456994,
+      "fretJitter": 7.934368552186888
+    },
+    {
+      "number": 68,
+      "velocity": 127,
+      "time": 21.350900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 1.0124185306874267,
+      "fretJitter": 9.05893399561428
+    },
+    {
+      "number": 69,
+      "velocity": 117,
+      "time": 21.45290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.8837576433782122,
+      "fretJitter": 10.196965476524195
+    },
+    {
+      "number": 72,
+      "velocity": 49,
+      "time": 21.48490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.10624170460126009,
+      "fretJitter": 7.9578522993320275
+    },
+    {
+      "number": 73,
+      "velocity": 46,
+      "time": 21.585900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.0723737700538715,
+      "fretJitter": 8.958758577480577
+    },
+    {
+      "number": 69,
+      "velocity": 95,
+      "time": 21.607900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.9171643020984456,
+      "fretJitter": 9.85484414333373
+    },
+    {
+      "number": 74,
+      "velocity": 65,
+      "time": 21.812900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.19626043224626183,
+      "fretJitter": 9.938019491516455
+    },
+    {
+      "number": 75,
+      "velocity": 69,
+      "time": 21.89,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.07153844982884942,
+      "fretJitter": 10.829389052219
+    },
+    {
+      "number": 76,
+      "velocity": 73,
+      "time": 21.904900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.03216137074434764,
+      "fretJitter": 11.843871669897565
+    },
+    {
+      "number": 75,
+      "velocity": 64,
+      "time": 21.99090000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": 0.10655132768998854,
+      "fretJitter": 11.085248347870797
+    },
+    {
+      "number": 73,
+      "velocity": 62,
+      "time": 22.049900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.1390697799151905,
+      "fretJitter": 9.078771298733738
+    },
+    {
+      "number": 72,
+      "velocity": 59,
+      "time": 22.063900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.07708257925538292,
+      "fretJitter": 8.086944566032733
+    },
+    {
+      "number": 69,
+      "velocity": 23,
+      "time": 22.16790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.8856250375953321,
+      "fretJitter": 9.889812742187209
+    },
+    {
+      "number": 69,
+      "velocity": 10,
+      "time": 22.355900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1692143388050256,
+      "fretJitter": 10.179537923600527
+    },
+    {
+      "number": 69,
+      "velocity": 98,
+      "time": 22.396900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.819497111964332,
+      "fretJitter": 9.93125484783496
+    },
+    {
+      "number": 70,
+      "velocity": 106,
+      "time": 22.501900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 11,
+      "stringJitter": 0.8025964904255714,
+      "fretJitter": 11.120649270828755
+    },
+    {
+      "number": 71,
+      "velocity": 105,
+      "time": 22.514900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.1187742711262045,
+      "fretJitter": 12.097373664266629
+    },
+    {
+      "number": 72,
+      "velocity": 103,
+      "time": 22.54290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.1478036248665977,
+      "fretJitter": 12.964990569896806
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 22.736900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.07585735461618937,
+      "fretJitter": 9.867111871373712
+    },
+    {
+      "number": 72,
+      "velocity": 20,
+      "time": 22.846900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8943093132489979,
+      "fretJitter": 13.071868692960392
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 22.86290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": -0.02790079126014229,
+      "fretJitter": 11.188287507622713
+    },
+    {
+      "number": 72,
+      "velocity": 74,
+      "time": 22.883900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8819634263993681,
+      "fretJitter": 13.036637513996686
+    },
+    {
+      "number": 72,
+      "velocity": 80,
+      "time": 23.19,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8592904819089351,
+      "fretJitter": 13.026883704160305
+    },
+    {
+      "number": 73,
+      "velocity": 86,
+      "time": 23.283900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 0.982034337571794,
+      "fretJitter": 13.994822339920127
+    },
+    {
+      "number": 74,
+      "velocity": 84,
+      "time": 23.32790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.9385395676868202,
+      "fretJitter": 14.857642316982627
+    },
+    {
+      "number": 73,
+      "velocity": 79,
+      "time": 23.42990000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 1.1195975156069207,
+      "fretJitter": 13.948103080439262
+    },
+    {
+      "number": 62,
+      "velocity": 20,
+      "time": 23.553900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 12,
+      "stringJitter": 3.1971321784727644,
+      "fretJitter": 12.180662456804553
+    },
+    {
+      "number": 74,
+      "velocity": 76,
+      "time": 23.570900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1319181371195985,
+      "fretJitter": 14.869991018478721
+    },
+    {
+      "number": 63,
+      "velocity": 10,
+      "time": 23.646,
+      "channel": 4,
+      "string": 3,
+      "fret": 13,
+      "stringJitter": 2.8229334335855754,
+      "fretJitter": 13.171098557096336
+    },
+    {
+      "number": 73,
+      "velocity": 72,
+      "time": 23.704900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 1.1968379078114535,
+      "fretJitter": 13.965143607888642
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 23.735900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 3.089667853186008,
+      "fretJitter": -0.031926787781789034
+    },
+    {
+      "number": 72,
+      "velocity": 71,
+      "time": 23.747900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.05404761640822,
+      "fretJitter": 13.17886719792695
+    },
+    {
+      "number": 73,
+      "velocity": 70,
+      "time": 23.806900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 0.873915600707414,
+      "fretJitter": 13.88991398303488
+    },
+    {
+      "number": 74,
+      "velocity": 71,
+      "time": 23.83390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.9312398562640988,
+      "fretJitter": 14.868503439730901
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 23.957900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.14531119555920605,
+      "fretJitter": 12.073901493774375
+    },
+    {
+      "number": 59,
+      "velocity": 75,
+      "time": 24.08390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9741265243360152,
+      "fretJitter": 0.08429267216562374
+    },
+    {
+      "number": 76,
+      "velocity": 92,
+      "time": 24.19690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.12165599304576746,
+      "fretJitter": 12.122819839176683
+    },
+    {
+      "number": 77,
+      "velocity": 80,
+      "time": 24.328900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": -0.12676238164307696,
+      "fretJitter": 12.815676446687988
+    },
+    {
+      "number": 79,
+      "velocity": 78,
+      "time": 24.386900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.19634422538671947,
+      "fretJitter": 15.137444931332645
+    },
+    {
+      "number": 77,
+      "velocity": 74,
+      "time": 24.444900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": -0.10095023713386482,
+      "fretJitter": 13.181773667927388
+    },
+    {
+      "number": 76,
+      "velocity": 68,
+      "time": 24.529900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.008837666844235592,
+      "fretJitter": 11.888140521644855
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 24.588900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.8636521061039155,
+      "fretJitter": 13.044042899642792
+    },
+    {
+      "number": 77,
+      "velocity": 63,
+      "time": 24.60390000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": -0.012073144905633005,
+      "fretJitter": 12.941880690801087
+    },
+    {
+      "number": 64,
+      "velocity": 67,
+      "time": 24.632900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.014257462991886617,
+      "fretJitter": 0.03013623941526085
+    },
+    {
+      "number": 71,
+      "velocity": 10,
+      "time": 24.721900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.88880571676133,
+      "fretJitter": 11.973765266810046
+    },
+    {
+      "number": 73,
+      "velocity": 10,
+      "time": 24.76390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 1.00009116380141,
+      "fretJitter": 14.109603984862542
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 24.791900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.0141646294359454,
+      "fretJitter": 14.843025557088795
+    },
+    {
+      "number": 59,
+      "velocity": 10,
+      "time": 25.052900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8716014741531211,
+      "fretJitter": -0.045653375131688725
+    },
+    {
+      "number": 71,
+      "velocity": 60,
+      "time": 25.157900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.1934003213170261,
+      "fretJitter": 12.16710092797807
+    },
+    {
+      "number": 74,
+      "velocity": 74,
+      "time": 25.198900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.8937379916732581,
+      "fretJitter": 14.928973890006198
+    },
+    {
+      "number": 77,
+      "velocity": 10,
+      "time": 25.334900000035763,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": -0.022389502661378114,
+      "fretJitter": 12.832869349078011
+    },
+    {
+      "number": 74,
+      "velocity": 65,
+      "time": 25.483900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1305878503607043,
+      "fretJitter": 14.957352716136743
+    },
+    {
+      "number": 77,
+      "velocity": 58,
+      "time": 25.611900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.16602174591276678,
+      "fretJitter": 12.83457057938642
+    },
+    {
+      "number": 78,
+      "velocity": 66,
+      "time": 25.70590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 14,
+      "stringJitter": -0.17430229558141727,
+      "fretJitter": 13.9926232094099
+    },
+    {
+      "number": 79,
+      "velocity": 58,
+      "time": 25.722900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": -0.0218978355104964,
+      "fretJitter": 15.17929959157142
+    },
+    {
+      "number": 79,
+      "velocity": 92,
+      "time": 25.74690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": -0.1424580738065937,
+      "fretJitter": 15.173252259370997
+    },
+    {
+      "number": 82,
+      "velocity": 85,
+      "time": 26.111900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 18,
+      "stringJitter": -0.08983561756086544,
+      "fretJitter": 17.83517430999951
+    },
+    {
+      "number": 79,
+      "velocity": 85,
+      "time": 26.128,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.08713917281086668,
+      "fretJitter": 15.195550077478881
+    },
+    {
+      "number": 59,
+      "velocity": 100,
+      "time": 26.422900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8658934296645924,
+      "fretJitter": -0.1701796166418931
+    },
+    {
+      "number": 74,
+      "velocity": 91,
+      "time": 26.447900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.007254159004261,
+      "fretJitter": 14.991108890994147
+    },
+    {
+      "number": 75,
+      "velocity": 89,
+      "time": 26.54890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.8656344810342045,
+      "fretJitter": 15.811790291922339
+    },
+    {
+      "number": 74,
+      "velocity": 88,
+      "time": 26.605900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.9415942890721827,
+      "fretJitter": 15.009950297194226
+    },
+    {
+      "number": 71,
+      "velocity": 84,
+      "time": 26.92690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.90589664560319,
+      "fretJitter": 11.982393202397695
+    },
+    {
+      "number": 59,
+      "velocity": 61,
+      "time": 27.069900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8719882737471271,
+      "fretJitter": 0.19956626549722556
+    },
+    {
+      "number": 63,
+      "velocity": 54,
+      "time": 27.244900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 4,
+      "stringJitter": 0.9822161982216284,
+      "fretJitter": 4.026688532940355
+    },
+    {
+      "number": 59,
+      "velocity": 48,
+      "time": 27.315900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.0067516032320536,
+      "fretJitter": -0.08692062551240616
+    },
+    {
+      "number": 64,
+      "velocity": 45,
+      "time": 27.505900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.9004423879588087,
+      "fretJitter": 5.006675794036211
+    },
+    {
+      "number": 59,
+      "velocity": 44,
+      "time": 27.622900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.1844079110835033,
+      "fretJitter": -0.058149616321059666
+    },
+    {
+      "number": 64,
+      "velocity": 34,
+      "time": 27.70590000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.943300531708285,
+      "fretJitter": 4.877967223636169
+    },
+    {
+      "number": 66,
+      "velocity": 39,
+      "time": 27.723900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9071636763910502,
+      "fretJitter": 6.929939229479762
+    },
+    {
+      "number": 79,
+      "velocity": 10,
+      "time": 28.531900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.9987578586740569,
+      "fretJitter": 20.134679125654316
+    },
+    {
+      "number": 59,
+      "velocity": 72,
+      "time": 28.560900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8522115961529451,
+      "fretJitter": -0.15084343400213085
+    },
+    {
+      "number": 64,
+      "velocity": 44,
+      "time": 28.774900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.8965690143074192,
+      "fretJitter": 5.098196106474244
+    },
+    {
+      "number": 59,
+      "velocity": 72,
+      "time": 28.904900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.001088715280311,
+      "fretJitter": 0.17413457950477076
+    },
+    {
+      "number": 55,
+      "velocity": 74,
+      "time": 29.01090000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.9282107945170879,
+      "fretJitter": -0.09030194370386511
+    },
+    {
+      "number": 55,
+      "velocity": 37,
+      "time": 29.032900000035763,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 2.9834896268934963,
+      "fretJitter": 4.828437286878167
+    },
+    {
+      "number": 60,
+      "velocity": 64,
+      "time": 29.070900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.132426104622824,
+      "fretJitter": 5.008261168697558
+    },
+    {
+      "number": 50,
+      "velocity": 18,
+      "time": 29.11590000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.838611044221817,
+      "fretJitter": -0.0894434043684119
+    },
+    {
+      "number": 63,
+      "velocity": 32,
+      "time": 29.127900000035762,
+      "channel": 2,
+      "string": 1,
+      "fret": 4,
+      "stringJitter": 1.015345804327767,
+      "fretJitter": 3.8531705821084143
+    },
+    {
+      "number": 55,
+      "velocity": 62,
+      "time": 29.161900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.830225359006354,
+      "fretJitter": 0.01671775503526032
+    },
+    {
+      "number": 58,
+      "velocity": 52,
+      "time": 29.26390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 3,
+      "stringJitter": 2.0357759980592642,
+      "fretJitter": 2.8833468513570586
+    },
+    {
+      "number": 66,
+      "velocity": 28,
+      "time": 29.267900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9435566411019136,
+      "fretJitter": 6.946845159549385
+    },
+    {
+      "number": 65,
+      "velocity": 20,
+      "time": 29.273900000035763,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.966354342628757,
+      "fretJitter": 5.940493985712925
+    },
+    {
+      "number": 62,
+      "velocity": 119,
+      "time": 29.282900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8844484339598462,
+      "fretJitter": 6.965354396068952
+    },
+    {
+      "number": 66,
+      "velocity": 25,
+      "time": 29.289900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.8506591557906718,
+      "fretJitter": 6.908979227399209
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 29.41790000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 3.194173746103141,
+      "fretJitter": -0.12434923470680426
+    },
+    {
+      "number": 63,
+      "velocity": 111,
+      "time": 29.48190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.0750276319995997,
+      "fretJitter": 7.800504326864737
+    },
+    {
+      "number": 62,
+      "velocity": 110,
+      "time": 29.523900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8758969546794413,
+      "fretJitter": 7.189425553750493
+    },
+    {
+      "number": 63,
+      "velocity": 106,
+      "time": 29.668900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.1033395311873746,
+      "fretJitter": 8.012123524556277
+    },
+    {
+      "number": 62,
+      "velocity": 104,
+      "time": 29.712900000035763,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.159270793210979,
+      "fretJitter": 6.876025310632717
+    },
+    {
+      "number": 63,
+      "velocity": 101,
+      "time": 29.857900000035762,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.069321416519886,
+      "fretJitter": 7.929028597181717
+    },
+    {
+      "number": 59,
+      "velocity": 119,
+      "time": 29.955,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.021563312973754,
+      "fretJitter": -0.0915158938219868
+    },
+    {
+      "number": 63,
+      "velocity": 98,
+      "time": 30.117900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 4,
+      "stringJitter": 0.9029487865523222,
+      "fretJitter": 4.0209667939504286
+    },
+    {
+      "number": 59,
+      "velocity": 98,
+      "time": 30.204900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.1918621164301044,
+      "fretJitter": 0.06505946479951251
+    },
+    {
+      "number": 64,
+      "velocity": 95,
+      "time": 30.306900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.9462805775862373,
+      "fretJitter": 4.931504565491937
+    },
+    {
+      "number": 59,
+      "velocity": 45,
+      "time": 30.38590000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.8653187171344083,
+      "fretJitter": -0.12900874337272858
+    },
+    {
+      "number": 66,
+      "velocity": 94,
+      "time": 30.454900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.9217593329608753,
+      "fretJitter": 7.057973135559838
+    },
+    {
+      "number": 59,
+      "velocity": 96,
+      "time": 31.056900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.880474942077248,
+      "fretJitter": 0.1256550921013
+    },
+    {
+      "number": 63,
+      "velocity": 63,
+      "time": 31.190900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 4,
+      "stringJitter": 0.8265294527756484,
+      "fretJitter": 4.047114675997652
+    },
+    {
+      "number": 59,
+      "velocity": 47,
+      "time": 31.30790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.1233515858973833,
+      "fretJitter": 0.036054886835142685
+    },
+    {
+      "number": 64,
+      "velocity": 41,
+      "time": 31.408900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1467859991037153,
+      "fretJitter": 5.092669770434049
+    },
+    {
+      "number": 59,
+      "velocity": 65,
+      "time": 31.46190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.0957823686204398,
+      "fretJitter": -0.09104202916471432
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 31.470900000035762,
+      "channel": 1,
+      "string": 0,
+      "fret": 1,
+      "stringJitter": -0.11190186727993466,
+      "fretJitter": 0.9157312497111136
+    },
+    {
+      "number": 67,
+      "velocity": 54,
+      "time": 31.597900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0804543377926543,
+      "fretJitter": 8.196256018609079
+    },
+    {
+      "number": 59,
+      "velocity": 62,
+      "time": 31.672900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.078990887928237,
+      "fretJitter": -0.05229386955088433
+    },
+    {
+      "number": 64,
+      "velocity": 58,
+      "time": 31.812900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.0957183512451405,
+      "fretJitter": 4.947804438568995
+    },
+    {
+      "number": 59,
+      "velocity": 75,
+      "time": 31.88890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9979192073350449,
+      "fretJitter": -0.17886637789940185
+    },
+    {
+      "number": 66,
+      "velocity": 89,
+      "time": 31.98490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 1.0147361744689847,
+      "fretJitter": 6.88468516820159
+    },
+    {
+      "number": 59,
+      "velocity": 73,
+      "time": 32.149900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.0577894262277625,
+      "fretJitter": -0.09949155699146753
+    },
+    {
+      "number": 64,
+      "velocity": 68,
+      "time": 32.26690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 0.887058249692633,
+      "fretJitter": 4.807120153944178
+    },
+    {
+      "number": 59,
+      "velocity": 82,
+      "time": 32.368900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9228413339058651,
+      "fretJitter": 0.07722668563671659
+    },
+    {
+      "number": 62,
+      "velocity": 72,
+      "time": 32.46790000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.184337665521249,
+      "fretJitter": 6.828696457815162
+    },
+    {
+      "number": 63,
+      "velocity": 109,
+      "time": 32.52690000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 1.9030239414971224,
+      "fretJitter": 8.148371436685435
+    },
+    {
+      "number": 62,
+      "velocity": 107,
+      "time": 32.542900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.0591680636193233,
+      "fretJitter": 7.0981865297987765
+    },
+    {
+      "number": 59,
+      "velocity": 39,
+      "time": 32.697900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.1975990246038566,
+      "fretJitter": -0.1527083220163304
+    },
+    {
+      "number": 75,
+      "velocity": 54,
+      "time": 32.84290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 20,
+      "stringJitter": 2.0609392298755775,
+      "fretJitter": 20.148848314215954
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 32.87290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.1808577321444353,
+      "fretJitter": 8.162293567347518
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 32.88890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.899345120034675,
+      "fretJitter": 6.960249316463735
+    },
+    {
+      "number": 56,
+      "velocity": 10,
+      "time": 32.890900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 6,
+      "stringJitter": 3.0361026193951437,
+      "fretJitter": 6.087632955891248
+    },
+    {
+      "number": 57,
+      "velocity": 10,
+      "time": 32.96290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.9616861955178826,
+      "fretJitter": 6.905072241334723
+    },
+    {
+      "number": 50,
+      "velocity": 11,
+      "time": 32.98890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.951294196503099,
+      "fretJitter": 0.15270680232236444
+    },
+    {
+      "number": 63,
+      "velocity": 121,
+      "time": 33.04790000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.130231777245436,
+      "fretJitter": 7.829365688592247
+    },
+    {
+      "number": 64,
+      "velocity": 115,
+      "time": 33.13590000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 9,
+      "stringJitter": 1.802864015154204,
+      "fretJitter": 9.138918914638667
+    },
+    {
+      "number": 63,
+      "velocity": 110,
+      "time": 33.38490000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 8,
+      "stringJitter": 2.14784670018279,
+      "fretJitter": 7.871437700802257
+    },
+    {
+      "number": 62,
+      "velocity": 104,
+      "time": 33.48590000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.013102077557196,
+      "fretJitter": 7.168974413349067
+    },
+    {
+      "number": 63,
+      "velocity": 64,
+      "time": 33.54690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 4,
+      "stringJitter": 0.9448032008330188,
+      "fretJitter": 3.935742850304841
+    },
+    {
+      "number": 64,
+      "velocity": 69,
+      "time": 33.58690000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.0373696620854096,
+      "fretJitter": 4.894072818242596
+    },
+    {
+      "number": 65,
+      "velocity": 64,
+      "time": 33.658900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 1.0542273991342639,
+      "fretJitter": 5.839453230003435
+    },
+    {
+      "number": 67,
+      "velocity": 64,
+      "time": 33.70290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0708478016105354,
+      "fretJitter": 7.833101874817302
+    },
+    {
+      "number": 68,
+      "velocity": 65,
+      "time": 33.72990000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 1.1811266563041833,
+      "fretJitter": 8.809459012893113
+    },
+    {
+      "number": 66,
+      "velocity": 71,
+      "time": 33.84990000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 1.1493940909355216,
+      "fretJitter": 7.134037830745977
+    },
+    {
+      "number": 78,
+      "velocity": 61,
+      "time": 33.93190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 1.053416045100181,
+      "fretJitter": 18.849102850359
+    },
+    {
+      "number": 72,
+      "velocity": 34,
+      "time": 33.98590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.11727363882596303,
+      "fretJitter": 7.849372949447001
+    },
+    {
+      "number": 67,
+      "velocity": 82,
+      "time": 34.14190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0580309125980358,
+      "fretJitter": 7.846311314236264
+    },
+    {
+      "number": 68,
+      "velocity": 69,
+      "time": 34.18390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 0.8272259075052737,
+      "fretJitter": 8.841306499881268
+    },
+    {
+      "number": 67,
+      "velocity": 43,
+      "time": 34.28490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.077984177120338,
+      "fretJitter": 7.85688274202456
+    },
+    {
+      "number": 69,
+      "velocity": 42,
+      "time": 34.34290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1834829987745887,
+      "fretJitter": 10.154153976521453
+    },
+    {
+      "number": 58,
+      "velocity": 10,
+      "time": 34.44290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 3,
+      "stringJitter": 2.170299243036847,
+      "fretJitter": 3.052832111626963
+    },
+    {
+      "number": 55,
+      "velocity": 10,
+      "time": 34.50190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.8611291606347116,
+      "fretJitter": 0.07566762988154929
+    },
+    {
+      "number": 70,
+      "velocity": 39,
+      "time": 34.688900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 11,
+      "stringJitter": 1.00304861487908,
+      "fretJitter": 11.01141484804699
+    },
+    {
+      "number": 69,
+      "velocity": 39,
+      "time": 34.74790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.1325943861862742,
+      "fretJitter": 9.976532751957347
+    },
+    {
+      "number": 67,
+      "velocity": 32,
+      "time": 34.804900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.0313741773741,
+      "fretJitter": 8.052046455000712
+    },
+    {
+      "number": 67,
+      "velocity": 76,
+      "time": 34.82490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 8,
+      "stringJitter": 1.1217976556453197,
+      "fretJitter": 8.01105565646391
+    },
+    {
+      "number": 68,
+      "velocity": 79,
+      "time": 34.90790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 9,
+      "stringJitter": 0.8378903543342682,
+      "fretJitter": 8.998056310774277
+    },
+    {
+      "number": 64,
+      "velocity": 50,
+      "time": 34.96790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.0026791049696777594,
+      "fretJitter": 0.026320818125448488
+    },
+    {
+      "number": 72,
+      "velocity": 43,
+      "time": 35.066900000035766,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.06913648893700212,
+      "fretJitter": 7.959400160072768
+    },
+    {
+      "number": 66,
+      "velocity": 25,
+      "time": 35.10890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 7,
+      "stringJitter": 0.8164588569286669,
+      "fretJitter": 6.860929741420881
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 35.19590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.05826165848385987,
+      "fretJitter": 7.913074598477966
+    },
+    {
+      "number": 74,
+      "velocity": 16,
+      "time": 35.29790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.14654187245846081,
+      "fretJitter": 10.134341728766985
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 35.395900000035766,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.15032257587243658,
+      "fretJitter": 7.85769968352091
+    },
+    {
+      "number": 69,
+      "velocity": 10,
+      "time": 35.522,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.8366385377331544,
+      "fretJitter": 10.020540654422186
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 35.52890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.08709975144127934,
+      "fretJitter": 9.940543765465282
+    },
+    {
+      "number": 69,
+      "velocity": 65,
+      "time": 35.55590000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 0.833181332692602,
+      "fretJitter": 9.836343496208793
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 35.673900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.10071028509025828,
+      "fretJitter": 7.961540731849089
+    },
+    {
+      "number": 69,
+      "velocity": 122,
+      "time": 35.786900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 10,
+      "stringJitter": 1.0140231221793021,
+      "fretJitter": 9.877341359647623
+    },
+    {
+      "number": 70,
+      "velocity": 103,
+      "time": 36.243900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 11,
+      "stringJitter": 0.8425450151297593,
+      "fretJitter": 11.170274866882233
+    },
+    {
+      "number": 71,
+      "velocity": 104,
+      "time": 36.268900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.9727650451145966,
+      "fretJitter": 11.916943349083681
+    },
+    {
+      "number": 72,
+      "velocity": 105,
+      "time": 36.301900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.117153641346014,
+      "fretJitter": 12.858079082709722
+    },
+    {
+      "number": 71,
+      "velocity": 95,
+      "time": 36.40190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.9686091669320503,
+      "fretJitter": 12.016061819441504
+    },
+    {
+      "number": 74,
+      "velocity": 39,
+      "time": 36.45890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.08754815491404414,
+      "fretJitter": 10.023278226319158
+    },
+    {
+      "number": 76,
+      "velocity": 30,
+      "time": 36.64790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.11823620745694541,
+      "fretJitter": 11.905190800482437
+    },
+    {
+      "number": 74,
+      "velocity": 25,
+      "time": 36.74890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.06339511267490208,
+      "fretJitter": 10.183183008243269
+    },
+    {
+      "number": 68,
+      "velocity": 33,
+      "time": 36.84090000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 2.0167260570643313,
+      "fretJitter": 12.8060345881301
+    },
+    {
+      "number": 72,
+      "velocity": 43,
+      "time": 36.847900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 0.9348432956526618,
+      "fretJitter": 12.811222091828334
+    },
+    {
+      "number": 67,
+      "velocity": 11,
+      "time": 36.935900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 12,
+      "stringJitter": 1.905040839753808,
+      "fretJitter": 11.908323240516463
+    },
+    {
+      "number": 74,
+      "velocity": 10,
+      "time": 36.96190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.057959777758811275,
+      "fretJitter": 9.857177961771932
+    },
+    {
+      "number": 55,
+      "velocity": 11,
+      "time": 36.98390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 2.0296506441151854,
+      "fretJitter": 0.04748755246835375
+    },
+    {
+      "number": 76,
+      "velocity": 18,
+      "time": 37.06890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.06647475475225902,
+      "fretJitter": 12.155556734021653
+    },
+    {
+      "number": 77,
+      "velocity": 15,
+      "time": 37.213900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.17415725468825674,
+      "fretJitter": 12.824635935434966
+    },
+    {
+      "number": 76,
+      "velocity": 15,
+      "time": 37.30290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.14604664999755698,
+      "fretJitter": 11.920948332580041
+    },
+    {
+      "number": 74,
+      "velocity": 13,
+      "time": 37.38890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.05908450079135488,
+      "fretJitter": 9.910547813488007
+    },
+    {
+      "number": 77,
+      "velocity": 10,
+      "time": 37.57190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 1.0969845468191235,
+      "fretJitter": 18.19458551487864
+    },
+    {
+      "number": 74,
+      "velocity": 89,
+      "time": 37.630900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1540303528406255,
+      "fretJitter": 14.867939863615884
+    },
+    {
+      "number": 74,
+      "velocity": 46,
+      "time": 37.64490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.1382671388934055,
+      "fretJitter": 9.964185981838611
+    },
+    {
+      "number": 76,
+      "velocity": 35,
+      "time": 37.83790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.01644264383659735,
+      "fretJitter": 11.992199440195533
+    },
+    {
+      "number": 76,
+      "velocity": 109,
+      "time": 37.89190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.19425544480997559,
+      "fretJitter": 11.923653878353102
+    },
+    {
+      "number": 74,
+      "velocity": 88,
+      "time": 38.085,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.10328986373126332,
+      "fretJitter": 10.027463059997341
+    },
+    {
+      "number": 64,
+      "velocity": 98,
+      "time": 38.207900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.16533955230378386,
+      "fretJitter": -0.020759155406373964
+    },
+    {
+      "number": 68,
+      "velocity": 77,
+      "time": 38.505900000035766,
+      "channel": 1,
+      "string": 0,
+      "fret": 4,
+      "stringJitter": -0.0881009990308046,
+      "fretJitter": 4.131758445774945
+    },
+    {
+      "number": 64,
+      "velocity": 50,
+      "time": 38.56890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.0013667618982323938,
+      "fretJitter": -0.014752394334942666
+    },
+    {
+      "number": 69,
+      "velocity": 51,
+      "time": 38.691900000035766,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": 0.19390845107197735,
+      "fretJitter": 4.954285283416809
+    },
+    {
+      "number": 64,
+      "velocity": 64,
+      "time": 38.78290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.03724236664304899,
+      "fretJitter": -0.005427624644228502
+    },
+    {
+      "number": 73,
+      "velocity": 77,
+      "time": 38.91090000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.19310164139116798,
+      "fretJitter": 9.084756097416752
+    },
+    {
+      "number": 65,
+      "velocity": 10,
+      "time": 38.914900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 6,
+      "stringJitter": 0.9450256380213073,
+      "fretJitter": 6.092332187662173
+    },
+    {
+      "number": 71,
+      "velocity": 75,
+      "time": 38.92590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.17080383497979978,
+      "fretJitter": 6.871721338412173
+    },
+    {
+      "number": 64,
+      "velocity": 43,
+      "time": 39.02690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": 0.18651920406372496,
+      "fretJitter": -0.11700382537099437
+    },
+    {
+      "number": 69,
+      "velocity": 43,
+      "time": 39.18990000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": -0.1431699801016313,
+      "fretJitter": 5.134708012541226
+    },
+    {
+      "number": 64,
+      "velocity": 15,
+      "time": 39.31790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": 0.17051144229001658,
+      "fretJitter": 0.04124696877837906
+    },
+    {
+      "number": 71,
+      "velocity": 21,
+      "time": 39.371900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.03517908487045034,
+      "fretJitter": 6.95497601334253
+    },
+    {
+      "number": 64,
+      "velocity": 41,
+      "time": 39.461,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.04612429585978087,
+      "fretJitter": 0.0382023142932054
+    },
+    {
+      "number": 73,
+      "velocity": 30,
+      "time": 39.624900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.13546501039164865,
+      "fretJitter": 9.012982643872022
+    },
+    {
+      "number": 72,
+      "velocity": 23,
+      "time": 39.66690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": -0.1142470333078272,
+      "fretJitter": 7.978296763553224
+    },
+    {
+      "number": 64,
+      "velocity": 39,
+      "time": 39.68390000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": -0.03212513037916436,
+      "fretJitter": -0.02900293094817723
+    },
+    {
+      "number": 72,
+      "velocity": 25,
+      "time": 39.896900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.11102508326215502,
+      "fretJitter": 8.051260473335152
+    },
+    {
+      "number": 71,
+      "velocity": 23,
+      "time": 39.92790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": 0.10291989559667361,
+      "fretJitter": 6.944322549794105
+    },
+    {
+      "number": 75,
+      "velocity": 13,
+      "time": 39.96890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": 0.10967065611882082,
+      "fretJitter": 10.905053846783968
+    },
+    {
+      "number": 74,
+      "velocity": 49,
+      "time": 40.25190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": 0.15337335600381535,
+      "fretJitter": 9.840658222710466
+    },
+    {
+      "number": 75,
+      "velocity": 44,
+      "time": 40.56590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": 0.12395425876099964,
+      "fretJitter": 10.985486013424607
+    },
+    {
+      "number": 76,
+      "velocity": 46,
+      "time": 40.58090000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.17028729116513955,
+      "fretJitter": 12.106477481423148
+    },
+    {
+      "number": 78,
+      "velocity": 48,
+      "time": 40.624900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 14,
+      "stringJitter": -0.10709658035465167,
+      "fretJitter": 14.00238502003973
+    },
+    {
+      "number": 79,
+      "velocity": 47,
+      "time": 40.63790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.17055598941238037,
+      "fretJitter": 15.018468518451078
+    },
+    {
+      "number": 80,
+      "velocity": 45,
+      "time": 40.66890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 16,
+      "stringJitter": 0.15091564774062133,
+      "fretJitter": 16.117634707699892
+    },
+    {
+      "number": 81,
+      "velocity": 45,
+      "time": 40.682900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": -0.16642307068510745,
+      "fretJitter": 17.03121501464507
+    },
+    {
+      "number": 80,
+      "velocity": 29,
+      "time": 40.82790000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 16,
+      "stringJitter": 0.028318265936524246,
+      "fretJitter": 16.003503442529425
+    },
+    {
+      "number": 79,
+      "velocity": 28,
+      "time": 40.84290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": -0.12211551033452867,
+      "fretJitter": 14.848696359395882
+    },
+    {
+      "number": 77,
+      "velocity": 10,
+      "time": 40.868900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 0.919748706057199,
+      "fretJitter": 18.011800614747727
+    },
+    {
+      "number": 75,
+      "velocity": 28,
+      "time": 40.88490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 11,
+      "stringJitter": 0.14722576534246895,
+      "fretJitter": 10.830334963438627
+    },
+    {
+      "number": 75,
+      "velocity": 101,
+      "time": 40.91290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.9281109148045151,
+      "fretJitter": 15.86860267695763
+    },
+    {
+      "number": 73,
+      "velocity": 58,
+      "time": 40.91690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.11501739984824876,
+      "fretJitter": 8.826182696731198
+    },
+    {
+      "number": 72,
+      "velocity": 66,
+      "time": 40.92890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 8,
+      "stringJitter": 0.17150155093916697,
+      "fretJitter": 7.897579515620619
+    },
+    {
+      "number": 71,
+      "velocity": 64,
+      "time": 40.94290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 7,
+      "stringJitter": -0.008725086998539933,
+      "fretJitter": 7.034009638775817
+    },
+    {
+      "number": 70,
+      "velocity": 63,
+      "time": 40.957900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 6,
+      "stringJitter": -0.15289106638484534,
+      "fretJitter": 5.967527622139859
+    },
+    {
+      "number": 69,
+      "velocity": 61,
+      "time": 40.98690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": 0.1655913168416519,
+      "fretJitter": 5.006620837551059
+    },
+    {
+      "number": 68,
+      "velocity": 52,
+      "time": 41.02890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 4,
+      "stringJitter": -0.03485412514487516,
+      "fretJitter": 4.033532642009073
+    },
+    {
+      "number": 69,
+      "velocity": 50,
+      "time": 41.130900000035766,
+      "channel": 1,
+      "string": 0,
+      "fret": 5,
+      "stringJitter": -0.07537180426945769,
+      "fretJitter": 5.1795962885542695
+    },
+    {
+      "number": 70,
+      "velocity": 50,
+      "time": 41.161900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 6,
+      "stringJitter": -0.0601280740063193,
+      "fretJitter": 6.068116998845324
+    },
+    {
+      "number": 73,
+      "velocity": 50,
+      "time": 41.21890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 9,
+      "stringJitter": 0.03066121964013222,
+      "fretJitter": 8.977691568759571
+    },
+    {
+      "number": 74,
+      "velocity": 51,
+      "time": 41.23090000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 10,
+      "stringJitter": -0.05841957466069472,
+      "fretJitter": 9.975888221657007
+    },
+    {
+      "number": 76,
+      "velocity": 51,
+      "time": 41.27690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": 0.10948009120487825,
+      "fretJitter": 12.191726698764553
+    },
+    {
+      "number": 77,
+      "velocity": 50,
+      "time": 41.28890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 13,
+      "stringJitter": 0.1612515858540877,
+      "fretJitter": 12.818964150854248
+    },
+    {
+      "number": 78,
+      "velocity": 48,
+      "time": 41.32190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 14,
+      "stringJitter": 0.14530492870750447,
+      "fretJitter": 14.027150547828855
+    },
+    {
+      "number": 55,
+      "velocity": 103,
+      "time": 41.36190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.901840355377664,
+      "fretJitter": -0.12143278680321884
+    },
+    {
+      "number": 64,
+      "velocity": 53,
+      "time": 41.36490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": 0.06047300507064444,
+      "fretJitter": 0.19852149113293907
+    },
+    {
+      "number": 59,
+      "velocity": 54,
+      "time": 41.508900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9997395635790951,
+      "fretJitter": 0.047647646473458496
+    },
+    {
+      "number": 69,
+      "velocity": 75,
+      "time": 41.655900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 2.0719114928843108,
+      "fretJitter": 13.999826064630875
+    },
+    {
+      "number": 70,
+      "velocity": 72,
+      "time": 41.72790000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 15,
+      "stringJitter": 1.9015389712718154,
+      "fretJitter": 14.948295325406841
+    },
+    {
+      "number": 71,
+      "velocity": 64,
+      "time": 41.80390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.8969317972877,
+      "fretJitter": 11.903756767981601
+    },
+    {
+      "number": 76,
+      "velocity": 62,
+      "time": 41.905900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 12,
+      "stringJitter": -0.17270157689463028,
+      "fretJitter": 11.912803798016828
+    },
+    {
+      "number": 71,
+      "velocity": 84,
+      "time": 42.033900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 1.0535295954055575,
+      "fretJitter": 11.997615269579331
+    },
+    {
+      "number": 78,
+      "velocity": 54,
+      "time": 42.10490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 14,
+      "stringJitter": 0.02359739898337372,
+      "fretJitter": 13.835505242618225
+    },
+    {
+      "number": 74,
+      "velocity": 74,
+      "time": 42.118900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 0.9772013621026201,
+      "fretJitter": 14.856384576071086
+    },
+    {
+      "number": 74,
+      "velocity": 127,
+      "time": 42.148900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1608456946083394,
+      "fretJitter": 14.988955246291123
+    },
+    {
+      "number": 75,
+      "velocity": 123,
+      "time": 42.24890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 0.8739003988601336,
+      "fretJitter": 16.170522629196046
+    },
+    {
+      "number": 76,
+      "velocity": 119,
+      "time": 42.27890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.1812998872963119,
+      "fretJitter": 17.145679844187097
+    },
+    {
+      "number": 77,
+      "velocity": 103,
+      "time": 42.38190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 1.1602544217632464,
+      "fretJitter": 18.18089589037253
+    },
+    {
+      "number": 79,
+      "velocity": 26,
+      "time": 42.40190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": 0.020244674688023157,
+      "fretJitter": 14.860302131185568
+    },
+    {
+      "number": 76,
+      "velocity": 92,
+      "time": 42.524900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.046530257099098,
+      "fretJitter": 17.011336099369103
+    },
+    {
+      "number": 79,
+      "velocity": 46,
+      "time": 42.62590000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 15,
+      "stringJitter": -0.19532875558683926,
+      "fretJitter": 14.928666441122866
+    },
+    {
+      "number": 81,
+      "velocity": 51,
+      "time": 42.69890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.17661488683470053,
+      "fretJitter": 17.012320239227112
+    },
+    {
+      "number": 82,
+      "velocity": 41,
+      "time": 42.84390000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 18,
+      "stringJitter": 0.028146547994144733,
+      "fretJitter": 17.810528472693107
+    },
+    {
+      "number": 75,
+      "velocity": 10,
+      "time": 43.28490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 1.1360693580781436,
+      "fretJitter": 15.972003066491713
+    },
+    {
+      "number": 77,
+      "velocity": 10,
+      "time": 43.365900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 1.1455376811600946,
+      "fretJitter": 18.078910446482013
+    },
+    {
+      "number": 81,
+      "velocity": 10,
+      "time": 43.38890000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.04072322653697951,
+      "fretJitter": 16.87050976859237
+    },
+    {
+      "number": 78,
+      "velocity": 103,
+      "time": 43.51290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 0.9723807739812507,
+      "fretJitter": 19.148520308080514
+    },
+    {
+      "number": 81,
+      "velocity": 29,
+      "time": 43.64490000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.032337148101243954,
+      "fretJitter": 16.97071223985319
+    },
+    {
+      "number": 79,
+      "velocity": 107,
+      "time": 43.79390000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 1.0978901995966464,
+      "fretJitter": 20.063278650417356
+    },
+    {
+      "number": 80,
+      "velocity": 96,
+      "time": 43.90490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 21,
+      "stringJitter": 1.017652350214405,
+      "fretJitter": 21.04780138687087
+    },
+    {
+      "number": 81,
+      "velocity": 46,
+      "time": 43.909,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.15927409831534592,
+      "fretJitter": 16.991998911201946
+    },
+    {
+      "number": 59,
+      "velocity": 25,
+      "time": 43.993,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9618399606304409,
+      "fretJitter": -0.17319760092832076
+    },
+    {
+      "number": 59,
+      "velocity": 87,
+      "time": 44.04790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 0.9464970192804596,
+      "fretJitter": 0.13839605235822602
+    },
+    {
+      "number": 79,
+      "velocity": 75,
+      "time": 44.106900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.9933790204258233,
+      "fretJitter": 20.049855291233605
+    },
+    {
+      "number": 80,
+      "velocity": 58,
+      "time": 44.16590000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 21,
+      "stringJitter": 1.1475319017195482,
+      "fretJitter": 20.860492248685315
+    },
+    {
+      "number": 81,
+      "velocity": 20,
+      "time": 44.16690000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": -0.19274025029026484,
+      "fretJitter": 17.04308875678242
+    },
+    {
+      "number": 79,
+      "velocity": 25,
+      "time": 44.31190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.9704244111001481,
+      "fretJitter": 19.838697668588242
+    },
+    {
+      "number": 78,
+      "velocity": 37,
+      "time": 44.32490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 0.93872695809646,
+      "fretJitter": 18.950684839578148
+    },
+    {
+      "number": 81,
+      "velocity": 82,
+      "time": 44.41390000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.017007540241211316,
+      "fretJitter": 17.1822104199811
+    },
+    {
+      "number": 79,
+      "velocity": 71,
+      "time": 44.54490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.9498956265983007,
+      "fretJitter": 20.13353579007483
+    },
+    {
+      "number": 78,
+      "velocity": 69,
+      "time": 44.569900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 0.9921320886225888,
+      "fretJitter": 19.128767037002433
+    },
+    {
+      "number": 81,
+      "velocity": 33,
+      "time": 44.664900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": -0.1706362377230276,
+      "fretJitter": 16.874011132119897
+    },
+    {
+      "number": 82,
+      "velocity": 28,
+      "time": 44.72990000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 18,
+      "stringJitter": 0.14415478144456317,
+      "fretJitter": 17.99725454098224
+    },
+    {
+      "number": 84,
+      "velocity": 28,
+      "time": 44.771900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 20,
+      "stringJitter": -0.13296716052971388,
+      "fretJitter": 19.968738376936166
+    },
+    {
+      "number": 85,
+      "velocity": 26,
+      "time": 44.86190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 21,
+      "stringJitter": -0.002050054136954316,
+      "fretJitter": 20.92812868492808
+    },
+    {
+      "number": 87,
+      "velocity": 28,
+      "time": 44.908900000035764,
+      "channel": 1,
+      "string": 0,
+      "fret": 23,
+      "stringJitter": 0.054151704552821305,
+      "fretJitter": 22.976181674080223
+    },
+    {
+      "number": 88,
+      "velocity": 26,
+      "time": 44.932900000035765,
+      "channel": 1,
+      "string": 0,
+      "fret": 24,
+      "stringJitter": 0.14001503213500294,
+      "fretJitter": 23.99916624243686
+    },
+    {
+      "number": 81,
+      "velocity": 10,
+      "time": 45.07090000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 22,
+      "stringJitter": 0.8668247484017905,
+      "fretJitter": 21.962843906422147
+    },
+    {
+      "number": 76,
+      "velocity": 10,
+      "time": 45.13490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.1162861601571281,
+      "fretJitter": 16.99866146397611
+    },
+    {
+      "number": 59,
+      "velocity": 100,
+      "time": 45.371900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.1051130991523763,
+      "fretJitter": 0.18118359140665855
+    },
+    {
+      "number": 81,
+      "velocity": 28,
+      "time": 45.48090000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.0910313388232197,
+      "fretJitter": 16.931013493693108
+    },
+    {
+      "number": 79,
+      "velocity": 64,
+      "time": 45.603900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.8778089449446733,
+      "fretJitter": 20.021741339563867
+    },
+    {
+      "number": 55,
+      "velocity": 32,
+      "time": 45.86490000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.9605555465263818,
+      "fretJitter": -0.11121312007758136
+    },
+    {
+      "number": 81,
+      "velocity": 10,
+      "time": 45.88290000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 17,
+      "stringJitter": 0.10477922504984508,
+      "fretJitter": 16.95844939327068
+    },
+    {
+      "number": 79,
+      "velocity": 10,
+      "time": 45.97490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.8907740884455964,
+      "fretJitter": 19.80517384340034
+    },
+    {
+      "number": 79,
+      "velocity": 77,
+      "time": 46.01290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 1.0995908034813797,
+      "fretJitter": 20.181002726991192
+    },
+    {
+      "number": 76,
+      "velocity": 53,
+      "time": 46.145,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.0792249200629906,
+      "fretJitter": 17.077044388685028
+    },
+    {
+      "number": 77,
+      "velocity": 50,
+      "time": 46.28490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 0.9965174433307231,
+      "fretJitter": 18.003544345276385
+    },
+    {
+      "number": 76,
+      "velocity": 45,
+      "time": 46.34290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 0.8863521949870575,
+      "fretJitter": 17.10012728964486
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 46.40190000003576,
+      "channel": 1,
+      "string": 0,
+      "fret": 0,
+      "stringJitter": 0.03142487468136928,
+      "fretJitter": -0.133815312697047
+    },
+    {
+      "number": 55,
+      "velocity": 59,
+      "time": 46.429900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.8307963218444465,
+      "fretJitter": 0.1739326877047602
+    },
+    {
+      "number": 79,
+      "velocity": 40,
+      "time": 46.502900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.8117232314109495,
+      "fretJitter": 20.104338796826188
+    },
+    {
+      "number": 76,
+      "velocity": 44,
+      "time": 46.523900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 0.8086788059764578,
+      "fretJitter": 16.90422313324578
+    },
+    {
+      "number": 50,
+      "velocity": 10,
+      "time": 46.548900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.867909499310502,
+      "fretJitter": -0.04253678079452605
+    },
+    {
+      "number": 74,
+      "velocity": 23,
+      "time": 46.65690000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 19,
+      "stringJitter": 2.0745898664087883,
+      "fretJitter": 18.938441876298928
+    },
+    {
+      "number": 78,
+      "velocity": 32,
+      "time": 46.673900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 19,
+      "stringJitter": 1.127884967437635,
+      "fretJitter": 18.97955570140102
+    },
+    {
+      "number": 72,
+      "velocity": 10,
+      "time": 46.773900000035766,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 2.092407517151577,
+      "fretJitter": 16.937983826083137
+    },
+    {
+      "number": 69,
+      "velocity": 40,
+      "time": 46.86690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 3.1694252042140554,
+      "fretJitter": 19.060320953043455
+    },
+    {
+      "number": 72,
+      "velocity": 16,
+      "time": 47.002900000035766,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 2.172945577717559,
+      "fretJitter": 17.00865091341321
+    },
+    {
+      "number": 68,
+      "velocity": 10,
+      "time": 47.10290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 18,
+      "stringJitter": 2.9199768140788795,
+      "fretJitter": 17.980474411463966
+    },
+    {
+      "number": 69,
+      "velocity": 108,
+      "time": 47.12990000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.8923391439708013,
+      "fretJitter": 18.821569294402963
+    },
+    {
+      "number": 69,
+      "velocity": 127,
+      "time": 47.34390000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 19,
+      "stringJitter": 2.986457217019086,
+      "fretJitter": 18.997136832158198
+    },
+    {
+      "number": 67,
+      "velocity": 127,
+      "time": 47.61790000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 17,
+      "stringJitter": 2.8276674793646124,
+      "fretJitter": 16.938512335573634
+    },
+    {
+      "number": 55,
+      "velocity": 50,
+      "time": 47.627900000035766,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.8411251223187786,
+      "fretJitter": 0.15488651428938438
+    },
+    {
+      "number": 71,
+      "velocity": 32,
+      "time": 47.74890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 1.8415483899228053,
+      "fretJitter": 15.901720272131545
+    },
+    {
+      "number": 66,
+      "velocity": 127,
+      "time": 47.77690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 16,
+      "stringJitter": 3.0128568566788396,
+      "fretJitter": 16.12064132766548
+    },
+    {
+      "number": 65,
+      "velocity": 127,
+      "time": 47.79390000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 15,
+      "stringJitter": 3.1619823281919546,
+      "fretJitter": 15.060699489019939
+    },
+    {
+      "number": 64,
+      "velocity": 126,
+      "time": 47.822900000035766,
+      "channel": 4,
+      "string": 3,
+      "fret": 14,
+      "stringJitter": 2.8598548127778995,
+      "fretJitter": 14.011692096278784
+    },
+    {
+      "number": 63,
+      "velocity": 126,
+      "time": 47.83690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 13,
+      "stringJitter": 2.8648676173226915,
+      "fretJitter": 12.963473595381673
+    },
+    {
+      "number": 62,
+      "velocity": 125,
+      "time": 47.865900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 12,
+      "stringJitter": 2.8230644374843297,
+      "fretJitter": 11.807511681798426
+    },
+    {
+      "number": 61,
+      "velocity": 124,
+      "time": 47.936,
+      "channel": 4,
+      "string": 3,
+      "fret": 11,
+      "stringJitter": 2.922103083908626,
+      "fretJitter": 11.106143357049797
+    },
+    {
+      "number": 60,
+      "velocity": 123,
+      "time": 47.99490000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 10,
+      "stringJitter": 2.9010580922293365,
+      "fretJitter": 10.18200814560963
+    },
+    {
+      "number": 59,
+      "velocity": 123,
+      "time": 48.03890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 9,
+      "stringJitter": 3.170482413804625,
+      "fretJitter": 9.02703802737671
+    },
+    {
+      "number": 58,
+      "velocity": 123,
+      "time": 48.06890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 8,
+      "stringJitter": 3.0039074895599307,
+      "fretJitter": 7.809235576939668
+    },
+    {
+      "number": 57,
+      "velocity": 123,
+      "time": 48.09590000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.8416652019624657,
+      "fretJitter": 7.051111733905736
+    },
+    {
+      "number": 42,
+      "velocity": 10,
+      "time": 48.188900000035765,
+      "channel": 6,
+      "string": 5,
+      "fret": 2,
+      "stringJitter": 4.946834273616897,
+      "fretJitter": 1.9684298318843592
+    },
+    {
+      "number": 45,
+      "velocity": 115,
+      "time": 48.22990000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 5,
+      "stringJitter": 5.047558958877052,
+      "fretJitter": 4.976150918943629
+    },
+    {
+      "number": 50,
+      "velocity": 50,
+      "time": 48.237900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 4.165625382363922,
+      "fretJitter": 4.834243801112682
+    },
+    {
+      "number": 51,
+      "velocity": 52,
+      "time": 48.35890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.9293057287429227,
+      "fretJitter": 5.909996748213643
+    },
+    {
+      "number": 46,
+      "velocity": 114,
+      "time": 48.362900000035765,
+      "channel": 6,
+      "string": 5,
+      "fret": 6,
+      "stringJitter": 4.856433305280142,
+      "fretJitter": 6.179558256374151
+    },
+    {
+      "number": 52,
+      "velocity": 48,
+      "time": 48.37290000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 4.086191958536076,
+      "fretJitter": 6.939523511479481
+    },
+    {
+      "number": 47,
+      "velocity": 117,
+      "time": 48.38890000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 7,
+      "stringJitter": 5.127694714043035,
+      "fretJitter": 7.0718153068828205
+    },
+    {
+      "number": 53,
+      "velocity": 49,
+      "time": 48.40390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.883720125603721,
+      "fretJitter": 7.9520914541938765
+    },
+    {
+      "number": 50,
+      "velocity": 114,
+      "time": 48.44690000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 10,
+      "stringJitter": 5.017265313827763,
+      "fretJitter": 9.862736642823911
+    },
+    {
+      "number": 51,
+      "velocity": 112,
+      "time": 48.46190000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 11,
+      "stringJitter": 5.035398588618863,
+      "fretJitter": 10.953192227434322
+    },
+    {
+      "number": 57,
+      "velocity": 52,
+      "time": 48.47490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 4.15381298491008,
+      "fretJitter": 12.079111108715313
+    },
+    {
+      "number": 53,
+      "velocity": 113,
+      "time": 48.48890000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 13,
+      "stringJitter": 5.185197050560735,
+      "fretJitter": 13.024382343095068
+    },
+    {
+      "number": 59,
+      "velocity": 52,
+      "time": 48.50490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 4.0760354417769005,
+      "fretJitter": 13.881866552557367
+    },
+    {
+      "number": 61,
+      "velocity": 54,
+      "time": 48.54790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 16,
+      "stringJitter": 4.1096248751303035,
+      "fretJitter": 16.14242902573469
+    },
+    {
+      "number": 56,
+      "velocity": 112,
+      "time": 48.548900000035765,
+      "channel": 6,
+      "string": 5,
+      "fret": 16,
+      "stringJitter": 5.040086627874301,
+      "fretJitter": 15.815685810248802
+    },
+    {
+      "number": 63,
+      "velocity": 56,
+      "time": 48.588900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 18,
+      "stringJitter": 4.004662707696492,
+      "fretJitter": 18.142100826280917
+    },
+    {
+      "number": 58,
+      "velocity": 107,
+      "time": 48.59090000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 18,
+      "stringJitter": 4.992926365779655,
+      "fretJitter": 17.815609295752072
+    },
+    {
+      "number": 59,
+      "velocity": 100,
+      "time": 48.648900000035766,
+      "channel": 6,
+      "string": 5,
+      "fret": 19,
+      "stringJitter": 4.829754105598667,
+      "fretJitter": 18.897224629856872
+    },
+    {
+      "number": 64,
+      "velocity": 47,
+      "time": 48.67790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 19,
+      "stringJitter": 3.906950302655637,
+      "fretJitter": 19.010310410861372
+    },
+    {
+      "number": 64,
+      "velocity": 127,
+      "time": 48.81190000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 19,
+      "stringJitter": 4.182293139073193,
+      "fretJitter": 19.137032253575164
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 48.822900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 18,
+      "stringJitter": 4.043448291875546,
+      "fretJitter": 17.834280602923087
+    },
+    {
+      "number": 65,
+      "velocity": 86,
+      "time": 48.834900000035766,
+      "channel": 4,
+      "string": 3,
+      "fret": 15,
+      "stringJitter": 3.116895640814938,
+      "fretJitter": 15.039346135790904
+    },
+    {
+      "number": 61,
+      "velocity": 119,
+      "time": 48.83790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 16,
+      "stringJitter": 3.801973119888298,
+      "fretJitter": 15.891835529109196
+    },
+    {
+      "number": 59,
+      "velocity": 114,
+      "time": 48.88290000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 4.167195549703591,
+      "fretJitter": 13.843272056144535
+    },
+    {
+      "number": 58,
+      "velocity": 112,
+      "time": 48.895900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 13,
+      "stringJitter": 4.060333029585623,
+      "fretJitter": 12.925931307246755
+    },
+    {
+      "number": 57,
+      "velocity": 112,
+      "time": 48.908900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 4.18428001477471,
+      "fretJitter": 12.059823799716284
+    },
+    {
+      "number": 56,
+      "velocity": 111,
+      "time": 48.935900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 11,
+      "stringJitter": 3.864407609869781,
+      "fretJitter": 11.044362643935271
+    },
+    {
+      "number": 55,
+      "velocity": 110,
+      "time": 48.96890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 4.1564061316233305,
+      "fretJitter": 10.131264384928784
+    },
+    {
+      "number": 54,
+      "velocity": 108,
+      "time": 48.996900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 9,
+      "stringJitter": 4.060494117191811,
+      "fretJitter": 8.81872131699817
+    },
+    {
+      "number": 53,
+      "velocity": 106,
+      "time": 49.02590000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.877328854090451,
+      "fretJitter": 8.165163937806696
+    },
+    {
+      "number": 52,
+      "velocity": 106,
+      "time": 49.084900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 3.910158091464734,
+      "fretJitter": 7.086999945454946
+    },
+    {
+      "number": 51,
+      "velocity": 105,
+      "time": 49.142900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 4.019164633272002,
+      "fretJitter": 6.069219569792808
+    },
+    {
+      "number": 50,
+      "velocity": 103,
+      "time": 49.18690000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 4.075536850159474,
+      "fretJitter": 5.15135831772759
+    },
+    {
+      "number": 49,
+      "velocity": 103,
+      "time": 49.21490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 4,
+      "stringJitter": 4.022121184808938,
+      "fretJitter": 3.941094789789399
+    },
+    {
+      "number": 59,
+      "velocity": 127,
+      "time": 49.27290000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 0,
+      "stringJitter": 1.0072232874079001,
+      "fretJitter": -0.030736937647501253
+    },
+    {
+      "number": 55,
+      "velocity": 127,
+      "time": 49.29490000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.9327605598114608,
+      "fretJitter": 0.17465690810106463
+    },
+    {
+      "number": 78,
+      "velocity": 127,
+      "time": 49.773900000035766,
+      "channel": 3,
+      "string": 2,
+      "fret": 23,
+      "stringJitter": 2.061385207711792,
+      "fretJitter": 22.944248727871315
+    },
+    {
+      "number": 76,
+      "velocity": 127,
+      "time": 49.78190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 21,
+      "stringJitter": 1.9263135753220206,
+      "fretJitter": 20.903073420644102
+    },
+    {
+      "number": 81,
+      "velocity": 127,
+      "time": 49.78490000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 22,
+      "stringJitter": 0.9532973504134579,
+      "fretJitter": 21.8261293030014
+    },
+    {
+      "number": 80,
+      "velocity": 127,
+      "time": 49.792900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 21,
+      "stringJitter": 0.8494949067071418,
+      "fretJitter": 20.87449069632617
+    },
+    {
+      "number": 77,
+      "velocity": 127,
+      "time": 49.80890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 22,
+      "stringJitter": 2.065419416478817,
+      "fretJitter": 22.179277203382192
+    },
+    {
+      "number": 79,
+      "velocity": 127,
+      "time": 49.883900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 20,
+      "stringJitter": 0.9781087001086632,
+      "fretJitter": 19.809361578288456
+    },
+    {
+      "number": 52,
+      "velocity": 56,
+      "time": 50.18390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 3.854040448103751,
+      "fretJitter": 7.005570108624469
+    },
+    {
+      "number": 51,
+      "velocity": 59,
+      "time": 50.201900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.8795597828794723,
+      "fretJitter": 6.039819915598334
+    },
+    {
+      "number": 59,
+      "velocity": 88,
+      "time": 50.23290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 4,
+      "stringJitter": 1.9264654150984182,
+      "fretJitter": 3.9568234767427333
+    },
+    {
+      "number": 55,
+      "velocity": 127,
+      "time": 50.246900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 3.1519754808267444,
+      "fretJitter": 4.967394777806418
+    },
+    {
+      "number": 54,
+      "velocity": 127,
+      "time": 50.26090000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 4,
+      "stringJitter": 3.044336180017909,
+      "fretJitter": 4.174939732387168
+    },
+    {
+      "number": 48,
+      "velocity": 81,
+      "time": 50.26690000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 3,
+      "stringJitter": 4.0734122211912345,
+      "fretJitter": 3.09668593349406
+    },
+    {
+      "number": 53,
+      "velocity": 127,
+      "time": 50.27290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 3,
+      "stringJitter": 3.1406332390583387,
+      "fretJitter": 3.133251938718288
+    },
+    {
+      "number": 49,
+      "velocity": 94,
+      "time": 50.47490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 4,
+      "stringJitter": 4.095935890892864,
+      "fretJitter": 4.192328270084692
+    },
+    {
+      "number": 50,
+      "velocity": 95,
+      "time": 50.50690000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 3.9940711606800043,
+      "fretJitter": 5.012040901293965
+    },
+    {
+      "number": 51,
+      "velocity": 94,
+      "time": 50.533,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.816570231524356,
+      "fretJitter": 6.134243171059795
+    },
+    {
+      "number": 53,
+      "velocity": 96,
+      "time": 50.57790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 4.134635450198018,
+      "fretJitter": 7.860068089830216
+    },
+    {
+      "number": 54,
+      "velocity": 99,
+      "time": 50.59290000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 9,
+      "stringJitter": 3.972157507847496,
+      "fretJitter": 8.891247103032992
+    },
+    {
+      "number": 55,
+      "velocity": 95,
+      "time": 50.62390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 3.963660108476772,
+      "fretJitter": 10.146612480107555
+    },
+    {
+      "number": 57,
+      "velocity": 97,
+      "time": 50.66590000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 4.0281563832305025,
+      "fretJitter": 11.995591888387732
+    },
+    {
+      "number": 59,
+      "velocity": 91,
+      "time": 50.707900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 4.18219862500262,
+      "fretJitter": 13.897491060163889
+    },
+    {
+      "number": 45,
+      "velocity": 64,
+      "time": 50.78290000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 0,
+      "stringJitter": 3.842962876242335,
+      "fretJitter": -0.09288685888268873
+    },
+    {
+      "number": 50,
+      "velocity": 127,
+      "time": 50.79690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 0,
+      "stringJitter": 2.88345610696942,
+      "fretJitter": -0.0266871394475265
+    },
+    {
+      "number": 55,
+      "velocity": 127,
+      "time": 50.80390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 2.1929565252730425,
+      "fretJitter": 0.07955923815961158
+    },
+    {
+      "number": 60,
+      "velocity": 127,
+      "time": 51.01390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.0606654136007254,
+      "fretJitter": 4.854744158534475
+    },
+    {
+      "number": 58,
+      "velocity": 127,
+      "time": 51.161900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 8,
+      "stringJitter": 3.1815339300700707,
+      "fretJitter": 7.944478203973927
+    },
+    {
+      "number": 57,
+      "velocity": 127,
+      "time": 51.17290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.0698884973092158,
+      "fretJitter": 6.979020810569256
+    },
+    {
+      "number": 64,
+      "velocity": 35,
+      "time": 51.29090000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 5,
+      "stringJitter": 1.1962056703359516,
+      "fretJitter": 4.812133385383083
+    },
+    {
+      "number": 59,
+      "velocity": 108,
+      "time": 51.32390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 4,
+      "stringJitter": 1.8489221999644931,
+      "fretJitter": 4.051178537365644
+    },
+    {
+      "number": 60,
+      "velocity": 117,
+      "time": 51.34890000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 2.195513308547947,
+      "fretJitter": 5.189943487279767
+    },
+    {
+      "number": 62,
+      "velocity": 102,
+      "time": 51.42190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.8073752403324297,
+      "fretJitter": 7.005596518281241
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 51.43190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 2.1846300812476205,
+      "fretJitter": 6.97479992404271
+    },
+    {
+      "number": 60,
+      "velocity": 127,
+      "time": 51.54390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.9967943616243928,
+      "fretJitter": 5.1107913413594055
+    },
+    {
+      "number": 70,
+      "velocity": 127,
+      "time": 51.646900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 15,
+      "stringJitter": 1.9762767217672839,
+      "fretJitter": 15.065153890763517
+    },
+    {
+      "number": 66,
+      "velocity": 127,
+      "time": 51.667900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 11,
+      "stringJitter": 2.0034353426317737,
+      "fretJitter": 10.97585140970433
+    },
+    {
+      "number": 57,
+      "velocity": 96,
+      "time": 52.23090000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.0430819230469455,
+      "fretJitter": 6.917264300600131
+    },
+    {
+      "number": 79,
+      "velocity": 80,
+      "time": 52.34990000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 24,
+      "stringJitter": 1.8467168713864348,
+      "fretJitter": 24.01301397657852
+    },
+    {
+      "number": 55,
+      "velocity": 104,
+      "time": 52.46490000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 2.834177517970823,
+      "fretJitter": 5.0752511109479945
+    },
+    {
+      "number": 57,
+      "velocity": 103,
+      "time": 52.49290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.9070687237086084,
+      "fretJitter": 7.181648349935295
+    },
+    {
+      "number": 68,
+      "velocity": 127,
+      "time": 52.728900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 1.9003904791496282,
+      "fretJitter": 13.18539782815602
+    },
+    {
+      "number": 61,
+      "velocity": 127,
+      "time": 52.752900000035766,
+      "channel": 3,
+      "string": 2,
+      "fret": 6,
+      "stringJitter": 2.1271191790256205,
+      "fretJitter": 5.956533921476668
+    },
+    {
+      "number": 60,
+      "velocity": 127,
+      "time": 52.87090000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 5,
+      "stringJitter": 1.8461072282806519,
+      "fretJitter": 4.8443916987203455
+    },
+    {
+      "number": 64,
+      "velocity": 127,
+      "time": 53.048900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 9,
+      "stringJitter": 2.095119320795715,
+      "fretJitter": 8.980016890864398
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 53.07190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 7,
+      "stringJitter": 1.9985210271264073,
+      "fretJitter": 6.862119301404159
+    },
+    {
+      "number": 68,
+      "velocity": 127,
+      "time": 53.33390000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 2.0643347237031624,
+      "fretJitter": 12.962816329089893
+    },
+    {
+      "number": 73,
+      "velocity": 127,
+      "time": 53.408900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 18,
+      "stringJitter": 1.8378697707261948,
+      "fretJitter": 18.09595960377406
+    },
+    {
+      "number": 44,
+      "velocity": 57,
+      "time": 53.783900000035764,
+      "channel": 6,
+      "string": 5,
+      "fret": 4,
+      "stringJitter": 4.933996912945302,
+      "fretJitter": 4.0557721277886465
+    },
+    {
+      "number": 49,
+      "velocity": 46,
+      "time": 53.78890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 4,
+      "stringJitter": 4.100258885016705,
+      "fretJitter": 4.013693328824902
+    },
+    {
+      "number": 52,
+      "velocity": 86,
+      "time": 53.862900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 3.9827103249776417,
+      "fretJitter": 6.826482340110222
+    },
+    {
+      "number": 62,
+      "velocity": 89,
+      "time": 54.017900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 17,
+      "stringJitter": 4.1797024054684595,
+      "fretJitter": 16.97760088785652
+    },
+    {
+      "number": 61,
+      "velocity": 85,
+      "time": 54.075900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 16,
+      "stringJitter": 3.859204991031004,
+      "fretJitter": 16.060970780867038
+    },
+    {
+      "number": 60,
+      "velocity": 85,
+      "time": 54.088900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 15,
+      "stringJitter": 4.093690024519479,
+      "fretJitter": 14.936401428980261
+    },
+    {
+      "number": 58,
+      "velocity": 77,
+      "time": 54.121900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 13,
+      "stringJitter": 3.920447427345982,
+      "fretJitter": 13.117695561244298
+    },
+    {
+      "number": 57,
+      "velocity": 72,
+      "time": 54.13190000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 4.128369633188008,
+      "fretJitter": 12.151311491742657
+    },
+    {
+      "number": 60,
+      "velocity": 26,
+      "time": 54.15490000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 10,
+      "stringJitter": 3.119815206213638,
+      "fretJitter": 10.058478953146178
+    },
+    {
+      "number": 59,
+      "velocity": 30,
+      "time": 54.164900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 9,
+      "stringJitter": 3.125929390147045,
+      "fretJitter": 9.03346914660568
+    },
+    {
+      "number": 55,
+      "velocity": 68,
+      "time": 54.16590000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 4.135220459750756,
+      "fretJitter": 10.120536926160241
+    },
+    {
+      "number": 58,
+      "velocity": 25,
+      "time": 54.17790000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 8,
+      "stringJitter": 3.1944603398167035,
+      "fretJitter": 8.086590410438854
+    },
+    {
+      "number": 54,
+      "velocity": 65,
+      "time": 54.17790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 9,
+      "stringJitter": 4.1737629719398175,
+      "fretJitter": 9.177176363995446
+    },
+    {
+      "number": 57,
+      "velocity": 25,
+      "time": 54.191900000035766,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 3.1663552739005665,
+      "fretJitter": 6.831425145093479
+    },
+    {
+      "number": 52,
+      "velocity": 63,
+      "time": 54.19390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 4.037603302017317,
+      "fretJitter": 7.1673917008894374
+    },
+    {
+      "number": 56,
+      "velocity": 23,
+      "time": 54.207900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 6,
+      "stringJitter": 3.1538303168972064,
+      "fretJitter": 6.095474705897812
+    },
+    {
+      "number": 51,
+      "velocity": 59,
+      "time": 54.222900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 4.180779060136333,
+      "fretJitter": 6.160007651301396
+    },
+    {
+      "number": 50,
+      "velocity": 58,
+      "time": 54.234900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 3.8701086150568775,
+      "fretJitter": 5.058521720730211
+    },
+    {
+      "number": 49,
+      "velocity": 57,
+      "time": 54.265900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 4,
+      "stringJitter": 4.0893521876115075,
+      "fretJitter": 4.110218708742062
+    },
+    {
+      "number": 50,
+      "velocity": 56,
+      "time": 54.392900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 4.0833393474947215,
+      "fretJitter": 5.06446961660322
+    },
+    {
+      "number": 51,
+      "velocity": 55,
+      "time": 54.40990000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 4.104226535303012,
+      "fretJitter": 6.028002690172463
+    },
+    {
+      "number": 55,
+      "velocity": 60,
+      "time": 54.46790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 3.9781613412038994,
+      "fretJitter": 10.181808523779871
+    },
+    {
+      "number": 65,
+      "velocity": 11,
+      "time": 54.511900000035766,
+      "channel": 4,
+      "string": 3,
+      "fret": 15,
+      "stringJitter": 2.8378904637660876,
+      "fretJitter": 14.801542803011241
+    },
+    {
+      "number": 68,
+      "velocity": 10,
+      "time": 54.56890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 18,
+      "stringJitter": 3.12982057553526,
+      "fretJitter": 18.160013161135385
+    },
+    {
+      "number": 63,
+      "velocity": 58,
+      "time": 54.56890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 18,
+      "stringJitter": 3.9595643198833326,
+      "fretJitter": 17.933057490992294
+    },
+    {
+      "number": 67,
+      "velocity": 10,
+      "time": 54.62690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 17,
+      "stringJitter": 2.926836747323842,
+      "fretJitter": 17.102018488441885
+    },
+    {
+      "number": 66,
+      "velocity": 10,
+      "time": 54.643900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 16,
+      "stringJitter": 3.0162901926865273,
+      "fretJitter": 16.072812790749442
+    },
+    {
+      "number": 61,
+      "velocity": 54,
+      "time": 54.64490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 16,
+      "stringJitter": 3.894672827494269,
+      "fretJitter": 16.043333150764678
+    },
+    {
+      "number": 60,
+      "velocity": 54,
+      "time": 54.65390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 15,
+      "stringJitter": 4.184106937604342,
+      "fretJitter": 15.033908509436896
+    },
+    {
+      "number": 64,
+      "velocity": 10,
+      "time": 54.670900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 14,
+      "stringJitter": 3.1941028886230143,
+      "fretJitter": 14.145922122320615
+    },
+    {
+      "number": 59,
+      "velocity": 54,
+      "time": 54.673900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 4.060810066702287,
+      "fretJitter": 13.974721721625734
+    },
+    {
+      "number": 62,
+      "velocity": 10,
+      "time": 54.68790000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 12,
+      "stringJitter": 2.880187329695416,
+      "fretJitter": 11.928508813155966
+    },
+    {
+      "number": 58,
+      "velocity": 53,
+      "time": 54.688900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 13,
+      "stringJitter": 3.9580357559575603,
+      "fretJitter": 13.043044694622303
+    },
+    {
+      "number": 61,
+      "velocity": 10,
+      "time": 54.701900000035764,
+      "channel": 4,
+      "string": 3,
+      "fret": 11,
+      "stringJitter": 3.048461216999183,
+      "fretJitter": 11.069003088893734
+    },
+    {
+      "number": 56,
+      "velocity": 53,
+      "time": 54.701900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 11,
+      "stringJitter": 4.198861493996798,
+      "fretJitter": 10.824859874792413
+    },
+    {
+      "number": 55,
+      "velocity": 54,
+      "time": 54.713900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 3.903769717136777,
+      "fretJitter": 10.05346216852172
+    },
+    {
+      "number": 54,
+      "velocity": 53,
+      "time": 54.728900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 9,
+      "stringJitter": 4.052506649823306,
+      "fretJitter": 8.957036562110677
+    },
+    {
+      "number": 53,
+      "velocity": 49,
+      "time": 54.74490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.9293468281293027,
+      "fretJitter": 7.9097208709341436
+    },
+    {
+      "number": 70,
+      "velocity": 70,
+      "time": 54.78890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 20,
+      "stringJitter": 2.9435260920173256,
+      "fretJitter": 20.167470739558905
+    },
+    {
+      "number": 65,
+      "velocity": 127,
+      "time": 54.81490000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 10,
+      "stringJitter": 1.8118813379549816,
+      "fretJitter": 9.896754828346449
+    },
+    {
+      "number": 54,
+      "velocity": 127,
+      "time": 54.82090000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 4,
+      "stringJitter": 3.0535672948219337,
+      "fretJitter": 4.020458034184182
+    },
+    {
+      "number": 62,
+      "velocity": 127,
+      "time": 54.832900000035764,
+      "channel": 2,
+      "string": 1,
+      "fret": 3,
+      "stringJitter": 0.8300555341673,
+      "fretJitter": 3.08987947249407
+    },
+    {
+      "number": 59,
+      "velocity": 127,
+      "time": 54.844900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 4,
+      "stringJitter": 2.198311535329139,
+      "fretJitter": 4.074168677646545
+    },
+    {
+      "number": 51,
+      "velocity": 51,
+      "time": 54.929900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.865431617291277,
+      "fretJitter": 5.993290996018242
+    },
+    {
+      "number": 53,
+      "velocity": 51,
+      "time": 54.97390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.9139959384932186,
+      "fretJitter": 8.196013250611594
+    },
+    {
+      "number": 54,
+      "velocity": 50,
+      "time": 54.98890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 9,
+      "stringJitter": 4.056344178604841,
+      "fretJitter": 8.979390247855012
+    },
+    {
+      "number": 55,
+      "velocity": 52,
+      "time": 55.00490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 10,
+      "stringJitter": 4.0235901046262645,
+      "fretJitter": 9.805679750154843
+    },
+    {
+      "number": 56,
+      "velocity": 54,
+      "time": 55.017900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 11,
+      "stringJitter": 3.9572169259465135,
+      "fretJitter": 11.191599684513836
+    },
+    {
+      "number": 57,
+      "velocity": 52,
+      "time": 55.030900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 4.153603052405945,
+      "fretJitter": 11.936808743956002
+    },
+    {
+      "number": 59,
+      "velocity": 52,
+      "time": 55.063900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 3.98535507980279,
+      "fretJitter": 14.007884199199552
+    },
+    {
+      "number": 62,
+      "velocity": 54,
+      "time": 55.106900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 17,
+      "stringJitter": 3.877469146670679,
+      "fretJitter": 17.008981332393112
+    },
+    {
+      "number": 63,
+      "velocity": 53,
+      "time": 55.12290000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 18,
+      "stringJitter": 3.8711129474747987,
+      "fretJitter": 18.14708173090853
+    },
+    {
+      "number": 66,
+      "velocity": 53,
+      "time": 55.261900000035766,
+      "channel": 5,
+      "string": 4,
+      "fret": 21,
+      "stringJitter": 4.026600188509244,
+      "fretJitter": 20.896066067062666
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 55.268900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 18,
+      "stringJitter": 3.8195246517686634,
+      "fretJitter": 18.073285418727437
+    },
+    {
+      "number": 68,
+      "velocity": 127,
+      "time": 55.27690000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 18,
+      "stringJitter": 3.121702501080346,
+      "fretJitter": 17.962782098942718
+    },
+    {
+      "number": 72,
+      "velocity": 127,
+      "time": 55.286900000035764,
+      "channel": 3,
+      "string": 2,
+      "fret": 17,
+      "stringJitter": 1.9854625619016404,
+      "fretJitter": 16.847318935549005
+    },
+    {
+      "number": 77,
+      "velocity": 111,
+      "time": 55.29190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 18,
+      "stringJitter": 0.9199850626646298,
+      "fretJitter": 18.080992788326025
+    },
+    {
+      "number": 67,
+      "velocity": 127,
+      "time": 55.29490000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 17,
+      "stringJitter": 3.114083252495471,
+      "fretJitter": 17.1426642718904
+    },
+    {
+      "number": 76,
+      "velocity": 106,
+      "time": 55.310900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 17,
+      "stringJitter": 1.1206084190846284,
+      "fretJitter": 16.99052607707101
+    },
+    {
+      "number": 71,
+      "velocity": 127,
+      "time": 55.35290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 16,
+      "stringJitter": 2.1193830714970883,
+      "fretJitter": 15.840868315042432
+    },
+    {
+      "number": 66,
+      "velocity": 127,
+      "time": 55.353900000035765,
+      "channel": 4,
+      "string": 3,
+      "fret": 16,
+      "stringJitter": 2.9504513125939407,
+      "fretJitter": 15.939070946618049
+    },
+    {
+      "number": 75,
+      "velocity": 100,
+      "time": 55.36790000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 16,
+      "stringJitter": 1.036014017139697,
+      "fretJitter": 16.053827830496207
+    },
+    {
+      "number": 61,
+      "velocity": 117,
+      "time": 55.368900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 16,
+      "stringJitter": 4.0593565256358835,
+      "fretJitter": 15.841750341135583
+    },
+    {
+      "number": 70,
+      "velocity": 127,
+      "time": 55.38290000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 15,
+      "stringJitter": 1.8649000059084835,
+      "fretJitter": 14.993633772415752
+    },
+    {
+      "number": 65,
+      "velocity": 127,
+      "time": 55.383900000035766,
+      "channel": 4,
+      "string": 3,
+      "fret": 15,
+      "stringJitter": 3.157516036679245,
+      "fretJitter": 15.102260559484083
+    },
+    {
+      "number": 60,
+      "velocity": 114,
+      "time": 55.408900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 15,
+      "stringJitter": 3.973498024550496,
+      "fretJitter": 14.827591693368948
+    },
+    {
+      "number": 74,
+      "velocity": 98,
+      "time": 55.426900000035765,
+      "channel": 2,
+      "string": 1,
+      "fret": 15,
+      "stringJitter": 1.1927719365794807,
+      "fretJitter": 15.054917349260732
+    },
+    {
+      "number": 69,
+      "velocity": 127,
+      "time": 55.42790000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 14,
+      "stringJitter": 2.066104790979348,
+      "fretJitter": 14.097470174551349
+    },
+    {
+      "number": 64,
+      "velocity": 127,
+      "time": 55.44090000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 14,
+      "stringJitter": 2.902739826950682,
+      "fretJitter": 13.948251515860191
+    },
+    {
+      "number": 59,
+      "velocity": 113,
+      "time": 55.454900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 14,
+      "stringJitter": 3.8893764089923994,
+      "fretJitter": 13.983800128558535
+    },
+    {
+      "number": 73,
+      "velocity": 97,
+      "time": 55.46890000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 14,
+      "stringJitter": 1.0936257823321223,
+      "fretJitter": 13.904793574913821
+    },
+    {
+      "number": 68,
+      "velocity": 127,
+      "time": 55.484900000035765,
+      "channel": 3,
+      "string": 2,
+      "fret": 13,
+      "stringJitter": 2.0414809410391297,
+      "fretJitter": 13.002910153615804
+    },
+    {
+      "number": 63,
+      "velocity": 127,
+      "time": 55.48590000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 13,
+      "stringJitter": 2.9240578331441593,
+      "fretJitter": 13.125012451173834
+    },
+    {
+      "number": 58,
+      "velocity": 112,
+      "time": 55.49590000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 13,
+      "stringJitter": 4.18646695170417,
+      "fretJitter": 12.977203099100972
+    },
+    {
+      "number": 72,
+      "velocity": 96,
+      "time": 55.511900000035766,
+      "channel": 2,
+      "string": 1,
+      "fret": 13,
+      "stringJitter": 1.0280914827748668,
+      "fretJitter": 12.862034357922457
+    },
+    {
+      "number": 71,
+      "velocity": 96,
+      "time": 55.54190000003576,
+      "channel": 2,
+      "string": 1,
+      "fret": 12,
+      "stringJitter": 0.8546814241842572,
+      "fretJitter": 11.913728585377966
+    },
+    {
+      "number": 57,
+      "velocity": 110,
+      "time": 55.542900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 12,
+      "stringJitter": 3.963916969833618,
+      "fretJitter": 11.992048471194204
+    },
+    {
+      "number": 56,
+      "velocity": 110,
+      "time": 55.585900000035764,
+      "channel": 5,
+      "string": 4,
+      "fret": 11,
+      "stringJitter": 4.104249802366621,
+      "fretJitter": 10.862654045276622
+    },
+    {
+      "number": 47,
+      "velocity": 91,
+      "time": 56.10790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 2,
+      "stringJitter": 4.06259194662421,
+      "fretJitter": 1.9689876519496532
+    },
+    {
+      "number": 51,
+      "velocity": 85,
+      "time": 56.10890000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 1,
+      "stringJitter": 2.9230714579910293,
+      "fretJitter": 0.9611620556142586
+    },
+    {
+      "number": 43,
+      "velocity": 13,
+      "time": 56.133900000035766,
+      "channel": 6,
+      "string": 5,
+      "fret": 3,
+      "stringJitter": 4.982955663831438,
+      "fretJitter": 2.9625948656788688
+    },
+    {
+      "number": 45,
+      "velocity": 127,
+      "time": 56.47190000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 5,
+      "stringJitter": 5.056937586033268,
+      "fretJitter": 4.907231547101112
+    },
+    {
+      "number": 53,
+      "velocity": 127,
+      "time": 56.47490000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 8,
+      "stringJitter": 3.850322520899367,
+      "fretJitter": 8.082132378223939
+    },
+    {
+      "number": 57,
+      "velocity": 127,
+      "time": 56.48290000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 7,
+      "stringJitter": 2.8148162182183607,
+      "fretJitter": 7.134143514967311
+    },
+    {
+      "number": 52,
+      "velocity": 127,
+      "time": 56.49790000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 3.848885763419412,
+      "fretJitter": 7.088412449141086
+    },
+    {
+      "number": 64,
+      "velocity": 67,
+      "time": 59.97090000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 19,
+      "stringJitter": 3.838466346125687,
+      "fretJitter": 19.164084781899042
+    },
+    {
+      "number": 41,
+      "velocity": 127,
+      "time": 59.97390000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 1,
+      "stringJitter": 4.996712758480061,
+      "fretJitter": 1.0135722689862912
+    },
+    {
+      "number": 52,
+      "velocity": 115,
+      "time": 59.98890000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 7,
+      "stringJitter": 4.113927757300064,
+      "fretJitter": 7.18187221067752
+    },
+    {
+      "number": 75,
+      "velocity": 66,
+      "time": 60.00190000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 20,
+      "stringJitter": 2.1723215018902144,
+      "fretJitter": 19.971400092471534
+    },
+    {
+      "number": 73,
+      "velocity": 50,
+      "time": 60.00990000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 18,
+      "stringJitter": 2.0819714649677814,
+      "fretJitter": 18.09897129062091
+    },
+    {
+      "number": 45,
+      "velocity": 127,
+      "time": 60.01290000003576,
+      "channel": 6,
+      "string": 5,
+      "fret": 5,
+      "stringJitter": 4.900793900273378,
+      "fretJitter": 5.0426618763424855
+    },
+    {
+      "number": 55,
+      "velocity": 44,
+      "time": 60.02690000003576,
+      "channel": 3,
+      "string": 2,
+      "fret": 0,
+      "stringJitter": 1.803018992045981,
+      "fretJitter": 0.0539813146337802
+    },
+    {
+      "number": 55,
+      "velocity": 26,
+      "time": 60.03790000003576,
+      "channel": 4,
+      "string": 3,
+      "fret": 5,
+      "stringJitter": 3.1208213057731897,
+      "fretJitter": 4.9680215843658955
+    },
+    {
+      "number": 51,
+      "velocity": 127,
+      "time": 60.04390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 6,
+      "stringJitter": 3.982621518192951,
+      "fretJitter": 5.908145730638747
+    },
+    {
+      "number": 50,
+      "velocity": 127,
+      "time": 60.08390000003576,
+      "channel": 5,
+      "string": 4,
+      "fret": 5,
+      "stringJitter": 3.911233638022307,
+      "fretJitter": 4.906835283031961
+    },
+    {
+      "number": 49,
+      "velocity": 127,
+      "time": 60.109900000035765,
+      "channel": 5,
+      "string": 4,
+      "fret": 4,
+      "stringJitter": 3.8304865936484753,
+      "fretJitter": 3.9461743665309834
+    }
+  ],
+  "_appId": "fretboard-jitter",
+  "_softwareVersion": "0.23.3",
+  "_date": "2024-11-26T15:38:01.191Z"
+}

@@ -1,20 +1,15 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note, Scale } from 'tonal';
-    import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
-    import { localStorageAddRecording } from '../lib/localstorage';
     import example from '../example-recordings/fretboard-improvisation-intervals.json';
-    import HistoryButton from '../common/input-elements/history-button.svelte';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import ScaleSelect from '../common/input-elements/scale-select.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
-    import FileDropTarget from '../common/file-drop-target.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -58,12 +53,10 @@
             fret,
         };
         notes = [...notes, note];
-        draw();
     };
 
     const draw = () => {
         const lastNote = notes.at(-1);
-
         const data = [];
         if (lastNote) {
             const lastNoteChroma = lastNote.number % 12;
@@ -205,88 +198,49 @@
         container.appendChild(plot);
     };
 
-    onMount(draw);
-
-    /**
-     * Used for exporting and for automatics saving
-     */
-    const getExportData = () => {
-        return {
-            root,
-            scale,
-            notes,
-        };
-    };
+    afterUpdate(draw);
 
     /**
      * Import data from file or example
      */
     const loadData = (json) => {
-        saveToStorage();
         root = json.root;
         scale = json.scale;
         // data
         notes = json.notes;
-        draw();
     };
-
-    const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
-            localStorageAddRecording(appInfo.id, getExportData());
-        }
-    };
-
-    onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
-    <main class="app">
-        <h2>{appInfo.title}</h2>
-        <p class="explanation">
-            This app helps practicing scales on a guitar. Each time you play a
-            note, the fretboard below shows you how far each note of the scale
-            is away from the note you just played.
-        </p>
-        <div class="control">
-            <ScaleSelect
-                bind:scaleRoot="{root}"
-                bind:scaleType="{scale}"
-                callback="{draw}"
-            />
-            <ToggleButton
-                bind:checked="{showNames}"
-                title="Toggle between note names and scale steps"
-                label="note names"
-                callback="{draw}"
-            />
-            <ToggleButton
-                bind:checked="{limitFrets}"
-                title="Limit frets to those that are in reach"
-                label="limit frets"
-                callback="{draw}"
-            />
-        </div>
-        <div class="visualization" bind:this="{container}"></div>
-        <div class="control">
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <ImportExportButton
-                {loadData}
-                {getExportData}
-                appId="{appInfo.id}"
-            />
-        </div>
-        <ExerciseDrawer>
-            <p>1) Go through the scale in steps of 1.</p>
-            <p>2) Go through the scale in steps of 2.</p>
-            <p>3) Go through the scale in steps of 3.</p>
-            <p>4) ...</p>
-        </ExerciseDrawer>
-        <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} />
-    </main>
-</FileDropTarget>
+<main class="app">
+    <h2>{appInfo.title}</h2>
+    <p class="explanation">
+        This app helps practicing scales on a guitar. Each time you play a note,
+        the fretboard below shows you how far each note of the scale is away
+        from the note you just played.
+    </p>
+    <div class="control">
+        <ScaleSelect bind:scaleRoot="{root}" bind:scaleType="{scale}" />
+        <ToggleButton
+            bind:checked="{showNames}"
+            title="Toggle between note names and scale steps"
+            label="note names"
+        />
+        <ToggleButton
+            bind:checked="{limitFrets}"
+            title="Limit frets to those that are in reach"
+            label="limit frets"
+        />
+    </div>
+    <div class="visualization" bind:this="{container}"></div>
+    <div class="control">
+        <button on:click="{() => loadData(example)}"> example </button>
+    </div>
+    <ExerciseDrawer>
+        <p>1) Go through the scale in steps of 1.</p>
+        <p>2) Go through the scale in steps of 2.</p>
+        <p>3) Go through the scale in steps of 3.</p>
+        <p>4) ...</p>
+    </ExerciseDrawer>
+    <RatingButton appId="{appInfo.id}" />
+    <MidiInput {noteOn} />
+</main>

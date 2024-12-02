@@ -6,7 +6,7 @@
     export let notes;
     export let grid;
     export let tempo;
-    export let draw;
+    export let draw = () => {};
 
     const min = -2;
     const max = 2;
@@ -56,13 +56,21 @@
         type="number"
         bind:value="{adjustTime}"
         on:change="{draw}"
-        on:mousewheel="{(evt) => {
+        on:wheel="{(evt) => {
             evt.preventDefault();
             const add = evt.deltaY < 0 ? step : -step;
             const clamped = Math.min(max, Math.max(min, adjustTime + add));
             // round to step
             adjustTime = +clamped.toFixed(12);
             draw();
+        }}"
+        on:mousedown="{(evt) => {
+            // allow to reset with middle click
+            if (evt.button === 1) {
+                evt.preventDefault();
+                adjustTime = 0;
+                draw();
+            }
         }}"
         {step}
         {min}

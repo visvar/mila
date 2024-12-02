@@ -47,8 +47,22 @@ export const NOTE_TO_CHROMA_MAP = new Map([
 ])
 
 
+/**
+ * MIDI note number % 12 that represents a sharp/flat note
+ *
+ * @type {Array<1|3|6|8|10>}
+ */
 export const MIDI_SHARPS = [
   1, 3, 6, 8, 10
+]
+
+/**
+ * MIDI note number % 12 that represents a natural (not sharp/flat) note
+ *
+ * @type {Array<0|2|4|5|7|9|11>}
+ */
+export const MIDI_NATURALS = [
+  0, 2, 4, 5, 7, 9, 11
 ]
 
 /**
@@ -75,7 +89,7 @@ export const GRIDS = [
   { divisions: '2:3', label: '²⁄₄ triplets' },
   { divisions: '2:4', label: '²⁄₄ sixteenths' },
   { divisions: '2:5', label: '²⁄₄ quintuplets' },
-  { divisions: '2:6', label: '²⁄₄ sixtuplets' }
+  { divisions: '2:6', label: '²⁄₄ sixtuplets' },
 ]
 
 /**
@@ -84,6 +98,20 @@ export const GRIDS = [
  * @type {number[]}
  */
 export const BIN_NOTES = [8, 16, 32, 64, 128, 24, 48, 96, 192]
+
+
+/**
+ * Note values to bin by. Divisible by 2, 3, 4, 5
+ *
+ * @type {number[]}
+*/
+export const BIN_NOTES2 = [60, 120, 180, 240]
+
+/**
+ * Note values to filter by
+*
+* @type { number[]}
+*/
 
 export const FILTER_NOTES = [4, 8, 16, 32, 64, 128]
 

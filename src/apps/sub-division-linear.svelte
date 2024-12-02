@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -7,11 +7,12 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { clamp, computeSubdivisionOkScore } from '../lib/lib';
+    import { computeSubdivisionOkScoreBeats } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import example from '../example-recordings/sub-division-linear.json';
+    import example from '../example-recordings/sub-division-linear/sub-division-linear.json';
+    import exampleFillImprecise from '../example-recordings/sub-division-linear/sub-division-linear-drums-fill-imprecise.json';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -27,26 +28,35 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
+    import SubDivisionSimulator from '../common/testing/sub-division-simulator.svelte';
 
     /**
      * contains the app meta information defined in App.js
      */
     export let appInfo;
 
-    let width = 900;
+    let windowWidth = window.innerWidth;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     let container;
     // settings
     let tempo = 120;
     let grid = GRIDS[0].divisions;
+    let bars = 1;
     let binNote = 64;
     let adjustTime = 0;
     let pastBars = 8;
     let showLoudness = false;
-    let showBarScores = false;
+    let showBarScores = true;
+    let combineBars = false;
+    let showTolerance = true;
     // data
     let firstTimeStamp = 0;
     let notes = [];
     let okScore = '';
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -56,47 +66,22 @@
         const note = {
             time: noteInSeconds,
             velocity: e.velocity,
+            number: e.note.number,
         };
         notes = [...notes, note];
-        draw();
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // grid
-            grid =
-                GRIDS[clamp(Math.floor(e.rawValue / 5), 0, GRIDS.length - 1)];
-        } else if (c === 16) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 17) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        }
-        draw();
     };
 
     const draw = () => {
-        const [grid1, grid2] = grid.split(':').map((d) => +d);
+        let [grid1, grid2] = grid.split(':').map((d) => +d);
+        const beats = grid1 * bars;
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
         const notesInBeats = notes.map((d) => {
             const time = (d.time + adjustTime) / quarter;
             return { ...d, time };
         });
-        const maxBar = Math.ceil((notesInBeats.at(-1)?.time ?? 0) / grid1);
+        const maxBar = Math.ceil((notesInBeats.at(-1)?.time ?? 0) / beats);
         const clamped = notesInBeats.map((d) => {
-            return { ...d, time: d.time % grid1 };
+            return { ...d, time: d.time % beats };
         });
 
         // KDE
@@ -104,21 +89,21 @@
         if (clamped.length > 0) {
             let bandwidth = 4 / binNote;
             let pad = 1;
-            let bins = width / 2;
+            let bins = Math.floor(width / 2);
             const density1d = kde.density1d(
                 clamped.map((d) => d.time),
                 {
                     bandwidth,
                     pad,
                     bins,
-                    extent: [0, grid1],
+                    extent: [0, beats],
                 },
             );
             kdePoints = density1d.bandwidth(bandwidth);
         }
 
-        const coarseGrid = d3.range(0, grid1 + 1, 1);
-        const fineGrid = d3.range(0, grid1, 1 / grid2);
+        const coarseGrid = d3.range(0, beats + 1, 1);
+        const fineGrid = d3.range(0, beats, 1 / grid2);
         const gridLines = [
             Plot.tickX(fineGrid, {
                 stroke: '#888',
@@ -134,11 +119,12 @@
             height: 100,
             marginTop: 0,
             marginLeft: 40,
+            marginRight: 10,
             marginBottom: 10,
             padding: 0,
             x: {
                 label: null,
-                domain: [0, grid1],
+                domain: [0, beats],
                 ticks: [],
             },
             y: {
@@ -146,9 +132,26 @@
             },
         };
 
+        const x = {
+            label: 'time in beats',
+            domain: [0, beats],
+            ticks: [...coarseGrid, beats],
+            tickFormat: (d) => (d % grid1) + 1,
+        };
+
+        // histogram
+        const binSize = 4 / binNote;
+        let thresholds = d3.range(0, beats + 1, binSize);
+        if (combineBars) {
+            // combine the bars left and right of the perfect timing, to avoid showing notes as too early/late instead of the more meaningful 'good enough'
+            thresholds = thresholds.filter((d) =>
+                d3.min(fineGrid, (g) => Math.abs(d - g) >= binSize * 0.9),
+            );
+        }
         const histoPlot = Plot.plot({
             ...plotOptions,
             marks: [
+                ...gridLines,
                 Plot.rectY(
                     clamped,
                     Plot.binX(
@@ -156,12 +159,12 @@
                         {
                             x: 'time',
                             fill: '#ccc',
-                            thresholds: d3.range(0, grid1 + 1, 4 / binNote),
+                            thresholds,
+                            tip: true,
                         },
                     ),
                 ),
                 Plot.ruleY([0]),
-                ...gridLines,
             ],
         });
         const kdePlot = Plot.plot({
@@ -170,11 +173,11 @@
                 Plot.areaY(kdePoints, {
                     x: 'x',
                     y: 'y',
-                    fill: (d) => COLORS.accent,
+                    fill: COLORS.accent,
                     clip: true,
                 }),
-                Plot.ruleY([0]),
                 ...gridLines,
+                Plot.ruleY([0]),
             ],
         });
 
@@ -182,11 +185,7 @@
             ...plotOptions,
             height: 50,
             marginBottom: 30,
-            x: {
-                ticks: [...fineGrid, grid1],
-                label: 'time in beats',
-                domain: [0, grid1],
-            },
+            x,
             marks: [
                 // ticks
                 Plot.tickX(clamped, {
@@ -197,37 +196,37 @@
             ],
         });
 
+        const innerWidth =
+            width - plotOptions.marginLeft - plotOptions.marginRight;
         const tickPlotRows = Plot.plot({
             ...plotOptions,
             height: 180,
             marginBottom: 30,
-            x: {
-                ticks: [...fineGrid, grid1],
-                label: 'time in beats',
-                domain: [0, grid1],
-            },
+            x,
             y: {
                 domain: d3.range(maxBar - pastBars, maxBar),
                 tickFormat: (d) => d + 1,
-                label: 'recent bars',
+                label: 'recent repetitions',
             },
             marks: [
                 // ticks
                 Plot.tickX(notesInBeats, {
-                    x: (d) => d.time % grid1,
-                    y: (d, i) => Math.floor(d.time / grid1),
+                    x: (d) => d.time % beats,
+                    y: (d, i) => Math.floor(d.time / beats),
                     // stroke: '#0002',
                     strokeWidth: showLoudness ? (d) => d.velocity * 4 : 1,
                     clip: true,
                 }),
                 // OK areas
-                Plot.tickX([...fineGrid, grid1], {
-                    x: (d) => d,
-                    stroke: '#ccc',
-                    opacity: 0.7,
-                    clip: true,
-                    strokeWidth: (width / binNote) * 2,
-                }),
+                showTolerance
+                    ? Plot.tickX([...fineGrid, beats], {
+                          x: (d) => d,
+                          stroke: '#ccc',
+                          opacity: 0.7,
+                          clip: true,
+                          strokeWidth: (innerWidth / binNote / (beats / 4)) * 2,
+                      })
+                    : null,
             ],
         });
 
@@ -238,48 +237,53 @@
         container.appendChild(tickPlotRows);
 
         // show how many notes are within the OK areas
+        okScore = '';
         if (notes.length > 0) {
-            const score = computeSubdivisionOkScore(
-                notes.map((d) => d.time),
-                grid,
-                tempo,
+            const score = computeSubdivisionOkScoreBeats(
+                notesInBeats.map((d) => d.time),
+                grid1,
+                grid2,
                 binNote,
-                adjustTime,
             );
-            const percent = ((score / notes.length) * 100).toFixed();
-            okScore = `${percent}% of notes are within the gray areas`;
+            const percent = ((score / notesInBeats.length) * 100).toFixed();
+            okScore = `${percent}% of notes are within tolerance`;
         }
 
         // percentage over bars
         if (showBarScores) {
-            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
-            const scores = byBar.map(([bar, barNotes]) => {
-                const score = computeSubdivisionOkScore(
-                    barNotes.map((d) => d.time),
-                    grid,
-                    tempo,
+            const byRepetition = d3.groups(notesInBeats, (d) =>
+                Math.floor(d.time / beats),
+            );
+            const scores = byRepetition.map(([rep, repNotes]) => {
+                const score = computeSubdivisionOkScoreBeats(
+                    repNotes.map((d) => d.time),
+                    grid1,
+                    grid2,
                     binNote,
-                    adjustTime,
                 );
-                return (score / barNotes.length) * 100;
+                return {
+                    repetition: Math.floor(repNotes[0].time / beats),
+                    score: (score / repNotes.length) * 100,
+                };
             });
             const scorePlot = Plot.plot({
                 width,
                 height: 110,
                 x: {
-                    label: 'bar',
-                    domain: d3.range(maxBar - pastBars, maxBar),
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per bar',
+                    label: 'percent of notes in tolerance per repetition',
                     domain: [0, 100],
                 },
                 marks: [
                     Plot.rectY(scores, {
-                        y: Plot.identity,
-                        x: (d, i) => i,
+                        y: 'score',
+                        x: 'repetition',
                         fill: 'var(--accent)',
+                        tip: true,
+                        title: (d) =>
+                            `rep: ${d.repetition + 1}\nscore: ${d.score.toFixed()} %`,
                     }),
                     Plot.ruleY([0]),
                     Plot.ruleY([100]),
@@ -289,7 +293,7 @@
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -298,11 +302,14 @@
         return {
             tempo,
             grid,
+            bars,
             binNote,
             adjustTime,
             pastBars,
             showLoudness,
             showBarScores,
+            combineBars,
+            showTolerance,
             // data
             notes,
         };
@@ -310,23 +317,24 @@
 
     const loadData = (json) => {
         saveToStorage();
-        tempo = json.tempo;
-        grid = json.grid;
-        binNote = json.binNote;
-        adjustTime = json.adjustTime;
-        pastBars = json.pastBars;
+        tempo = json.tempo ?? 120;
+        grid = json.grid ?? '4:4';
+        bars = json.bars ?? 1;
+        binNote = json.binNote ?? 96;
+        adjustTime = json.adjustTime ?? 0;
+        pastBars = json.pastBars ?? 8;
         showLoudness = json.showLoudness ?? false;
         showBarScores = json.showBarScores ?? false;
+        combineBars = json.combineBars ?? false;
+        showTolerance = json.showTolerance ?? true;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -334,7 +342,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -344,29 +352,37 @@
             notes. Use the integrated metronome. All notes will be timed
             relative to the first one, but you can adjust all notes to make them
             earlier or later in case you messed up the first. The last few bars
-            you play will be shown in a row below.<br />
+            you play will be shown in a row below. A percentage score tells you
+            how many notes were within a tolerance zone.<br />
             <i>
                 Try playing without looking and focus on the metronome. Try to
                 play all notes such that they are within a gray area!
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <SelectScollable
                 label="grid"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{grid}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
                 {/each}
             </SelectScollable>
+            <NumberInput
+                title="The number of bars in each repetition."
+                label="bars"
+                bind:value="{bars}"
+                step="{1}"
+                min="{1}"
+                max="{4}"
+                defaultValue="{1}"
+            />
             <SelectScollable
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -379,49 +395,94 @@
                 {tempo}
                 {grid}
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <NumberInput
-                title="The number of most recent bars that are shown in the rows at the bottom."
-                label="past bars"
+                title="The number of most recent repetitions that are shown in the rows at the bottom."
+                label="repetitions"
                 bind:value="{pastBars}"
-                callback="{draw}"
-                step="{1}"
-                min="{8}"
-                max="{32}"
+                step="{2}"
+                min="{4}"
+                max="{64}"
+                defaultValue="{8}"
             />
             <ToggleButton
-                label="bar scores"
-                title="Show scores (percentage of notes within gray areas) per bar"
+                label="repetition scores"
+                title="Show scores (percentage of notes within gray tolerance areas) per repetition"
                 bind:checked="{showBarScores}"
-                callback="{draw}"
             />
             <ToggleButton
                 label="loudness"
                 title="Show loudness in the note tick width, for example to see if you set accents correctly"
                 bind:checked="{showLoudness}"
-                callback="{draw}"
+            />
+            <ToggleButton
+                label="combine bars"
+                title="Instead of showing histogram bars as either early or late, combine the bars next to correct timing into one to ignore the impossible to avoid small deviations"
+                bind:checked="{combineBars}"
+            />
+            <ToggleButton
+                label="show tolerance"
+                title="Toggle for the tolerance zone indicators"
+                bind:checked="{showTolerance}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div>{okScore}</div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MetronomeButton
+                {tempo}
+                accent="{+grid.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
+            <UndoRedoButton
+                bind:data="{notes}"
+                callback="{draw}"
+                disabled="{isPlaying}"
+            />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                {saveToStorage}
+                callback="{draw}"
+                disabled="{isPlaying}"
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
+            />
+            <SubDivisionSimulator
+                bind:notes
+                {tempo}
+                bind:adjustTime
+                {grid}
+                {bars}
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
+            <InsideTextButton
+                onclick="{() => loadData(exampleFillImprecise)}"
+                disabled="{isPlaying}"
+            >
+                drum example with fill
+            </InsideTextButton>
             <p>
                 1) Play triplets.
-                <InsideTextButton onclick="{() => loadData(example)}">
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
                     example
                 </InsideTextButton>
             </p>
@@ -439,12 +500,17 @@
             key=" "
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+            disabled="{isPlaying}"
         />
         <TouchInput
             element="{container}"
             touchStart="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+            disabled="{isPlaying}"
         />
-        <MidiInput {noteOn} {controlChange} />
+        <MidiInput {noteOn} disabled="{isPlaying}" />
     </main>
 </FileDropTarget>
+
+<PageResizeHandler callback="{draw}" />
+<svelte:window bind:innerWidth="{windowWidth}" />

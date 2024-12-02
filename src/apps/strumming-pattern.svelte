@@ -1,13 +1,10 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import * as d3 from 'd3';
     import * as Plot from '@observablehq/plot';
     import { Note } from 'tonal';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import {
-        localStorageAddRecording,
-        localStorageGetSetting,
-    } from '../lib/localstorage';
+    import { localStorageAddRecording } from '../lib/localstorage';
     import { detectChords } from '../lib/chords';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -20,7 +17,8 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
 
     export let appInfo;
-    let width = 900;
+    $: width =
+        window.innerWidth < 1200 ? 900 : Math.floor(window.innerWidth - 200);
     let height = 200;
     let stringCount = 6;
     // E standard tuning, strings start at high E
@@ -30,14 +28,14 @@
     // settings
     let pastSeconds = 10;
     let maxNoteDistance = 0.05;
-    // global settings
-    const minVelo = localStorageGetSetting('guitarMidiMinVelocity') ?? 0;
-    const minDur = localStorageGetSetting('guitarMidiMinDuration') ?? 0;
-    console.log({ minVelo, minDur });
+    let minDuration = 0;
     // data
     let firstTimeStamp;
     let notes = [];
     let openNoteMap = new Map();
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -48,7 +46,7 @@
         const note = {
             // ...e.note,
             number: e.note.number,
-            velocity: e.rawVelocity,
+            velocity: e.velocity,
             time: noteInSeconds,
             channel: e.message.channel,
             string,
@@ -63,7 +61,6 @@
         }
         notes = [...notes, note];
         openNoteMap.set(e.note.number, note);
-        draw();
     };
 
     const noteOff = (e) => {
@@ -72,8 +69,8 @@
             const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
             note.end = noteInSeconds;
             note.duration = note.end - note.time;
+            notes = [...notes];
         }
-        draw();
     };
 
     const draw = () => {
@@ -81,8 +78,7 @@
             // only handle recent notes
             return (
                 // filter noise
-                d.velocity >= minVelo &&
-                (d.duration === undefined || d.duration >= minDur)
+                d.duration === undefined || d.duration >= minDuration
             );
         });
         let maxTime = 0.5;
@@ -146,7 +142,7 @@
                 domain: d3.range(1, stringCount + 1),
             },
             opacity: {
-                domain: [0, 127],
+                domain: [0, 1],
             },
             marks: [
                 Plot.tickX(filtered, {
@@ -208,9 +204,7 @@
         container.appendChild(plot2);
     };
 
-    onMount(() => {
-        draw();
-    });
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -219,6 +213,7 @@
         return {
             pastSeconds,
             maxNoteDistance,
+            // data
             notes,
         };
     };
@@ -232,14 +227,12 @@
         maxNoteDistance = json.maxNoteDistance;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -247,7 +240,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -268,7 +261,6 @@
                 title="time in seconds for past notes to be shown"
                 label="time"
                 bind:value="{pastSeconds}"
-                callback="{draw}"
                 min="{10}"
                 max="{300}"
                 step="{10}"
@@ -277,30 +269,46 @@
                 title="maximum distance between notes such that they still count as beloning to the same chord"
                 label="max. note distance"
                 bind:value="{maxNoteDistance}"
-                callback="{draw}"
                 min="{0.01}"
                 max="{5}"
                 step="{0.01}"
+            />
+            <NumberInput
+                title="minimum duration of a note, used to filter noise"
+                label="min. duration"
+                bind:value="{minDuration}"
+                min="{0}"
+                max="{1}"
+                step="{0.01}"
+                defaultValue="{0}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <ResetNotesButton
-                {saveToStorage}
                 bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
                 callback="{() => {
                     openNoteMap = new Map();
                     firstTimeStamp = performance.now();
-                    draw();
                 }}"
             />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:isPlaying bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -316,7 +324,7 @@
                 the strings you intend.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} {noteOff} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} {noteOff} />
     </main>
 </FileDropTarget>

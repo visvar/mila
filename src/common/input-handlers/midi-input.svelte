@@ -7,14 +7,17 @@
   import { Midi } from 'musicvis-lib';
   import ToggleButton from '../input-elements/toggle-button.svelte';
   import * as Tone from 'tone';
+  import { updSet } from '../../lib/lib';
+  import { fade } from 'svelte/transition';
+  import NumberInput from '../input-elements/number-input.svelte';
 
   export let midiMessage = (message) => {};
   export let noteOn = (message) => {};
   export let noteOff = (message) => {};
   export let controlChange = (message) => {};
   export let pitchBend = (message) => {};
-
   export let errorCallback = (err) => console.error(err);
+  export let disabled = false;
 
   export let synthAllowed = true;
   export let pcKeyAllowed = false;
@@ -32,7 +35,11 @@
 
   let midiDevices = [];
   let midiWorks = true;
+  let disabledDevices = new Set();
   let synth;
+  let minVelocity = 0;
+  let minIoi = 0;
+  let lastNoteTime = 0;
 
   /**
    * Set all required MIDI listeners
@@ -41,17 +48,29 @@
     midiDevices = [];
     if (WebMidi.inputs.length < 1) {
       console.warn('No MIDI device detected');
+      midiWorks = false;
     } else {
       WebMidi.inputs.forEach((device, index) => {
-        console.log(`MIDI device ${index}: ${device.name}`);
-        device.addListener('midimessage', midiMessage);
-        device.addListener('noteon', noteOn);
-        device.addListener('noteoff', noteOff);
-        device.addListener('controlchange', controlChange);
-        device.addListener('pitchbend', pitchBend);
-        // synth
-        device.addListener('noteon', playSynthNote);
-        device.addListener('noteoff', stopSynthNote);
+        device.removeListener();
+        if (!disabledDevices.has(index)) {
+          device.addListener('noteon', (evt) => {
+            // apply noise filters
+            if (
+              evt.velocity >= minVelocity &&
+              evt.timestamp - lastNoteTime > minIoi
+            ) {
+              lastNoteTime = evt.timestamp;
+              noteOn(evt);
+            }
+          });
+          device.addListener('noteoff', noteOff);
+          device.addListener('controlchange', controlChange);
+          device.addListener('pitchbend', pitchBend);
+          device.addListener('midimessage', midiMessage);
+          // synth
+          device.addListener('noteon', playSynthNote);
+          device.addListener('noteoff', stopSynthNote);
+        }
       });
       midiDevices = [...WebMidi.inputs];
     }
@@ -279,56 +298,107 @@
 <svelte:window on:keydown="{handleKeydown}" on:keyup="{handleKeyup}" />
 
 <main>
-  {#if synthAllowed}
-    <ToggleButton
-      label="synth"
-      title="Use built-in synth while playing?"
-      bind:checked="{synthActive}"
-      callback="{(checked) => {
-        if (!checked) {
-          synth?.releaseAll();
-        }
-      }}"
-    />
-  {/if}
-  {#if pcKeyAllowed}
-    <ToggleButton
-      bind:checked="{keyboardEnabled}"
-      label="use keyboard"
-      callback="{(checked) => {
-        if (!checked) {
-          synth?.releaseAll();
-        }
-      }}"
-    />
-  {/if}
-  {#if keyboardEnabled}
+  <h4>Input Settings</h4>
+  {#if disabled}
     <div>
-      If you have no MIDI device, you can use a PC keyboard as a MIDI keyboard:
+      MIDI input is disabled when data is loaded or played back. Reset or stop
+      playing to enable input.
+    </div>
+  {:else}
+    {#if synthAllowed}
+      <ToggleButton
+        label="synth"
+        title="Use built-in synth while playing?"
+        bind:checked="{synthActive}"
+        callback="{(checked) => {
+          if (!checked) {
+            synth?.releaseAll();
+          }
+        }}"
+      />
+    {/if}
+    {#if pcKeyAllowed}
+      <ToggleButton
+        bind:checked="{keyboardEnabled}"
+        label="use keyboard"
+        title="When enabled, you can use a PC keyboard similar to a MIDI keyboard"
+        callback="{(checked) => {
+          if (!checked) {
+            synth?.releaseAll();
+          }
+        }}"
+      />
+    {/if}
+    {#if keyboardEnabled}
+      <div transition:fade>
+        <div>
+          octave {keyboardOctave}
+          <button
+            on:click="{() =>
+              (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
+            class="left">+</button
+          >
+          <button
+            on:click="{() =>
+              (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
+            class="right">-</button
+          >
+        </div>
+        <div>
+          You can use a PC keyboard as a MIDI keyboard and play note with: <br
+          /><code>a</code> = C, <code>w</code> = C#,
+          <code>s</code> = B, ...
+        </div>
+      </div>
+    {/if}
+    <div>
+      <h5>MIDI devices</h5>
+      {#if !midiWorks}
+        You have no MIDI device connected or MIDI is not supported in your
+        browser
+      {/if}
+      {#each midiDevices as device, index}
+        <ToggleButton
+          label="{device.name}"
+          callback="{() => {
+            disabledDevices = updSet(disabledDevices, index);
+            onMidiEnabled();
+          }}"
+        />
+      {/each}
     </div>
     <div>
-      octave {keyboardOctave}
-      <button
-        on:click="{() => (keyboardOctave = Math.min(keyboardOctave + 1, 8))}"
-        class="left">+</button
-      >
-      <button
-        on:click="{() => (keyboardOctave = Math.max(keyboardOctave - 1, 1))}"
-        class="right">-</button
-      >
-    </div>
-    <div>
-      Notes: <code>a</code> = C, <code>w</code> = C#, <code>s</code> = B, ...
+      <h5>Filtering</h5>
+      <NumberInput
+        title="minimum loudness of a note, used to filter noise"
+        label="minimum velocity"
+        bind:value="{minVelocity}"
+        min="{0}"
+        max="{1}"
+        step="{0.01}"
+        defaultValue="{0}"
+      />
+      <NumberInput
+        title="minimum distance in milliseconds of a note onset from the prior one"
+        label="minimum IOI"
+        bind:value="{minIoi}"
+        min="{0}"
+        max="{100}"
+        step="{1}"
+        defaultValue="{0}"
+      />
     </div>
   {/if}
 </main>
 
 <style>
   main {
-    width: fit-content;
     margin: 20px auto;
-    padding: 5px 20px;
+    width: 700px;
+    padding: 0 20px 15px 20px;
+    border: 3px solid #f4f4f4;
     border-radius: 8px;
+    transition: all 500ms;
   }
 
   button.left {

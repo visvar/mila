@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import * as kde from 'fast-kde';
@@ -24,6 +24,7 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import SubDivisionAdjustButton from '../common/input-elements/sub-division-adjust-button.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -40,13 +41,18 @@
     let binNote = 96;
     let adjustTime = 0;
     let drumMode = false;
-    // keyboard: middle A, drum: snare is left, rest is right
-    let middleNote = drumMode ? 40 : 69;
+    // keyboard middle A
+    let middleNote = 69;
+    // snare is left
+    const leftDrumNumbers = new Set([38, 40]);
     let showKde = true;
     let pastBars = 4;
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -56,46 +62,32 @@
         const note = {
             time: noteInSeconds,
             number: e.note.number,
+            velocity: e.rawVelocity,
         };
         notes = [...notes, note];
-        draw();
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 16) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        } else if (c === 17) {
-            pastBars = clamp(e.rawValue, 0, 99) + 1;
-        } else if (c === 18) {
-        }
-        draw();
     };
 
     const drawHand = (left = true) => {
         const grid = left ? gridLeft : gridRight;
         const [grid1, grid2] = grid.split(':').map((d) => +d);
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
-        let notesHand = notes.filter(
-            (d) =>
-                // only look at left OR right hand
-                (left && d.number < middleNote) ||
-                (!left && d.number >= middleNote),
-        );
+        // only look at left OR right hand
+        let notesHand;
+        if (!drumMode) {
+            // keyboard mode: left is left of middle note
+            notesHand = notes.filter(
+                (d) =>
+                    (left && d.number < middleNote) ||
+                    (!left && d.number >= middleNote),
+            );
+        } else {
+            // drum mode: some drums are left, others are right
+            notesHand = notes.filter(
+                (d) =>
+                    (left && leftDrumNumbers.has(d.number)) ||
+                    (!left && !leftDrumNumbers.has(d.number)),
+            );
+        }
 
         notesHand = notesHand.map((d) => (d.time + adjustTime) / quarter);
         if (pastBars > 0 && notesHand.length > 0) {
@@ -111,7 +103,7 @@
         if (notesHand.length > 0) {
             let bandwidth = 4 / binNote;
             let pad = 1;
-            let bins = width / 2;
+            let bins = Math.floor(width / 2);
             const density1d = kde.density1d(notesHand, {
                 bandwidth,
                 pad,
@@ -203,6 +195,7 @@
             binNote,
             adjustTime,
             pastBars,
+            // data
             notes,
         };
     };
@@ -218,19 +211,19 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime ?? 0;
         pastBars = json.pastBars;
+        // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
+
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     onDestroy(saveToStorage);
 
@@ -255,7 +248,7 @@
     };
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -273,7 +266,7 @@
             for left and <code>j</code> for right.
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />
             <ToggleButton
                 bind:checked="{drumMode}"
                 label="drum mode"
@@ -283,7 +276,6 @@
                 label="grid left"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{gridLeft}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -293,7 +285,6 @@
                 label="right"
                 title="The whole width is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{gridRight}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -305,7 +296,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -316,13 +306,11 @@
                 {tempo}
                 grid="{gridLeft}"
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <NumberInput
                 title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
                 label="bars"
                 bind:value="{pastBars}"
-                callback="{draw}"
                 min="{1}"
                 max="{100}"
             />
@@ -330,7 +318,6 @@
                 title="Toggle between an area chart and a histogram of the note density"
                 on:click="{() => {
                     showKde = !showKde;
-                    draw();
                 }}"
                 style="width: 120px"
             >
@@ -340,45 +327,67 @@
         <div class="visualization" bind:this="{containerRight}"></div>
         <div class="visualization" bind:this="{containerLeft}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+gridLeft.split(':')[0]}" />
+            <MetronomeButton
+                {tempo}
+                accent="{+gridLeft.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
             <RhythmPlayerButton
                 notes="{getRhythmNotes(gridLeft, gridRight, tempo)}"
+                disabled="{isPlaying}"
             />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <!-- <MidiReplayButton bind:notes callback="{draw}" /> -->
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
             <p>
-                1) Only single notes. Play triplets with your right and eighths
-                with your left hand.
+                1) Only single notes. Play triplets with your left and eighths
+                with your right hand.
                 <i> Try playing without looking, focus on the metronome. </i>
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
             <p>
                 2) Play the same rhythm as in 1) but using different notes, to
                 form a melody.
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
         <PcKeyboardInput
             key="f"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), note: { number: 0 } })}"
         />
         <PcKeyboardInput
             key="j"
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({
                     timestamp: performance.now(),
                     note: { number: 127 },
                 })}"
         />
-        <MidiInput {noteOn} {controlChange} />
     </main>
 </FileDropTarget>

@@ -55,6 +55,25 @@
         }
         callback(evt);
     };
+
+    const resetToFirstOption = (evt) => {
+        // allow to reset with middle click
+        if (evt.button === 1) {
+            evt.preventDefault();
+            if (disabled) {
+                return;
+            }
+            // get values from options
+            const options = [...select.children];
+            const values = options.map((d) => d.value);
+            if (typeof value === 'number') {
+                value = +values[0];
+            } else {
+                value = values[0];
+            }
+            callback(evt);
+        }
+    };
 </script>
 
 <label {title}>
@@ -63,10 +82,11 @@
         bind:this="{select}"
         bind:value
         on:change="{(evt) => callback(evt)}"
-        on:mousewheel="{scrollOptions}"
+        on:wheel="{scrollOptions}"
         class="{className}"
         {disabled}
         {style}
+        on:mousedown="{resetToFirstOption}"
     >
         <slot></slot>
     </select>

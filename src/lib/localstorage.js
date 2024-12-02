@@ -38,20 +38,20 @@ export function localStorageKBytes() {
 }
 
 /**
- * TODO: use binary search for better result, might underestimate by 50% currently
+ * TODO: use binary search for better result, might underestimate currently
  * @returns {number} localStorage limit in KB
 */
 export function localStorageSizeKBytes() {
   let string = '12345678'
   let characters = 0
   while (true) {
+    string = `${string}${string.slice(0, string.length / 4)}`
+    characters = string.length
     try {
       localSt.setItem('__test__', string)
     } catch (e) {
       break
     }
-    string = `${string}${string}`
-    characters = string.length
   }
   // console.log('semi')
   // while (true) {
@@ -204,6 +204,16 @@ export function localStorageDeleteRecording(appId, date) {
     return
   }
   usage.appRecordedData[appId] = usage.appRecordedData[appId].filter(d => d.date !== date)
+  localStorageSetUsageData(usage)
+}
+
+/**
+ * Deletes a recording from the usage data
+ */
+export function localStorageDeleteAllRecordings() {
+  console.log(`[STORE] deleting all recordings`)
+  const usage = localStorageGetUsageData()
+  usage.appRecordedData = {}
   localStorageSetUsageData(usage)
 }
 

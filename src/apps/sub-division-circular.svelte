@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy, onMount } from 'svelte';
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
@@ -7,11 +7,15 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { clamp, computeSubdivisionOkScore } from '../lib/lib';
+    import {
+        clamp,
+        computeSubdivisionOkScore,
+        computeSubdivisionOkScoreBeats,
+    } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import example from '../example-recordings/sub-division-linear.json';
+    import example from '../example-recordings/sub-division-linear/sub-division-linear.json';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
     import { localStorageAddRecording } from '../lib/localstorage';
     import HistoryButton from '../common/input-elements/history-button.svelte';
@@ -49,6 +53,9 @@
     // data
     let firstTimeStamp = 0;
     let notes = [];
+    // app state
+    let isPlaying;
+    let isDataLoaded = false;
 
     const noteOn = (e) => {
         if (notes.length === 0) {
@@ -58,35 +65,9 @@
         const note = {
             time: noteInSeconds,
             velocity: e.velocity,
+            number: e.note.number,
         };
         notes = [...notes, note];
-        draw();
-    };
-
-    /**
-     * Allow controlling vis with a MIDI knob
-     * @param e MIDI controllchange event
-     */
-    const controlChange = (e) => {
-        const c = e.controller.number;
-        if (c === 14) {
-            // tempo
-            tempo = clamp(e.rawValue, 0, 120) + 60;
-        } else if (c === 15) {
-            // grid
-            grid =
-                GRIDS[clamp(Math.floor(e.rawValue / 5), 0, GRIDS.length - 1)];
-        } else if (c === 16) {
-            // binning
-            binNote =
-                BIN_NOTES[
-                    clamp(Math.floor(e.rawValue / 5), 0, BIN_NOTES.length - 1)
-                ];
-        } else if (c === 17) {
-            // adjust
-            adjustTime = (clamp(e.rawValue, 0, 100) - 50) / 100;
-        }
-        draw();
     };
 
     const draw = () => {
@@ -162,7 +143,6 @@
             ctx.fillStyle = 'transparent';
             for (let i = 0; i < layerCount; i++) {
                 const layerR = r + maxBinHeight + i * layerSize + 5;
-                // Canvas.drawCircle(ctx, cx, cy, layerR);
                 ctx.beginPath();
                 ctx.arc(cx, cy, layerR, 0, 2 * Math.PI);
                 ctx.closePath();
@@ -308,66 +288,69 @@
         }
         ctx.stroke();
 
-        // score of how many notes are in the OK area
+        // show how many notes are within the OK areas
+        const quarter = Utils.bpmToSecondsPerBeat(tempo);
+        const notesInBeats = notes.map((d) => {
+            const time = (d.time + adjustTime) / quarter;
+            return { ...d, time };
+        });
         if (notes.length > 0) {
-            const ok = computeSubdivisionOkScore(
-                notes.map((d) => d.time),
-                grid,
-                tempo,
+            const score = computeSubdivisionOkScoreBeats(
+                notesInBeats.map((d) => d.time),
+                grid1,
+                grid2,
                 binNote,
-                adjustTime,
             );
-            ctx.fillText(
-                ((ok / notes.length) * 100).toFixed() + '%',
-                cx,
-                cy + 7,
-            );
+            const percent = ((score / notesInBeats.length) * 100).toFixed();
+            ctx.fillText(`${percent} %`, cx, cy + 7);
         }
 
         // percentage over bars
-        container.innerText = '';
         if (showBarScores) {
-            const maxBar = Math.ceil((notes.at(-1)?.time ?? 0) / grid1);
-            const pastBars = maxBar; // TODO: change once pastBars option is there
-            const byBar = d3.groups(notes, (d) => Math.floor(d.time / grid1));
-            const scores = byBar.map(([bar, barNotes]) => {
-                const score = computeSubdivisionOkScore(
-                    barNotes.map((d) => d.time),
-                    grid,
-                    tempo,
+            const byRepetition = d3.groups(notesInBeats, (d) =>
+                Math.floor(d.time / grid1),
+            );
+            const scores = byRepetition.map(([rep, repNotes]) => {
+                const score = computeSubdivisionOkScoreBeats(
+                    repNotes.map((d) => d.time),
+                    grid1,
+                    grid2,
                     binNote,
-                    adjustTime,
                 );
-                return (score / barNotes.length) * 100;
+                return {
+                    repetition: Math.floor(repNotes[0].time / grid1),
+                    score: (score / repNotes.length) * 100,
+                };
             });
             const scorePlot = Plot.plot({
                 width,
                 height: 110,
                 x: {
-                    label: 'bar',
-                    domain: d3.range(maxBar - pastBars, maxBar),
                     tickFormat: (d) => d + 1,
                 },
                 y: {
-                    label: 'percent of notes in gray areas, per bar',
+                    label: 'percent of notes in tolerance per repetition',
                     domain: [0, 100],
                 },
                 marks: [
                     Plot.rectY(scores, {
-                        y: Plot.identity,
-                        x: (d, i) => i,
+                        y: 'score',
+                        x: 'repetition',
                         fill: 'var(--accent)',
                         tip: true,
+                        title: (d) =>
+                            `rep: ${d.repetition + 1}\nscore: ${d.score.toFixed()} %`,
                     }),
                     Plot.ruleY([0]),
                     Plot.ruleY([100]),
                 ],
             });
+            container.textContent = '';
             container.appendChild(scorePlot);
         }
     };
 
-    onMount(draw);
+    afterUpdate(draw);
 
     /**
      * Used for exporting and for automatics saving
@@ -400,14 +383,12 @@
         showBarScores = json.showBarScores ?? false;
         // data
         notes = json.notes;
-        draw();
+        // app state
+        isDataLoaded = true;
     };
 
     const saveToStorage = () => {
-        if (
-            notes.length > 0 &&
-            JSON.stringify(notes) !== JSON.stringify(example.notes)
-        ) {
+        if (!isDataLoaded && !isPlaying && notes.length > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -415,7 +396,7 @@
     onDestroy(saveToStorage);
 </script>
 
-<FileDropTarget {loadData}>
+<FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
@@ -425,22 +406,21 @@
             Use the integrated metronome. All notes will be timed relative to
             the first one, but you can adjust all notes to make them earlier or
             later in case you messed up the first. Each bar you play will be
-            shown its own layer around the circle. The lightgray areas show
-            where a note would have to be to be timed well (depending on the
-            binning setting), the score in the center shows the percentage of
-            notes that are inside these areas.<br />
+            shown its own layer around the circle. The lightgray areas show th
+            tolerance zone where a note is considered to be timed well
+            (depending on the binning setting), the score in the center shows
+            the percentage of notes that are inside these areas.<br />
             <i>
                 Try playing without looking and focus on the metronome. Try to
                 play all notes such that they are within a gray area!
             </i>
         </p>
         <div class="control">
-            <TempoInput bind:value="{tempo}" callback="{draw}" />
+            <TempoInput bind:value="{tempo}" />
             <SelectScollable
                 label="grid"
                 title="The whole circle is one bar, you can choose to divide it by 3 or 4 quarter notes and then further sub-divide it into, for example, triplets"
                 bind:value="{grid}"
-                callback="{draw}"
             >
                 {#each GRIDS as g}
                     <option value="{g.divisions}">{g.label}</option>
@@ -450,7 +430,6 @@
                 label="binning"
                 title="The width of each bar in rhythmic units. For example, each bin could be a 32nd note wide."
                 bind:value="{binNote}"
-                callback="{draw}"
             >
                 {#each BIN_NOTES as g}
                     <option value="{g}">1/{g} note</option>
@@ -463,13 +442,11 @@
                 {tempo}
                 {grid}
                 notes="{notes.map((d) => d.time)}"
-                {draw}
             />
             <button
                 title="Toggle between bars and area"
                 on:click="{() => {
                     showKde = !showKde;
-                    draw();
                 }}"
             >
                 {showKde ? 'area' : 'bars'}
@@ -478,13 +455,11 @@
                 label="bar scores"
                 title="Show scores (percentage of notes within gray areas) per bar"
                 bind:checked="{showBarScores}"
-                callback="{draw}"
             />
             <ToggleButton
                 label="loudness"
                 title="Show loudness in the note tick width, for example to see if you set accents correctly"
                 bind:checked="{showLoudness}"
-                callback="{draw}"
             />
         </div>
         <div class="visualization">
@@ -495,16 +470,32 @@
         </div>
         <div bind:this="{container}"></div>
         <div class="control">
-            <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
-            <UndoRedoButton bind:data="{notes}" callback="{draw}" />
-            <ResetNotesButton bind:notes {saveToStorage} callback="{draw}" />
-            <button on:click="{() => loadData(example)}"> example </button>
-            <HistoryButton appId="{appInfo.id}" {loadData} />
-            <MidiReplayButton bind:notes callback="{draw}" />
+            <MetronomeButton
+                {tempo}
+                accent="{+grid.split(':')[0]}"
+                disabled="{isPlaying}"
+            />
+            <UndoRedoButton bind:data="{notes}" disabled="{isPlaying}" />
+            <ResetNotesButton
+                bind:notes
+                bind:isDataLoaded
+                disabled="{isPlaying}"
+                {saveToStorage}
+            />
+            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
+                example
+            </button>
+            <HistoryButton
+                appId="{appInfo.id}"
+                {loadData}
+                disabled="{isPlaying}"
+            />
+            <MidiReplayButton bind:isPlaying bind:notes callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
                 appId="{appInfo.id}"
+                disabled="{isPlaying}"
             />
         </div>
         <ExerciseDrawer>
@@ -518,15 +509,17 @@
                 late. Try to do this consistently!
             </p>
         </ExerciseDrawer>
+        <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />
         <RatingButton appId="{appInfo.id}" />
-        <MidiInput {noteOn} {controlChange} />
         <PcKeyboardInput
             key=" "
+            disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />
         <TouchInput
             element="{canvas}"
+            disabled="{isDataLoaded || isPlaying}"
             touchStart="{() =>
                 noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
         />

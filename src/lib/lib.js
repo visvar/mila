@@ -118,12 +118,14 @@ export function getNumberOfDaysPassed(someDate) {
 }
 
 /**
+ * TODO: use notes in beats, simplifies a lot and can take already adjusted notes
  * Computes the number of notes that are within binNote of the grid.
  * @param {number[]} notes note onset times
  * @param {string} grid e.g. '3:4' will lead to 12 divisions of the bar
  * @param {number} tempo in bpm
  * @param {number} binNote e.g., 16 for a sixteenth
  * @param {number} adjustTime time in seconds to add to each note
+ * @param {number} [bars=1] number of bars per repetition
  */
 export function computeSubdivisionOkScore(
   notes,
@@ -146,6 +148,45 @@ export function computeSubdivisionOkScore(
   // calculate directed error
   for (const note of notes) {
     const time = (note + adjustTime) % circleSeconds
+    let minError = Infinity
+    for (const gridTime of gridTimes) {
+      const error = Math.abs(gridTime - time)
+      if (error < minError) {
+        minError = error
+      }
+    }
+    if (minError <= allowed) {
+      okCount++
+    }
+  }
+  return okCount
+}
+
+/**
+ * Computes the number of notes that are within binNote of the grid.
+ * @param {number[]} notesInBeats note onset times (in beats, time adjusted)
+ * @param {number} grid1 e.g., 3 for 3:4
+ * @param {number} grid2 e.g., 4 for 3:4
+ * @param {number} binNote e.g., 16 for a sixteenth
+ */
+export function computeSubdivisionOkScoreBeats(
+  notesInBeats,
+  grid1,
+  grid2,
+  binNote,
+) {
+  if (!notesInBeats || notesInBeats.length === 0) {
+    return null
+  }
+  let okCount = 0
+  const beatsPerRep = grid1
+  const step = beatsPerRep / (grid1 * grid2)
+  const gridTimes = d3.range(0, beatsPerRep + step, step)
+  // get allowed error
+  const allowed = 4 / binNote
+  // calculate directed error
+  for (const note of notesInBeats) {
+    const time = note % beatsPerRep
     let minError = Infinity
     for (const gridTime of gridTimes) {
       const error = Math.abs(gridTime - time)
