@@ -2,14 +2,14 @@
   "root": "C",
   "scaleType": "major",
   "chordProgLabel": "ii V I (2-5-1) 7th",
-  "barCount": 50,
+  "barCount": 1000,
   "maxNoteDistance": 0.1,
   "minDuration": 0.1,
   "showNoteTypePlot": true,
   "showRhythmPlot": true,
-  "showChromaPlot": true,
+  "showChromaPlot": false,
   "showChordPlot": false,
-  "showDurationPlot": false,
+  "showDurationPlot": true,
   "showPianoRoll": false,
   "notes": [
     {

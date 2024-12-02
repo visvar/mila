@@ -280,12 +280,13 @@
                 notes="{notes.map((d) => d.time)}"
             />
             <NumberInput
-                title="The number of past bars to be shown. Allows to 'forget' mistakes in the beginning."
-                label="last bars"
+                title="The number of past repetitions to be shown. Allows to 'forget' mistakes in the beginning."
+                label="last repetitions"
                 bind:value="{pastBars}"
                 min="{1}"
                 max="{100}"
                 step="{4}"
+                defaultValue="{100}"
             />
             <button
                 title="Toggle between an area chart and a histogram of the note density"

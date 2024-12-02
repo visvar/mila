@@ -45,7 +45,8 @@
   let midiReplaySpeed;
   const minIOI = 0.001;
   // colors
-  const scaleColor = '#D4E157';
+  // const scaleColor = '#D4E157';
+  const scaleColor = 'orange';
   const chordColor = '#689F38';
   const restColor = 'lightgray';
   const color = {
@@ -202,9 +203,9 @@
         caption: `${upArrowIcon} See how many notes of each type (matching chord, scale, none) you played in each bar`,
         width,
         height: 120,
-        marginLeft: 30,
+        marginLeft: 35,
         marginTop: 30,
-        marginBottom: 0,
+        marginBottom: 5,
         x: {
           axis: false,
         },
@@ -220,12 +221,13 @@
         marks: [
           Plot.frame({
             stroke: '#eee',
+            strokeWidth: 3,
             rx: 3,
           }),
           Plot.waffleX(colorCountsPerBar, {
             y: (d) => d.bar % barsPerRep,
             x: 'count',
-            fx: (d) => Math.floor(d.bar / barsPerRep),
+            fx: (d) => Math.floor(d.bar / barsPerRep) + 1,
             fill: 'colorType',
             rx: 3,
             // order: ['chord', 'scale', 'rest'],
@@ -349,9 +351,9 @@
         caption: `${upArrowIcon} See how many notes of each duration you played in each bar`,
         width,
         height: 120,
-        marginLeft: 30,
+        marginLeft: 35,
         marginTop: 30,
-        marginBottom: 0,
+        marginBottom: 5,
         x: {
           axis: false,
         },
@@ -370,12 +372,13 @@
         marks: [
           Plot.frame({
             stroke: '#eee',
+            strokeWidth: 3,
             rx: 3,
           }),
           Plot.waffleX(durationsPerBar, {
             y: (d) => d.bar % barsPerRep,
             x: 'count',
-            fx: (d) => Math.floor(d.bar / barsPerRep),
+            fx: (d) => Math.floor(d.bar / barsPerRep) + 1,
             fill: 'durationType',
             rx: 3,
             // order: colorDomain,
@@ -503,13 +506,16 @@
             fillOpacity: (d) =>
               // if bar height is duration, show currently held notes without fill, only stroke
               d.duration === 0 ? 0 : 1,
-            inset: 1.5,
+            inset: limited.length > width / 10 ? 0 : 1.5,
             rx: 4,
           }),
           Plot.text(limited, {
             x: (d, i) => i,
             y: 0,
-            text: (d) => d.name.split('').join('\n'),
+            text:
+              limited.length > width / 10
+                ? null
+                : (d) => d.name.split('').join('\n'),
             fontSize: 12,
             dy: 16,
           }),

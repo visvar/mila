@@ -8,10 +8,10 @@
 - data size
   - use https://github.com/dexie/Dexie.js
     - if no time, this could be a drop in solution https://www.npmjs.com/package/idb-keyval
-  - sharing: compress binary data, try base64
 
 - move example buttons into exercise box
 
+- sub-division history linear mode
 
 ## New features
 
@@ -43,6 +43,7 @@
   - remove fretboard-spacetime-cube and make it a separate repo
   - replace note-count-input, and tempo-input by a number input
 
+- sharing: compress binary data, try base64
 
 ## Examples missing for
 
@@ -89,12 +90,3 @@
 ## musicvis-lib
 
 - copy/move data and algorithms to lib
-
-
-### Svelte 5
-
-- update to svelte 5 https://svelte.dev/docs/svelte/v5-migration-guide
-- issue with onDestroy not having access to values, maybe replace by use:? https://svelte.dev/docs/svelte/use
-- after upgrading to svelte 5
-  - since object attributes are reactive, put all app settings into an object to simplify data loading and exporting, only need to pass an object to an imported function now
-- use svelte/reactivity instead of cloning Set and Map https://svelte.dev/docs/svelte/svelte-reactivity

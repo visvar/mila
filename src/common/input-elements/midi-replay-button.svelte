@@ -231,7 +231,7 @@
             defaultValue="{1}"
             width="40px"
             disabled="{notes.length === 0 || sound === 'silent'}"
-            style="border-radius: 0 8px 8px 0; margin: 0;"
+            style="border-radius: 0; margin: 0 -12px 0 0;"
         />
     {/if}
     <NumberInput
@@ -243,7 +243,7 @@
         defaultValue="{1}"
         width="40px"
         disabled="{notes.length === 0 || isPlaying}"
-        style="border-radius: 0; margin: 0 -12px 0 0;"
+        style="border-radius: 0 8px 8px 0; margin: 0"
     />
 </main>
 
