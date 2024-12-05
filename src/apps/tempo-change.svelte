@@ -36,6 +36,8 @@
     // settings
     let timeBinSize = 5;
     let tempoBinSize = 10;
+    let topK = 10;
+
     // data
     let notes = [];
     // app state
@@ -57,7 +59,7 @@
     };
 
     const estimateTempo = (onsets) => {
-        const bpmValues = [];
+        let bpmValues = [];
 
         // bin into 5 second time bins
         const binTime = d3
@@ -92,20 +94,28 @@
                 .domain([minTempo, 180])
                 .thresholds(d3.range(minTempo, 181, tempoBinSize));
             const binnedByBpm = binBpms(bpms);
-            // mark maximum
-            const maxIndex = d3.maxIndex(binnedByBpm, (d) => d.length);
-            for (const [index, bpm] of binnedByBpm.entries()) {
+            let currentBpmValues = [];
+            for (const bpm of binnedByBpm) {
                 if (bpm.length > 0)
-                    bpmValues.push({
+                    currentBpmValues.push({
                         time0: timeBin.x0,
                         time1: timeBin.x1,
                         tempo0: bpm.x0,
                         tempo1: bpm.x1,
                         count: bpm.length,
+                        // confidence is based on number of notes that vote for this bpm divided by total number of notes in this time bin
                         confidence: bpm.length / filtered.length,
-                        max: index === maxIndex,
+                        max: false,
                     });
             }
+            // sort
+            currentBpmValues.sort((a, b) => b.confidence - a.confidence);
+            currentBpmValues = currentBpmValues.slice(0, topK);
+            // mark maximum
+            if (currentBpmValues.length > 0) {
+                currentBpmValues[0].max = true;
+            }
+            bpmValues = [...bpmValues, ...currentBpmValues];
         }
         return bpmValues;
     };
@@ -117,7 +127,6 @@
         if (bpmValues.length > 0) {
             now = bpmValues.at(-1).time1;
         }
-        // const minTime = now - pastTime;
 
         const plot = Plot.plot({
             width,
@@ -227,6 +236,15 @@
                 min="{5}"
                 max="{20}"
                 step="{5}"
+                defaultValue="{10}"
+            />
+            <NumberInput
+                title="How many tempo values per time to display (the k most probable ones)"
+                label="top k"
+                bind:value="{topK}"
+                min="{1}"
+                max="{20}"
+                step="{1}"
                 defaultValue="{10}"
             />
         </div>
