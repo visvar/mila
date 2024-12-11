@@ -22,6 +22,7 @@
     import { noteEighth } from '../lib/icons';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
+    import { secondsPerBeatToBpm } from '../lib/lib';
 
     /**
      * contains the app meta information defined in App.js
@@ -30,14 +31,13 @@
 
     let windowWidth = window.innerWidth;
     $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
-    let height = 400;
     let container;
     // settings
     let tempo = 120;
     let binNote = 0;
     let filterNote = 64;
-    let barLimit = 100;
-    let showEighthLine = false;
+    let barLimit = 500;
+    let windowSize = 50;
     // data
     let firstTimeStamp = 0;
     let notes = [];
@@ -76,29 +76,19 @@
             const minSize = whole / filterNote;
             iois = iois.filter((d) => d >= minSize);
         }
+        const slicedIois = iois.slice(-barLimit);
         // round bars' height to make view clearer
-        let binnedIois = iois;
+        let binnedIois = slicedIois;
         if (binNote !== 0) {
             const binSize = whole / binNote;
-            binnedIois = iois.map((d) => Math.round(d / binSize) * binSize);
+            binnedIois = slicedIois.map(
+                (d) => Math.round(d / binSize) * binSize,
+            );
         }
 
-        const slicedIois = binnedIois.slice(-barLimit);
-
-        // filter out all likely eight notes
-        const indexedIois = slicedIois.map((d, i) => {
-            return {
-                index: i,
-                duration: d,
-            };
-        });
-        const eightNotes = indexedIois.filter(
-            (d) => d.duration > 0.75 * eighth && d.duration < 1.25 * eighth,
-        );
-
-        const plot = Plot.plot({
+        const barPlot = Plot.plot({
             width,
-            height,
+            height: 350,
             marginLeft: 45,
             marginRight: 1,
             // make sure note symbols etc work
@@ -118,7 +108,7 @@
             },
             marks: [
                 // bars
-                Plot.barY(slicedIois, {
+                Plot.barY(binnedIois, {
                     x: (d, i) => i,
                     y: (d) => d,
                     fill: '#ddd',
@@ -130,20 +120,66 @@
                 Plot.ruleY(rules, {
                     stroke: '#aaa',
                 }),
-                // eight note line
-                showEighthLine
-                    ? Plot.lineY(
-                          eightNotes,
-                          Plot.windowY(
-                              { k: 20, anchor: 'middle' },
-                              { x: 'index', y: 'duration', strokeWidth: 2 },
-                          ),
-                      )
-                    : null,
             ],
         });
         container.textContent = '';
-        container.appendChild(plot);
+        container.appendChild(barPlot);
+
+        // tempo estimation
+        const indexedIois = slicedIois.map((d, i) => {
+            return {
+                index: i,
+                duration: d,
+                tempo: null,
+            };
+        });
+        const lower = quarter * 0.75;
+        const upper = quarter * 1.25;
+        const lineNotes = indexedIois
+            .filter(
+                // remove very short and long notes
+                (d) =>
+                    d.duration > 0.75 * sixteenth && d.duration < 1.25 * half,
+            )
+            .map((d) => {
+                // fold to quarter
+                while (d.duration > upper) {
+                    d.duration /= 2;
+                }
+                while (d.duration < lower) {
+                    d.duration *= 2;
+                }
+                d.tempo = secondsPerBeatToBpm(d.duration);
+                return d;
+            });
+        const linePlot = Plot.plot({
+            width,
+            height: 250,
+            marginLeft: 45,
+            marginRight: 1,
+            x: {
+                label: 'IOI index',
+            },
+            y: {
+                grid: true,
+            },
+            marks: [
+                Plot.ruleY([tempo]),
+                Plot.lineY(
+                    lineNotes,
+                    Plot.windowY(
+                        { k: windowSize, anchor: 'middle' },
+                        {
+                            x: 'index',
+                            y: 'tempo',
+                            strokeWidth: 2,
+                            stroke: '#888',
+                        },
+                    ),
+                ),
+            ],
+        });
+        container.appendChild(linePlot);
     };
 
     /**
@@ -155,7 +191,7 @@
             binNote,
             filterNote,
             barLimit,
-            showEighthLine,
+            windowSize,
             // data
             notes,
         };
@@ -166,8 +202,8 @@
         tempo = json.tempo;
         binNote = json.binNote ?? 'off';
         filterNote = json.filterNote ?? 'off';
-        barLimit = json.barLimit;
-        showEighthLine = json.showEighthLine ?? false;
+        barLimit = json.barLimit ?? 500;
+        windowSize = json.windowSize ?? 50;
         // data
         notes = json.notes;
         // app state
@@ -194,12 +230,13 @@
             This app helps practicing keeping a constant tempo. Choose your
             tempo, activate the metronome, and start playing. Once the metronome
             stops, try to keep a constant tempo as long as possible. The time
-            between two note onsets will be shown as a bar, so you can see how
-            well you still hit, for example, quarter notes after playing for
-            some time. Bar heights are either exact or rounded to a certain
-            duration precision for a clearer overview when monitoring live. You
-            can filter very short inter-note times, which happen when playing
-            two notes at roughly the same time, for example in a chord.
+            between two note onsets (inter-onset interval or IOI) will be shown
+            as a bar, so you can see how well you still hit, for example,
+            quarter notes after playing for some time. Bar heights are either
+            exact or rounded to a certain duration precision for a clearer
+            overview when monitoring live. You can filter very short inter-note
+            times, which happen when playing two notes at roughly the same time,
+            for example in a chord.
             <i>
                 Try playing without looking, so you don't correct based on what
                 you see!
@@ -225,7 +262,7 @@
                 bind:value="{binNote}"
             >
                 <option value="{0}">off</option>
-                {#each [16, 32, 64] as g}
+                {#each [32, 46, 64, 96] as g}
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
@@ -235,7 +272,7 @@
                 bind:value="{filterNote}"
             >
                 <option value="{0}">off</option>
-                {#each BIN_NOTES as g}
+                {#each [16, 32, 64, 128] as g}
                     <option value="{g}">1/{g} note</option>
                 {/each}
             </SelectScollable>
@@ -249,10 +286,14 @@
                 min="{25}"
                 max="{1000}"
             />
-            <ToggleButton
-                label="{noteEighth} line"
-                title="Show a line for the (likely) eighth notes' duration over time."
-                bind:checked="{showEighthLine}"
+            <NumberInput
+                title="Running average window for the tempo estimation line chart."
+                label="window"
+                bind:value="{windowSize}"
+                step="{10}"
+                min="{5}"
+                max="{1000}"
+                defaultValue="{50}"
             />
         </div>
         <div class="visualization" bind:this="{container}"></div>
