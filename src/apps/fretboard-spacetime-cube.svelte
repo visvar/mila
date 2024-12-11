@@ -33,6 +33,7 @@
     // settings
     let timeFactor = 1;
     let pastSeconds = 60;
+    let showNoteLabels = true;
     // data
     let firstTimeStamp = 0;
     let lastTimeSeconds = 60;
@@ -219,10 +220,30 @@
         lastTimeSeconds -= 1;
     }}"
 />
+<PcKeyboardInput
+    key="l"
+    keyDown="{() => {
+        showNoteLabels = !showNoteLabels;
+    }}"
+/>
+<PcKeyboardInput
+    key="r"
+    keyDown="{() => {
+        notes = [];
+    }}"
+/>
 
 <main class="app">
-    <!-- x is right, y is up, z is toward camera -->
     <a-scene renderer="colorManagement: true; antialias: true;">
+        <!-- <a-light
+            type="directional"
+            position="-10 1000 -5"
+            rotation="0 0 0"
+            target="#directionaltarget"
+        >
+            <a-entity id="directionaltarget" position="0 0 0"></a-entity>
+        </a-light> -->
+        <a-camera wasd-controls="acceleration:10; fly: true"></a-camera>
         <!-- controllers -->
         <a-entity oculus-touch-controls="hand: left"></a-entity>
         <a-entity oculus-touch-controls="hand: right"></a-entity>
@@ -239,7 +260,7 @@
             scale=".35 .35 .35"
         ></a-entity>
         <a-entity
-            text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nPress 1, 2, 3 for examples, +/- to change the time scale,page up/down to scroll throguh time.\n\nGo back in your browser to return to the main page.; color: #666; width: 5"
+            text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nKeyboard shortcuts:\n1, 2, 3: examples\n+/-: change the time scale\npage up/down: scroll through time\nl: toggle note labels.\n\nGo back in your browser to return to the main page.; color: #666; width: 5"
             position="-2 1.2 -3"
             scale=".25 .25 .25"
         ></a-entity>
@@ -250,13 +271,7 @@
             scale=".25 .25 .25"
         ></a-entity>
         <!-- visualization container -->
-        <a-box
-            position="-1 0 -3"
-            rotation="0 0 0"
-            scale=".1 .1 .1"
-            visible="true"
-            opacity="0"
-        >
+        <a-entity position="-1 0 -3" rotation="0 0 0" scale=".1 .1 .1">
             <!-- fretboard -->
             {#each d3.range(stringCount) as string}
                 <!-- strings -->
@@ -327,21 +342,25 @@
             {/each}
             <!-- notes -->
             {#each lastNotes as note}
-                <a-box
+                <a-sphere
                     position="{`${note.fret - 0.3} ${scaleTime(note.time)} ${note.string - 5}`}"
                     color="{stringColors[stringCount - note.string - 1]}"
                     opacity="{note.velocity / 127}"
-                    width="0.3"
-                    height="0.3"
-                    depth="0.3"
+                    scale="0.25 0.25 0.25"
                 >
-                    <a-entity
-                        text="value: {note.note}\n{note.fret}; color: #666"
-                        position="2.35 0 0.25"
-                        scale="5 5 5"
-                        opacity="{note.velocity / 127}"
-                    ></a-entity>
-                </a-box>
+                    {#if showNoteLabels}
+                        <a-text
+                            value="{note.note}\n{note.fret}"
+                            color="#666"
+                            position="0 0 1"
+                            scale="5 5 5"
+                            opacity="{note.velocity / 127}"
+                            align="center"
+                            anchor="center"
+                            baseline="center"
+                        ></a-text>
+                    {/if}
+                </a-sphere>
             {/each}
             <!-- heatmap -->
             {#each binnedNotes as [stringPos, stringNotes]}
@@ -356,7 +375,7 @@
                     ></a-box>
                 {/each}
             {/each}
-        </a-box>
+        </a-entity>
     </a-scene>
     <MidiInput {noteOn} />
 </main>

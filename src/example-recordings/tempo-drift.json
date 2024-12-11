@@ -1,7 +1,7 @@
 {
   "tempo": 120,
   "binNote": 0,
-  "filterNote": 0,
+  "filterNote": 64,
   "barLimit": 500,
   "notes": [
     0,

@@ -139,7 +139,8 @@
             .filter(
                 // remove very short and long notes
                 (d) =>
-                    d.duration > 0.75 * sixteenth && d.duration < 1.25 * half,
+                    // d.duration > 0.75 * sixteenth && d.duration < 1.25 * half,
+                    d.duration > 0.5 * sixteenth && d.duration < 1.25 * quarter,
             )
             .map((d) => {
                 // fold to quarter
@@ -154,29 +155,40 @@
             });
         const linePlot = Plot.plot({
             width,
-            height: 250,
+            height: 185,
             marginLeft: 45,
+            marginTop: 5,
             marginRight: 1,
             x: {
                 label: 'IOI index',
+                labelAnchor: 'center',
             },
             y: {
+                label: 'estimated tempo',
+                labelAnchor: 'center',
                 grid: true,
+                domain: [tempo * 0.8, tempo * 1.2],
             },
             marks: [
                 Plot.ruleY([tempo]),
                 Plot.lineY(
                     lineNotes,
                     Plot.windowY(
-                        { k: windowSize, anchor: 'middle' },
+                        { k: windowSize, anchor: 'middle', reduce: 'median' },
                         {
                             x: 'index',
                             y: 'tempo',
                             strokeWidth: 2,
                             stroke: '#888',
+                            curve: 'basis',
                         },
                     ),
                 ),
+                // Plot.dot(lineNotes, {
+                //     x: 'index',
+                //     y: 'tempo',
+                //     stroke: '#888',
+                // }),
             ],
         });
         container.appendChild(linePlot);
@@ -229,18 +241,25 @@
         <p class="explanation">
             This app helps practicing keeping a constant tempo. Choose your
             tempo, activate the metronome, and start playing. Once the metronome
-            stops, try to keep a constant tempo as long as possible. The time
-            between two note onsets (inter-onset interval or IOI) will be shown
-            as a bar, so you can see how well you still hit, for example,
-            quarter notes after playing for some time. Bar heights are either
-            exact or rounded to a certain duration precision for a clearer
-            overview when monitoring live. You can filter very short inter-note
-            times, which happen when playing two notes at roughly the same time,
-            for example in a chord.
+            stops, try to keep a constant tempo as long as possible.
             <i>
                 Try playing without looking, so you don't correct based on what
                 you see!
             </i>
+        </p>
+        <p class="explanation">
+            The time between two note onsets (inter-onset interval or IOI) will
+            be shown as a bar, so you can see how well you still hit, for
+            example, quarter notes after playing for some time. Bar heights are
+            either exact or rounded to a certain duration precision for a
+            clearer overview when monitoring live. You can filter very short
+            inter-note times, which happen when playing two notes at roughly the
+            same time, for example in a chord.
+        </p>
+        <p class="explanation">
+            A line chart below shows the estimated tempo. It assumes you drift
+            no farther than 20% up or down and is less robust than the bar
+            chart, but helps see trends more clearly.
         </p>
         <div class="control">
             <TempoInput bind:value="{tempo}" />

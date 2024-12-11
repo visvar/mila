@@ -15,8 +15,12 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
     import example from '../example-recordings/fretboard-heatmap.json';
+    import exampleStaying from '../example-recordings/fretboard-jitter/fretboard-jitter-staying-in-default.json';
+    import exampleHopping from '../example-recordings/fretboard-jitter/fretboard-jitter-hopping-between-positions.json';
+    import exampleVaried from '../example-recordings/fretboard-jitter/fretboard-jitter-strongly-varied.json';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -35,7 +39,7 @@
         scaleInfo ? scaleInfo.notes.map((d) => NOTE_TO_CHROMA_MAP.get(d)) : [],
     );
     // settings
-    let pastNoteCount = 200;
+    let pastNoteCount = 1000;
     let showScale = true;
     let scaleRoot = 'A';
     let scaleType = 'minor pentatonic';
@@ -200,7 +204,7 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        pastNoteCount = json.pastNoteCount ?? 200;
+        pastNoteCount = json.pastNoteCount ?? 1000;
         showScale = json.showScale ?? false;
         scaleRoot = json.scaleRoot ?? 'C';
         scaleType = json.scaleType ?? 'major';
@@ -250,9 +254,6 @@
                 disabled="{isPlaying}"
                 {saveToStorage}
             />
-            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-                example
-            </button>
             <HistoryButton
                 appId="{appInfo.id}"
                 {loadData}
@@ -267,6 +268,30 @@
             />
         </div>
         <ExerciseDrawer>
+            <InsideTextButton
+                onclick="{() => loadData(example)}"
+                disabled="{isPlaying}"
+            >
+                example 1
+            </InsideTextButton>
+            <InsideTextButton
+                onclick="{() => loadData(exampleStaying)}"
+                disabled="{isPlaying}"
+            >
+                example 2
+            </InsideTextButton>
+            <InsideTextButton
+                onclick="{() => loadData(exampleHopping)}"
+                disabled="{isPlaying}"
+            >
+                example 3
+            </InsideTextButton>
+            <InsideTextButton
+                onclick="{() => loadData(exampleVaried)}"
+                disabled="{isPlaying}"
+            >
+                example 4
+            </InsideTextButton>
             <p>1) Play the note A over the whole fretboard.</p>
             <p>
                 2) Play the A minor pentatonic scale over the whole fretboard,

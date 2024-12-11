@@ -82,7 +82,7 @@
             width,
             // height,
             aspectRatio: 1,
-            marginLeft: 50,
+            marginLeft: 30,
             marginBottom: 40,
             padding: 0,
             x: {
@@ -100,13 +100,9 @@
                 label: 'string',
             },
             color: {
-                legend: true,
-                marginLeft: 300,
-                width: 550,
                 scheme: 'viridis',
                 reverse: true,
                 domain: [0, pastNoteCount],
-                label: 'note index: old (yellow) to new (purple)',
             },
             r: {
                 domain: [0, 127],
@@ -155,6 +151,28 @@
             ],
         });
 
+        const colorLegend = Plot.plot({
+            width,
+            height: 0,
+            marginLeft: 30,
+            marginBottom: 0,
+            padding: 0,
+            color: {
+                legend: true,
+                marginLeft: 300,
+                width: 550,
+                scheme: 'viridis',
+                reverse: true,
+                domain: [0, pastNoteCount],
+                label: 'note index: old (yellow) to new (purple)',
+            },
+            r: {
+                domain: [0, 127],
+                range: [0, 5],
+            },
+            marks: [],
+        });
+
         // area legend
         const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
         const legend = Plot.plot({
@@ -173,6 +191,9 @@
                 tickPadding: 3,
                 tickFormat: (d, i) => [...VELOCITIES_LOGIC.values()][i],
             },
+            y: {
+                labelAnchor: 'center',
+            },
             marks: [
                 Plot.dotX(legendTicks, {
                     x: (d, i) => d,
@@ -183,8 +204,9 @@
         });
 
         container.textContent = '';
-        container.appendChild(plot);
+        container.appendChild(colorLegend);
         container.appendChild(legend);
+        container.appendChild(plot);
 
         // small multiples
         const facetDuration =
