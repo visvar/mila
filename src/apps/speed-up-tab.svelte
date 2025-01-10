@@ -280,7 +280,7 @@
                         x: (d) => d.time,
                         y: (d) => d.string,
                         textAnchor: 'middle',
-                        dy: -10,
+                        dy: -12,
                     }),
                 ],
             });
@@ -501,6 +501,41 @@
                     draw();
                 }}"
             />
+            <button
+                on:click="{() => {
+                    console.log('example');
+
+                    practiceRecordings = new Map();
+                    firstTimeStamp = 0;
+                    const seed = 123456;
+                    const bias = -0.01;
+                    const deviation = -0.025;
+                    const rand = d3.randomNormal.source(d3.randomLcg(seed))(
+                        bias,
+                        deviation,
+                    );
+                    for (const tempo of d3.range(
+                        initialTempo,
+                        targetTempo + tempoIncrease,
+                        tempoIncrease,
+                    )) {
+                        const ex = exerciseNotes.map((d) => {
+                            return {
+                                ...d,
+                                time: (d.time * initialTempo) / tempo + rand(),
+                                velocity: 127,
+                            };
+                        });
+                        practiceRecordings.set(tempo, ex);
+                    }
+                    practiceRecordings = new Map(practiceRecordings);
+                    console.log(practiceRecordings);
+
+                    draw();
+                }}"
+            >
+                example
+            </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
