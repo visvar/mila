@@ -14,18 +14,18 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
-    "gh-pages": "^6.2.0",
-    "npm-check-updates": "^17.1.4",
+    "gh-pages": "^6.3.0",
+    "npm-check-updates": "^17.1.13",
     "svelte": "^4.2.19",
     "vite": "^5.4.9"
   },
   "dependencies": {
-    "@fontsource/noto-music": "^5.1.0",
-    "@fontsource/noto-sans": "^5.1.0",
-    "@fontsource/noto-sans-symbols": "^5.1.0",
-    "@fontsource/noto-sans-symbols-2": "^5.1.1",
+    "@fontsource/noto-music": "^5.1.1",
+    "@fontsource/noto-sans": "^5.1.1",
+    "@fontsource/noto-sans-symbols": "^5.1.1",
+    "@fontsource/noto-sans-symbols-2": "^5.1.2",
     "@observablehq/plot": "^0.6.16",
-    "@stdlib/stdlib": "^0.3.0",
+    "@stdlib/stdlib": "^0.3.2",
     "aframe": "^1.6.0",
     "aframe-svelte": "^1.0.1",
     "d3": "^7.9.0",
@@ -35,9 +35,9 @@
     "musicvis-lib": "^0.57.1",
     "pitchy": "^4.1.0",
     "soundfont-player": "^0.12.0",
-    "tonal": "^6.3.0",
+    "tonal": "^6.4.0",
     "tone": "^15.0.4",
     "underscore": "^1.13.7",
-    "webmidi": "^3.1.11"
+    "webmidi": "^3.1.12"
   }
 }
