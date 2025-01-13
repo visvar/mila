@@ -376,7 +376,7 @@
     };
 
     const saveToStorage = () => {
-        if (!isDataLoaded && !isPlaying && notes.length > 0) {
+        if (!isDataLoaded && practiceRecordings.size > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };

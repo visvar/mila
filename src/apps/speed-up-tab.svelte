@@ -272,11 +272,13 @@
                         stroke: 'velocity',
                         x: (d) => d.time,
                         y: (d) => d.string,
-                        strokeWidth: 1.2,
+                        strokeWidth: 1.5,
                     }),
                     Plot.text(inBeats, {
                         text: 'fret',
-                        fill: 'velocity',
+                        fill: 'black',
+                        stroke: 'white',
+                        strokeWidth: 4,
                         x: (d) => d.time,
                         y: (d) => d.string,
                         textAnchor: 'middle',
@@ -387,7 +389,7 @@
     };
 
     const saveToStorage = () => {
-        if (!isDataLoaded && !isPlaying && notes.length > 0) {
+        if (!isDataLoaded && practiceRecordings.size > 0) {
             localStorageAddRecording(appInfo.id, getExportData());
         }
     };
@@ -514,16 +516,33 @@
                         bias,
                         deviation,
                     );
+                    const positions = [
+                        { string: 5, fret: 5 },
+                        { string: 5, fret: 8 },
+                        { string: 4, fret: 5 },
+                        { string: 4, fret: 7 },
+                        { string: 3, fret: 5 },
+                        { string: 3, fret: 7 },
+                        { string: 2, fret: 5 },
+                        { string: 2, fret: 8 },
+                        { string: 1, fret: 5 },
+                        { string: 1, fret: 8 },
+                    ];
+                    const pos = [...positions, ...positions.reverse()];
+                    console.log(pos);
+
                     for (const tempo of d3.range(
                         initialTempo,
                         targetTempo + tempoIncrease,
                         tempoIncrease,
                     )) {
-                        const ex = exerciseNotes.map((d) => {
+                        const ex = exerciseNotes.map((d, i) => {
                             return {
                                 ...d,
                                 time: (d.time * initialTempo) / tempo + rand(),
                                 velocity: 127,
+                                // go through A minor scale
+                                ...pos[i % pos.length],
                             };
                         });
                         practiceRecordings.set(tempo, ex);
