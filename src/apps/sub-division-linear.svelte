@@ -116,7 +116,7 @@
 
         const plotOptions = {
             width,
-            height: 100,
+            height: 80,
             marginTop: 0,
             marginLeft: 40,
             marginRight: 10,
@@ -132,12 +132,64 @@
             },
         };
 
+        const labeledTicks = new Set([...coarseGrid, beats]);
         const x = {
             label: 'time in beats',
             domain: [0, beats],
-            ticks: [...coarseGrid, beats],
-            tickFormat: (d) => (d % grid1) + 1,
+            // ticks: [...coarseGrid, beats],
+            // tickFormat: (d) => (d % grid1) + 1,
+            ticks: [...fineGrid, beats],
+            tickFormat: (d) => {
+                const beatInBar = d % grid1;
+                if (labeledTicks.has(d)) {
+                    return beatInBar + 1;
+                }
+                return '';
+            },
         };
+
+        // overlayed ticks with transparency
+        const tickPlotSum = Plot.plot({
+            ...plotOptions,
+            height: 60,
+            marginTop: 30,
+            marginBottom: 10,
+            x,
+            marks: [
+                Plot.axisX({
+                    anchor: 'top',
+                    ...x,
+                }),
+                // ticks
+                Plot.tickX(clamped, {
+                    x: 'time',
+                    stroke: '#0002',
+                    strokeWidth: 1.5,
+                    clip: true,
+                }),
+            ],
+        });
+        // TODO: delete
+        // const tickPlotSum2 = Plot.plot({
+        //     ...plotOptions,
+        //     height: 60,
+        //     marginTop: 30,
+        //     marginBottom: 10,
+        //     x,
+        //     marks: [
+        //         Plot.axisX({
+        //             anchor: 'top',
+        //             ...x,
+        //         }),
+        //         // ticks
+        //         Plot.tickX(clamped, {
+        //             x: 'time',
+        //             // stroke: '#0002',
+        //             strokeWidth: 1.5,
+        //             clip: true,
+        //         }),
+        //     ],
+        // });
 
         // histogram
         const binSize = 4 / binNote;
@@ -151,7 +203,6 @@
         const histoPlot = Plot.plot({
             ...plotOptions,
             marks: [
-                ...gridLines,
                 Plot.rectY(
                     clamped,
                     Plot.binX(
@@ -164,6 +215,7 @@
                         },
                     ),
                 ),
+                ...gridLines,
                 Plot.ruleY([0]),
             ],
         });
@@ -181,21 +233,7 @@
             ],
         });
 
-        const tickPlotSum = Plot.plot({
-            ...plotOptions,
-            height: 50,
-            marginBottom: 30,
-            x,
-            marks: [
-                // ticks
-                Plot.tickX(clamped, {
-                    x: 'time',
-                    stroke: '#0002',
-                    clip: true,
-                }),
-            ],
-        });
-
+        // tick rows
         const innerWidth =
             width - plotOptions.marginLeft - plotOptions.marginRight;
         const tickPlotRows = Plot.plot({
@@ -231,9 +269,10 @@
         });
 
         container.textContent = '';
+        // container.appendChild(tickPlotSum2);
+        container.appendChild(tickPlotSum);
         container.appendChild(histoPlot);
         container.appendChild(kdePlot);
-        container.appendChild(tickPlotSum);
         container.appendChild(tickPlotRows);
 
         // show how many notes are within the OK areas
@@ -270,6 +309,7 @@
                 width,
                 height: 110,
                 x: {
+                    domain: d3.range(0, scores.length - 1),
                     tickFormat: (d) => d + 1,
                 },
                 y: {

@@ -75,7 +75,7 @@
         {step}
         {min}
         {max}
-        style="width: 55px"
+        style="width: 65px"
     />
 </label>
 <button on:click="{autoAdjust}">auto</button>
