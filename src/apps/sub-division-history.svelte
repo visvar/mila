@@ -3,6 +3,7 @@
     import { Canvas, Utils } from 'musicvis-lib';
     import * as kde from 'fast-kde';
     import * as d3 from 'd3';
+    import * as Plot from '@observablehq/plot';
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
@@ -32,12 +33,14 @@
     let width = 850;
     let canvas;
     let canvas2;
+    let container;
     let height = width;
     // settings
     let tempo = 120;
     let grid = GRIDS[0].divisions;
     let binNote = 64;
     let adjustTime = 0;
+    let circular = true;
     let showKde = true;
     // data
     let firstTimeStamp = 0;
@@ -51,7 +54,7 @@
         notes = [...notes, noteInSeconds];
     };
 
-    const drawOne = (
+    const drawOneCircular = (
         canvas,
         notes,
         tempo,
@@ -218,6 +221,99 @@
         }
     };
 
+    const drawOneLinear = (
+        title,
+        notes,
+        tempo,
+        grid,
+        binNote,
+        adjustTime,
+        showKde,
+    ) => {
+        const [grid1, grid2] = grid.split(':').map((d) => +d);
+        const quarter = Utils.bpmToSecondsPerBeat(tempo);
+        let notesHand = notes.map((d) => (d + adjustTime) / quarter);
+
+        notesHand = notesHand.map((d) => d % grid1);
+
+        // KDE
+        let kdePoints = [];
+        if (notesHand.length > 0) {
+            let bandwidth = 4 / binNote;
+            let pad = 1;
+            let bins = Math.floor(width / 2);
+            const density1d = kde.density1d(notesHand, {
+                bandwidth,
+                pad,
+                bins,
+                extent: [0, grid1],
+            });
+            kdePoints = density1d.bandwidth(bandwidth);
+        }
+
+        const coarseGrid = d3.range(0, grid1 + 1, 1);
+        const fineGrid = d3.range(0, grid1 * grid2, 1 / grid2);
+
+        const plot = Plot.plot({
+            width,
+            height: 80,
+            marginTop: 15,
+            marginLeft: 30,
+            marginRight: 10,
+            marginBottom: 15,
+            padding: 0,
+            style: { fontSize: '14px' },
+            x: {
+                label: 'time in beats',
+                domain: [0, 4],
+                ticks: [],
+            },
+            y: {
+                label: title,
+                ticks: [],
+                labelOffset: -10,
+                labelAnchor: 'top',
+                labelArrow: null,
+            },
+            marks: [
+                showKde
+                    ? Plot.areaY(kdePoints, {
+                          x: 'x',
+                          y: 'y',
+                          fill: (d) => '#e4f0fa',
+                          clip: true,
+                      })
+                    : Plot.rectY(
+                          notesHand,
+                          Plot.binX(
+                              { y: 'count' },
+                              {
+                                  x: (d) => d,
+                                  fill: '#eee',
+                                  thresholds: d3.range(
+                                      0,
+                                      grid1 + 1,
+                                      4 / binNote,
+                                  ),
+                                  ry2: 4,
+                              },
+                          ),
+                      ),
+                Plot.ruleY([0]),
+                // beat grid
+                Plot.tickX(fineGrid, {
+                    stroke: '#888',
+                }),
+                Plot.tickX(coarseGrid, {
+                    stroke: '#888',
+                    strokeWidth: 3,
+                }),
+            ],
+        });
+
+        container.appendChild(plot);
+    };
+
     const draw = () => {
         const ctx = canvas.getContext('2d');
         // scale to DPR
@@ -234,7 +330,7 @@
         canvas.style.height = `${rect.height}px`;
         // fade-out old data
         ctx.clearRect(0, 0, width, height);
-        drawOne(
+        drawOneCircular(
             canvas,
             notes,
             tempo,
@@ -248,7 +344,7 @@
         );
     };
 
-    const drawLoaded = () => {
+    const drawLoadedCircular = () => {
         const count = 8;
         const recordings = localSorageGetRecordings(appInfo.id).slice(-count);
         // .reverse();
@@ -297,7 +393,7 @@
                 x + size / 2,
                 y + 12,
             );
-            drawOne(
+            drawOneCircular(
                 canvas2,
                 notes,
                 tempo,
@@ -312,9 +408,31 @@
         }
     };
 
+    const drawLoadedLinear = () => {
+        const count = 20;
+        const recordings = localSorageGetRecordings(appInfo.id).slice(-count);
+        for (const recording of recordings) {
+            const json = recording.data;
+            const tempo = json.tempo;
+            const grid = json.grid;
+            const adjustTime = json.adjustTime;
+            const label = `${recording.date.slice(0, 16).replace('T', '  ')} tempo: ${tempo} grid: ${grid} adjust: ${adjustTime}`;
+            drawOneLinear(
+                label,
+                json.notes,
+                tempo,
+                grid,
+                binNote,
+                adjustTime,
+                showKde,
+            );
+        }
+    };
+
     const drawAll = () => {
         draw();
-        drawLoaded();
+        container.innerHTML = '';
+        circular ? drawLoadedCircular() : drawLoadedLinear();
     };
 
     afterUpdate(drawAll);
@@ -384,6 +502,14 @@
             {draw}
         />
         <button
+            title="Toggle between circular and linear"
+            on:click="{() => {
+                circular = !circular;
+            }}"
+        >
+            {circular ? 'circular' : 'linear'}
+        </button>
+        <button
             title="Toggle between bars and area"
             on:click="{() => {
                 showKde = !showKde;
@@ -405,9 +531,12 @@
     </div>
     <div class="visualization">
         <h3>History</h3>
+        <div bind:this="{container}"></div>
         <canvas
             bind:this="{canvas2}"
-            style="width: {width}px; height: {height / 2}px"
+            style="width: {width}px; height: {height / 2}px; display: {circular
+                ? 'block'
+                : 'none'}"
         ></canvas>
     </div>
     <ExerciseDrawer>

@@ -32,8 +32,7 @@
     export let appInfo;
 
     let width = 900;
-    let containerLeft;
-    let containerRight;
+    let container;
     // settings
     let tempo = 60;
     let gridLeft = GRIDS[0].divisions;
@@ -118,7 +117,7 @@
 
         const plot = Plot.plot({
             width,
-            height: left ? 170 : 170 + 13,
+            height: left ? 120 : 120 + 13,
             marginTop: 15,
             marginLeft: 30,
             marginRight: 10,
@@ -174,12 +173,11 @@
             ],
         });
 
-        const container = left ? containerLeft : containerRight;
-        container.textContent = '';
         container.appendChild(plot);
     };
 
     const draw = () => {
+        container.textContent = '';
         drawHand(false);
         drawHand(true);
     };
@@ -324,8 +322,7 @@
                 {showKde ? 'density area' : 'histogram'}
             </button>
         </div>
-        <div class="visualization" bind:this="{containerRight}"></div>
-        <div class="visualization" bind:this="{containerLeft}"></div>
+        <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton
                 {tempo}

@@ -28,7 +28,7 @@
     export let appInfo;
 
     let width = 900;
-    let height = 600;
+    let height = 450;
     let container;
     let firstTimeStamp;
     const minDist = 0.025;
@@ -132,7 +132,7 @@
             width,
             height,
             // marginLeft: 80,
-            marginBottom: 50,
+            marginBottom: 30,
             padding: 0,
             x: {
                 label: 'time in seconds',
