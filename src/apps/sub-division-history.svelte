@@ -34,13 +34,14 @@
     let canvas;
     let canvas2;
     let container;
+    let container2;
     let height = width;
     // settings
     let tempo = 120;
     let grid = GRIDS[0].divisions;
     let binNote = 64;
     let adjustTime = 0;
-    let circular = true;
+    let circular = false;
     let showKde = true;
     // data
     let firstTimeStamp = 0;
@@ -222,6 +223,7 @@
     };
 
     const drawOneLinear = (
+        container,
         title,
         notes,
         tempo,
@@ -229,6 +231,7 @@
         binNote,
         adjustTime,
         showKde,
+        height,
     ) => {
         const [grid1, grid2] = grid.split(':').map((d) => +d);
         const quarter = Utils.bpmToSecondsPerBeat(tempo);
@@ -256,17 +259,18 @@
 
         const plot = Plot.plot({
             width,
-            height: 80,
-            marginTop: 15,
+            height,
+            marginTop: 20,
             marginLeft: 30,
             marginRight: 10,
             marginBottom: 15,
             padding: 0,
             style: { fontSize: '14px' },
             x: {
-                label: 'time in beats',
                 domain: [0, 4],
-                ticks: [],
+                axis: false,
+                // label: 'time in beats',
+                // ticks: [],
             },
             y: {
                 label: title,
@@ -315,33 +319,48 @@
     };
 
     const draw = () => {
-        const ctx = canvas.getContext('2d');
-        // scale to DPR
-        // Get the DPR and size of the canvas
-        const dpr = window.devicePixelRatio;
-        const rect = canvas.getBoundingClientRect();
-        // Set the "actual" size of the canvas
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        // Scale the context to ensure correct drawing operations
-        ctx.scale(dpr, dpr);
-        // Set the "drawn" size of the canvas
-        canvas.style.width = `${rect.width}px`;
-        canvas.style.height = `${rect.height}px`;
-        // fade-out old data
-        ctx.clearRect(0, 0, width, height);
-        drawOneCircular(
-            canvas,
-            notes,
-            tempo,
-            grid,
-            binNote,
-            adjustTime,
-            showKde,
-            width / 2,
-            0,
-            0,
-        );
+        container.innerHTML = '';
+        if (circular) {
+            const ctx = canvas.getContext('2d');
+            // scale to DPR
+            // Get the DPR and size of the canvas
+            const dpr = window.devicePixelRatio;
+            const rect = canvas.getBoundingClientRect();
+            // Set the "actual" size of the canvas
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            // Scale the context to ensure correct drawing operations
+            ctx.scale(dpr, dpr);
+            // Set the "drawn" size of the canvas
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+            // fade-out old data
+            ctx.clearRect(0, 0, width, height);
+            drawOneCircular(
+                canvas,
+                notes,
+                tempo,
+                grid,
+                binNote,
+                adjustTime,
+                showKde,
+                width / 2,
+                0,
+                0,
+            );
+        } else {
+            drawOneLinear(
+                container,
+                '',
+                notes,
+                tempo,
+                grid,
+                binNote,
+                adjustTime,
+                showKde,
+                160,
+            );
+        }
     };
 
     const drawLoadedCircular = () => {
@@ -418,6 +437,7 @@
             const adjustTime = json.adjustTime;
             const label = `${recording.date.slice(0, 16).replace('T', '  ')} tempo: ${tempo} grid: ${grid} adjust: ${adjustTime}`;
             drawOneLinear(
+                container2,
                 label,
                 json.notes,
                 tempo,
@@ -425,13 +445,14 @@
                 binNote,
                 adjustTime,
                 showKde,
+                80,
             );
         }
     };
 
     const drawAll = () => {
         draw();
-        container.innerHTML = '';
+        container2.innerHTML = '';
         circular ? drawLoadedCircular() : drawLoadedLinear();
     };
 
@@ -501,13 +522,15 @@
             {notes}
             {draw}
         />
+    </div>
+    <div class="control">
         <button
             title="Toggle between circular and linear"
             on:click="{() => {
                 circular = !circular;
             }}"
         >
-            {circular ? 'circular' : 'linear'}
+            circular/linear
         </button>
         <button
             title="Toggle between bars and area"
@@ -515,14 +538,16 @@
                 showKde = !showKde;
             }}"
         >
-            {showKde ? 'area' : 'bars'}
+            area/bars
         </button>
     </div>
     <div class="visualization">
         <canvas
             bind:this="{canvas}"
-            style="width: {width / 2}px; height: {width / 2}px"
+            style="width: {width / 2}px; height: {width /
+                2}px; display: {circular ? '' : 'none'}"
         ></canvas>
+        <div bind:this="{container}"></div>
     </div>
     <div class="control">
         <MetronomeButton {tempo} accent="{+grid.split(':')[0]}" />
@@ -531,7 +556,7 @@
     </div>
     <div class="visualization">
         <h3>History</h3>
-        <div bind:this="{container}"></div>
+        <div bind:this="{container2}"></div>
         <canvas
             bind:this="{canvas2}"
             style="width: {width}px; height: {height / 2}px; display: {circular
