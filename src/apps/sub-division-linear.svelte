@@ -148,6 +148,28 @@
             },
         };
 
+        // ticks without transparency
+        // TODO: delete
+        // const tickPlotSum2 = Plot.plot({
+        //     ...plotOptions,
+        //     height: 60,
+        //     marginTop: 30,
+        //     marginBottom: 10,
+        //     x,
+        //     marks: [
+        //         Plot.axisX({
+        //             anchor: 'top',
+        //             ...x,
+        //         }),
+        //         // ticks
+        //         Plot.tickX(clamped, {
+        //             x: 'time',
+        //             strokeWidth: 1.5,
+        //             clip: true,
+        //         }),
+        //     ],
+        // });
+
         // overlayed ticks with transparency
         const tickPlotSum = Plot.plot({
             ...plotOptions,
@@ -169,27 +191,6 @@
                 }),
             ],
         });
-        // TODO: delete
-        // const tickPlotSum2 = Plot.plot({
-        //     ...plotOptions,
-        //     height: 60,
-        //     marginTop: 30,
-        //     marginBottom: 10,
-        //     x,
-        //     marks: [
-        //         Plot.axisX({
-        //             anchor: 'top',
-        //             ...x,
-        //         }),
-        //         // ticks
-        //         Plot.tickX(clamped, {
-        //             x: 'time',
-        //             // stroke: '#0002',
-        //             strokeWidth: 1.5,
-        //             clip: true,
-        //         }),
-        //     ],
-        // });
 
         // histogram
         const binSize = 4 / binNote;

@@ -93,7 +93,7 @@
     const r = Math.min(xStep * 0.4, height * 0.3);
     const r2 = r * 0.5;
     const r3 = r * 0.75;
-    const r4 = r + 15;
+    const labelRadius = r + 20;
     const ctx = canvas.getContext('2d');
     // scale to DPR
     // Get the DPR and size of the canvas
@@ -141,7 +141,7 @@
       }
       //  if longer than a whole, show in red how much too long
       if (note.duration > wholeDuration) {
-        ctx.fillStyle = COLORS.wrong;
+        ctx.fillStyle = COLORS.accentDarker;
         const ratio2 = Math.min(
           (note.duration - wholeDuration) / wholeDuration,
           1,
@@ -181,10 +181,10 @@
       ctx.textBaseline = 'bottom';
       ctx.textBaseline = 'middle';
       if (index === 0 && pastNoteCount <= 8) {
-        ctx.fillText(noteWhole, cx, cy - r4);
-        ctx.fillText(noteQuarter, cx + r4, cy);
-        ctx.fillText(noteHalf, cx, cy + r4);
-        ctx.fillText(noteHalf + '.', cx - r4, cy);
+        ctx.fillText(noteWhole, cx, cy - labelRadius);
+        ctx.fillText(noteQuarter, cx + labelRadius, cy);
+        ctx.fillText(noteHalf, cx, cy + labelRadius);
+        ctx.fillText(noteHalf + '.', cx - labelRadius, cy);
       }
       // text
       ctx.font = '16px "Noto Music", sans-serif';
@@ -259,7 +259,7 @@
       }
       //  if longer than a whole, show in red how much too long
       if (note.duration > wholeDuration) {
-        ctx.fillStyle = COLORS.wrong;
+        ctx.fillStyle = COLORS.accentDarker;
         const ratio2 = Math.min(
           (note.duration - wholeDuration) / wholeDuration,
           1,
@@ -375,8 +375,8 @@
       eighth). You can also try dotted notes. Each note will be shown as a pie
       chart, that shows how much of a whole note you played. For example, if you
       tried to play a half note, the pie chart should be half full. If you play
-      longer than a whole note, the addtional time will be shown in red. You can
-      also switch to a bar ('test tube') encoding.
+      longer than a whole note, the addtional time will be shown in dark blue.
+      You can also switch to a bar ('test tube') encoding.
     </p>
     <div class="control">
       <TempoInput bind:value="{tempo}" disabled="{isPlaying}" />

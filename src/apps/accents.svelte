@@ -22,6 +22,12 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import {
+        augmentationDot,
+        noteEighth,
+        noteHalf,
+        noteQuarter,
+    } from '../lib/icons';
 
     /**
      * contains the app meta information defined in App.js
@@ -38,6 +44,7 @@
     let useTuplets = false;
     let filterNote = 16;
     let velocityThreshold = 0;
+    let showAlternatives = false;
     // data
     $: minIOI = (Utils.bpmToSecondsPerBeat(tempo) * 4) / filterNote;
     let firstTimeStamp = 0;
@@ -130,7 +137,7 @@
             const bestDyn = possibleDyn[bestIndex][1];
             return {
                 ...bestDur,
-                beats: delta,
+                beats: delta.delta,
                 velocity: delta.velocity,
                 velocityLabel: bestDyn,
                 offsetPercent: ((delta.delta / bestDur.beats) * 100).toFixed(),
@@ -166,6 +173,7 @@
                     y: 1,
                 }),
                 // dynamics as text
+
                 Plot.text(bestFit, {
                     text: 'velocityLabel',
                     x: (d, i) => i,
@@ -175,6 +183,107 @@
             ],
         });
         container.appendChild(plot);
+
+        if (!showAlternatives) {
+            return;
+        }
+
+        // comparison with double bar chart
+        const base = {
+            width,
+            height: 110,
+            marginTop: 20,
+            marginLeft: 40,
+            marginRight: 20,
+            marginBottom: 10,
+            // make sure note symbols etc work
+            style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
+            x: {
+                label: '',
+                domain: d3.range(1, pastNoteCount),
+                ticks: [],
+            },
+        };
+        const ticks = [...VELOCITIES_LOGIC.keys()].filter(
+            (d, i) => i % 2 === 0,
+        );
+        const plot2 = Plot.plot({
+            ...base,
+            y: {
+                label: 'loudness',
+                ticks,
+                tickFormat: (d) => VELOCITIES_LOGIC.get(d),
+                domain: [0, 127],
+            },
+            marks: [
+                Plot.ruleY(ticks, { stroke: '#888', strokeWidth: 0.5 }),
+                Plot.barY(bestFit, {
+                    x: (d, i) => i,
+                    y: (d) => d.velocity * 127,
+                    ry: 4,
+                    fill: '#ddd',
+                    tip: true,
+                }),
+                Plot.ruleY([0]),
+            ],
+        });
+        container.appendChild(plot2);
+        const plot3 = Plot.plot({
+            ...base,
+            y: {
+                label: 'IOI in beats',
+                nice: false,
+                domain: [0, 2],
+                ticks: [0, 0.5, 1, 1.5, 2],
+                tickFormat: (d) =>
+                    [
+                        0,
+                        noteEighth,
+                        noteQuarter,
+                        noteQuarter + augmentationDot,
+                        noteHalf,
+                    ][d],
+            },
+            marks: [
+                Plot.ruleY([0, 0.5, 1, 1.5, 2], {
+                    stroke: '#888',
+                    strokeWidth: 0.5,
+                }),
+                Plot.barY(bestFit, {
+                    x: (d, i) => i,
+                    y: (d, i) => d.beats,
+                    ry: 4,
+                    fill: '#ddd',
+                    tip: true,
+                }),
+                Plot.ruleY([0]),
+            ],
+        });
+        container.appendChild(plot3);
+
+        // ticks
+        const notesInBeats = sliced.map((d) => {
+            return { ...d, beats: d.time / quarter };
+        });
+        const plot4 = Plot.plot({
+            ...base,
+            marginBottom: 30,
+            x: {
+                label: 'time in beats',
+            },
+            color: {
+                legend: true,
+            },
+            marks: [
+                Plot.tickX(notesInBeats, {
+                    x: (d) => d.beats,
+                    strokeWidth: (d) => d.velocity * 4,
+                    // stroke: (d) => d3.interpolateViridis(1 - d.velocity),
+                    stroke: '#888',
+                }),
+            ],
+        });
+        container.appendChild(plot4);
     };
 
     /**
@@ -248,6 +357,11 @@
                 label="tuplets"
                 title="Use tuplets? If not, the closest non-tuplet note will be taken."
                 bind:checked="{useTuplets}"
+            />
+            <ToggleButton
+                label="alternative designs"
+                title="Show alternative designs for comparison."
+                bind:checked="{showAlternatives}"
             />
         </div>
         <div class="control">

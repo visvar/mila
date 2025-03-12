@@ -5,6 +5,7 @@ export const COLORS = {
 
   accent: '#daecfb',
   accentDark: '#cadae8',
+  accentDarker: '#b7c8e6',
   wrong: 'crimson'
 }
 
