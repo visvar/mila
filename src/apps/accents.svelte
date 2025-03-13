@@ -491,7 +491,7 @@
                 </InsideTextButton>
             </p>
             <p>
-                1) Play eighth notes and accent the first one in each group of
+                2) Play eighth notes and accent the first one in each group of
                 4.
                 <InsideTextButton
                     onclick="{() => loadData(example)}"
@@ -501,7 +501,7 @@
                 </InsideTextButton>
             </p>
             <p>
-                2) Play triplets and accent the first note in each triplet.
+                3) Play triplets and accent the first note in each triplet.
                 <InsideTextButton
                     onclick="{() => loadData(example2)}"
                     disabled="{isPlaying}"
@@ -510,7 +510,7 @@
                 </InsideTextButton>
             </p>
             <p>
-                3) Switch between eighths and triplets and accent the first note
+                4) Switch between eighths and triplets and accent the first note
                 in each group of 4 and 3.
                 <InsideTextButton
                     onclick="{() => loadData(example3)}"
@@ -520,11 +520,11 @@
                 </InsideTextButton>
             </p>
             <p>
-                4) Play triplets and accent the first note in each odd triplet
+                5) Play triplets and accent the first note in each odd triplet
                 and the second in each even triplet.
             </p>
             <p>
-                5) Try different accent patterns such as:<br />
+                6) Try different accent patterns such as:<br />
                 <span style="margin-left: 25px">
                     <b>1</b> e + <b>a</b> 2 e + a 3 <b>e</b> + a <b>4</b> e + a<br
                     />
