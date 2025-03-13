@@ -6,7 +6,14 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import NoteCountInput from '../common/input-elements/note-count-input.svelte';
-    import { noteDurations } from '../lib/note-durations.js';
+    import {
+        noteDurationBeatMap,
+        noteDurations,
+        noteDurationsDotted,
+        noteDurationsNormal,
+        noteDurationsNormalAndDotted,
+        noteDurationsTuplets,
+    } from '../lib/note-durations.js';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
@@ -15,6 +22,7 @@
     import example from '../example-recordings/accents/accents.json';
     import example1 from '../example-recordings/accents/accents-e1.json';
     import example2 from '../example-recordings/accents/accents-e2.json';
+    import example3 from '../example-recordings/accents/accents-eights-triplets.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { FILTER_NOTES, VELOCITIES_LOGIC } from '../lib/music.js';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -22,12 +30,6 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
-    import {
-        augmentationDot,
-        noteEighth,
-        noteHalf,
-        noteQuarter,
-    } from '../lib/icons';
 
     /**
      * contains the app meta information defined in App.js
@@ -41,10 +43,11 @@
     let tempo = 90;
     let pastNoteCount = 20;
     let useDotted = false;
+    let useDoubleDotted = false;
     let useTuplets = false;
     let filterNote = 16;
     let velocityThreshold = 0;
-    let showAlternatives = false;
+    let showAlternatives = true;
     // data
     $: minIOI = (Utils.bpmToSecondsPerBeat(tempo) * 4) / filterNote;
     let firstTimeStamp = 0;
@@ -120,9 +123,18 @@
             };
         });
 
-        const possible = noteDurations
-            .filter((d) => useDotted || !d.dotted)
-            .filter((d) => useTuplets || !d.tuplet);
+        let possible = [...noteDurationsNormal];
+        // add dotted?
+        if (useDotted) {
+            possible = [...possible, ...noteDurationsDotted];
+            if (useDoubleDotted) {
+                possible = [...possible, ...noteDurationsDotted];
+            }
+        }
+        // add tuplets?
+        if (useTuplets) {
+            possible = [...possible, ...noteDurationsTuplets];
+        }
         const bestFit = deltas.slice(1).map((delta) => {
             // best fitting duration
             const bestDurIndex = d3.minIndex(possible, (d) =>
@@ -191,22 +203,21 @@
         // comparison with double bar chart
         const base = {
             width,
-            height: 110,
+            height: 150,
             marginTop: 20,
             marginLeft: 40,
             marginRight: 20,
             marginBottom: 10,
             // make sure note symbols etc work
-            style: 'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
+            style: 'font-size: 9px; font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
             x: {
                 label: '',
                 domain: d3.range(1, pastNoteCount),
                 ticks: [],
             },
         };
-        const ticks = [...VELOCITIES_LOGIC.keys()].filter(
-            (d, i) => i % 2 === 0,
-        );
+        // plot with loudness
+        const ticks = [...VELOCITIES_LOGIC.keys()];
         const plot2 = Plot.plot({
             ...base,
             y: {
@@ -216,33 +227,39 @@
                 domain: [0, 127],
             },
             marks: [
-                Plot.ruleY(ticks, { stroke: '#888', strokeWidth: 0.5 }),
+                Plot.ruleY(
+                    ticks.filter((d, i) => i % 2 === 0),
+                    { stroke: '#888', strokeWidth: 0.5 },
+                ),
                 Plot.barY(bestFit, {
                     x: (d, i) => i,
                     y: (d) => d.velocity * 127,
                     ry: 4,
                     fill: '#ddd',
                     tip: true,
+                    title: (d) => d.velocityLabel,
                 }),
                 Plot.ruleY([0]),
             ],
         });
         container.appendChild(plot2);
+
+        // plot with IOIs
+        const ticks2 = noteDurationsNormalAndDotted.filter(
+            (d) =>
+                !d.doubleDotted &&
+                d.beats >= 0.25 &&
+                d.beats <= 2 &&
+                d.name !== 'dotted-sixteenth',
+        );
         const plot3 = Plot.plot({
             ...base,
             y: {
                 label: 'IOI in beats',
                 nice: false,
-                domain: [0, 2],
-                ticks: [0, 0.5, 1, 1.5, 2],
-                tickFormat: (d) =>
-                    [
-                        0,
-                        noteEighth,
-                        noteQuarter,
-                        noteQuarter + augmentationDot,
-                        noteHalf,
-                    ][d],
+                domain: [0, 1.5],
+                ticks: ticks2.map((d) => d.beats),
+                tickFormat: (d) => noteDurationBeatMap.get(d)?.symbol,
             },
             marks: [
                 Plot.ruleY([0, 0.5, 1, 1.5, 2], {
@@ -255,6 +272,7 @@
                     ry: 4,
                     fill: '#ddd',
                     tip: true,
+                    title: (d) => `${d.symbol}\n${d.beats.toFixed(2)} beats`,
                 }),
                 Plot.ruleY([0]),
             ],
@@ -267,6 +285,7 @@
         });
         const plot4 = Plot.plot({
             ...base,
+            height: 100,
             marginBottom: 30,
             x: {
                 label: 'time in beats',
@@ -284,6 +303,52 @@
             ],
         });
         container.appendChild(plot4);
+
+        // vis of note durations that can be represented
+        const plot5 = Plot.plot({
+            ...base,
+            subtitle:
+                'Note durations that can be represented by symbols and modifiers',
+            marginBottom: 30,
+            x: {
+                label: 'duration in beats',
+                domain: [0, 4],
+            },
+            y: {
+                ticks: [0, 1, 2],
+                tickFormat: (d) => ['normal', 'dotted/\nbowed', 'tuplet'][d],
+                domain: [-0.5, 2.5],
+                reverse: true,
+            },
+            color: {
+                legend: true,
+            },
+            marks: [
+                Plot.ruleX(noteDurations, {
+                    x: (d) => d.beats,
+                    stroke: '#ccc',
+                    strokeWidth: 1.2,
+                }),
+                Plot.dot(noteDurations, {
+                    x: (d) => d.beats,
+                    y: (d) =>
+                        d.dotted || d.doubleDotted ? 1 : d.tuplet ? 2 : 0,
+                    fill: 'white',
+                    r: 10,
+                    tip: true,
+                    title: (d) => `${d.symbol} = ${d.beats} beats`,
+                }),
+                Plot.text(noteDurations, {
+                    x: (d) => d.beats,
+                    y: (d) =>
+                        d.dotted || d.doubleDotted ? 1 : d.tuplet ? 2 : 0,
+                    text: (d) => d.symbol,
+                    fontSize: 10,
+                    pointerEvents: 'none',
+                }),
+            ],
+        });
+        container.appendChild(plot5);
     };
 
     /**
@@ -354,14 +419,15 @@
                 bind:checked="{useDotted}"
             />
             <ToggleButton
+                label="double-dotted notes"
+                title="Use double-dotted notes? If not, the closest non-dotted note will be taken."
+                bind:checked="{useDoubleDotted}"
+                disabled="{!useDotted}"
+            />
+            <ToggleButton
                 label="tuplets"
                 title="Use tuplets? If not, the closest non-tuplet note will be taken."
                 bind:checked="{useTuplets}"
-            />
-            <ToggleButton
-                label="alternative designs"
-                title="Show alternative designs for comparison."
-                bind:checked="{showAlternatives}"
             />
         </div>
         <div class="control">
@@ -386,6 +452,11 @@
                     </option>
                 {/each}
             </SelectScollable>
+            <ToggleButton
+                label="alternative designs"
+                title="Show alternative designs for comparison."
+                bind:checked="{showAlternatives}"
+            />
         </div>
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
@@ -396,9 +467,6 @@
                 disabled="{isPlaying}"
                 {saveToStorage}
             />
-            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-                example
-            </button>
             <HistoryButton
                 appId="{appInfo.id}"
                 {loadData}
@@ -423,6 +491,16 @@
                 </InsideTextButton>
             </p>
             <p>
+                1) Play eighth notes and accent the first one in each group of
+                4.
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
+            </p>
+            <p>
                 2) Play triplets and accent the first note in each triplet.
                 <InsideTextButton
                     onclick="{() => loadData(example2)}"
@@ -432,8 +510,14 @@
                 </InsideTextButton>
             </p>
             <p>
-                3) Switch between triplets and sixteenth notes and accent the
-                first note in each group of 3 and 4.
+                3) Switch between eighths and triplets and accent the first note
+                in each group of 4 and 3.
+                <InsideTextButton
+                    onclick="{() => loadData(example3)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
             <p>
                 4) Play triplets and accent the first note in each odd triplet

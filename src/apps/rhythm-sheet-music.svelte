@@ -7,7 +7,12 @@
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import NoteCountInput from '../common/input-elements/note-count-input.svelte';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
-    import { noteDurations } from '../lib/note-durations.js';
+    import {
+        noteDurations,
+        noteDurationsDotted,
+        noteDurationsNormal,
+        noteDurationsTuplets,
+    } from '../lib/note-durations.js';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import ImportExportButton from '../common/input-elements/import-export-share-button.svelte';
@@ -45,7 +50,11 @@
     const blue = d3.schemeObservable10[0];
     // domain knowledge
     // 𝅝, 𝅗𝅥, 𝅘𝅥, 𝅘𝅥𝅮, 𝅘𝅥𝅯
-    const possibilities = noteDurations;
+    const possibilities = [
+        ...noteDurationsNormal,
+        ...noteDurationsDotted,
+        ...noteDurationsTuplets,
+    ];
     const possibilitiesNonDotted = possibilities.filter((d) => !d.dotted);
     // app state
     let isPlaying;

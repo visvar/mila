@@ -8,6 +8,7 @@
     export let callback = (checked) => {};
     export let label = '';
     export let title = '';
+    export let disabled = false;
 
     const w = 30;
     const h = 20;
@@ -21,6 +22,7 @@
         checked = !checked;
         callback(checked);
     }}"
+    {disabled}
 >
     <div>
         {label}

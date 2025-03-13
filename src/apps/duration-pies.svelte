@@ -9,7 +9,10 @@
   import HistoryButton from '../common/input-elements/history-button.svelte';
   import MetronomeButton from '../common/input-elements/metronome-button.svelte';
   import TempoInput from '../common/input-elements/tempo-input.svelte';
-  import { noteDurations } from '../lib/note-durations';
+  import {
+    noteDurationsDotted,
+    noteDurationsNormal,
+  } from '../lib/note-durations';
   import example from '../example-recordings/duration-pies.json';
   import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
   import TouchInput from '../common/input-handlers/touch-input.svelte';
@@ -40,11 +43,9 @@
   // data
   let isKeyDown = false;
   $: wholeDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
-  $: durations = noteDurations
-    .filter((d) => !d.tuplet)
-    .map((d) => {
-      return { ...d, seconds: d.beats * (wholeDuration / 4) };
-    });
+  $: durations = [...noteDurationsNormal, ...noteDurationsDotted].map((d) => {
+    return { ...d, seconds: d.beats * (wholeDuration / 4) };
+  });
   let firstTimeStamp;
   let notes = [];
   let openNoteMap = new Map();
