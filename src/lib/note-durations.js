@@ -125,7 +125,7 @@ export const noteDurationsDoubleDotted = [
  *
  * @type {object[]}
  */
-export const noteDurationsBow = [
+export const noteDurationsTied = [
   // double dotted
   {
     name: 'half-plus-eighth',
@@ -185,7 +185,7 @@ export const noteDurations = [
   ...noteDurationsNormal,
   ...noteDurationsDotted,
   ...noteDurationsDoubleDotted,
-  ...noteDurationsBow,
+  ...noteDurationsTied,
   ...noteDurationsTuplets
 ]
 

@@ -7,7 +7,7 @@
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import TempoInput from '../common/input-elements/tempo-input.svelte';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
-    import { computeSubdivisionOkScoreBeats } from '../lib/lib';
+    import { computeSubdivisionOkScoreBeats, roundToStep } from '../lib/lib';
     import { BIN_NOTES, GRIDS } from '../lib/music';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
@@ -150,25 +150,25 @@
 
         // ticks without transparency
         // TODO: delete
-        // const tickPlotSum2 = Plot.plot({
-        //     ...plotOptions,
-        //     height: 60,
-        //     marginTop: 30,
-        //     marginBottom: 10,
-        //     x,
-        //     marks: [
-        //         Plot.axisX({
-        //             anchor: 'top',
-        //             ...x,
-        //         }),
-        //         // ticks
-        //         Plot.tickX(clamped, {
-        //             x: 'time',
-        //             strokeWidth: 1.5,
-        //             clip: true,
-        //         }),
-        //     ],
-        // });
+        const tickPlotSum2 = Plot.plot({
+            ...plotOptions,
+            height: 60,
+            marginTop: 30,
+            marginBottom: 10,
+            x,
+            marks: [
+                Plot.axisX({
+                    anchor: 'top',
+                    ...x,
+                }),
+                // ticks
+                Plot.tickX(clamped, {
+                    x: 'time',
+                    strokeWidth: 1.5,
+                    clip: true,
+                }),
+            ],
+        });
 
         // overlayed ticks with transparency
         const tickPlotSum = Plot.plot({
@@ -235,6 +235,21 @@
         });
 
         // tick rows
+        let step;
+        if (pastBars < 20) {
+            step = 1;
+        } else if (pastBars < 50) {
+            step = 5;
+        } else if (pastBars < 100) {
+            step = 10;
+        } else {
+            step = 20;
+        }
+        const axisTicks = d3.range(
+            roundToStep(maxBar - pastBars, step) - 1,
+            maxBar,
+            step,
+        );
         const innerWidth =
             width - plotOptions.marginLeft - plotOptions.marginRight;
         const tickPlotRows = Plot.plot({
@@ -243,9 +258,15 @@
             marginBottom: 30,
             x,
             y: {
-                domain: d3.range(maxBar - pastBars, maxBar),
-                tickFormat: (d) => d + 1,
                 label: 'recent repetitions',
+                domain: d3.range(maxBar - pastBars, maxBar),
+                ticks: axisTicks,
+                tickFormat: (d) => d + 1,
+                // pastBars < 20
+                //     ? (d) => d + 1
+                //     : pastBars < 50
+                //       ? (d) => ((d + 1) % 5 === 0 ? d + 1 : '')
+                //       : (d) => ((d + 1) % 10 === 0 ? d + 1 : ''),
             },
             marks: [
                 // ticks
@@ -270,7 +291,7 @@
         });
 
         container.textContent = '';
-        // container.appendChild(tickPlotSum2);
+        container.appendChild(tickPlotSum2);
         container.appendChild(tickPlotSum);
         container.appendChild(histoPlot);
         container.appendChild(kdePlot);
@@ -288,7 +309,6 @@
             const percent = ((score / notesInBeats.length) * 100).toFixed();
             okScore = `${percent}% of notes are within tolerance`;
         }
-
         // percentage over bars
         if (showBarScores) {
             const byRepetition = d3.groups(notesInBeats, (d) =>
@@ -306,11 +326,23 @@
                     score: (score / repNotes.length) * 100,
                 };
             });
+            let step;
+            if (scores.length < 40) {
+                step = 1;
+            } else if (scores.length < 100) {
+                step = 5;
+            } else if (scores.length < 200) {
+                step = 10;
+            } else {
+                step = 20;
+            }
+            const axisTicks2 = d3.range(-1, maxBar, step);
             const scorePlot = Plot.plot({
                 width,
                 height: 110,
                 x: {
                     domain: d3.range(0, scores.length - 1),
+                    ticks: axisTicks2,
                     tickFormat: (d) => d + 1,
                 },
                 y: {
@@ -443,7 +475,7 @@
                 bind:value="{pastBars}"
                 step="{2}"
                 min="{4}"
-                max="{64}"
+                max="{200}"
                 defaultValue="{8}"
             />
             <ToggleButton

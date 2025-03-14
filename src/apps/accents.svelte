@@ -30,6 +30,7 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -312,11 +313,11 @@
             marginBottom: 30,
             x: {
                 label: 'duration in beats',
-                domain: [0, 4],
+                domain: [0, 2],
             },
             y: {
                 ticks: [0, 1, 2],
-                tickFormat: (d) => ['normal', 'dotted/\nbowed', 'tuplet'][d],
+                tickFormat: (d) => ['normal', 'dotted/\ntied', 'tuplet'][d],
                 domain: [-0.5, 2.5],
                 reverse: true,
             },
@@ -324,19 +325,41 @@
                 legend: true,
             },
             marks: [
-                Plot.ruleX(noteDurations, {
-                    x: (d) => d.beats,
-                    stroke: '#ccc',
-                    strokeWidth: 1.2,
-                }),
+                Plot.ruleX(
+                    noteDurations.filter((d) => d.normal),
+                    {
+                        x: (d) => d.beats,
+                        stroke: '#ccc',
+                        strokeWidth: 1.2,
+                    },
+                ),
+                Plot.ruleX(
+                    noteDurations.filter((d) => d.dotted || d.doubleDotted),
+                    {
+                        x: (d) => d.beats,
+                        stroke: '#ccc',
+                        strokeWidth: 1.2,
+                        strokeDasharray: '2 2',
+                    },
+                ),
+                Plot.ruleX(
+                    noteDurations.filter((d) => d.tuplet),
+                    {
+                        x: (d) => d.beats,
+                        stroke: '#ccc',
+                        strokeWidth: 1.2,
+                        strokeDasharray: '4 2',
+                    },
+                ),
                 Plot.dot(noteDurations, {
                     x: (d) => d.beats,
                     y: (d) =>
                         d.dotted || d.doubleDotted ? 1 : d.tuplet ? 2 : 0,
                     fill: 'white',
+                    stroke: '#eee',
                     r: 10,
                     tip: true,
-                    title: (d) => `${d.symbol} = ${d.beats} beats`,
+                    title: (d) => `${d.symbol} = ${d.beats.toFixed(3)} beats`,
                 }),
                 Plot.text(noteDurations, {
                     x: (d) => d.beats,
@@ -345,6 +368,7 @@
                     text: (d) => d.symbol,
                     fontSize: 10,
                     pointerEvents: 'none',
+                    dy: 2,
                 }),
             ],
         });
@@ -472,6 +496,7 @@
                 {loadData}
                 disabled="{isPlaying}"
             />
+            <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
             <ImportExportButton
                 {loadData}
                 {getExportData}
