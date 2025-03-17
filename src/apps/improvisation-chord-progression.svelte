@@ -45,7 +45,6 @@
   let midiReplaySpeed;
   const minIOI = 0.001;
   // colors
-  // const scaleColor = '#D4E157';
   const scaleColor = 'orange';
   const chordColor = '#689F38';
   const restColor = 'lightgray';
@@ -1015,11 +1014,13 @@
           <option value="{n}">{n}</option>
         {/each}
       </SelectScollable>
+      <!-- TODO: enable once chords can be converted to minor -->
       <SelectScollable
         label="scale type"
         bind:value="{scaleType}"
         callback="{draw}"
         style="background-color: {scaleColor};"
+        disabled
       >
         {#each ['major', 'minor'] as s}
           <option value="{s}">{s}</option>
