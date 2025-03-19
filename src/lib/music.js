@@ -97,7 +97,7 @@ export const GRIDS = [
  *
  * @type {number[]}
  */
-export const BIN_NOTES = [8, 16, 32, 64, 128, 24, 48, 96, 192]
+export const BIN_NOTES = [8, 16, 24, 32, 48, 60, 64, 96, 120, 128, 180, 192, 240, 480, 960]
 
 
 /**
