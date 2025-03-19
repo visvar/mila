@@ -1,11 +1,10 @@
 <script>
-    import { afterUpdate, onDestroy, onMount } from 'svelte';
+    import { afterUpdate, onDestroy } from 'svelte';
     import { Utils } from 'musicvis-lib';
     import * as Plot from '@observablehq/plot';
     import ResetNotesButton from '../common/input-elements/reset-notes-button.svelte';
     import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import { BIN_NOTES } from '../lib/music';
     import MetronomeButton from '../common/input-elements/metronome-button.svelte';
     import example from '../example-recordings/tempo-drift.json';
     import { localStorageAddRecording } from '../lib/localstorage';
@@ -19,9 +18,6 @@
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
-    import { noteEighth } from '../lib/icons';
-    import ToggleButton from '../common/input-elements/toggle-button.svelte';
-    import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
     import { secondsPerBeatToBpm } from '../lib/lib';
 
     /**
