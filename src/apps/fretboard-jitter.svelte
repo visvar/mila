@@ -42,6 +42,7 @@
     let pastNoteCount = 200;
     let tempo = 90;
     let barsPerFacet = 1;
+    let facetColumns = 2;
     let colorFacetsByFret = true;
     // data
     let firstTimeStamp = 0;
@@ -229,6 +230,9 @@
                 domain: [0, facetDuration],
             };
         }
+        const cellSize2 = (width - 150) / 25;
+        const offset = cellSize2 / 2 / facetColumns;
+        const inlayRadius = 8 / facetColumns;
         const plotMultiples = Plot.plot({
             width,
             aspectRatio: 1,
@@ -243,7 +247,6 @@
                 label: 'fret',
             },
             y: {
-                // domain: d3.range(0, stringCount),
                 domain: [stringCount - 0.5, -0.5],
                 ticks: d3.range(stringCount),
                 tickFormat: (d) => tuningNotes[d],
@@ -259,13 +262,13 @@
             fx: { ticks: [] },
             fy: {
                 tickFormat: (d) =>
-                    `bar\n${d * 2 * barsPerFacet + 1} - ${(d + 1) * 2 * barsPerFacet}`,
+                    `bar\n${d * facetColumns * barsPerFacet + 1} - ${(d + 1) * facetColumns * barsPerFacet}`,
             },
             marks: [
                 // frets
                 Plot.ruleX(d3.range(0, fretCount + 1), {
                     stroke: '#ddd',
-                    dx: cellSize / 4,
+                    dx: offset,
                 }),
                 // strings
                 Plot.ruleY(d3.range(0, stringCount), {
@@ -275,22 +278,24 @@
                 Plot.dot([3, 5, 7, 9, 15, 17, 19, 21], {
                     x: (d) => d,
                     y: 2,
-                    dy: cellSize / 4,
+                    dy: offset,
                     fill: '#ddd',
-                    r: 4,
+                    r: inlayRadius,
                 }),
                 Plot.dot([12, 12, 24, 24], {
                     x: (d) => d,
                     y: (d, i) => (i % 2 === 0 ? 1 : 3),
-                    dy: cellSize / 4,
+                    dy: offset,
                     fill: '#ddd',
-                    r: 4,
+                    r: inlayRadius,
                 }),
                 // note scatterplot
                 Plot.dot(notes, {
                     // 2xN grid, ie two-columns
-                    fy: (d) => Math.floor(d.time / facetDuration / 2),
-                    fx: (d) => Math.floor(d.time / facetDuration) % 2,
+                    fy: (d) =>
+                        Math.floor(d.time / facetDuration / facetColumns),
+                    fx: (d) =>
+                        Math.floor(d.time / facetDuration) % facetColumns,
                     x: 'fretJitter',
                     y: 'stringJitter',
                     fill: colorFacetsByFret
@@ -374,6 +379,15 @@
                 max="{20}"
                 step="{1}"
                 defaultValue="{1}"
+            />
+            <NumberInput
+                title="Set the number of columns for the small multiples"
+                label="columns"
+                bind:value="{facetColumns}"
+                min="{1}"
+                max="{6}"
+                step="{1}"
+                defaultValue="{2}"
             />
             <ToggleButton
                 label="color by fret"
