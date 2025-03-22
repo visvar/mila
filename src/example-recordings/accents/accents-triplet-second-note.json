@@ -1,0 +1,197 @@
+{
+  "tempo": 90,
+  "pastNoteCount": 23,
+  "useDotted": true,
+  "velocityThreshold": 0.6299212598425197,
+  "filterNote": 32,
+  "notes": [
+    {
+      "time": 0,
+      "velocity": 0.7874015748031497,
+      "number": 52
+    },
+    {
+      "time": 0.383,
+      "velocity": 0.25984251968503935,
+      "number": 52
+    },
+    {
+      "time": 0.768,
+      "velocity": 0.31496062992125984,
+      "number": 52
+    },
+    {
+      "time": 1.187,
+      "velocity": 0.11023622047244094,
+      "number": 52
+    },
+    {
+      "time": 1.502,
+      "velocity": 0.7874015748031497,
+      "number": 52
+    },
+    {
+      "time": 1.865,
+      "velocity": 0.30708661417322836,
+      "number": 52
+    },
+    {
+      "time": 2.234,
+      "velocity": 0.5669291338582677,
+      "number": 52
+    },
+    {
+      "time": 2.587,
+      "velocity": 0.33070866141732286,
+      "number": 52
+    },
+    {
+      "time": 2.951,
+      "velocity": 0.11811023622047244,
+      "number": 52
+    },
+    {
+      "time": 3.299,
+      "velocity": 0.16535433070866143,
+      "number": 52
+    },
+    {
+      "time": 3.667,
+      "velocity": 0.7716535433070866,
+      "number": 52
+    },
+    {
+      "time": 4.007,
+      "velocity": 0.25196850393700787,
+      "number": 52
+    },
+    {
+      "time": 4.369,
+      "velocity": 0.7086614173228346,
+      "number": 52
+    },
+    {
+      "time": 4.726,
+      "velocity": 0.28346456692913385,
+      "number": 52
+    },
+    {
+      "time": 5.066,
+      "velocity": 0.13385826771653545,
+      "number": 52
+    },
+    {
+      "time": 5.439,
+      "velocity": 0.07086614173228346,
+      "number": 52
+    },
+    {
+      "time": 5.741,
+      "velocity": 0.7086614173228346,
+      "number": 52
+    },
+    {
+      "time": 6.083,
+      "velocity": 0.31496062992125984,
+      "number": 52
+    },
+    {
+      "time": 6.426,
+      "velocity": 0.7874015748031497,
+      "number": 52
+    },
+    {
+      "time": 6.772,
+      "velocity": 0.28346456692913385,
+      "number": 52
+    },
+    {
+      "time": 7.103,
+      "velocity": 0.1889763779527559,
+      "number": 52
+    },
+    {
+      "time": 7.427,
+      "velocity": 0.5039370078740157,
+      "number": 52
+    },
+    {
+      "time": 7.724,
+      "velocity": 0.7401574803149606,
+      "number": 52
+    },
+    {
+      "time": 8.049,
+      "velocity": 0.2992125984251969,
+      "number": 52
+    },
+    {
+      "time": 8.366,
+      "velocity": 0.7244094488188977,
+      "number": 52
+    },
+    {
+      "time": 8.732,
+      "velocity": 0.3228346456692913,
+      "number": 52
+    },
+    {
+      "time": 9.073,
+      "velocity": 0.25196850393700787,
+      "number": 52
+    },
+    {
+      "time": 9.452,
+      "velocity": 0.1968503937007874,
+      "number": 52
+    },
+    {
+      "time": 9.739,
+      "velocity": 0.7244094488188977,
+      "number": 52
+    },
+    {
+      "time": 10.055,
+      "velocity": 0.3228346456692913,
+      "number": 52
+    },
+    {
+      "time": 10.388,
+      "velocity": 0.8031496062992126,
+      "number": 52
+    },
+    {
+      "time": 10.708,
+      "velocity": 0.3543307086614173,
+      "number": 52
+    },
+    {
+      "time": 11.047,
+      "velocity": 0.2677165354330709,
+      "number": 52
+    },
+    {
+      "time": 11.41,
+      "velocity": 0.29133858267716534,
+      "number": 52
+    },
+    {
+      "time": 11.719,
+      "velocity": 0.7401574803149606,
+      "number": 52
+    },
+    {
+      "time": 12.043,
+      "velocity": 0.33070866141732286,
+      "number": 52
+    },
+    {
+      "time": 12.375,
+      "velocity": 0.7716535433070866,
+      "number": 52
+    }
+  ],
+  "_appId": "accents",
+  "_softwareVersion": "0.26.3",
+  "_date": "2025-03-22T18:27:14.080Z"
+}

@@ -216,7 +216,7 @@
         fx: {
           label: 'repetition',
         },
-        color,
+        color: { ...color, legend: true },
         marks: [
           Plot.frame({
             stroke: '#eee',
@@ -229,7 +229,7 @@
             fx: (d) => Math.floor(d.bar / barsPerRep) + 1,
             fill: 'colorType',
             rx: 3,
-            // order: ['chord', 'scale', 'rest'],
+            order: ['chord', 'scale', 'rest'],
             tip: true,
             title: (d) => `${d.count} notes fit ${d.colorType}\n${d.notes}`,
           }),
@@ -380,7 +380,7 @@
             fx: (d) => Math.floor(d.bar / barsPerRep) + 1,
             fill: 'durationType',
             rx: 3,
-            // order: colorDomain,
+            order: colorDomain,
             tip: true,
             title: (d) => `${d.durationType}\n${d.count} times`,
           }),
@@ -721,7 +721,7 @@
           domain: yDomain,
           ticks: yDomain,
           tickFormat: (d) => Midi.NOTE_NAMES[d],
-          label: 'notes',
+          label: 'chroma',
           labelAnchor: 'center',
           reverse: true,
         },

@@ -23,6 +23,7 @@
     import example1 from '../example-recordings/accents/accents-e1.json';
     import example2 from '../example-recordings/accents/accents-e2.json';
     import example3 from '../example-recordings/accents/accents-eights-triplets.json';
+    import example4 from '../example-recordings/accents/accents-triplet-second-note.json';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import { FILTER_NOTES, VELOCITIES_LOGIC } from '../lib/music.js';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -287,6 +288,8 @@
         const plot4 = Plot.plot({
             ...base,
             height: 100,
+            marginLeft: 60,
+            marginRight: 40,
             marginBottom: 30,
             x: {
                 label: 'time in beats',
@@ -295,7 +298,7 @@
                 legend: true,
             },
             marks: [
-                Plot.tickX(notesInBeats, {
+                Plot.tickX(notesInBeats.slice(1, -1), {
                     x: (d) => d.beats,
                     strokeWidth: (d) => d.velocity * 4,
                     // stroke: (d) => d3.interpolateViridis(1 - d.velocity),
@@ -547,6 +550,12 @@
             <p>
                 5) Play triplets and accent the first note in each odd triplet
                 and the second in each even triplet.
+                <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
             </p>
             <p>
                 6) Try different accent patterns such as:<br />

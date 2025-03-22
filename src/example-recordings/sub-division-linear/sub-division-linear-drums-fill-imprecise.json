@@ -4,7 +4,7 @@
   "bars": 4,
   "binNote": 128,
   "adjustTime": -1.41,
-  "pastBars": 100,
+  "pastBars": 8,
   "showKde": true,
   "notes": [
     {
@@ -2550,18 +2550,6 @@
       "number": 38,
       "velocity": 0.8346456692913385,
       "drum": "SN"
-    },
-    {
-      "time": 65.435,
-      "number": 55,
-      "velocity": 1,
-      "drum": "CC"
-    },
-    {
-      "time": 65.473,
-      "number": 36,
-      "velocity": 0.5039370078740157,
-      "drum": "KD"
     }
   ],
   "_appId": "sub-division-drums",

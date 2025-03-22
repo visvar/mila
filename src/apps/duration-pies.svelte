@@ -13,7 +13,9 @@
     noteDurationsDotted,
     noteDurationsNormal,
   } from '../lib/note-durations';
-  import example from '../example-recordings/duration-pies.json';
+  import example from '../example-recordings/duration-pies/duration-pies.json';
+  import examplePerfect from '../example-recordings/duration-pies/duration-pies-perfect.json';
+  import examplePerfect2 from '../example-recordings/duration-pies/duration-pies-perfect2.json';
   import PcKeyboardInput from '../common/input-handlers/pc-keyboard-input.svelte';
   import TouchInput from '../common/input-handlers/touch-input.svelte';
   import { noteHalf, noteQuarter, noteEighth, noteWhole } from '../lib/icons';
@@ -25,6 +27,7 @@
   import UndoRedoButton from '../common/input-elements/undo-redo-button.svelte';
   import PageResizeHandler from '../common/input-handlers/page-resize-handler.svelte';
   import FileDropTarget from '../common/file-drop-target.svelte';
+  import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -432,6 +435,22 @@
         <span class="icon">𝅗𝅥. ◕</span>
         , and a whole note <span class="icon">𝅝</span>
         <span class="icon" style="font-size: 14px">⬤</span>.
+        <InsideTextButton
+          onclick="{() => loadData(examplePerfect)}"
+          disabled="{isPlaying}"
+        >
+          example with perfect notes
+        </InsideTextButton>
+      </p>
+      <p>
+        2) Play a quarter, a dotted quarter, a half, and a dotted half, a whole,
+        and a dotted whole note.
+        <InsideTextButton
+          onclick="{() => loadData(examplePerfect2)}"
+          disabled="{isPlaying}"
+        >
+          example with perfect notes
+        </InsideTextButton>
       </p>
     </ExerciseDrawer>
     <MidiInput
