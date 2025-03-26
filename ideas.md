@@ -1,32 +1,23 @@
-# TODO
+# Ideas
 
 ## High priority
 
-- allow/fix MIDI replay for all apps
-  - also with sound
 
-- data size
+- increase locally stored data size
   - use https://github.com/dexie/Dexie.js
     - if no time, this could be a drop in solution https://www.npmjs.com/package/idb-keyval
-
-- move example buttons into exercise box
-
-- sub-division history linear mode
+- move example buttons into exercise box, more examples
 
 ## New features
 
 - move app settings, metronome, player, etc to a sidebar?
   - or floating button that can be collapsed?
   - would be easier to access then
-
 - backing track component/function/class
   - add to all improvisation apps
 
 
 ## Fixes and improvements
-
-- add default values to top of each app (for inputs)
-  - give defaultValue to all number-input
 
 - all apps: record midi number, velocity, for playback
   - rhythm-sheet-music (currently only time)
@@ -38,29 +29,17 @@
   - see https://codesandbox.io/p/sandbox/tone-sampler-example-4pm72?file=%2Fsrc%2Findex.js
   - use sample for metronome to make it sound less annoying, maybe allow choosing the sample
 
-- refactor
-  - use svelte:window for registering inputs https://svelte.dev/docs/svelte/svelte-window
-  - remove fretboard-spacetime-cube and make it a separate repo
-  - replace note-count-input, and tempo-input by a number input
 
 - sharing: compress binary data, try base64
-
-## Examples missing for
-
-- provide one for each exercise as well
-- for freatboard, provide one for boring and one for interesting
-- speed-up tab
-- two handed timing (replace)
 
 
 ## App-specific
 
-- pitch bend
-  - add version with indicator for allowed notes? (e.g., from chord progression)
 - dynamics
   - chord version
     - chord detection, sort chords by piano key, by string for guitar
-    - design pattern: Mixed axis, time and instrument part
+    - design pattern: Mixed axis for time and instrument part
+    - or facets (chroma, string)
 - chord diagrams
   - list notes and intervals
 - fretboard heatmap, jitter
@@ -68,23 +47,20 @@
 - improvisation scale degree
   - allow showing summed duration instead of count
 - sub-division
-  - combine histogram bars within the tolerance zone
-    - automatically choose a binning divisible by 3 when triplets, same for 5
-      - or just allow multiples of 60?
-  - number of recent bars for all
-  - forgetting for all
+  - automatically choose a binning divisible by 3 when triplets, same for 5
+  - number of recent bars shown and considered for all
 - speed up
   - colors for drum, string, etc
-  - allow to reset current take
-- tempo change
-  - drum mode where only hi-hat notes are used, as they are more regular
+  - allow to retry current take
 
 
 ## Ideas for new apps
 
+- pitch bend
+  - add version with indicator for allowed notes? only bend to notes within scale while improvising (e.g., from chord progression)
 - Staccato and legato app
   - task: practice different note durations (but IOIs should be the same)
-  - visualization: similar to duration pies, 1D piano roll, ...
+  - 1D piano roll
 
 
 ## musicvis-lib

@@ -30,14 +30,19 @@
      */
     export let appInfo;
 
-    let width = 900;
+    // width of main vis
+    let widthMain = 900;
+    // width of facetted vis
+    let windowWidth = window.innerWidth;
+    $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     const random = () => (Math.random() - 0.5) * 0.4;
     let stringCount = 6;
     let fretCount = 24;
     // E standard tuning, strings start at high E
     let tuningPitches = [64, 59, 55, 50, 45, 40];
     const tuningNotes = tuningPitches.map(Note.fromMidiSharps);
-    let container;
+    let containerMain;
+    let containerFacets;
     // settings
     let pastNoteCount = 200;
     let tempo = 90;
@@ -77,10 +82,10 @@
     };
 
     const draw = () => {
+        const fretTicks = [0, 3, 5, 7, 9, 12, 15, 17, 19, 21, 24];
         const data = notes.slice(-pastNoteCount);
-        const cellSize = (width - 100) / 25;
         const plot = Plot.plot({
-            width,
+            width: widthMain,
             // height,
             aspectRatio: 1,
             marginLeft: 30,
@@ -89,7 +94,7 @@
             x: {
                 // domain: d3.range(0, fretCount + 1),
                 domain: [-1, fretCount + 1.5],
-                ticks: d3.range(0, fretCount + 1),
+                ticks: fretTicks,
                 tickSize: 0,
                 label: 'fret',
             },
@@ -112,8 +117,8 @@
             marks: [
                 // frets
                 Plot.ruleX(d3.range(0, fretCount + 1), {
+                    x: (d) => d + 0.5,
                     stroke: '#ddd',
-                    dx: cellSize / 2,
                 }),
                 // strings
                 Plot.ruleY(d3.range(0, stringCount), {
@@ -123,15 +128,13 @@
                 // inlay dots
                 Plot.dot([3, 5, 7, 9, 15, 17, 19, 21], {
                     x: (d) => d,
-                    y: 2,
-                    dy: cellSize / 2,
+                    y: 2.5,
                     fill: '#ddd',
                     r: 8,
                 }),
                 Plot.dot([12, 12, 24, 24], {
                     x: (d) => d,
-                    y: (d, i) => (i % 2 === 0 ? 1 : 3),
-                    dy: cellSize / 2,
+                    y: (d, i) => (i % 2 === 0 ? 1.5 : 3.5),
                     fill: '#ddd',
                     r: 8,
                 }),
@@ -153,7 +156,7 @@
         });
 
         const colorLegend = Plot.plot({
-            width,
+            width: widthMain,
             height: 0,
             marginLeft: 30,
             marginBottom: 0,
@@ -178,11 +181,11 @@
         const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
         const legend = Plot.plot({
             // subtitle: 'loudness',
-            width: width,
+            width: widthMain,
             height: 47,
             marginTop: 0,
-            marginLeft: width * 0.35,
-            marginRight: width * 0.35,
+            marginLeft: widthMain * 0.35,
+            marginRight: widthMain * 0.35,
             marginBottom: 30,
             x: {
                 label: 'loudness',
@@ -204,10 +207,10 @@
             ],
         });
 
-        container.textContent = '';
-        container.appendChild(colorLegend);
-        container.appendChild(legend);
-        container.appendChild(plot);
+        containerMain.textContent = '';
+        containerMain.appendChild(colorLegend);
+        containerMain.appendChild(legend);
+        containerMain.appendChild(plot);
 
         // small multiples
         const facetDuration =
@@ -230,9 +233,7 @@
                 domain: [0, facetDuration],
             };
         }
-        const cellSize2 = (width - 150) / 25;
-        const offset = cellSize2 / 2 / facetColumns;
-        const inlayRadius = 8 / facetColumns;
+        const inlayRadius = ((8 / facetColumns) * width) / widthMain;
         const plotMultiples = Plot.plot({
             width,
             aspectRatio: 1,
@@ -242,7 +243,7 @@
             x: {
                 domain: [-1, fretCount + 1.5],
                 // ticks: d3.range(0, fretCount + 1),
-                ticks: [0, 3, 5, 7, 9, 12, 15, 17, 19, 21],
+                ticks: fretTicks,
                 tickSize: 0,
                 label: 'fret',
             },
@@ -257,7 +258,7 @@
             r: {
                 domain: [0, 127],
                 // range: [0, 2.5],
-                range: [0, 3],
+                range: [0, facetColumns === 1 ? 5 : 3],
             },
             fx: { ticks: [] },
             fy: {
@@ -267,8 +268,8 @@
             marks: [
                 // frets
                 Plot.ruleX(d3.range(0, fretCount + 1), {
+                    x: (d) => d + 0.5,
                     stroke: '#ddd',
-                    dx: offset,
                 }),
                 // strings
                 Plot.ruleY(d3.range(0, stringCount), {
@@ -277,15 +278,13 @@
                 // inlay dots
                 Plot.dot([3, 5, 7, 9, 15, 17, 19, 21], {
                     x: (d) => d,
-                    y: 2,
-                    dy: offset,
+                    y: 2.5,
                     fill: '#ddd',
                     r: inlayRadius,
                 }),
                 Plot.dot([12, 12, 24, 24], {
                     x: (d) => d,
-                    y: (d, i) => (i % 2 === 0 ? 1 : 3),
-                    dy: offset,
+                    y: (d, i) => (i % 2 === 0 ? 1.5 : 3.5),
                     fill: '#ddd',
                     r: inlayRadius,
                 }),
@@ -312,7 +311,8 @@
                 }),
             ],
         });
-        container.appendChild(plotMultiples);
+        containerFacets.textContent = '';
+        containerFacets.appendChild(plotMultiples);
     };
 
     afterUpdate(draw);
@@ -353,6 +353,8 @@
     onDestroy(saveToStorage);
 </script>
 
+<svelte:window bind:innerWidth="{windowWidth}" />
+
 <FileDropTarget {loadData} disabled="{isPlaying}">
     <main class="app">
         <h2>{appInfo.title}</h2>
@@ -385,7 +387,7 @@
                 label="columns"
                 bind:value="{facetColumns}"
                 min="{1}"
-                max="{6}"
+                max="{8}"
                 step="{1}"
                 defaultValue="{2}"
             />
@@ -395,7 +397,12 @@
                 bind:checked="{colorFacetsByFret}"
             />
         </div>
-        <div class="visualization" bind:this="{container}"></div>
+        <div
+            class="visualization"
+            bind:this="{containerMain}"
+            style="{`width: ${widthMain}px; margin: auto;`}"
+        ></div>
+        <div class="visualization" bind:this="{containerFacets}"></div>
         <div class="control">
             <MetronomeButton
                 {tempo}

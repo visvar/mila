@@ -10,7 +10,7 @@ A collection of web-based apps for musical instrument practice.
 
 Most apps require a MIDI instrument, though a few work with audio or allow you to use a PC keyboard or touch screen.
 
-While several apps should work with any (MIDI) instrument, we only tested them with keyboard, e-drum, and a MIDI guitar pickup.
+While several apps should work with any (MIDI) instrument, we only tested them with keyboard, e-drum, and a [MIDI guitar pickup](https://www.fishman.com/tripleplay/).
 
 ## Setup
 
@@ -35,5 +35,6 @@ If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 - [fflate]([fflate](https://www.npmjs.com/package/fflate)) compression of share links
 - [webmidi](https://github.com/djipco/webmidi) Web MIDI API wrapper
 - [fast-kde](https://github.com/uwdata/fast-kde) density estimation
+- [a-frame](https://aframe.io/) for the 3D fretboard design
 - [@fontsource](https://github.com/fontsource/fontsource) noto-music, noto-sans, noto-sans-symbols, noto-sans-symbols-2 for cross-plattform note symbols and icons
 - [https://github.com/danigb/soundfont-player](soundfont-player) and [midi-js-soundfonts](https://github.com/gleitz/midi-js-soundfonts) for playback
