@@ -23,6 +23,8 @@
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import { detectChords } from '../lib/chords';
+    import { MidSideCompressor } from 'tone';
 
     /**
      * contains the app meta information defined in App.js
@@ -32,12 +34,14 @@
     let windowWidth = window.innerWidth;
     $: width = windowWidth < 1200 ? 900 : Math.floor(windowWidth - 200);
     // let height = 600;
-    let height = 300;
+    let height = 400;
     let container;
     const velocities = VELOCITIES_LOGIC;
+    const radiusFactor = 12;
     // settings
     let isBinning = false;
-    let barLimit = 50;
+    let maxNoteDistance = 0.1;
+    let chordLimit = 25;
     let coloring = 'none';
     // data
     let firstTimeStamp;
@@ -64,45 +68,78 @@
 
     const draw = () => {
         // round bars' height to make view clearer
-        let binnedVelocities = notes;
+        let notesRoundedVelocities = notes;
         if (isBinning) {
             const veloBinValues = [...velocities.keys()];
-            binnedVelocities = notes.map((note) => {
+            notesRoundedVelocities = notes.map((note) => {
                 const minIndex = d3.minIndex(veloBinValues, (v) =>
                     Math.abs(note.velocity - v),
                 );
                 return { ...note, velocity: veloBinValues[minIndex] };
             });
         }
-        const rules = [...velocities.keys()];
+        let chords = detectChords(
+            notesRoundedVelocities,
+            maxNoteDistance,
+        ).slice(-chordLimit);
+        const notesInChords = chords.flatMap((chord, chordIndex) =>
+            chord.map((n) => {
+                return { ...n, chordIndex: chordIndex };
+            }),
+        );
+        const drumLabels = [
+            ...drumPitchReplacementMapMD90.values(),
+            'other',
+        ].map((d) => d.label);
         let colorRange;
         let colorDomain;
+        let yDomain = Midi.NOTE_NAMES;
+        let yAccessor = (d) => d.note;
+        let colorAccessor = (d) => d.note;
         if (coloring === 'sharps') {
             colorDomain = ['natural', 'sharp'];
             colorRange = ['#ddd', '#888'];
+            colorAccessor = (d) => (d.isSharp ? 'sharp' : 'natural');
         } else if (coloring === 'channel') {
             colorRange = d3.schemeObservable10;
             colorDomain = d3.range(colorRange.length);
+            yDomain = d3.range(colorRange.length);
+            yAccessor = (d) => d.channel;
+            colorAccessor = yAccessor;
         } else if (coloring === 'note') {
             colorDomain = Midi.NOTE_NAMES;
             colorRange = NOTE_COLORS.noteColormapAccessible2;
+            colorAccessor = yAccessor;
         } else if (coloring === 'drum') {
-            const drumLabels = [...drumPitchReplacementMapMD90.values()].map(
-                (d) => d.label,
-            );
             colorDomain = [...new Set(drumLabels), 'other'];
             colorRange = d3.schemeObservable10;
+            yDomain = drumLabels;
+            yAccessor = (d) =>
+                drumPitchReplacementMapMD90.get(d.number)?.label ?? 'other';
+            colorAccessor = yAccessor;
+        } else {
+            colorRange = ['#888'];
+            colorDomain = [0];
+            colorAccessor = () => 0;
         }
+
         const plot = Plot.plot({
             width,
             height,
-            marginLeft: 45,
-            marginRight: 120,
+            // marginTop: 30,
+            marginLeft: 50,
+            marginRight: 50,
             x: {
-                axis: false,
+                ticks: d3.range(0, chordLimit),
+                domain: d3.range(0, chordLimit),
+                tickFormat: (d) => '',
+                tickSize: 0,
+                padding: 1,
+                grid: true,
             },
             y: {
-                domain: [0, 128],
+                domain: yDomain,
+                reverse: true,
             },
             color: {
                 legend: coloring !== 'none',
@@ -110,49 +147,68 @@
                 domain: colorDomain,
                 range: colorRange,
             },
+            r: {
+                domain: [0, 127],
+                range: [0, radiusFactor],
+            },
             marks: [
-                Plot.barY(binnedVelocities.slice(-barLimit), {
-                    x: (d, i) => i,
-                    y: (d) => d.velocity,
-                    fill: (d) => {
-                        if (coloring === 'none') {
-                            return '#ddd';
-                        } else if (coloring === 'channel') {
-                            return d.channel % colorDomain.length;
-                        } else if (coloring === 'sharps') {
-                            return d.isSharp ? 'sharp' : 'natural';
-                        } else if (coloring === 'drum') {
-                            return (
-                                drumPitchReplacementMapMD90.get(d.number)
-                                    ?.label ?? 'other'
-                            );
-                        } else if (coloring === 'note') {
-                            return d.note;
-                        }
-                    },
-                    // round upper corners
-                    rx1y1: 4,
-                    rx2y1: 4,
-                    inset: 0,
-                    dx: 0.5,
+                Plot.dot(notesInChords, {
+                    x: 'chordIndex',
+                    y: yAccessor,
+                    fill: colorAccessor,
+                    r: 'velocity',
                 }),
-                Plot.ruleY(rules, { stroke: '#888' }),
+                // Plot.ruleY(rules, { stroke: '#888' }),
                 Plot.axisY({
                     anchor: 'left',
-                    ticks: rules,
-                    tickFormat: (d) => velocities.get(d),
-                    tickSize: 0,
+                    // ticks: rules,
+                    // tickFormat: (d) => velocities.get(d),
+                    // tickSize: 0,
                 }),
                 Plot.axisY({
                     anchor: 'right',
-                    ticks: rules,
-                    tickFormat: (d) =>
-                        VELOCITIES_MEANING.get(velocities.get(d)),
-                    tickSize: 0,
+                    // ticks: rules,
+                    // tickFormat: (d) =>
+                    // VELOCITIES_MEANING.get(velocities.get(d)),
+                    // tickSize: 0,
+                }),
+            ],
+        });
+
+        // area legend
+        const legendTicks = [...VELOCITIES_LOGIC.keys()].map((d) => d / 127);
+        const legend = Plot.plot({
+            width,
+            height: 55,
+            marginTop: 0,
+            marginLeft: width * 0.35,
+            marginRight: width * 0.35,
+            marginBottom: 30,
+            x: {
+                label: 'loudness',
+                labelAnchor: 'center',
+                ticks: legendTicks,
+                tickSize: 0,
+                tickPadding: 3,
+                tickFormat: (d, i) => [...VELOCITIES_LOGIC.values()][i],
+            },
+            y: {
+                labelAnchor: 'center',
+            },
+            r: {
+                domain: [0, 1],
+                range: [0, radiusFactor],
+            },
+            marks: [
+                Plot.dotX(legendTicks, {
+                    x: (d, i) => d,
+                    fill: '#888',
+                    r: (d) => d,
                 }),
             ],
         });
         container.textContent = '';
+        container.appendChild(legend);
         container.appendChild(plot);
     };
 
@@ -164,7 +220,7 @@
     const getExportData = () => {
         return {
             isBinning,
-            barLimit,
+            barLimit: chordLimit,
             notes,
         };
     };
@@ -175,7 +231,7 @@
     const loadData = (json) => {
         saveToStorage();
         isBinning = json.isBinning;
-        barLimit = json.barLimit;
+        chordLimit = json.barLimit;
         // data
         notes = json.notes;
         // app state
@@ -197,10 +253,11 @@
     <main class="app">
         <h2>{appInfo.title}</h2>
         <p class="explanation">
-            This app helps practicing controlling the loudness of notes, for
-            example to keep at a roughly constant loudness, play accents, or
-            smoothly in- or decrease it. The loudness of each note is be shown
-            as a bar in chart below. Bar heights can be rounded to the closest
+            This app helps practicing controlling the loudness of notes within
+            and between chords, for example to make sure all notes in a chord
+            have the same loudness. Chords are shown from left to right (newest
+            on the right) and the loudness of each note is encode in the dot
+            size. Sizes can be rounded can be rounded to the closest
             <a
                 href="https://en.wikipedia.org/wiki/Dynamics_(music)"
                 target="_blank"
@@ -217,13 +274,22 @@
                 bind:checked="{isBinning}"
             />
             <NumberInput
-                title="The number of most recent notes that are shown as bars."
-                label="bars"
-                bind:value="{barLimit}"
+                title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
+                label="max. note distance"
+                bind:value="{maxNoteDistance}"
+                min="{0.05}"
+                max="{5}"
+                step="{0.05}"
+                defaultValue="{0.1}"
+            />
+            <NumberInput
+                title="The number of most recent chords that are shown."
+                label="chords"
+                bind:value="{chordLimit}"
                 step="{25}"
                 min="{25}"
                 max="{1000}"
-                defaultValue="{50}"
+                defaultValue="{25}"
             />
             <SelectScollable label="color" bind:value="{coloring}">
                 {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
@@ -254,43 +320,26 @@
         </div>
         <ExerciseDrawer>
             <p>
-                1) Play all notes between a mezzo-piano (mp) and a forte (f).
-                <InsideTextButton
-                    onclick="{() => loadData(example1)}"
-                    disabled="{isPlaying}"
-                >
-                    example
-                </InsideTextButton>
-            </p>
-            <p>
-                2) Play a crescendo, starting at below pp and rising until above
-                ff smoothly.
-                <InsideTextButton
+                1) Play a crescendo, starting at below pp and rising until above
+                ff smoothly. Make sure all notes of each chord have roughly the
+                same loudness.
+                <!-- <InsideTextButton
                     onclick="{() => loadData(example2)}"
                     disabled="{isPlaying}"
                 >
                     example
-                </InsideTextButton>
+                </InsideTextButton> -->
             </p>
             <p>
-                3) Play a descrescendo from above ff to below pp.
-                <InsideTextButton
-                    onclick="{() => loadData(example3)}"
-                    disabled="{isPlaying}"
-                >
-                    example
-                </InsideTextButton>
-            </p>
-            <p>
-                4) Play accents, for example on each 4th note. They should be
+                4) Play accents, for example on each 4th chord. They should be
                 loud enough to be easily distinguishable from the non-accented
                 notes.
-                <InsideTextButton
+                <!-- <InsideTextButton
                     onclick="{() => loadData(example4)}"
                     disabled="{isPlaying}"
                 >
                     example
-                </InsideTextButton>
+                </InsideTextButton> -->
             </p>
         </ExerciseDrawer>
         <MidiInput {noteOn} disabled="{isDataLoaded || isPlaying}" />

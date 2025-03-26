@@ -28,6 +28,7 @@ import SubDivisionLinear from './apps/sub-division-linear.svelte'
 import TempoChange from './apps/tempo-change.svelte'
 import TempoDrift from './apps/tempo-drift.svelte'
 import TwoHandedTiming from './apps/two-handed-timing.svelte'
+import DynamicsChords from './apps/dynamics-chords.svelte'
 
 /**
  * All apps defined here
@@ -43,7 +44,7 @@ export const APPS = [
     instruments: ['drum', 'guitar/bass', 'keyboard'],
     data: ['order', 'ioi', 'dynamics'],
     skills: ['accents'],
-    patterns: ['duration/ioi as symbol', 'dynamics as font-size', 'time is linear', 'time encoded non-linearly', 'update after note'],
+    patterns: ['duration/ioi as symbol', 'dynamics as size', 'time is linear', 'time encoded non-linearly', 'update after note'],
     timeScale: ['a few bars'],
     difficulty: ['intermediate', 'advanced'],
     component: Accents
@@ -88,6 +89,19 @@ export const APPS = [
     timeScale: ['a few notes', 'a few bars'],
     difficulty: ['beginner', 'intermediate', 'advanced'],
     component: Dynamics
+  },
+  {
+    id: 'dynamics-chords',
+    title: 'Dynamics Chords',
+    description: 'Practice controlling the loudness of notes in chords',
+    input: 'MIDI',
+    instruments: ['drum', 'guitar/bass', 'keyboard'],
+    data: ['order', 'dynamics', 'pitch', 'chords'],
+    skills: ['constant-dynamics', '(de)crescendo', 'accents'],
+    patterns: ['dynamics as size', 'time is linear', 'time encoded linearly', 'update on note', 'musical units'],
+    timeScale: ['a few notes', 'a few bars'],
+    difficulty: ['beginner', 'intermediate', 'advanced'],
+    component: DynamicsChords
   },
   {
     id: 'duration-pies',
