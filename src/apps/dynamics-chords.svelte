@@ -41,6 +41,7 @@
     let chordLimit = 16;
     let yAxis = 'note';
     let coloring = 'none';
+    let filterOneNoteChords = false;
     // data
     let firstTimeStamp;
     let notes = [];
@@ -77,10 +78,11 @@
                 velocityLabel: velocities.get(rounded),
             };
         });
-        let chords = detectChords(
-            notesRoundedVelocities,
-            maxNoteDistance,
-        ).slice(-chordLimit);
+        let chords = detectChords(notesRoundedVelocities, maxNoteDistance);
+        if (filterOneNoteChords) {
+            chords = chords.filter((chord) => chord.length > 1);
+        }
+        chords = chords.slice(-chordLimit);
         const notesInChords = chords.flatMap((chord, chordIndex) =>
             chord.map((n) => {
                 return { ...n, chordIndex: chordIndex };
@@ -93,6 +95,7 @@
         let colorRange;
         let colorDomain;
         let colorAccessor = (d) => d.note;
+
         // react to coloring setting
         if (coloring === 'sharps') {
             colorDomain = ['natural', 'sharp'];
@@ -113,17 +116,24 @@
                 drumPitchReplacementMapMD90.get(d.number)?.label ?? 'other';
         } else {
             colorRange = ['#888'];
-            colorDomain = [0];
-            colorAccessor = () => 0;
+            colorDomain = ['uniform color'];
+            colorAccessor = () => 'uniform color';
         }
         // react to y axis setting
         let yDomain = Midi.NOTE_NAMES;
         let yAccessor = (d) => d.note;
         let yAxisReverse = false;
+        let yType = undefined;
+        let yTicks = undefined;
+        let yTickFormat = undefined;
         if (yAxis === 'loudness') {
             yDomain = rounding ? [...velocities.values()] : d3.range(128);
             yAccessor = rounding ? (d) => d.velocityLabel : (d) => d.velocity;
             yAxisReverse = rounding;
+            if (!rounding) {
+                yType = 'linear';
+                yTicks = d3.range(0, 129, 16);
+            }
         } else if (yAxis === 'channel') {
             yDomain = d3.range(10);
             yAccessor = (d) => d.channel;
@@ -138,8 +148,28 @@
         } else if (yAxis === 'number') {
             yDomain = d3.range(128);
             yAccessor = (d) => d.number;
-            // yAxisReverse = true;
+            yType = 'linear';
+            yTicks = d3.range(0, 129, 12);
+            yTickFormat = (d) => Midi.MIDI_NOTES[d].label;
+        } else if (yAxis === 'number (adaptive)') {
+            const extent = d3.extent(notesInChords, (d) => d.number);
+            yDomain = d3.range(extent[0], extent[1] + 1);
+            yAccessor = (d) => d.number;
+            yType = 'linear';
+            yTicks = d3.range(0, 129, 12);
+            yTickFormat = (d) => Midi.MIDI_NOTES[d].label;
+        } else if (yAxis === 'number (piano)') {
+            yDomain = d3.range(21, 21 + 88 + 1);
+            yAccessor = (d) => d.number;
+            yType = 'linear';
+            yTicks = d3.range(0, 129, 12);
+            yTickFormat = (d) => Midi.MIDI_NOTES[d].label;
         }
+
+        const xDomain = d3.range(chordLimit);
+        const chordNames = chords.map((chord) =>
+            Chord.detect(chord.map((d) => d.note)),
+        );
 
         const plot = Plot.plot({
             width,
@@ -147,10 +177,11 @@
             // marginTop: 30,
             marginLeft: 50,
             marginRight: 50,
+            marginBottom: 70,
             x: {
                 label: 'chords',
-                ticks: d3.range(0, chordLimit),
-                domain: d3.range(0, chordLimit),
+                ticks: xDomain,
+                domain: xDomain,
                 tickFormat: (d) => '',
                 tickSize: 0,
                 padding: 1,
@@ -160,17 +191,13 @@
                 domain: yDomain,
                 reverse: yAxisReverse,
                 label: yAxis,
-                type:
-                    (yAxis === 'loudness' && !rounding) || yAxis === 'number'
-                        ? 'linear'
-                        : undefined,
-                ticks:
-                    (yAxis === 'loudness' && !rounding) || yAxis === 'number'
-                        ? d3.range(0, 129, 16)
-                        : undefined,
+                type: yType,
+                ticks: yTicks,
+                tickFormat: yTickFormat,
+                nice: false,
             },
             color: {
-                legend: coloring !== 'none',
+                legend: true,
                 type: 'categorical',
                 domain: colorDomain,
                 range: colorRange,
@@ -180,6 +207,7 @@
                 range: [0, radiusFactor],
             },
             marks: [
+                // note dots
                 Plot.dot(notesInChords, {
                     x: 'chordIndex',
                     y: yAccessor,
@@ -191,12 +219,17 @@
                             d.velocity / 127
                         ).toFixed(2)})`,
                 }),
-                Plot.text(chords, {
+                // chord names
+                Plot.text(chordNames, {
                     x: (d, i) => i,
-                    y: 100,
-                    text: (chord) => Chord.detect(chord.map((d) => d.name)),
+                    frameAnchor: 'bottom',
+                    textAnchor: 'middle',
+                    lineAnchor: 'middle',
+                    dy: 30,
+                    text: (chord) => chord.join('\n'),
                     fill: '#000',
                     fontSize: 10,
+                    rotate: -90,
                 }),
                 Plot.axisY({
                     anchor: 'left',
@@ -242,40 +275,6 @@
         container.textContent = '';
         container.appendChild(legend);
         container.appendChild(plot);
-
-        const chordNames = chords.map((chord) => {
-            console.log(chord);
-
-            return Chord.detect(chord.map((d) => d.note));
-        });
-        console.log(chordNames);
-
-        const chordNamesPlot = Plot.plot({
-            width,
-            height: 100,
-            marginTop: 30,
-            marginBottom: 30,
-            marginLeft: 50,
-            marginRight: 50,
-            x: {
-                domain: d3.range(0, chordLimit),
-                padding: 1,
-                axis: false,
-            },
-            y: {
-                axis: false,
-            },
-            marks: [
-                Plot.textX(chordNames, {
-                    x: (d, i) => i,
-                    text: (chord) => chord,
-                    fill: '#000',
-                    fontSize: 10,
-                    rotate: -90,
-                }),
-            ],
-        });
-        container.appendChild(chordNamesPlot);
     };
 
     afterUpdate(draw);
@@ -290,6 +289,7 @@
             chordLimit,
             yAxis,
             coloring,
+            filterOneNoteChords,
             // data
             notes,
         };
@@ -305,6 +305,7 @@
         chordLimit = json.chordLimit ?? 16;
         yAxis = json.yAxis ?? 'note';
         coloring = json.coloring ?? 'none';
+        filterOneNoteChords = json.filterOneNoteChords ?? false;
         // data
         notes = json.notes;
         // app state
@@ -346,6 +347,11 @@
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
                 bind:checked="{rounding}"
             />
+            <ToggleButton
+                label="filter single notes"
+                title="When playing a mixture of single notes and chords, this option allows to only show chords."
+                bind:checked="{filterOneNoteChords}"
+            />
             <NumberInput
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
                 label="max. note distance"
@@ -367,7 +373,7 @@
         </div>
         <div class="control">
             <SelectScollable label="Y axis" bind:value="{yAxis}">
-                {#each ['note', 'drum', 'channel', 'loudness', 'number'] as opt}
+                {#each ['note', 'drum', 'channel', 'loudness', 'number', 'number (piano)', 'number (adaptive)'] as opt}
                     <option value="{opt}">{opt}</option>
                 {/each}
             </SelectScollable>
@@ -400,7 +406,16 @@
         </div>
         <ExerciseDrawer>
             <p>
-                1) Play a crescendo, starting at below pp and rising until above
+                1) Play some chords with roughly the same loudness.
+                <!-- <InsideTextButton
+                    onclick="{() => loadData(example2)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton> -->
+            </p>
+            <p>
+                2) Play a crescendo, starting at below pp and rising until above
                 ff smoothly. Make sure all notes of each chord have roughly the
                 same loudness.
                 <!-- <InsideTextButton
@@ -411,9 +426,19 @@
                 </InsideTextButton> -->
             </p>
             <p>
-                4) Play accents, for example on each 4th chord. They should be
+                3) Play accents, for example on each 4th chord. They should be
                 loud enough to be easily distinguishable from the non-accented
                 notes.
+                <!-- <InsideTextButton
+                    onclick="{() => loadData(example4)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton> -->
+            </p>
+            <p>
+                4) Play chords interleaved with a melody and try to have a
+                consistent loudness in all notes.
                 <!-- <InsideTextButton
                     onclick="{() => loadData(example4)}"
                     disabled="{isPlaying}"
