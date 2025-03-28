@@ -40,6 +40,8 @@
     - chord detection, sort chords by piano key, by string for guitar
     - design pattern: Mixed axis for time and instrument part
     - or facets (chroma, string)
+- dynamics-chords
+  - color scheme with 7 color and mixed-colored sharp/flat notes (semicircles)
 - chord diagrams
   - list notes and intervals
 - fretboard heatmap, jitter

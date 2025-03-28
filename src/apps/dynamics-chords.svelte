@@ -215,9 +215,7 @@
                     r: rounding ? 'velocityRounded' : 'velocity',
                     tip: true,
                     title: (d) =>
-                        `${d.note} ${d.velocityLabel} (${(
-                            d.velocity / 127
-                        ).toFixed(2)})`,
+                        `${d.note} ${d.velocityLabel} (${d.velocity})`,
                 }),
                 // chord names
                 Plot.text(chordNames, {
