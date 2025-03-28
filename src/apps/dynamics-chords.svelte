@@ -7,9 +7,6 @@
     import { localStorageAddRecording } from '../lib/localstorage';
     import { VELOCITIES_LOGIC, VELOCITIES_MEANING } from '../lib/music';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example1 from '../example-recordings/dynamics/dynamics-e1.json';
-    import example2 from '../example-recordings/dynamics/dynamics-e2.json';
-    import example3 from '../example-recordings/dynamics/dynamics-e3.json';
     import example4 from '../example-recordings/dynamics/dynamics-e4.json';
     import * as d3 from 'd3';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
@@ -24,7 +21,7 @@
     import FileDropTarget from '../common/file-drop-target.svelte';
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import { detectChords } from '../lib/chords';
-    import { MidSideCompressor } from 'tone';
+    import { Chord } from 'tonal';
 
     /**
      * contains the app meta information defined in App.js
@@ -39,9 +36,10 @@
     const velocities = VELOCITIES_LOGIC;
     const radiusFactor = 12;
     // settings
-    let isBinning = false;
+    let rounding = false;
     let maxNoteDistance = 0.1;
-    let chordLimit = 25;
+    let chordLimit = 16;
+    let yAxis = 'note';
     let coloring = 'none';
     // data
     let firstTimeStamp;
@@ -67,17 +65,18 @@
     };
 
     const draw = () => {
-        // round bars' height to make view clearer
-        let notesRoundedVelocities = notes;
-        if (isBinning) {
-            const veloBinValues = [...velocities.keys()];
-            notesRoundedVelocities = notes.map((note) => {
-                const minIndex = d3.minIndex(veloBinValues, (v) =>
-                    Math.abs(note.velocity - v),
-                );
-                return { ...note, velocity: veloBinValues[minIndex] };
-            });
-        }
+        const veloBinValues = [...velocities.keys()];
+        let notesRoundedVelocities = notes.map((note) => {
+            const minIndex = d3.minIndex(veloBinValues, (v) =>
+                Math.abs(note.velocity - v),
+            );
+            const rounded = veloBinValues[minIndex];
+            return {
+                ...note,
+                velocityRounded: rounded,
+                velocityLabel: velocities.get(rounded),
+            };
+        });
         let chords = detectChords(
             notesRoundedVelocities,
             maxNoteDistance,
@@ -93,9 +92,8 @@
         ].map((d) => d.label);
         let colorRange;
         let colorDomain;
-        let yDomain = Midi.NOTE_NAMES;
-        let yAccessor = (d) => d.note;
         let colorAccessor = (d) => d.note;
+        // react to coloring setting
         if (coloring === 'sharps') {
             colorDomain = ['natural', 'sharp'];
             colorRange = ['#ddd', '#888'];
@@ -103,24 +101,44 @@
         } else if (coloring === 'channel') {
             colorRange = d3.schemeObservable10;
             colorDomain = d3.range(colorRange.length);
-            yDomain = d3.range(colorRange.length);
-            yAccessor = (d) => d.channel;
-            colorAccessor = yAccessor;
+            colorAccessor = (d) => d.channel;
         } else if (coloring === 'note') {
             colorDomain = Midi.NOTE_NAMES;
             colorRange = NOTE_COLORS.noteColormapAccessible2;
-            colorAccessor = yAccessor;
+            colorAccessor = (d) => d.note;
         } else if (coloring === 'drum') {
             colorDomain = [...new Set(drumLabels), 'other'];
             colorRange = d3.schemeObservable10;
-            yDomain = drumLabels;
-            yAccessor = (d) =>
+            colorAccessor = (d) =>
                 drumPitchReplacementMapMD90.get(d.number)?.label ?? 'other';
-            colorAccessor = yAccessor;
         } else {
             colorRange = ['#888'];
             colorDomain = [0];
             colorAccessor = () => 0;
+        }
+        // react to y axis setting
+        let yDomain = Midi.NOTE_NAMES;
+        let yAccessor = (d) => d.note;
+        let yAxisReverse = false;
+        if (yAxis === 'loudness') {
+            yDomain = rounding ? [...velocities.values()] : d3.range(128);
+            yAccessor = rounding ? (d) => d.velocityLabel : (d) => d.velocity;
+            yAxisReverse = rounding;
+        } else if (yAxis === 'channel') {
+            yDomain = d3.range(10);
+            yAccessor = (d) => d.channel;
+        } else if (yAxis === 'note') {
+            yDomain = Midi.NOTE_NAMES;
+            yAccessor = (d) => d.note;
+            yAxisReverse = true;
+        } else if (yAxis === 'drum') {
+            yDomain = drumLabels;
+            yAccessor = (d) =>
+                drumPitchReplacementMapMD90.get(d.number)?.label ?? 'other';
+        } else if (yAxis === 'number') {
+            yDomain = d3.range(128);
+            yAccessor = (d) => d.number;
+            // yAxisReverse = true;
         }
 
         const plot = Plot.plot({
@@ -140,7 +158,16 @@
             },
             y: {
                 domain: yDomain,
-                reverse: true,
+                reverse: yAxisReverse,
+                label: yAxis,
+                type:
+                    (yAxis === 'loudness' && !rounding) || yAxis === 'number'
+                        ? 'linear'
+                        : undefined,
+                ticks:
+                    (yAxis === 'loudness' && !rounding) || yAxis === 'number'
+                        ? d3.range(0, 129, 16)
+                        : undefined,
             },
             color: {
                 legend: coloring !== 'none',
@@ -157,21 +184,25 @@
                     x: 'chordIndex',
                     y: yAccessor,
                     fill: colorAccessor,
-                    r: 'velocity',
+                    r: rounding ? 'velocityRounded' : 'velocity',
+                    tip: true,
+                    title: (d) =>
+                        `${d.note} ${d.velocityLabel} (${(
+                            d.velocity / 127
+                        ).toFixed(2)})`,
                 }),
-                // Plot.ruleY(rules, { stroke: '#888' }),
+                Plot.text(chords, {
+                    x: (d, i) => i,
+                    y: 100,
+                    text: (chord) => Chord.detect(chord.map((d) => d.name)),
+                    fill: '#000',
+                    fontSize: 10,
+                }),
                 Plot.axisY({
                     anchor: 'left',
-                    // ticks: rules,
-                    // tickFormat: (d) => velocities.get(d),
-                    // tickSize: 0,
                 }),
                 Plot.axisY({
                     anchor: 'right',
-                    // ticks: rules,
-                    // tickFormat: (d) =>
-                    // VELOCITIES_MEANING.get(velocities.get(d)),
-                    // tickSize: 0,
                 }),
             ],
         });
@@ -211,6 +242,40 @@
         container.textContent = '';
         container.appendChild(legend);
         container.appendChild(plot);
+
+        const chordNames = chords.map((chord) => {
+            console.log(chord);
+
+            return Chord.detect(chord.map((d) => d.note));
+        });
+        console.log(chordNames);
+
+        const chordNamesPlot = Plot.plot({
+            width,
+            height: 100,
+            marginTop: 30,
+            marginBottom: 30,
+            marginLeft: 50,
+            marginRight: 50,
+            x: {
+                domain: d3.range(0, chordLimit),
+                padding: 1,
+                axis: false,
+            },
+            y: {
+                axis: false,
+            },
+            marks: [
+                Plot.textX(chordNames, {
+                    x: (d, i) => i,
+                    text: (chord) => chord,
+                    fill: '#000',
+                    fontSize: 10,
+                    rotate: -90,
+                }),
+            ],
+        });
+        container.appendChild(chordNamesPlot);
     };
 
     afterUpdate(draw);
@@ -220,8 +285,12 @@
      */
     const getExportData = () => {
         return {
-            isBinning,
-            barLimit: chordLimit,
+            rounding,
+            maxNoteDistance,
+            chordLimit,
+            yAxis,
+            coloring,
+            // data
             notes,
         };
     };
@@ -231,8 +300,11 @@
      */
     const loadData = (json) => {
         saveToStorage();
-        isBinning = json.isBinning;
-        chordLimit = json.barLimit;
+        rounding = json.rounding ?? false;
+        maxNoteDistance = json.maxNoteDistance ?? 0.1;
+        chordLimit = json.chordLimit ?? 16;
+        yAxis = json.yAxis ?? 'note';
+        coloring = json.coloring ?? 'none';
         // data
         notes = json.notes;
         // app state
@@ -272,7 +344,7 @@
             <ToggleButton
                 label="rounding"
                 title="You can change between seeing exact bar heights and binned (rounded) heights."
-                bind:checked="{isBinning}"
+                bind:checked="{rounding}"
             />
             <NumberInput
                 title="maximum distance between notes such that they still count as beloning to the same chord/arpeggio"
@@ -287,13 +359,20 @@
                 title="The number of most recent chords that are shown."
                 label="chords"
                 bind:value="{chordLimit}"
-                step="{25}"
-                min="{25}"
+                step="{4}"
+                min="{4}"
                 max="{1000}"
-                defaultValue="{25}"
+                defaultValue="{16}"
             />
+        </div>
+        <div class="control">
+            <SelectScollable label="Y axis" bind:value="{yAxis}">
+                {#each ['note', 'drum', 'channel', 'loudness', 'number'] as opt}
+                    <option value="{opt}">{opt}</option>
+                {/each}
+            </SelectScollable>
             <SelectScollable label="color" bind:value="{coloring}">
-                {#each ['none', 'channel', 'sharps', 'note', 'drum'] as opt}
+                {#each ['none', 'sharps', 'note', 'drum', 'channel'] as opt}
                     <option value="{opt}">{opt}</option>
                 {/each}
             </SelectScollable>

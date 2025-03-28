@@ -165,6 +165,8 @@
         return {
             isBinning,
             barLimit,
+            coloring,
+            // data
             notes,
         };
     };
@@ -176,6 +178,7 @@
         saveToStorage();
         isBinning = json.isBinning;
         barLimit = json.barLimit;
+        coloring = json.coloring ?? 'none';
         // data
         notes = json.notes;
         // app state
