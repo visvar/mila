@@ -130,6 +130,7 @@
             marginLeft: 50,
             marginRight: 50,
             x: {
+                label: 'chords',
                 ticks: d3.range(0, chordLimit),
                 domain: d3.range(0, chordLimit),
                 tickFormat: (d) => '',
