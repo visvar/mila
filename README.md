@@ -4,7 +4,7 @@ A collection of web-based apps for musical instrument practice.
 
 [Online version here](https://visvar.github.io/mila/)
 
-![](./doc/teaser_hex.png)
+![](./doc/title-screen.png)
 
 ## What You Need
 
