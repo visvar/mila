@@ -26,6 +26,7 @@ class Metronome {
   #audioCtx = new AudioContext()
   // Callback
   #onClick = null
+  #onStop = null
 
   /**
    * @returns {number} bpm
@@ -54,6 +55,15 @@ class Metronome {
   onClick(callback) {
     this.#onClick = callback
   }
+
+  /**
+   * @param {function} callback callback
+   */
+  onStop(callback) {
+    this.#onStop = callback
+  }
+
+
 
   /**
    * Starts the metronome with a given tempo in bpm
@@ -98,6 +108,9 @@ class Metronome {
       console.log('[Metronome] stopped')
       clearTimeout(this.#timerID)
       this.#isPlaying = false
+    }
+    if (this.#onStop) {
+      this.#onStop()
     }
   }
 

@@ -36,11 +36,15 @@
         evenBeep = !evenBeep;
     };
     metro.onClick(indicateBeep);
+    metro.onStop(() => {
+        isBeeping = false;
+    });
 
     // if metronome is running while being diabled, stop it
     $: {
         if (disabled) {
             metro.stop();
+            isBeeping = false;
         }
     }
 

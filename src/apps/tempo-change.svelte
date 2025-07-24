@@ -21,6 +21,7 @@
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+    import TempoInput from '../common/input-elements/tempo-input.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -37,6 +38,7 @@
     let timeBinSize = 5;
     let tempoBinSize = 10;
     let topK = 10;
+    let tempo = 120;
 
     // data
     let notes = [];
@@ -251,11 +253,16 @@
         <div class="visualization" bind:this="{container}"></div>
         <div class="control">
             <MetronomeButton
-                tempo="{120}"
+                {tempo}
                 accent="{4}"
                 beepCount="{8}"
                 showBeepCountInput
                 disabled="{isPlaying}"
+            />
+            <TempoInput
+                bind:value="{tempo}"
+                disabled="{isPlaying}"
+                label="initial tempo"
             />
             <ResetNotesButton
                 bind:notes
