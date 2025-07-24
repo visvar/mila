@@ -227,6 +227,10 @@ div.card {
   user-select: none;
 }
 
+div.card.simple {
+  height: auto;
+}
+
 
 div.card:hover {
   box-shadow: steelblue 0 0 8px;

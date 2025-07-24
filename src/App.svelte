@@ -135,6 +135,7 @@
 
   // row layout?
   let rows = localStorage.getItem('display-app-rows') === 'true' || false;
+  let simpleHome = localStorage.getItem('simple-home-menu') === 'false' || true;
 </script>
 
 <main>
@@ -164,6 +165,7 @@
         <!-- sort -->
         <div>
           <SelectScollable
+            title="Sorts apps by ..."
             bind:value="{sortAppsBy}"
             callback="{(e) => {
               localStorage.setItem('display-app-sorting', e.target.value);
@@ -176,6 +178,7 @@
           </SelectScollable>
           <!-- layout -->
           <button
+            title="Toggle between grid and rows for the app overview"
             on:click="{() => {
               rows = !rows;
               localStorage.setItem('display-app-rows', rows.toString());
@@ -183,6 +186,16 @@
             class="row-button"
           >
             {rows ? '☰ rows' : '᎒᎒᎒ grid'}
+          </button>
+          <button
+            title="Toggle detailed information for apps"
+            on:click="{() => {
+              simpleHome = !simpleHome;
+              localStorage.setItem('simple-home-menu', simpleHome.toString());
+            }}"
+            class="row-button"
+          >
+            {simpleHome ? 'reduced' : 'detailed'}
           </button>
         </div>
         <!-- skill filter -->
@@ -297,27 +310,33 @@
         {#each sortedApps as app (app.id)}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div class="card" on:click="{() => openPage(app)}" transition:fade>
+          <div
+            class="card {simpleHome ? 'simple' : ''}"
+            on:click="{() => openPage(app)}"
+            transition:fade
+          >
             <h2>
               {app.title}
-              {#if !appUsageCount.get(app.id)}
+              {#if !simpleHome && !appUsageCount.get(app.id)}
                 <span title="You never used this app, try it!">✨</span>
               {/if}
             </h2>
             <div class="description">
               {app.description}
             </div>
-            <div class="usage">
-              {#if appUsageCount.get(app.id) > 0}
-                Used {appUsageCount.get(app.id)} times.
-              {/if}
-              {#if appUsageCount.get(app.id) > 0}
-                Last used {getNumberOfDaysPassed(
-                  new Date(appUsageRecent.get(app.id)),
-                )}.
-              {/if}
-            </div>
-            <AppTileTags {app} />
+            {#if !simpleHome}
+              <div class="usage">
+                {#if appUsageCount.get(app.id) > 0}
+                  Used {appUsageCount.get(app.id)} times.
+                {/if}
+                {#if appUsageCount.get(app.id) > 0}
+                  Last used {getNumberOfDaysPassed(
+                    new Date(appUsageRecent.get(app.id)),
+                  )}.
+                {/if}
+              </div>
+              <AppTileTags {app} />
+            {/if}
           </div>
         {/each}
       </div>
