@@ -216,10 +216,13 @@
         <p class="explanation">
             This app helps practicing tempo changes. Start playing at one tempo
             then change to another one as accurately as you can. The chart shows
-            you the tempo over time, so can see whether you changed correctly. <i
-                >This app assumes tempi between 60 and 180 bpm. Try playing
-                without looking!</i
-            >
+            you the tempo over time, so can see whether you changed correctly.
+            <i>
+                This app assumes tempi between 90 and 180 bpm, values outside
+                this range will wrap. Only works with note values that are
+                powers of two, e.g., not with triplets. Try playing without
+                looking!
+            </i>
         </p>
         <div class="control">
             <NumberInput
@@ -285,7 +288,7 @@
         </div>
         <ExerciseDrawer>
             <p>
-                1) Play at a contant tempo.
+                1) Play at a constant tempo.
                 <InsideTextButton
                     onclick="{() => loadData(example1)}"
                     disabled="{isPlaying}"

@@ -370,7 +370,7 @@
     <div>
       <h5>Filtering</h5>
       <NumberInput
-        title="minimum loudness of a note, used to filter noise"
+        title="minimum loudness of a note (from 0 to 1), used to filter noise"
         label="minimum velocity"
         bind:value="{minVelocity}"
         min="{0}"
