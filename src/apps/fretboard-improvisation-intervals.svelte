@@ -4,12 +4,15 @@
     import * as Plot from '@observablehq/plot';
     import { Note, Scale } from 'tonal';
     import MidiInput from '../common/input-handlers/midi-input.svelte';
-    import example from '../example-recordings/fretboard-improvisation-intervals.json';
+    import example1 from '../example-recordings/fretboard-improvisation-intervals/fretboard-improvisation-intervals-1.json';
+    import example2 from '../example-recordings/fretboard-improvisation-intervals/fretboard-improvisation-intervals-2.json';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import ScaleSelect from '../common/input-elements/scale-select.svelte';
     import { NOTE_TO_CHROMA_MAP } from '../lib/music';
+    import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -26,6 +29,7 @@
     // data
     let firstTimeStamp;
     let notes = [];
+    let isPlaying = false;
     // domain knowledge
     let stringCount = 6;
     let fretCount = 24;
@@ -57,6 +61,7 @@
 
     const draw = () => {
         const lastNote = notes.at(-1);
+        console.log('draw', lastNote);
         const data = [];
         if (lastNote) {
             const lastNoteChroma = lastNote.number % 12;
@@ -208,6 +213,7 @@
         scale = json.scale;
         // data
         notes = json.notes;
+        draw();
     };
 </script>
 
@@ -233,11 +239,27 @@
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">
-        <button on:click="{() => loadData(example)}"> example </button>
+        <MidiReplayButton bind:notes bind:isPlaying />
     </div>
     <ExerciseDrawer>
-        <p>1) Go through the scale in steps of 1.</p>
-        <p>2) Go through the scale in steps of 2.</p>
+        <p>
+            1) Go through the scale in steps of 1.
+            <InsideTextButton
+                onclick="{() => loadData(example1)}"
+                disabled="{isPlaying}"
+            >
+                example
+            </InsideTextButton>
+        </p>
+        <p>
+            2) Go through the scale in steps of 2.
+            <InsideTextButton
+                onclick="{() => loadData(example2)}"
+                disabled="{isPlaying}"
+            >
+                example
+            </InsideTextButton>
+        </p>
         <p>3) Go through the scale in steps of 3.</p>
         <p>4) ...</p>
     </ExerciseDrawer>

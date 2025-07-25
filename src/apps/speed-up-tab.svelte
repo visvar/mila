@@ -18,6 +18,7 @@
     import NumberInput from '../common/input-elements/number-input.svelte';
     import SelectScollable from '../common/input-elements/select-scollable.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -394,6 +395,50 @@
         }
     };
 
+    const generateExample = () => {
+        practiceRecordings = new Map();
+        firstTimeStamp = 0;
+        const seed = 123456;
+        const bias = -0.01;
+        const deviation = -0.025;
+        const rand = d3.randomNormal.source(d3.randomLcg(seed))(
+            bias,
+            deviation,
+        );
+        const positions = [
+            { string: 5, fret: 5 },
+            { string: 5, fret: 8 },
+            { string: 4, fret: 5 },
+            { string: 4, fret: 7 },
+            { string: 3, fret: 5 },
+            { string: 3, fret: 7 },
+            { string: 2, fret: 5 },
+            { string: 2, fret: 8 },
+            { string: 1, fret: 5 },
+            { string: 1, fret: 8 },
+        ];
+        const pos = [...positions, ...positions.reverse()];
+
+        for (const tempo of d3.range(
+            initialTempo,
+            targetTempo + tempoIncrease,
+            tempoIncrease,
+        )) {
+            const ex = exerciseNotes.map((d, i) => {
+                return {
+                    ...d,
+                    time: (d.time * initialTempo) / tempo + rand(),
+                    velocity: 127,
+                    // go through A minor scale
+                    ...pos[i % pos.length],
+                };
+            });
+            practiceRecordings.set(tempo, ex);
+        }
+        practiceRecordings = new Map(practiceRecordings);
+        draw();
+    };
+
     onDestroy(() => {
         clearInterval(tempoStepWatcher);
         metro.stop();
@@ -503,58 +548,6 @@
                     draw();
                 }}"
             />
-            <button
-                on:click="{() => {
-                    console.log('example');
-
-                    practiceRecordings = new Map();
-                    firstTimeStamp = 0;
-                    const seed = 123456;
-                    const bias = -0.01;
-                    const deviation = -0.025;
-                    const rand = d3.randomNormal.source(d3.randomLcg(seed))(
-                        bias,
-                        deviation,
-                    );
-                    const positions = [
-                        { string: 5, fret: 5 },
-                        { string: 5, fret: 8 },
-                        { string: 4, fret: 5 },
-                        { string: 4, fret: 7 },
-                        { string: 3, fret: 5 },
-                        { string: 3, fret: 7 },
-                        { string: 2, fret: 5 },
-                        { string: 2, fret: 8 },
-                        { string: 1, fret: 5 },
-                        { string: 1, fret: 8 },
-                    ];
-                    const pos = [...positions, ...positions.reverse()];
-                    console.log(pos);
-
-                    for (const tempo of d3.range(
-                        initialTempo,
-                        targetTempo + tempoIncrease,
-                        tempoIncrease,
-                    )) {
-                        const ex = exerciseNotes.map((d, i) => {
-                            return {
-                                ...d,
-                                time: (d.time * initialTempo) / tempo + rand(),
-                                velocity: 127,
-                                // go through A minor scale
-                                ...pos[i % pos.length],
-                            };
-                        });
-                        practiceRecordings.set(tempo, ex);
-                    }
-                    practiceRecordings = new Map(practiceRecordings);
-                    console.log(practiceRecordings);
-
-                    draw();
-                }}"
-            >
-                example
-            </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}
@@ -563,6 +556,9 @@
             />
         </div>
         <ExerciseDrawer>
+            <InsideTextButton onclick="{generateExample}">
+                simulated example for current exercise
+            </InsideTextButton>
             <p>1) Select a pre-defined below and play it from 60 to 120 bpm.</p>
             <p>
                 2) Input your own exercise, optionally quantize it, and practice

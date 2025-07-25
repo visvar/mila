@@ -1,0 +1,781 @@
+{
+  "rounding": true,
+  "maxNoteDistance": 0.1,
+  "chordLimit": 40,
+  "yAxis": "note",
+  "coloring": "note",
+  "filterOneNoteChords": false,
+  "notes": [
+    {
+      "time": 0,
+      "velocity": 48,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.003,
+      "velocity": 73,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 0.015,
+      "velocity": 37,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.763,
+      "velocity": 86,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 0.773,
+      "velocity": 48,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.783,
+      "velocity": 76,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 0.977,
+      "velocity": 97,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 0.978,
+      "velocity": 88,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 1.79,
+      "velocity": 51,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 1.796,
+      "velocity": 30,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 1.806,
+      "velocity": 37,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.0360999999046325,
+      "velocity": 62,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 2.0380999999046328,
+      "velocity": 30,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.039,
+      "velocity": 33,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.806,
+      "velocity": 94,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 2.814,
+      "velocity": 92,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 2.8150999999046324,
+      "velocity": 77,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.02,
+      "velocity": 96,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 3.0210999999046324,
+      "velocity": 82,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.032,
+      "velocity": 94,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.985,
+      "velocity": 49,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 3.994,
+      "velocity": 66,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.002099999904632,
+      "velocity": 88,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 4.77,
+      "velocity": 18,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.778,
+      "velocity": 17,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 4.788,
+      "velocity": 18,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.982,
+      "velocity": 19,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 4.994,
+      "velocity": 43,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 5.493,
+      "velocity": 74,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 5.510099999904632,
+      "velocity": 38,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 5.976,
+      "velocity": 99,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 5.98,
+      "velocity": 104,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.684099999904633,
+      "velocity": 53,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 6.695099999904633,
+      "velocity": 61,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.7020999999046325,
+      "velocity": 73,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.902,
+      "velocity": 102,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 6.909,
+      "velocity": 100,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 6.916099999904633,
+      "velocity": 95,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 7.848,
+      "velocity": 73,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 7.855,
+      "velocity": 55,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 7.856,
+      "velocity": 81,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 8.538099999904633,
+      "velocity": 60,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 8.542,
+      "velocity": 41,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 8.817,
+      "velocity": 19,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 8.824,
+      "velocity": 40,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 8.843,
+      "velocity": 30,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.301099999904633,
+      "velocity": 79,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 9.306099999904633,
+      "velocity": 47,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.325099999904632,
+      "velocity": 56,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.777099999904632,
+      "velocity": 93,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 9.782099999904633,
+      "velocity": 85,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 9.784099999904633,
+      "velocity": 73,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 10.429099999904633,
+      "velocity": 87,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 10.436,
+      "velocity": 94,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 10.437099999904632,
+      "velocity": 90,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 10.686,
+      "velocity": 107,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 10.688099999904633,
+      "velocity": 103,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 10.692,
+      "velocity": 102,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 11.641,
+      "velocity": 101,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 11.643,
+      "velocity": 90,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 11.651,
+      "velocity": 100,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 12.332099999904633,
+      "velocity": 45,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 12.334,
+      "velocity": 36,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 12.340099999904632,
+      "velocity": 15,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 12.574,
+      "velocity": 72,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 12.576,
+      "velocity": 55,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 13.066099999904633,
+      "velocity": 73,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 13.07,
+      "velocity": 39,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 13.074,
+      "velocity": 57,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 13.505099999904633,
+      "velocity": 102,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 13.506,
+      "velocity": 109,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 13.512099999904633,
+      "velocity": 99,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 14.187,
+      "velocity": 90,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 14.200099999904632,
+      "velocity": 70,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 14.203,
+      "velocity": 88,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 14.399,
+      "velocity": 96,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 14.401,
+      "velocity": 107,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 14.405099999904632,
+      "velocity": 97,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 15.428099999904633,
+      "velocity": 77,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 15.431,
+      "velocity": 70,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 15.441099999904633,
+      "velocity": 82,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 16.064,
+      "velocity": 97,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 16.077,
+      "velocity": 76,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.078099999904634,
+      "velocity": 72,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.27409999990463,
+      "velocity": 85,
+      "number": 84,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.275,
+      "velocity": 82,
+      "number": 77,
+      "note": "F",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.281,
+      "velocity": 85,
+      "number": 80,
+      "note": "G#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 16.731099999904632,
+      "velocity": 60,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.737,
+      "velocity": 90,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 16.751099999904632,
+      "velocity": 74,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 17.168,
+      "velocity": 93,
+      "number": 82,
+      "note": "A#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 17.18,
+      "velocity": 72,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 17.182,
+      "velocity": 85,
+      "number": 86,
+      "note": "D",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 18.188,
+      "velocity": 24,
+      "number": 72,
+      "note": "C",
+      "isSharp": false,
+      "channel": 1
+    },
+    {
+      "time": 18.193099999904632,
+      "velocity": 72,
+      "number": 75,
+      "note": "D#",
+      "isSharp": true,
+      "channel": 1
+    },
+    {
+      "time": 18.195,
+      "velocity": 52,
+      "number": 79,
+      "note": "G",
+      "isSharp": false,
+      "channel": 1
+    }
+  ],
+  "_appId": "dynamics-chords",
+  "_softwareVersion": "0.27.3",
+  "_date": "2025-07-25T12:00:03.096Z"
+}

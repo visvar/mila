@@ -7,7 +7,7 @@
     import { localStorageAddRecording } from '../lib/localstorage';
     import { VELOCITIES_LOGIC, VELOCITIES_MEANING } from '../lib/music';
     import HistoryButton from '../common/input-elements/history-button.svelte';
-    import example4 from '../example-recordings/dynamics/dynamics-e4.json';
+    import example1 from '../example-recordings/dynamics-chords/dynamics-chords.json';
     import * as d3 from 'd3';
     import ExerciseDrawer from '../common/exercise-drawer.svelte';
     import RatingButton from '../common/input-elements/rating-button.svelte';
@@ -405,12 +405,12 @@
         <ExerciseDrawer>
             <p>
                 1) Play some chords with roughly the same loudness.
-                <!-- <InsideTextButton
-                    onclick="{() => loadData(example2)}"
+                <InsideTextButton
+                    onclick="{() => loadData(example1)}"
                     disabled="{isPlaying}"
                 >
                     example
-                </InsideTextButton> -->
+                </InsideTextButton>
             </p>
             <p>
                 2) Play a crescendo, starting at below pp and rising until above

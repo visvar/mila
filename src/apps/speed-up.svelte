@@ -487,7 +487,6 @@
                     draw();
                 }}"
             />
-            <button on:click="{() => loadData(example1)}"> example </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <ImportExportButton
                 {loadData}

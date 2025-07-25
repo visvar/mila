@@ -33,6 +33,7 @@
   } from '../lib/note-durations';
   import { chordProgressions } from '../lib/chord-progressions';
   import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
+  import { delay } from '../lib/lib';
 
   /**
    * contains the app meta information defined in App.js
@@ -65,9 +66,9 @@
   // player for 'backing track'
   let backingTrackVolume = 1;
   let backingTrackMode = 'quarters';
-  const player = new Player();
-  $: player?.setVolume(backingTrackVolume);
-  player.preloadInstrument('acoustic_grand_piano');
+  const backingTrackPlayer = new Player();
+  $: backingTrackPlayer?.setVolume(backingTrackVolume);
+  backingTrackPlayer.preloadInstrument('acoustic_grand_piano');
   // settings
   let root = 'C';
   let scaleType = 'major';
@@ -861,9 +862,9 @@
    */
   const toggleBackingTrack = (speedFactor = 1, mode = 'quarters') => {
     // if not started, start playing
-    if (!player.isPlaying()) {
+    if (!backingTrackPlayer.isPlaying()) {
       // on first start, reset notes
-      notes = [];
+      // notes = [];
       draw();
       firstTimeStamp = performance.now();
       const octave = 4;
@@ -889,7 +890,7 @@
           });
         });
       });
-      player.playNotes(
+      backingTrackPlayer.playNotes(
         backingNotes,
         'acoustic_grand_piano',
         0,
@@ -897,25 +898,26 @@
         1,
         true,
       );
-      player.onTimeChange(() => {
+      backingTrackPlayer.onTimeChange(() => {
         const currentSecond = (performance.now() - firstTimeStamp) / 1000;
         currentChordIndex =
           Math.floor(currentSecond / barDuration) % chordProg.chords.length;
       });
     } else {
       // otherwise just toggle mute
-      player.isMuted() ? player.unMute() : player.mute();
+      // player.isMuted() ? player.unMute() : player.mute();
+      stopBackingTrack();
     }
   };
 
   const stopBackingTrack = () => {
-    player.stop();
+    backingTrackPlayer.stop();
     currentChordIndex = 0;
   };
 
   onDestroy(() => {
     saveToStorage();
-    player.stop();
+    backingTrackPlayer.stop();
   });
 </script>
 
@@ -1029,11 +1031,14 @@
     </div>
     <div class="control">
       <button
-        on:click="{() => toggleBackingTrack(1, backingTrackMode)}"
+        on:click="{async () => {
+          toggleBackingTrack(1, backingTrackMode);
+        }}"
         class="primary"
       >
-        play/mute backing track
+        play/stop backing track
       </button>
+
       <TempoInput bind:value="{tempo}" callback="{draw}" />
       <NumberInput
         title="backing track volume"
@@ -1096,8 +1101,11 @@
           bind:isPlaying
           callback="{draw}"
           bind:speed="{midiReplaySpeed}"
-          onStart="{() =>
-            toggleBackingTrack(midiReplaySpeed, backingTrackMode)}"
+          onStart="{() => {
+            stopBackingTrack();
+            // await delay(0.1);
+            toggleBackingTrack(midiReplaySpeed, backingTrackMode);
+          }}"
           onStop="{stopBackingTrack}"
           startAtFirstNote="{false}"
           sound="acoustic_grand_piano"

@@ -1,0 +1,48 @@
+{
+  "root": "A",
+  "scale": "minor pentatonic",
+  "notes": [
+    {
+      "number": 45,
+      "velocity": 37,
+      "time": 0,
+      "channel": 6,
+      "string": 5,
+      "fret": 5
+    },
+    {
+      "number": 50,
+      "velocity": 26,
+      "time": 1,
+      "channel": 5,
+      "string": 4,
+      "fret": 5
+    },
+    {
+      "number": 55,
+      "velocity": 26,
+      "time": 2,
+      "channel": 4,
+      "string": 3,
+      "fret": 5
+    },
+    {
+      "number": 60,
+      "velocity": 26,
+      "time": 3,
+      "channel": 3,
+      "string": 2,
+      "fret": 5
+    },
+    {
+      "number": 64,
+      "velocity": 26,
+      "time": 4,
+      "channel": 2,
+      "string": 1,
+      "fret": 5
+    }
+  ],
+  "_appId": "fretboard-improvisation-intervals",
+  "_date": "2024-07-03T18:53:20.636Z"
+}

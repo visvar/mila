@@ -30,6 +30,7 @@
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import ToggleButton from '../common/input-elements/toggle-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -482,9 +483,6 @@
                 disabled="{isPlaying}"
                 {saveToStorage}
             />
-            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-                example
-            </button>
             <HistoryButton
                 appId="{appInfo.id}"
                 {loadData}
@@ -499,7 +497,15 @@
             />
         </div>
         <ExerciseDrawer>
-            <p>1) Play triplets.</p>
+            <p>
+                1) Play triplets.
+                <InsideTextButton
+                    onclick="{() => loadData(example)}"
+                    disabled="{isPlaying}"
+                >
+                    example
+                </InsideTextButton>
+            </p>
             <p>
                 2) Switch back and forth between a half bar of eighths and a
                 half bar of triplets.

@@ -16,6 +16,7 @@
     import RatingButton from '../common/input-elements/rating-button.svelte';
     import NumberInput from '../common/input-elements/number-input.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -267,6 +268,7 @@
             This app helps practicing different chord shapes on a guitar. Play
             chords you know (or don't know yet) and see the chord names and
             diagrams.
+            <i>Only works with a MIDI pickup.</i>
         </p>
         <div class="control">
             <NumberInput
@@ -302,9 +304,6 @@
                 disabled="{isPlaying}"
                 {saveToStorage}
             />
-            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-                example
-            </button>
             <HistoryButton
                 appId="{appInfo.id}"
                 {loadData}
@@ -318,7 +317,12 @@
             />
         </div>
         <ExerciseDrawer>
-            <p>1) Play an A minor chord.</p>
+            <p>
+                1) Play an A minor chord and an E minor chord.
+                <InsideTextButton onclick="{() => loadData(example)}">
+                    example
+                </InsideTextButton>
+            </p>
             <p>
                 2) Play chords you don't know by placing your fingers in
                 different positions. If they sound good, look what they are

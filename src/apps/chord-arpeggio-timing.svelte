@@ -16,6 +16,7 @@
   import TempoInput from '../common/input-elements/tempo-input.svelte';
   import FileDropTarget from '../common/file-drop-target.svelte';
   import NumberInput from '../common/input-elements/number-input.svelte';
+  import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -269,9 +270,6 @@
         disabled="{isPlaying}"
         {saveToStorage}
       />
-      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-        example
-      </button>
       <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
       <ImportExportButton
         {loadData}
@@ -287,6 +285,12 @@
       </p>
       <p>
         2) Play an arpeggio of this chord progression (with a pause after each).
+        <InsideTextButton
+          onclick="{() => loadData(example)}"
+          disabled="{isPlaying}"
+        >
+          example
+        </InsideTextButton>
       </p>
     </ExerciseDrawer>
     <MidiInput {noteOn} pcKeyAllowed disabled="{isDataLoaded || isPlaying}" />

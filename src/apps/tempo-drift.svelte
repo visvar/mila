@@ -19,6 +19,7 @@
     import MidiReplayButton from '../common/input-elements/midi-replay-button.svelte';
     import FileDropTarget from '../common/file-drop-target.svelte';
     import { secondsPerBeatToBpm } from '../lib/lib';
+    import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
     /**
      * contains the app meta information defined in App.js
@@ -326,9 +327,6 @@
                 disabled="{isPlaying}"
                 {saveToStorage}
             />
-            <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-                example
-            </button>
             <HistoryButton appId="{appInfo.id}" {loadData} />
             <MidiReplayButton
                 bind:notes
@@ -344,6 +342,12 @@
             />
         </div>
         <ExerciseDrawer>
+            <InsideTextButton
+                onclick="{() => loadData(example)}"
+                disabled="{isPlaying}"
+            >
+                example
+            </InsideTextButton>
             <p>
                 1) Choose a tempo and play only quarter notes. After the
                 count-in, keep the tempo as constant as possible for a few
