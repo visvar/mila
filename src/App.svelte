@@ -22,7 +22,11 @@
   // handle URL parameters
   const param = getUrlParam(window, 'd');
   if (param && param !== '') {
-    currentApp = APPS.filter((d) => d.id === param)[0];
+    if (param === 'tools') {
+      currentApp = 'tools';
+    } else {
+      currentApp = APPS.filter((d) => d.id === param)[0];
+    }
   }
 
   /**

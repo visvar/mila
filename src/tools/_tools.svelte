@@ -10,6 +10,8 @@
     import ScaleNotes from './scale-notes.svelte';
     import ActivityTracker from './activity-tracker.svelte';
     import MidiNotes from './midi-notes.svelte';
+    import { getUrlParam, setUrlParam } from '../lib/url';
+    import { onDestroy } from 'svelte';
 
     let TOOLS = [
         {
@@ -86,6 +88,15 @@
 
     export let currentTool = null;
     export let rows;
+
+    const param = getUrlParam(window, 'tool');
+    if (param && param !== '') {
+        currentTool = TOOLS.filter((d) => d.id === param)[0];
+    }
+
+    onDestroy(() => {
+        setUrlParam(window, 'tool', undefined);
+    });
 </script>
 
 <main>
@@ -98,6 +109,7 @@
                     class="card"
                     on:click="{() => {
                         currentTool = tool;
+                        setUrlParam(window, 'tool', tool.id);
                     }}"
                 >
                     <h2>{tool.title}</h2>
@@ -109,7 +121,12 @@
         </div>
     {:else}
         <div>
-            <button on:click="{() => (currentTool = null)}">
+            <button
+                on:click="{() => {
+                    currentTool = null;
+                    setUrlParam(window, 'tool', undefined);
+                }}"
+            >
                 back to tools
             </button>
         </div>
