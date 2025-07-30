@@ -43,6 +43,7 @@
   let pastNoteCount = 4;
   let usePies = true;
   let showClosestDuration = false;
+  let ioiMode = false;
   // data
   let isKeyDown = false;
   $: wholeDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
@@ -91,30 +92,15 @@
   /**
    * Pie-chart-like encoding
    */
-  const drawPies = () => {
+  const drawPies = (ctx, notes) => {
     const cy = (height - 50) / 2;
     const xStep = (width - 30) / pastNoteCount;
     const r = Math.min(xStep * 0.4, height * 0.3);
     const r2 = r * 0.5;
     const r3 = r * 0.75;
     const labelRadius = r + 20;
-    const ctx = canvas.getContext('2d');
-    // scale to DPR
-    // Get the DPR and size of the canvas
-    const dpr = window.devicePixelRatio;
-    const rect = canvas.getBoundingClientRect();
-    // Set the "actual" size of the canvas
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    // Scale the context to ensure correct drawing operations
-    ctx.scale(dpr, dpr);
-    // Set the "drawn" size of the canvas
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
-    // fade-out old data
-    ctx.clearRect(0, 0, width, height);
 
-    for (const [index, note] of notes.slice(-pastNoteCount).entries()) {
+    for (const [index, note] of notes.entries()) {
       // one pie chart per note
       const cx = xStep * (index + 0.5) + 15;
       // data part
@@ -216,27 +202,12 @@
   /**
    * Bar-chart-like encoding
    */
-  const drawBars = () => {
+  const drawBars = (ctx, notes) => {
     const xStep = (width - 10) / pastNoteCount;
     const w = xStep * 0.8;
     const h = height * 0.7;
     const top = 10;
     const bottom = top + h;
-    const ctx = canvas.getContext('2d');
-    // scale to DPR
-    // Get the DPR and size of the canvas
-    const dpr = window.devicePixelRatio;
-    const rect = canvas.getBoundingClientRect();
-    // Set the "actual" size of the canvas
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    // Scale the context to ensure correct drawing operations
-    ctx.scale(dpr, dpr);
-    // Set the "drawn" size of the canvas
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
-    // fade-out old data
-    ctx.clearRect(0, 0, width, height);
     ctx.textBaseline = 'middle';
 
     for (const [index, note] of notes.slice(-pastNoteCount).entries()) {
@@ -325,7 +296,39 @@
   };
 
   const draw = () => {
-    usePies ? drawPies() : drawBars();
+    const ctx = canvas.getContext('2d');
+    // scale to DPR
+    // Get the DPR and size of the canvas
+    const dpr = window.devicePixelRatio;
+    const rect = canvas.getBoundingClientRect();
+    // Set the "actual" size of the canvas
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    // Scale the context to ensure correct drawing operations
+    ctx.scale(dpr, dpr);
+    // Set the "drawn" size of the canvas
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    // fade-out old data
+    ctx.clearRect(0, 0, width, height);
+    // change notes if IOI mode is active
+    console.log(notes);
+    let n;
+    if (!ioiMode) {
+      n = notes.slice(-pastNoteCount);
+    } else {
+      n = notes.slice(-(pastNoteCount + 1));
+      if (n.length <= 1) {
+        return;
+      }
+      n = n.slice(1).map((d, i) => {
+        return {
+          ...d,
+          duration: d.time - n[i].time,
+        };
+      });
+    }
+    usePies ? drawPies(ctx, n) : drawBars(ctx, n);
   };
 
   afterUpdate(draw);
@@ -339,6 +342,7 @@
       pastNoteCount,
       usePies,
       showClosestDuration,
+      ioiMode,
       // data
       notes,
     };
@@ -353,6 +357,7 @@
     pastNoteCount = json.pastNoteCount;
     usePies = json.usePies ?? true;
     showClosestDuration = json.showClosestDuration;
+    ioiMode = json.ioiMode ?? false;
     // data
     notes = json.notes;
     // app state
@@ -399,6 +404,11 @@
         bind:checked="{showClosestDuration}"
         label="show closest duration"
         title="Show the closest note duration as an inner piece"
+      />
+      <ToggleButton
+        bind:checked="{ioiMode}"
+        label="onset mode"
+        title="use the time between note onsets instead of how long a note was held (will always be one note behind)"
       />
     </div>
     <div class="visualization">
