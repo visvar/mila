@@ -43,7 +43,7 @@
   let pastNoteCount = 4;
   let usePies = true;
   let showClosestDuration = false;
-  let ioiMode = false;
+  let ioiMode = true;
   // data
   let isKeyDown = false;
   $: wholeDuration = Utils.bpmToSecondsPerBeat(tempo) * 4;
@@ -311,12 +311,12 @@
     canvas.style.height = `${rect.height}px`;
     // fade-out old data
     ctx.clearRect(0, 0, width, height);
-    // change notes if IOI mode is active
-    console.log(notes);
     let n;
     if (!ioiMode) {
       n = notes.slice(-pastNoteCount);
     } else {
+      // change notes if IOI mode is active
+      // duration is then the IOI, so we consider one note more
       n = notes.slice(-(pastNoteCount + 1));
       if (n.length <= 1) {
         return;
