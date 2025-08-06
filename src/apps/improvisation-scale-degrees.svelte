@@ -59,6 +59,7 @@
   let isDataLoaded = false;
 
   const draw = () => {
+    container.textContent = '';
     if (notes.length === 0) {
       return;
     }
@@ -136,7 +137,6 @@
         }),
       ],
     });
-    container.textContent = '';
     container.appendChild(plot);
   };
 
