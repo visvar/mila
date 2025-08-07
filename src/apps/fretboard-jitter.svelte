@@ -47,7 +47,7 @@
     let pastNoteCount = 200;
     let tempo = 90;
     let barsPerFacet = 1;
-    let facetColumns = 2;
+    let facetColumns = 4;
     let colorFacetsByFret = true;
     // data
     let firstTimeStamp = 0;

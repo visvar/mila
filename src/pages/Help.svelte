@@ -38,14 +38,13 @@
 
     <HelpTextDrawer heading="What do I need to use the apps?">
         <p>
-            Many app require a MIDI instrument, such as a keyboard or electronic
-            drum kit. Other MIDI instruments will work too, just try it! A few
-            apps work with audio and should therefore supported any (pitched)
-            instrument and singing. Some apps can also be used with a PC
-            keyboard (spacebar if not explained otherwise) or a touch screen.
-            The most tricky to use are the guitar (fretboard) apps, which
-            require are MIDI guitar or a guitar with an added MIDI pickup.
+            Many apps require a MIDI instrument, such as a keyboard or
+            electronic drum kit. Other MIDI instruments will work too, just try
+            it! A few apps work with audio and should therefore supported any
+            (pitched) instrument and singing. Some apps can also be used with a
+            PC keyboard (spacebar if not explained otherwise) or a touch screen.
         </p>
+
         <h4>What if I only have a MIDI keyboard without sound/synthesizer?</h4>
         <p>
             You can use a built-in synth that needs to be turned on with a
@@ -56,6 +55,26 @@
                 target="_blank"
                 referrerpolicy="no-referrer">midi.city</a
             >.
+        </p>
+
+        <h4>What if I have a guitar (or another non-MIDI instrument)?</h4>
+        <p>
+            Many apps work with any instrument as long as you can convert the
+            played notes to MIDI. This can be done through hardware MIDI
+            converters or a software like
+            <a
+                href="https://www.jamorigin.com/"
+                target="_blank"
+                referrerpolicy="no-referrer">MIDI Guitar</a
+            >. To make the output of MIDI software visible to the webbrowser,
+            you might need to use a MIDI loopback like
+            <a
+                href="https://www.tobias-erichsen.de/software/loopmidi.html"
+                target="_blank"
+                referrerpolicy="no-referrer">loopMIDI</a
+            >. The most tricky apps to use are the fretboard apps. They require
+            are MIDI guitar or a guitar with an added MIDI pickup that outpits
+            notes on a different channel for each string.
         </p>
     </HelpTextDrawer>
 
