@@ -52,9 +52,7 @@
   let isDataLoaded = false;
 
   const draw = () => {
-    let intervals = notes.map((d, i) =>
-      i === 0 ? 0 : d.number - notes[i - 1].number,
-    );
+    let intervals = notes.slice(1).map((d, i) => d.number - notes[i].number);
     if (!showUnison) {
       intervals = intervals.filter((d) => d !== 0);
     }
@@ -89,7 +87,7 @@
       style:
         'font-family: Inter, "Noto Symbols", "Noto Symbols 2", "Noto Music", sans-serif',
       color: {
-        // legend: true,
+        legend: true,
         domain: ['minor', 'major', 'perfect', 'tritone'],
         range: ['#7da2e8', '#ed796a', 'gold', '#ccc'],
         marginLeft: 100,
@@ -214,8 +212,12 @@
       you go down, it will show up in the bottom half. Colors denote the type of
       interval, so you can quickly see if you play, for example, more major or
       minor intervals. The intervals are labelled by their name and the number
-      of semitones (negative when going from higher to lower notes). The second
-      chart on the bottom shows the intervals over time with the same colors.
+      of semitones (negative when going from higher to lower notes).
+    </p>
+    <p class="explanation">
+      The second chart on the bottom shows the intervals over time with the same
+      colors. Upward bars show intervals with increasing and downward bars for
+      decreasing pitch.
     </p>
     <div class="control">
       <ToggleButton

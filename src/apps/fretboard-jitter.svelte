@@ -224,6 +224,7 @@
                     ...NOTE_COLORS.noteColormap,
                     ...NOTE_COLORS.noteColormap,
                 ],
+                // legend: true,
             };
         } else {
             // same as main plot
@@ -363,7 +364,10 @@
             below shows you where you played notes. Each note is a dot that is
             moved a little bit from its exact position to avoid overlap. A
             note's color indicates how recently you played it and its area tells
-            how loud it was played.
+            how loud it was played. Below, facets show each bar you played in a
+            separate plot. Here, the color shows which fret the note was played
+            at, so you can see whether you cling to the same few positions too
+            much.
         </p>
         <div class="control">
             <NoteCountInput bind:value="{pastNoteCount}" max="{1000}" />
@@ -373,6 +377,8 @@
                 bind:value="{tempo}"
                 disabled="{isPlaying}"
             />
+        </div>
+        <div class="control">
             <NumberInput
                 title="Set the number of bars contained within each facet of the lower chart"
                 label="bars per facet"

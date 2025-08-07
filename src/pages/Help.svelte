@@ -135,7 +135,7 @@
                 > zooms in and out
             </li>
             <li>
-                <code>F11</code> toggles fullscreen.
+                <code>F11</code> toggles fullscreen in most browsers.
             </li>
         </ul>
 
@@ -182,6 +182,15 @@
             >
                 loopMIDI
             </a> for Windows.
+        </p>
+
+        <h4>Webbrowser and Operating System</h4>
+        <p>
+            If you encounter any issues, please try using another webbrowser
+            such as Google Chrome (or derivatives). We did not test on Mac, so
+            there might be issues specific to this operating system. While most
+            apps should work on mobile phones and tablets, we did not test those
+            thouroughly.
         </p>
 
         <h4>I still have issues!</h4>
