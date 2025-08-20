@@ -80,7 +80,7 @@
                 ></line>
             </svg>
         </div>
-        <div>metronome</div>
+        <div><span>m</span>etronome</div>
     </button>
     {#if showVolumeInput}
         <NumberInput
@@ -121,5 +121,9 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
+    }
+
+    span {
+        text-decoration: underline;
     }
 </style>

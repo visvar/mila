@@ -75,6 +75,7 @@
             });
         }
         const rules = [...velocities.keys()];
+        // color maps
         let colorRange;
         let colorDomain;
         if (coloring === 'sharps') {

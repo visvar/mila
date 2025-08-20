@@ -20,6 +20,7 @@
     let notes = [];
     const openNoteMap = new Map();
     let currentAniFrame = null;
+    let realTime = true;
 
     const noteOn = (e) => {
         const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
@@ -47,6 +48,7 @@
             const noteInSeconds = (e.timestamp - firstTimeStamp) / 1000;
             note.end = noteInSeconds;
         }
+        draw();
     };
 
     const draw = () => {
@@ -134,10 +136,28 @@
                 }),
             ],
         });
-        container.textContent = '';
-        container.appendChild(plot);
-        currentAniFrame = requestAnimationFrame(draw);
+        try {
+            container.textContent = '';
+            container.appendChild(plot);
+        } catch (e) {}
+        if (realTime) {
+            currentAniFrame = requestAnimationFrame(draw);
+        }
     };
+
+    const toggleRealtime = (realTime) => {
+        // realTime = !realTime;
+        if (realTime) {
+            console.log('start');
+
+            cancelAnimationFrame(currentAniFrame);
+            currentAniFrame = requestAnimationFrame(draw);
+        } else {
+            console.log('stop');
+            cancelAnimationFrame(currentAniFrame);
+        }
+    };
+    $: toggleRealtime(realTime);
 
     onMount(() => {
         firstTimeStamp = performance.now();
@@ -181,6 +201,11 @@
                 step="10"
             />
         </label>
+        <ToggleButton
+            bind:checked="{realTime}"
+            label="live"
+            title="Update plot in real-time or only when a note ends"
+        />
     </div>
     <div class="visualization" bind:this="{container}"></div>
     <div class="control">

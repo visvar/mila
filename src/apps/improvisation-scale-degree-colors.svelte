@@ -24,6 +24,7 @@
   import { detectChords } from '../lib/chords';
   import NumberInput from '../common/input-elements/number-input.svelte';
   import SelectScollable from '../common/input-elements/select-scollable.svelte';
+  import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
 
   /**
    * contains the app meta information defined in App.js
@@ -160,7 +161,7 @@
       height: 250,
       marginLeft: 45,
       marginRight: 10,
-      marginBottom: 50,
+      marginBottom: 80,
       padding: 0,
       x: {
         axis: false,
@@ -204,9 +205,13 @@
         Plot.text(limited, {
           x: (d, i) => i,
           y: 0,
-          text: (d) => d.name.split('').join('\n'),
+          text: (d) => {
+            const degree = scaleNotes.indexOf(d.name) + 1;
+            return `${degree > 0 ? degree : ''}\n${d.name.split('').join('\n')}`;
+          },
+
           fontSize: 12,
-          dy: 16,
+          dy: 20,
         }),
       ],
     });
@@ -390,6 +395,7 @@
             type="color"
             value="{colorMap.colors?.[index + 1]}"
           />
+          {index + 1}
           {degree.name}
         </label>
       {/each}
@@ -405,9 +411,6 @@
           openNoteMap = new Map();
         }}"
       />
-      <button on:click="{() => loadData(example)}" disabled="{isPlaying}">
-        example
-      </button>
       <HistoryButton appId="{appInfo.id}" {loadData} disabled="{isPlaying}" />
       <MidiReplayButton bind:notes bind:isPlaying callback="{draw}" />
       <ImportExportButton
@@ -418,6 +421,10 @@
       />
     </div>
     <ExerciseDrawer>
+      <InsideTextButton
+        onclick="{() => loadData(example)}"
+        disabled="{isPlaying}">example</InsideTextButton
+      >
       <p>
         1) Improvise something in the scale of C major pentatonic. Check if you
         only used this scale's notes using the colors.

@@ -21,5 +21,11 @@
     };
 </script>
 
-<button {title} {disabled} on:click="{reset}"> reset </button>
+<button {title} {disabled} on:click="{reset}"> <span>r</span>eset </button>
 <PcKeyboardInput key="r" keyDown="{reset}" {disabled} />
+
+<style>
+    span {
+        text-decoration: underline;
+    }
+</style>

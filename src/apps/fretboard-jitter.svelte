@@ -413,7 +413,7 @@
             <MetronomeButton
                 {tempo}
                 accent="{4}"
-                beepCount="{8}"
+                beepCount="{0}"
                 showBeepCountInput
                 disabled="{isPlaying}"
             />
