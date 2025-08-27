@@ -39,6 +39,7 @@
   let synth;
   let minVelocity = 0;
   let minIoi = 0;
+  let shiftChannel = 0;
   let lastNoteTime = 0;
 
   /**
@@ -60,10 +61,20 @@
               evt.timestamp - lastNoteTime > minIoi
             ) {
               lastNoteTime = evt.timestamp;
+              if (shiftChannel !== 0) {
+                changeMidiChannel(evt);
+              }
               noteOn(evt);
             }
           });
-          device.addListener('noteoff', noteOff);
+          if (shiftChannel !== 0) {
+            device.addListener('noteoff', (evt) => {
+              changeMidiChannel(evt);
+              noteOff(evt);
+            });
+          } else {
+            device.addListener('noteoff', noteOff);
+          }
           device.addListener('controlchange', controlChange);
           device.addListener('pitchbend', pitchBend);
           device.addListener('midimessage', midiMessage);
@@ -293,6 +304,11 @@
       stopSynthNote(message);
     }
   };
+
+  const changeMidiChannel = (msg) => {
+    msg.message.channel += shiftChannel;
+    return msg;
+  };
 </script>
 
 <svelte:window on:keydown="{handleKeydown}" on:keyup="{handleKeyup}" />
@@ -386,6 +402,19 @@
         max="{100}"
         step="{1}"
         defaultValue="{0}"
+      />
+    </div>
+    <div>
+      <h5>MIDI Guitar</h5>
+      <NumberInput
+        title="adds this number to the MIDI channel, useful for adjusting guitar strings"
+        label="shift channel"
+        bind:value="{shiftChannel}"
+        min="{-16}"
+        max="{16}"
+        step="{1}"
+        defaultValue="{0}"
+        callback="{onMidiEnabled}"
       />
     </div>
   {/if}
