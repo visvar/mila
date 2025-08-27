@@ -361,17 +361,16 @@
           >
         </div>
         <div>
-          You can use a PC keyboard as a MIDI keyboard and play note with: <br
+          You can use a PC keyboard as a MIDI keyboard and play notes with: <br
           /><code>a</code> = C, <code>w</code> = C#,
           <code>s</code> = B, ...
         </div>
       </div>
     {/if}
     <div>
-      <h5>MIDI devices</h5>
+      <h5>MIDI Devices</h5>
       {#if !midiWorks}
-        You have no MIDI device connected or MIDI is not supported in your
-        browser
+        You have no MIDI device connected, or you browser does not support MIDI.
       {/if}
       {#each midiDevices as device, index}
         <ToggleButton
