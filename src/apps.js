@@ -212,7 +212,7 @@ export const APPS = [
     component: ImprovisationScaleSubsetColors
   },
   {
-    id: 'improvisation-note-colors2',
+    id: 'improvisation-scale-degree-colors',
     title: 'Improvisation Scale Degree Colors',
     description:
       'See how  you use different scale degrees in improvisation',
