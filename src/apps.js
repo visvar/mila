@@ -348,7 +348,7 @@ export const APPS = [
     component: SpeedUpTab
   },
   {
-    id: 'sub-division',
+    id: 'sub-division-circular',
     title: 'Sub-Division (Circular)',
     description: 'Practice rhythmic playing in different sub-divisions',
     input: 'MIDI',
