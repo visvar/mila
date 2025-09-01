@@ -33,7 +33,6 @@
   } from '../lib/note-durations';
   import { chordProgressions } from '../lib/chord-progressions';
   import InsideTextButton from '../common/input-elements/inside-text-button.svelte';
-  import { delay } from '../lib/lib';
 
   /**
    * contains the app meta information defined in App.js
@@ -81,7 +80,7 @@
   let showChromaPlot = true;
   let showChordPlot = false;
   let showDurationPlot = false;
-  let showPianoRoll = false;
+  let showPianoRoll = true;
   // data
   let firstTimeStamp = 0;
   let notes = [];
@@ -835,12 +834,12 @@
     barCount = json.barCount ?? 50;
     maxNoteDistance = json.maxNoteDistance ?? 0.1;
     minDuration = json.minDuration ?? 0;
-    showNoteTypePlot = json.showNoteTypePlot ?? true;
-    showRhythmPlot = json.showRhythmPlot ?? true;
-    showChromaPlot = json.showChromaPlot ?? true;
-    showChordPlot = json.showChordPlot ?? true;
-    showDurationPlot = json.showDurationPlot ?? true;
-    showPianoRoll = json.showPianoRoll ?? true;
+    // showNoteTypePlot = json.showNoteTypePlot ?? true;
+    // showRhythmPlot = json.showRhythmPlot ?? true;
+    // showChromaPlot = json.showChromaPlot ?? true;
+    // showChordPlot = json.showChordPlot ?? true;
+    // showDurationPlot = json.showDurationPlot ?? true;
+    // showPianoRoll = json.showPianoRoll ?? true;
     // data
     notes = json.notes;
     // app state

@@ -1,261 +1,868 @@
 {
-  "tempo": 60,
-  "gridLeft": "4:3",
-  "gridRight": "4:2",
-  "binNote": 48,
-  "adjustTime": 0,
-  "pastBars": 6,
+  "tempo": 80,
+  "gridLeft": "4:1",
+  "gridRight": "4:3",
+  "binNote": 96,
+  "adjustTime": 0.2,
+  "pastBars": 8,
   "notes": [
     {
-      "time": 76.091,
-      "number": 74
+      "time": 71.824,
+      "number": 51,
+      "velocity": 59
     },
     {
-      "time": 76.353,
-      "number": 74
+      "time": 72.317,
+      "number": 51,
+      "velocity": 43
     },
     {
-      "time": 76.678,
-      "number": 74
+      "time": 72.529,
+      "number": 38,
+      "velocity": 54
     },
     {
-      "time": 77.019,
-      "number": 74
+      "time": 72.797,
+      "number": 51,
+      "velocity": 40
     },
     {
-      "time": 77.34609999999962,
-      "number": 74
+      "time": 73.26989999985695,
+      "number": 38,
+      "velocity": 57
     },
     {
-      "time": 77.663,
-      "number": 74
+      "time": 73.291,
+      "number": 51,
+      "velocity": 37
     },
     {
-      "time": 78.011,
-      "number": 74
+      "time": 73.784,
+      "number": 51,
+      "velocity": 39
     },
     {
-      "time": 78.33609999999963,
-      "number": 74
+      "time": 73.986,
+      "number": 38,
+      "velocity": 56
     },
     {
-      "time": 78.662,
-      "number": 74
+      "time": 74.25,
+      "number": 51,
+      "velocity": 36
     },
     {
-      "time": 79.00009999999963,
-      "number": 74
+      "time": 74.743,
+      "number": 38,
+      "velocity": 54
     },
     {
-      "time": 79.356,
-      "number": 74
+      "time": 74.757,
+      "number": 51,
+      "velocity": 29
     },
     {
-      "time": 79.708,
-      "number": 74
+      "time": 75.258,
+      "number": 51,
+      "velocity": 35
     },
     {
-      "time": 80.073,
-      "number": 74
+      "time": 75.469,
+      "number": 38,
+      "velocity": 55
     },
     {
-      "time": 84.018,
-      "number": 59
+      "time": 75.744,
+      "number": 51,
+      "velocity": 36
     },
     {
-      "time": 84.302,
-      "number": 59
+      "time": 76.218,
+      "number": 38,
+      "velocity": 36
     },
     {
-      "time": 84.645,
-      "number": 59
+      "time": 76.252,
+      "number": 51,
+      "velocity": 55
     },
     {
-      "time": 85.002,
-      "number": 59
+      "time": 76.745,
+      "number": 51,
+      "velocity": 37
     },
     {
-      "time": 85.315,
-      "number": 59
+      "time": 76.963,
+      "number": 38,
+      "velocity": 51
     },
     {
-      "time": 85.61509999999963,
-      "number": 59
+      "time": 77.21,
+      "number": 51,
+      "velocity": 40
     },
     {
-      "time": 85.987,
-      "number": 59
+      "time": 77.73689999985694,
+      "number": 38,
+      "velocity": 63
     },
     {
-      "time": 86.343,
-      "number": 59
+      "time": 77.766,
+      "number": 51,
+      "velocity": 50
     },
     {
-      "time": 86.624,
-      "number": 59
+      "time": 78.292,
+      "number": 51,
+      "velocity": 40
     },
     {
-      "time": 86.99309999999963,
-      "number": 59
+      "time": 78.508,
+      "number": 38,
+      "velocity": 49
     },
     {
-      "time": 87.358,
-      "number": 59
+      "time": 78.783,
+      "number": 51,
+      "velocity": 36
     },
     {
-      "time": 87.65909999999963,
-      "number": 59
+      "time": 79.279,
+      "number": 38,
+      "velocity": 58
     },
     {
-      "time": 87.989,
-      "number": 59
+      "time": 79.287,
+      "number": 51,
+      "velocity": 44
     },
     {
-      "time": 88.3,
-      "number": 59
+      "time": 79.768,
+      "number": 51,
+      "velocity": 33
     },
     {
-      "time": 88.64309999999963,
-      "number": 59
+      "time": 79.987,
+      "number": 38,
+      "velocity": 46
     },
     {
-      "time": 88.966,
-      "number": 59
+      "time": 80.24,
+      "number": 51,
+      "velocity": 34
     },
     {
-      "time": 89.299,
-      "number": 59
+      "time": 80.73,
+      "number": 38,
+      "velocity": 48
     },
     {
-      "time": 89.618,
-      "number": 59
+      "time": 80.742,
+      "number": 51,
+      "velocity": 43
     },
     {
-      "time": 90.00409999999962,
-      "number": 59
+      "time": 81.272,
+      "number": 51,
+      "velocity": 38
     },
     {
-      "time": 90.345,
-      "number": 59
+      "time": 81.478,
+      "number": 38,
+      "velocity": 53
     },
     {
-      "time": 90.635,
-      "number": 59
+      "time": 81.75,
+      "number": 51,
+      "velocity": 40
     },
     {
-      "time": 90.992,
-      "number": 59
+      "time": 82.195,
+      "number": 38,
+      "velocity": 54
     },
     {
-      "time": 91.328,
-      "number": 59
+      "time": 82.227,
+      "number": 51,
+      "velocity": 43
     },
     {
-      "time": 91.66,
-      "number": 59
+      "time": 82.744,
+      "number": 51,
+      "velocity": 35
     },
     {
-      "time": 92.027,
-      "number": 59
+      "time": 82.976,
+      "number": 38,
+      "velocity": 51
     },
     {
-      "time": 92.421,
-      "number": 74
+      "time": 83.234,
+      "number": 51,
+      "velocity": 36
     },
     {
-      "time": 93.034,
-      "number": 74
+      "time": 86.969,
+      "number": 51,
+      "velocity": 39
     },
     {
-      "time": 93.458,
-      "number": 74
+      "time": 86.975,
+      "number": 38,
+      "velocity": 45
     },
     {
-      "time": 93.88209999999962,
-      "number": 74
+      "time": 87.444,
+      "number": 51,
+      "velocity": 35
     },
     {
-      "time": 94.41309999999963,
-      "number": 74
+      "time": 87.691,
+      "number": 38,
+      "velocity": 29
     },
     {
-      "time": 94.96709999999963,
-      "number": 74
+      "time": 87.915,
+      "number": 51,
+      "velocity": 30
     },
     {
-      "time": 95.531,
-      "number": 74
+      "time": 88.408,
+      "number": 38,
+      "velocity": 49
     },
     {
-      "time": 96.016,
-      "number": 74
+      "time": 88.422,
+      "number": 51,
+      "velocity": 35
     },
     {
-      "time": 96.49,
-      "number": 74
+      "time": 88.88,
+      "number": 51,
+      "velocity": 31
     },
     {
-      "time": 97.007,
-      "number": 74
+      "time": 89.077,
+      "number": 38,
+      "velocity": 49
     },
     {
-      "time": 97.51609999999962,
-      "number": 74
+      "time": 89.321,
+      "number": 51,
+      "velocity": 27
     },
     {
-      "time": 98.023,
-      "number": 74
+      "time": 89.806,
+      "number": 51,
+      "velocity": 41
     },
     {
-      "time": 98.527,
-      "number": 74
+      "time": 89.82389999985695,
+      "number": 38,
+      "velocity": 48
     },
     {
-      "time": 99.033,
-      "number": 74
+      "time": 90.326,
+      "number": 51,
+      "velocity": 37
     },
     {
-      "time": 99.538,
-      "number": 74
+      "time": 90.519,
+      "number": 38,
+      "velocity": 43
     },
     {
-      "time": 100,
-      "number": 74
+      "time": 90.761,
+      "number": 51,
+      "velocity": 38
     },
     {
-      "time": 100.506,
-      "number": 74
+      "time": 91.28,
+      "number": 51,
+      "velocity": 42
     },
     {
-      "time": 101.006,
-      "number": 74
+      "time": 91.294,
+      "number": 38,
+      "velocity": 49
     },
     {
-      "time": 101.517,
-      "number": 74
+      "time": 91.803,
+      "number": 51,
+      "velocity": 31
     },
     {
-      "time": 101.988,
-      "number": 74
+      "time": 92.04,
+      "number": 38,
+      "velocity": 43
     },
     {
-      "time": 102.495,
-      "number": 74
+      "time": 92.301,
+      "number": 51,
+      "velocity": 35
     },
     {
-      "time": 103.001,
-      "number": 74
+      "time": 92.842,
+      "number": 38,
+      "velocity": 50
     },
     {
-      "time": 103.497,
-      "number": 74
+      "time": 92.84789999985695,
+      "number": 51,
+      "velocity": 42
     },
     {
-      "time": 103.975,
-      "number": 74
+      "time": 93.359,
+      "number": 51,
+      "velocity": 40
+    },
+    {
+      "time": 93.586,
+      "number": 38,
+      "velocity": 48
+    },
+    {
+      "time": 93.846,
+      "number": 51,
+      "velocity": 34
+    },
+    {
+      "time": 94.357,
+      "number": 38,
+      "velocity": 51
+    },
+    {
+      "time": 94.374,
+      "number": 51,
+      "velocity": 43
+    },
+    {
+      "time": 94.844,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 95.071,
+      "number": 38,
+      "velocity": 46
+    },
+    {
+      "time": 95.33689999985695,
+      "number": 51,
+      "velocity": 35
+    },
+    {
+      "time": 95.829,
+      "number": 38,
+      "velocity": 54
+    },
+    {
+      "time": 95.846,
+      "number": 51,
+      "velocity": 37
+    },
+    {
+      "time": 96.324,
+      "number": 51,
+      "velocity": 33
+    },
+    {
+      "time": 96.533,
+      "number": 38,
+      "velocity": 42
+    },
+    {
+      "time": 96.797,
+      "number": 51,
+      "velocity": 32
+    },
+    {
+      "time": 97.302,
+      "number": 51,
+      "velocity": 38
+    },
+    {
+      "time": 97.30589999985695,
+      "number": 38,
+      "velocity": 49
+    },
+    {
+      "time": 97.812,
+      "number": 51,
+      "velocity": 31
+    },
+    {
+      "time": 98.031,
+      "number": 38,
+      "velocity": 49
+    },
+    {
+      "time": 98.288,
+      "number": 51,
+      "velocity": 33
+    },
+    {
+      "time": 98.776,
+      "number": 38,
+      "velocity": 54
+    },
+    {
+      "time": 98.799,
+      "number": 51,
+      "velocity": 43
+    },
+    {
+      "time": 99.26,
+      "number": 51,
+      "velocity": 38
+    },
+    {
+      "time": 99.479,
+      "number": 38,
+      "velocity": 54
+    },
+    {
+      "time": 99.759,
+      "number": 51,
+      "velocity": 34
+    },
+    {
+      "time": 100.275,
+      "number": 38,
+      "velocity": 50
+    },
+    {
+      "time": 100.278,
+      "number": 51,
+      "velocity": 44
+    },
+    {
+      "time": 100.794,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 100.99,
+      "number": 38,
+      "velocity": 47
+    },
+    {
+      "time": 101.255,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 101.766,
+      "number": 38,
+      "velocity": 60
+    },
+    {
+      "time": 101.773,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 102.26689999985695,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 102.494,
+      "number": 38,
+      "velocity": 53
+    },
+    {
+      "time": 102.766,
+      "number": 51,
+      "velocity": 34
+    },
+    {
+      "time": 103.281,
+      "number": 38,
+      "velocity": 53
+    },
+    {
+      "time": 103.288,
+      "number": 51,
+      "velocity": 41
+    },
+    {
+      "time": 103.797,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 104.028,
+      "number": 38,
+      "velocity": 46
+    },
+    {
+      "time": 104.283,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 104.82689999985695,
+      "number": 38,
+      "velocity": 52
+    },
+    {
+      "time": 104.837,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 105.328,
+      "number": 51,
+      "velocity": 40
+    },
+    {
+      "time": 105.559,
+      "number": 38,
+      "velocity": 48
+    },
+    {
+      "time": 105.818,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 106.332,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 106.344,
+      "number": 38,
+      "velocity": 44
+    },
+    {
+      "time": 106.837,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 107.055,
+      "number": 38,
+      "velocity": 38
+    },
+    {
+      "time": 107.288,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 107.786,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 107.79289999985694,
+      "number": 38,
+      "velocity": 46
+    },
+    {
+      "time": 108.286,
+      "number": 51,
+      "velocity": 33
+    },
+    {
+      "time": 108.49,
+      "number": 38,
+      "velocity": 42
+    },
+    {
+      "time": 108.714,
+      "number": 51,
+      "velocity": 38
+    },
+    {
+      "time": 109.205,
+      "number": 51,
+      "velocity": 41
+    },
+    {
+      "time": 109.214,
+      "number": 38,
+      "velocity": 45
+    },
+    {
+      "time": 109.682,
+      "number": 51,
+      "velocity": 29
+    },
+    {
+      "time": 109.91189999985694,
+      "number": 38,
+      "velocity": 43
+    },
+    {
+      "time": 110.146,
+      "number": 51,
+      "velocity": 33
+    },
+    {
+      "time": 110.691,
+      "number": 38,
+      "velocity": 49
+    },
+    {
+      "time": 110.696,
+      "number": 51,
+      "velocity": 40
+    },
+    {
+      "time": 111.184,
+      "number": 51,
+      "velocity": 29
+    },
+    {
+      "time": 111.436,
+      "number": 38,
+      "velocity": 40
+    },
+    {
+      "time": 111.69,
+      "number": 51,
+      "velocity": 37
+    },
+    {
+      "time": 112.251,
+      "number": 38,
+      "velocity": 45
+    },
+    {
+      "time": 112.259,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 112.738,
+      "number": 51,
+      "velocity": 33
+    },
+    {
+      "time": 113,
+      "number": 38,
+      "velocity": 44
+    },
+    {
+      "time": 113.268,
+      "number": 51,
+      "velocity": 32
+    },
+    {
+      "time": 113.779,
+      "number": 38,
+      "velocity": 45
+    },
+    {
+      "time": 113.797,
+      "number": 51,
+      "velocity": 43
+    },
+    {
+      "time": 114.298,
+      "number": 51,
+      "velocity": 37
+    },
+    {
+      "time": 114.541,
+      "number": 38,
+      "velocity": 39
+    },
+    {
+      "time": 114.803,
+      "number": 51,
+      "velocity": 31
+    },
+    {
+      "time": 115.317,
+      "number": 38,
+      "velocity": 42
+    },
+    {
+      "time": 115.322,
+      "number": 51,
+      "velocity": 38
+    },
+    {
+      "time": 115.829,
+      "number": 51,
+      "velocity": 30
+    },
+    {
+      "time": 116.046,
+      "number": 38,
+      "velocity": 40
+    },
+    {
+      "time": 116.287,
+      "number": 51,
+      "velocity": 27
+    },
+    {
+      "time": 116.79,
+      "number": 38,
+      "velocity": 41
+    },
+    {
+      "time": 116.808,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 117.298,
+      "number": 51,
+      "velocity": 34
+    },
+    {
+      "time": 117.51,
+      "number": 38,
+      "velocity": 40
+    },
+    {
+      "time": 117.747,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 118.289,
+      "number": 38,
+      "velocity": 40
+    },
+    {
+      "time": 118.291,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 118.783,
+      "number": 51,
+      "velocity": 28
+    },
+    {
+      "time": 119.019,
+      "number": 38,
+      "velocity": 36
+    },
+    {
+      "time": 119.248,
+      "number": 51,
+      "velocity": 27
+    },
+    {
+      "time": 119.74789999985695,
+      "number": 51,
+      "velocity": 40
+    },
+    {
+      "time": 119.76,
+      "number": 38,
+      "velocity": 42
+    },
+    {
+      "time": 120.255,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 120.47,
+      "number": 38,
+      "velocity": 35
+    },
+    {
+      "time": 120.729,
+      "number": 51,
+      "velocity": 38
+    },
+    {
+      "time": 121.231,
+      "number": 38,
+      "velocity": 39
+    },
+    {
+      "time": 121.24,
+      "number": 51,
+      "velocity": 21
+    },
+    {
+      "time": 121.71789999985695,
+      "number": 51,
+      "velocity": 26
+    },
+    {
+      "time": 121.981,
+      "number": 38,
+      "velocity": 32
+    },
+    {
+      "time": 122.2,
+      "number": 51,
+      "velocity": 30
+    },
+    {
+      "time": 122.74989999985695,
+      "number": 51,
+      "velocity": 43
+    },
+    {
+      "time": 122.756,
+      "number": 38,
+      "velocity": 36
+    },
+    {
+      "time": 123.26289999985696,
+      "number": 51,
+      "velocity": 37
+    },
+    {
+      "time": 123.49289999985695,
+      "number": 38,
+      "velocity": 38
+    },
+    {
+      "time": 123.758,
+      "number": 51,
+      "velocity": 37
+    },
+    {
+      "time": 124.299,
+      "number": 38,
+      "velocity": 44
+    },
+    {
+      "time": 124.318,
+      "number": 51,
+      "velocity": 42
+    },
+    {
+      "time": 124.82689999985695,
+      "number": 51,
+      "velocity": 39
+    },
+    {
+      "time": 125.041,
+      "number": 38,
+      "velocity": 39
+    },
+    {
+      "time": 125.25789999985695,
+      "number": 51,
+      "velocity": 36
+    },
+    {
+      "time": 125.747,
+      "number": 38,
+      "velocity": 44
+    },
+    {
+      "time": 125.759,
+      "number": 51,
+      "velocity": 44
     }
   ],
   "_appId": "two-handed-timing",
-  "_softwareVersion": "0.13.3",
-  "_date": "2024-09-12T14:48:10.466Z"
+  "_softwareVersion": "0.28.8",
+  "_date": "2025-09-01T18:30:27.185Z"
 }

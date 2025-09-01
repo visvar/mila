@@ -193,6 +193,7 @@
             binNote,
             adjustTime,
             pastBars,
+            drumMode,
             // data
             notes,
         };
@@ -209,6 +210,7 @@
         binNote = json.binNote;
         adjustTime = json.adjustTime ?? 0;
         pastBars = json.pastBars;
+        drumMode = json.drumMode ?? false;
         // data
         notes = json.notes;
         // app state
