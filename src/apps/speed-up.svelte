@@ -487,7 +487,7 @@
                     draw();
                 }}"
             />
-            <HistoryButton appId="{appInfo.id}" {loadData} />
+            <!-- <HistoryButton appId="{appInfo.id}" {loadData} /> -->
             <ImportExportButton
                 {loadData}
                 {getExportData}
