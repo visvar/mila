@@ -32,7 +32,7 @@
     // settings
     let tempo = 120;
     let binNote = 0;
-    let filterNote = 64;
+    let filterNote = 32;
     let barLimit = 500;
     let windowSize = 50;
     // data

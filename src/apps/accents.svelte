@@ -47,7 +47,7 @@
     let useDotted = false;
     let useDoubleDotted = false;
     let useTuplets = false;
-    let filterNote = 16;
+    let filterNote = 32;
     let velocityThreshold = 0;
     let showAlternatives = true;
     // data

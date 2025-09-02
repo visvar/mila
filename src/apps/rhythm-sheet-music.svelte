@@ -39,7 +39,7 @@
     let tempo = 90;
     let pastNoteCount = 10;
     let useDotted = false;
-    let filterNote = 16;
+    let filterNote = 32;
     let targetDuration = 'auto';
     // data
     $: minIOI = (Utils.bpmToSecondsPerBeat(tempo) * 4) / filterNote;
