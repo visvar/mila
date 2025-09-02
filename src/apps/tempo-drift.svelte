@@ -152,9 +152,10 @@
             });
         const linePlot = Plot.plot({
             width,
-            height: 185,
+            height: 200,
             marginLeft: 45,
-            marginTop: 5,
+            marginTop: 25,
+            marginBottom: 35,
             marginRight: 1,
             x: {
                 label: 'IOI index',
@@ -164,7 +165,7 @@
                 label: 'estimated tempo',
                 labelAnchor: 'center',
                 grid: true,
-                domain: [tempo * 0.8, tempo * 1.2],
+                domain: [tempo * 0.75, tempo * 1.25],
             },
             marks: [
                 Plot.ruleY([tempo]),
@@ -178,14 +179,10 @@
                             strokeWidth: 2,
                             stroke: '#888',
                             curve: 'basis',
+                            clip: true,
                         },
                     ),
                 ),
-                // Plot.dot(lineNotes, {
-                //     x: 'index',
-                //     y: 'tempo',
-                //     stroke: '#888',
-                // }),
             ],
         });
         container.appendChild(linePlot);

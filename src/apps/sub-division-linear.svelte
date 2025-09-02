@@ -572,13 +572,21 @@
         <PcKeyboardInput
             key=" "
             keyDown="{() =>
-                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+                noteOn({
+                    timestamp: performance.now(),
+                    velocity: 0.5,
+                    note: { number: 42 },
+                })}"
             disabled="{isPlaying}"
         />
         <TouchInput
             element="{container}"
             touchStart="{() =>
-                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+                noteOn({
+                    timestamp: performance.now(),
+                    velocity: 0.5,
+                    note: { number: 42 },
+                })}"
             disabled="{isPlaying}"
         />
         <MidiInput {noteOn} disabled="{isPlaying}" />

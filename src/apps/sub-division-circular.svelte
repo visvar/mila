@@ -521,13 +521,21 @@
             key=" "
             disabled="{isDataLoaded || isPlaying}"
             keyDown="{() =>
-                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+                noteOn({
+                    timestamp: performance.now(),
+                    velocity: 0.5,
+                    note: { number: 42 },
+                })}"
         />
         <TouchInput
             element="{canvas}"
             disabled="{isDataLoaded || isPlaying}"
             touchStart="{() =>
-                noteOn({ timestamp: performance.now(), velocity: 0.5 })}"
+                noteOn({
+                    timestamp: performance.now(),
+                    velocity: 0.5,
+                    note: { number: 42 },
+                })}"
         />
         <PageResizeHandler callback="{draw}" />
     </main>
