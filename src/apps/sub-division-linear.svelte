@@ -341,7 +341,7 @@
                 width,
                 height: 110,
                 x: {
-                    domain: d3.range(0, scores.length - 1),
+                    domain: d3.range(0, scores.length),
                     ticks: axisTicks2,
                     tickFormat: (d) => d + 1,
                 },
