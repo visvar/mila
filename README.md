@@ -51,7 +51,7 @@ If you just want to use the apps, go [here](https://visvar.github.io/mila/).
 - [tonal](https://github.com/tonaljs/tonal) music theory such as scales, chords, progressions
 - [musicvis-lib](https://github.com/fheyen/musicvis-lib) more technical musical functions
 - [pitchy](https://github.com/ianprime0509/pitchy) pitch detection from audio
-- [fflate]([fflate](https://www.npmjs.com/package/fflate)) compression of share links
+- [fflate](https://www.npmjs.com/package/fflate)) compression of share links
 - [webmidi](https://github.com/djipco/webmidi) Web MIDI API wrapper
 - [fast-kde](https://github.com/uwdata/fast-kde) density estimation
 - [a-frame](https://aframe.io/) for the 3D fretboard design
