@@ -1,16 +1,31 @@
 # MILA - Musical Instrument Learning Apps
 
+
 A collection of web-based apps for musical instrument practice.
 
-[Online version here](https://visvar.github.io/mila/)
+[online demo](https://visvar.github.io/mila/)
 
-[video (YouTube)](https://www.youtube.com/watch?v=qMQjerAGw9Y) [video (download)](https://github.com/visvar/mila/raw/refs/heads/main/doc/supplemental-video-small.mp4)
+[video (YouTube)](https://www.youtube.com/watch?v=qMQjerAGw9Y) | [video (download)](https://github.com/visvar/mila/raw/refs/heads/main/doc/supplemental-video-small.mp4)
 
-[arXiv](https://arxiv.org/abs/2601.16708)
+[DOI to TVCG](https://doi.org/10.1109/TVCG.2026.3658216) | [arXiv](https://arxiv.org/abs/2601.16708)
+
+citation:
+<pre style="font-family: monospace;">
+@article{heyen2026make,
+  title    = {Make the Unhearable Visible: Exploring Visualization for Musical Instrument Practice}, 
+  author   = {Heyen, Frank and Gleicher, Michael and Sedlmair, Michael},
+  journal  = {IEEE Transactions on Visualization and Computer Graphics (TVCG)}, 
+  year     = {2026},
+  pages    = {1-17},
+  doi      = {10.1109/TVCG.2026.3658216}
+  keywords = {Music;Instruments;Data visualization;Visualization;Education;Prototypes;Aerospace electronics;Timing;Musical instruments;Games;Temporal data;application-motivated visualization;education;personal visualization;music;instrument practice},
+}
+</pre>
+
 
 ![](./doc/title-screen.png)
 
-## What You Need
+## What You Need to Use the Demo
 
 Most apps require a MIDI instrument, though a few work with audio or allow you to use a PC keyboard or touch screen.
 
